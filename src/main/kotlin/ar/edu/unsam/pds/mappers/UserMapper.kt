@@ -19,7 +19,7 @@ object UserMapper {
         )
     }
 
-    fun buildUserDetailDto(user: User, nextClass: SubscriptionResponseDto?): UserDetailResponseDto {
+    fun buildUserDetailDto(user: User): UserDetailResponseDto {
         return UserDetailResponseDto(
             name = user.name,
             lastName = user.lastName,
@@ -35,7 +35,6 @@ object UserMapper {
         user.lastName = userDetail.lastName
         user.email = userDetail.email
         user.image = userDetail.image
-        user.credits = userDetail.credits //?: user.credits
         return user
     }
 

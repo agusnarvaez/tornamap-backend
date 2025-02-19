@@ -84,15 +84,6 @@ class UserController : UUIDValid() {
         return ResponseEntity.ok(userService.getAssignedCourses(idUser))
     }
 
-    @GetMapping("/{idUser}/subscriptions")
-    @Operation(summary = "Get the user's subscriptions")
-    fun getSubscriptions(
-        @PathVariable idUser: String
-    ): ResponseEntity<List<SubscriptionResponseDto>> {
-        this.validatedUUID(idUser)
-        return ResponseEntity.ok(userService.getSubscriptions(idUser))
-    }
-
     @DeleteMapping("")
     @Operation(summary = "Delete account")
     fun deleteAccount(
