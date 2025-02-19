@@ -31,7 +31,7 @@ class User(
 
     fun addEvent(event: Event) {
         if (eventList.any { it.id == event.id }) {
-            throw ValidationException("El usuario ya forma parte de esta asignación")
+            throw ValidationException("El usuario ya forma parte de este evento")
         } else {
             eventList.add(event)
         }
@@ -39,7 +39,7 @@ class User(
 
     fun removeEvent(event: Event) {
         if (!eventList.any { it.id == event.id }) {
-            throw ValidationException("El usuario no forma parte de esta asignación")
+            throw ValidationException("El usuario no forma parte de este evento")
         } else {
             eventList.removeIf { it.id == event.id }
         }
