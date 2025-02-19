@@ -25,7 +25,7 @@ class User(
 
     val eventList = mutableSetOf<Event>()
 
-    fun subscribedCourses(): Set<Course> {
+    fun assignedCourses(): Set<Course> {
         return eventList.map { it.course }.toSet()
     }
 
