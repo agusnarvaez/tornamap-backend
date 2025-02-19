@@ -9,6 +9,11 @@ En este repositorio se encuentra el código fuente del backend de la aplicación
 - Melanie Oviedo
 - Juana Correa
 - Gabriel Tarquini
+## Tecnologías Utilizadas
+- **Kotlin**: Lenguaje de programación que corre sobre la máquina virtual de Java.
+- **Spring Boot**: Framework de Java para el desarrollo de aplicaciones web.
+- **H2 Database**: Base de datos en memoria para desarrollo.
+- **Postgres**: Base de datos relacional para producción.
 
 ## GitFlow en nuestro Proyecto
 
