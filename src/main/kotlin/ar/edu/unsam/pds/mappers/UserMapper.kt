@@ -1,10 +1,8 @@
 package ar.edu.unsam.pds.mappers
 
 import ar.edu.unsam.pds.dto.request.UserRequestDto
-import ar.edu.unsam.pds.dto.response.SubscriptionResponseDto
 import ar.edu.unsam.pds.dto.response.UserDetailResponseDto
 import ar.edu.unsam.pds.dto.response.UserResponseDto
-import ar.edu.unsam.pds.dto.response.UserSubscribedResponseDto
 import ar.edu.unsam.pds.models.User
 
 object UserMapper {
@@ -20,16 +18,14 @@ object UserMapper {
         )
     }
 
-    fun buildUserDetailDto(user: User, nextClass: SubscriptionResponseDto?): UserDetailResponseDto {
+    fun buildUserDetailDto(user: User): UserDetailResponseDto {
         return UserDetailResponseDto(
             name = user.name,
             lastName = user.lastName,
             email = user.email,
             image = user.image,
             id = user.id.toString(),
-            isAdmin = user.isAdmin,
-            nextClass = nextClass,
-            credits = user.credits
+            isAdmin = user.isAdmin
         )
     }
 
@@ -41,13 +37,4 @@ object UserMapper {
         user.credits = userDetail.credits //?: user.credits
         return user
     }
-
-    fun buildUserSuscribedDto(user: User): UserSubscribedResponseDto {
-        return UserSubscribedResponseDto(
-            name = user.name,
-            lastName = user.lastName,
-            email = user.email
-        )
-    }
-
 }
