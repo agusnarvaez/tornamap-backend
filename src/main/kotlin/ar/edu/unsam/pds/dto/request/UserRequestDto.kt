@@ -26,9 +26,6 @@ data class UserRequestDto(
     @field:NotNull
     val isAdmin: Boolean,
 
-    @field:Positive(message = "Los créditos deben ser un número positivo o cero")
-    val credits: Double = -1.0,
-
     @field: NotNull(message = "El ID no debe ser nulo")
     @field: NotBlank(message = "El ID no debe estar en blanco")
     @field: Pattern(
@@ -36,6 +33,4 @@ data class UserRequestDto(
         message = "UUID debe ser valido"
     )
     val id: String?,
-
-    val nextClass: String?
 )
