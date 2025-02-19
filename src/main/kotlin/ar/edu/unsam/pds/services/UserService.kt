@@ -53,7 +53,7 @@ class UserService(
 
         val principalUser = (auth.principal as Principal).getUser()
 
-        return UserMapper.buildUserDetailDto(principalUser, nextClass)
+        return UserMapper.buildUserDetailDto(principalUser)
     }
 
     @Transactional
@@ -94,7 +94,7 @@ class UserService(
 
     fun getUserDetail(idUser: String): UserDetailResponseDto {
         val user = findUserById(idUser)
-        return UserMapper.buildUserDetailDto(user, nextClass)
+        return UserMapper.buildUserDetailDto(user)
     }
 
     @Transactional

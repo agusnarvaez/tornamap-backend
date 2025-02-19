@@ -76,8 +76,8 @@ class UserController : UUIDValid() {
     }
 
     @GetMapping("/{idUser}/courses")
-    @Operation(summary = "Get the user's subscribed courses")
-    fun getSubscribedCourses(
+    @Operation(summary = "Get the user's assigned courses")
+    fun getAssignedCourses(
         @PathVariable idUser: String
     ): ResponseEntity<List<CourseResponseDto>> {
         this.validatedUUID(idUser)

@@ -15,8 +15,7 @@ object UserMapper {
             email = user.email,
             image = user.image,
             id = user.id.toString(),
-            isAdmin = user.isAdmin,
-            credits = user.credits
+            isAdmin = user.isAdmin
         )
     }
 
@@ -27,9 +26,7 @@ object UserMapper {
             email = user.email,
             image = user.image,
             id = user.id.toString(),
-            isAdmin = user.isAdmin,
-            nextClass = nextClass,
-            credits = user.credits
+            isAdmin = user.isAdmin
         )
     }
 
@@ -40,14 +37,6 @@ object UserMapper {
         user.image = userDetail.image
         user.credits = userDetail.credits //?: user.credits
         return user
-    }
-
-    fun buildUserSuscribedDto(user: User): UserSubscribedResponseDto {
-        return UserSubscribedResponseDto(
-            name = user.name,
-            lastName = user.lastName,
-            email = user.email
-        )
     }
 
 }
