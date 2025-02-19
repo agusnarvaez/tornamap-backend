@@ -308,7 +308,7 @@ class UserServiceTest : BootstrapNBTest() {
     @Test
     fun `test get subscribed courses`() {
         assertEquals(
-            userService.getSubscribedCourses(users[0].id.toString()),
+            userService.getAssignedCourses(users[0].id.toString()),
             mutableListOf<CourseResponseDto>()
         )
 
@@ -317,7 +317,7 @@ class UserServiceTest : BootstrapNBTest() {
         userRepository.save(users[0])
 
         assertEquals(
-            userService.getSubscribedCourses(users[0].id.toString()),
+            userService.getAssignedCourses(users[0].id.toString()),
             mutableListOf(CourseMapper.buildCourseDto(assignments[0].course))
         )
     }
