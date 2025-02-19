@@ -3,7 +3,7 @@ package ar.edu.unsam.pds.bootstrap
 import ar.edu.unsam.pds.models.Event
 import ar.edu.unsam.pds.models.Course
 import ar.edu.unsam.pds.models.Schedule
-import ar.edu.unsam.pds.repository.AssignmentRepository
+import ar.edu.unsam.pds.repository.EventRepository
 import ar.edu.unsam.pds.repository.InstitutionRepository
 import ar.edu.unsam.pds.repository.ScheduleRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -12,17 +12,17 @@ import org.springframework.stereotype.Component
 
 @Component(value = "InitAssignments.beanName")
 @DependsOn(value = ["InitCourses.beanName", "InitSchedules.beanName"])
-class InitAssignments : BootstrapGeneric("Assignments") {
+class InitEvents : BootstrapGeneric("Events") {
     @Autowired private lateinit var scheduleRepository: ScheduleRepository
     @Autowired private lateinit var institutionRepository: InstitutionRepository
-    @Autowired private lateinit var assignmentRepository: AssignmentRepository
+    @Autowired private lateinit var eventRepository: EventRepository
 
     override fun doAfterPropertiesSet() {
         // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         // Estrellas en Movimiento + Ballet Clásico para Principiantes #################################################
         val course11 = this.findByNameAndCourseTitle(
-            name = "Estrellas en Movimiento",
-            title = "Ballet Clásico para Principiantes"
+            name = "Redes Locales",
+            title = "ESTO NO IRIA, BORRAR EN OTRA RAMA"
         )
 
         val event111 = Event(
@@ -31,8 +31,8 @@ class InitAssignments : BootstrapGeneric("Assignments") {
             schedule = findRandomSchedule()
         )
 
-        course11?.addAssignment(assignment111)
-        assignmentRepository.save(assignment111)
+        course11?.addEvent(event111)
+        eventRepository.save(event111)
 
         val event112 = Event(
             name = "Final",
@@ -40,8 +40,8 @@ class InitAssignments : BootstrapGeneric("Assignments") {
             schedule = findRandomSchedule()
         )
 
-        course11?.addAssignment(assignment112)
-        assignmentRepository.save(assignment112)
+        course11?.addEvent(event112)
+        eventRepository.save(event112)
 
         val event113 = Event(
             name = "Recuperatorio",
@@ -49,8 +49,8 @@ class InitAssignments : BootstrapGeneric("Assignments") {
             schedule = findRandomSchedule()
         )
 
-        course11?.addAssignment(assignment113)
-        assignmentRepository.save(assignment113)
+        course11?.addEvent(event113)
+        eventRepository.save(event113)
 
       }
 
