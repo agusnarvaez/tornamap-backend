@@ -23,6 +23,6 @@ interface EventRepository : JpaRepository<Event, UUID>{
         """
     )
 
-    fun isOwner(@Param("idAssignment") idCourse: UUID, @Param("principal") principal: Principal) : Boolean
+    fun isOwner(@Param("eventId") courseId: UUID, @Param("principal") principal: Principal) : Boolean
 
 }
