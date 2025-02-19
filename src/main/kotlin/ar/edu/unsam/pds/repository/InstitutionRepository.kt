@@ -42,13 +42,15 @@ interface InstitutionRepository : JpaRepository<Institution, UUID> {
     """)
     fun isOwner(@Param("idInstitution") idCourse: UUID, @Param("principal") principal: Principal): Boolean
 
-    @Query("""
+    @Query(
+        """
         SELECT CASE WHEN COUNT(users) = 0 THEN true ELSE false END
         FROM Institution i
         JOIN i.courses courses
-        JOIN courses.assignments assignments
+        JOIN courses.events assignments
         LEFT JOIN assignments.subscribedUsers users
         WHERE i.id = :idInstitution
-    """)
+    """
+    )
     fun isDeletable(@Param("idInstitution") id: UUID): Boolean
 }

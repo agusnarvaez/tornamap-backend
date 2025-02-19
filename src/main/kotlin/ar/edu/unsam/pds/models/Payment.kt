@@ -19,7 +19,7 @@ class Payment(
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="assignment_id", referencedColumnName = "id")
-    val assignment: Assignment
+    val event: Event
 
 ) : Timestamp(), Serializable {
 

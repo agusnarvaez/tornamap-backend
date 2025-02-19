@@ -12,34 +12,34 @@ import java.time.LocalDateTime
 class InitReviews : BootstrapGeneric("Subscriptions and reviews") {
     @Autowired private lateinit var userRepository: UserRepository
     @Autowired private lateinit var courseRepository: CourseRepository
-    @Autowired private lateinit var assignmentRepository: AssignmentRepository
+    @Autowired private lateinit var assignmentRepository: EventRepository
     @Autowired private lateinit var paymentRepository: PaymentRepository
     @Autowired private lateinit var reviewRepository: ReviewRepository
 
-    private lateinit var assignments: List<Assignment>
+    private lateinit var events: List<Event>
 
     private lateinit var userTemp: User
     private lateinit var courseTemp: Course
 
     override fun doAfterPropertiesSet() {
-        assignments = assignmentRepository.findAll()
+        events = assignmentRepository.findAll()
 
         // #############################################################################################################
         userTemp = this.findUser("Zeferina")
-        courseTemp = this.findCourseByAssignment(assignments[0])
+        courseTemp = this.findCourseByAssignment(events[0])
 
-        userTemp.subscribe(assignments[0])
-        assignments[0].addSubscribedUser(userTemp)
+        userTemp.subscribe(events[0])
+        events[0].addSubscribedUser(userTemp)
 
         userRepository.save(userTemp)
 
         paymentRepository.save(Payment(
-            amount = assignments[0].price,
+            amount = events[0].price,
             date = LocalDateTime.now(),
             status = "APPROVED",
             paymentMethod = "CREDITS",
             user = userTemp,
-            assignment = assignments[0]
+            event = events[0]
         ))
 
         reviewRepository.save(Review(
@@ -51,20 +51,20 @@ class InitReviews : BootstrapGeneric("Subscriptions and reviews") {
 
         // #############################################################################################################
         userTemp = this.findUser("Valentina")
-        courseTemp = this.findCourseByAssignment(assignments[0])
+        courseTemp = this.findCourseByAssignment(events[0])
 
-        userTemp.subscribe(assignments[0])
-        assignments[0].addSubscribedUser(userTemp)
+        userTemp.subscribe(events[0])
+        events[0].addSubscribedUser(userTemp)
 
         userRepository.save(userTemp)
 
         paymentRepository.save(Payment(
-            amount = assignments[0].price,
+            amount = events[0].price,
             date = LocalDateTime.now(),
             status = "APPROVED",
             paymentMethod = "CREDITS",
             user = userTemp,
-            assignment = assignments[0]
+            event = events[0]
         ))
 
         reviewRepository.save(Review(
@@ -76,20 +76,20 @@ class InitReviews : BootstrapGeneric("Subscriptions and reviews") {
 
         // #############################################################################################################
         userTemp = this.findUser("Ursula")
-        courseTemp = this.findCourseByAssignment(assignments[0])
+        courseTemp = this.findCourseByAssignment(events[0])
 
-        userTemp.subscribe(assignments[0])
-        assignments[0].addSubscribedUser(userTemp)
+        userTemp.subscribe(events[0])
+        events[0].addSubscribedUser(userTemp)
 
         userRepository.save(userTemp)
 
         paymentRepository.save(Payment(
-            amount = assignments[0].price,
+            amount = events[0].price,
             date = LocalDateTime.now(),
             status = "APPROVED",
             paymentMethod = "CREDITS",
             user = userTemp,
-            assignment = assignments[0]
+            event = events[0]
         ))
 
         reviewRepository.save(Review(
@@ -100,9 +100,9 @@ class InitReviews : BootstrapGeneric("Subscriptions and reviews") {
         ))
     }
 
-    fun findCourseByAssignment(assignment: Assignment): Course {
+    fun findCourseByAssignment(event: Event): Course {
         return courseRepository.findAll().firstOrNull {
-            it.assignments.any { a -> a.id == assignment.id }
+            it.events.any { a -> a.id == event.id }
         }!!
     }
 

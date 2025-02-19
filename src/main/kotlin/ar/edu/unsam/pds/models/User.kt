@@ -23,7 +23,7 @@ class User(
         joinColumns = [JoinColumn(name = "user_id")],
         inverseJoinColumns = [JoinColumn(name = "assignment_id")]
     )
-    val assignmentsList = mutableSetOf<Assignment>()
+    val assignmentsList = mutableSetOf<Event>()
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
     val reviews= mutableSetOf<Review>()
@@ -32,19 +32,19 @@ class User(
         return assignmentsList.map { it.course }.toSet()
     }
 
-    fun addAssignment(assignment: Assignment) {
-        if (assignmentsList.any { it.id == assignment.id }) {
+    fun addAssignment(event: Event) {
+        if (assignmentsList.any { it.id == event.id }) {
             throw ValidationException("El usuario ya está subscripto a esta asignación")
         } else {
-            assignmentsList.add(assignment)
+            assignmentsList.add(event)
         }
     }
 
-    fun removeAssignment(assignment: Assignment) {
-        if (!assignmentsList.any { it.id == assignment.id }) {
+    fun removeAssignment(event: Event) {
+        if (!assignmentsList.any { it.id == event.id }) {
             throw ValidationException("El usuario no está subscripto a esta asignación")
         } else {
-            assignmentsList.removeIf { it.id == assignment.id }
+            assignmentsList.removeIf { it.id == event.id }
         }
     }
 
@@ -60,12 +60,12 @@ class User(
         }
     }
 
-    fun subscribe(assignment: Assignment) {
-        if (hasEnoughCredits(assignment.price)) {
-            payCredits(assignment.price)
+    fun subscribe(event: Event) {
+        if (hasEnoughCredits(event.price)) {
+            payCredits(event.price)
         } else {
             throw ValidationException("El usuario no tiene suficientes créditos")
         }
-        addAssignment(assignment)
+        addAssignment(event)
     }
 }

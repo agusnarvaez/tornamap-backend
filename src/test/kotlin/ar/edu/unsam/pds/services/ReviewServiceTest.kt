@@ -4,7 +4,6 @@ import ar.edu.unsam.pds.BootstrapNBTest
 import ar.edu.unsam.pds.dto.request.ReviewRequestDto
 import ar.edu.unsam.pds.dto.response.ReviewResponseDto
 import ar.edu.unsam.pds.exceptions.NotFoundException
-import ar.edu.unsam.pds.exceptions.ValidationException
 import ar.edu.unsam.pds.models.Payment
 import ar.edu.unsam.pds.models.Review
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -24,20 +23,20 @@ class ReviewServiceTest : BootstrapNBTest() {
             courseRepository = courseRepository
         )
 
-        users[0].subscribe(assignments[0])
-        assignments[0].addSubscribedUser(users[0])
+        users[0].subscribe(events[0])
+        events[0].addSubscribedUser(users[0])
 
         userRepository.save(users[0])
-        assignmentRepository.save(assignments[0])
+        assignmentRepository.save(events[0])
 
         paymentRepository.save(
             Payment(
-                amount = assignments[0].price,
+                amount = events[0].price,
                 date = LocalDateTime.now(),
                 status = "APPROVED",
                 paymentMethod = "CREDITS",
                 user = users[0],
-                assignment = assignments[0]
+                event = events[0]
             )
         )
 
@@ -50,20 +49,20 @@ class ReviewServiceTest : BootstrapNBTest() {
             )
         )
 
-        users[1].subscribe(assignments[0])
-        assignments[0].addSubscribedUser(users[1])
+        users[1].subscribe(events[0])
+        events[0].addSubscribedUser(users[1])
 
         userRepository.save(users[1])
-        assignmentRepository.save(assignments[0])
+        assignmentRepository.save(events[0])
 
         paymentRepository.save(
             Payment(
-                amount = assignments[0].price,
+                amount = events[0].price,
                 date = LocalDateTime.now(),
                 status = "APPROVED",
                 paymentMethod = "CREDITS",
                 user = users[1],
-                assignment = assignments[0]
+                event = events[0]
             )
         )
     }
