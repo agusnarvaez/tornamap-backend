@@ -6,7 +6,7 @@ data class CourseDetailResponseDto(
     val description: String,
     var category: String,
     var image: String,
-    val assignments: MutableSet<AssignmentResponseDto>,
+    val assignments: MutableSet<EventRequestDto>,
     val reviews: MutableSet<ReviewCourseResponseDto>,
     val rating: Double
 )

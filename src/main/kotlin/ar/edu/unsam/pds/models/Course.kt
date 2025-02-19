@@ -19,38 +19,38 @@ class Course(
     lateinit var id: UUID
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "course", cascade = [CascadeType.ALL], orphanRemoval = true)
-    val assignments = mutableSetOf<Assignment>()
+    val events = mutableSetOf<Event>()
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "course", cascade = [CascadeType.ALL], orphanRemoval = true)
     val reviews= mutableSetOf<Review>()
 
-    fun addAssignment(assignment: Assignment) {
-        assignments.add(assignment)
-        assignment.attachCourse(this)
+    fun addEvent(event: Event) {
+        events.add(event)
+        event.attachCourse(this)
     }
 
-    fun removeAssignment(assignment: Assignment) {
-        assignments.removeIf{ it.id == assignment.id }
+    fun removeEvent(event: Event) {
+        events.removeIf{ it.id == event.id }
     }
 
     fun totalIncome(): Double {
-        return assignments.sumOf { it.totalIncome() }
+        return events.sumOf { it.totalIncome() }
     }
 
-    fun mostPopularAssignment(): Assignment {
-        return assignments.maxByOrNull { it.subscribedUsers.size }!!
+    fun mostPopularEvent(): Event {
+        return events.maxByOrNull { it.subscribedUsers.size }!!
     }
 
-    fun mostProfitableAssignment(): Assignment {
-        return assignments.maxByOrNull { it.totalIncome() }!!
+    fun mostProfitableEvent(): Event {
+        return events.maxByOrNull { it.totalIncome() }!!
     }
 
     fun totalSubscribedUsers(): Int {
-        return assignments.sumOf { it.totalSubscribedUsers() }
+        return events.sumOf { it.totalSubscribedUsers() }
     }
 
-    fun assigmentsNames(): Set<String> {
-        return assignments.map { it.name() }.toSet()
+    fun eventsNames(): Set<String> {
+        return events.map { it.activeDays() }.toSet()
     }
 
     fun averageRating(): Double {
