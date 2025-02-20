@@ -18,7 +18,6 @@ object CourseMapper {
 
     fun buildCourseDetailDto(course: Course): CourseDetailResponseDto {
         val assignments = if(course.assignments.isEmpty()) mutableSetOf() else course.assignments.map { AssignmentMapper.buildAssignmentDto(it) }.toMutableSet()
-        val reviews = if(course.reviews.isEmpty()) mutableSetOf() else course.reviews.map { ReviewMapper.buildReviewCourseResponseDto(it) }.toMutableSet()
 
         return CourseDetailResponseDto(
             id = course.id.toString(),
@@ -26,9 +25,7 @@ object CourseMapper {
             description = course.description,
             category = course.category,
             image = course.image,
-            assignments = assignments,
-            reviews = reviews,
-            rating = course.averageRating()
+            assignments = assignments
         )
     }
 
