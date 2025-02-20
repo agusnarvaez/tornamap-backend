@@ -3,10 +3,7 @@ package ar.edu.unsam.pds.controllers
 import ar.edu.unsam.pds.dto.request.EventRequestDto
 import ar.edu.unsam.pds.dto.request.ScheduleRequestDto
 import ar.edu.unsam.pds.dto.request.SubscribeRequestDto
-import ar.edu.unsam.pds.dto.response.EventRequestDto
-import ar.edu.unsam.pds.dto.response.ScheduleResponseDto
-import ar.edu.unsam.pds.dto.response.SubscribeResponseDto
-import ar.edu.unsam.pds.dto.response.UserSubscribedResponseDto
+import ar.edu.unsam.pds.dto.response.EventResponseDto
 import ar.edu.unsam.pds.models.User
 import ar.edu.unsam.pds.models.enums.RecurrenceWeeks
 import ar.edu.unsam.pds.security.models.Principal
@@ -26,11 +23,11 @@ import java.util.*
 @ExtendWith(MockitoExtension::class)
 class EventControllerTest {
     @Mock
-    private lateinit var assignmentService: EventService
-    private lateinit var assignmentController: EventController
+    private lateinit var eventService: EventService
+    private lateinit var eventController: EventController
 
-    private lateinit var assignmentReq: EventRequestDto
-    private lateinit var assignmentRes: ar.edu.unsam.pds.dto.response.EventRequestDto
+    private lateinit var eventReq: EventRequestDto
+    private lateinit var eventRes: EventResponseDto
     private lateinit var scheduleReq: ScheduleRequestDto
     private lateinit var scheduleRes: ScheduleResponseDto
     private lateinit var subscribeRequest: SubscribeRequestDto
@@ -39,8 +36,8 @@ class EventControllerTest {
 
     @BeforeEach
     fun setUp() {
-        assignmentController = EventController()
-        assignmentController.eventService = assignmentService
+        eventController = EventController()
+        eventController.eventService = eventService
 
         scheduleReq = ScheduleRequestDto(
             days = listOf(DayOfWeek.FRIDAY),
@@ -61,14 +58,14 @@ class EventControllerTest {
             listDates = listOf(LocalDate.now().toString())
         )
 
-        assignmentReq = EventRequestDto(
+        eventReq = EventRequestDto(
             idCourse = UUID.randomUUID().toString(),
             quotas = 10,
             price = 100.0,
             schedule = scheduleReq
         )
 
-        assignmentRes = ar.edu.unsam.pds.dto.response.EventRequestDto(
+        eventRes = ar.edu.unsam.pds.dto.response.EventRequestDto(
             id = UUID.randomUUID().toString(),
             quotas = 10,
             quantityAvailable = 100,
@@ -79,7 +76,7 @@ class EventControllerTest {
 
         subscribeRequest = SubscribeRequestDto(
             idUser = UUID.randomUUID().toString(),
-            idAssignment = assignmentRes.id
+            idAssignment = eventRes.id
         )
 
         user = User(
@@ -102,11 +99,11 @@ class EventControllerTest {
 
     @Test
     fun `test assignmentAll`() {
-        val assignments = listOf(assignmentRes)
+        val assignments = listOf(eventRes)
 
-        `when`(assignmentService.getAll()).thenReturn(assignments)
+        `when`(eventService.getAll()).thenReturn(assignments)
 
-        val responseEntity = assignmentController.getAll()
+        val responseEntity = eventController.getAll()
 
         assert(responseEntity.statusCode == HttpStatus.OK)
         assert(responseEntity.body == assignments)
@@ -115,12 +112,12 @@ class EventControllerTest {
     @Test
     fun `test assignmentItem`() {
         val uuid = UUID.randomUUID().toString()
-        `when`(assignmentService.getEvent(uuid)).thenReturn(assignmentRes)
+        `when`(eventService.getEvent(uuid)).thenReturn(eventRes)
 
-        val responseEntity = assignmentController.getEvent(uuid)
+        val responseEntity = eventController.getEvent(uuid)
 
         assert(responseEntity.statusCode == HttpStatus.OK)
-        assert(responseEntity.body == assignmentRes)
+        assert(responseEntity.body == eventRes)
     }
 
     @Test
@@ -133,13 +130,13 @@ class EventControllerTest {
         )
 
         `when`(
-            assignmentService.subscribe(
+            eventService.subscribe(
                 idUser = subscribeRequest.idUser!!,
                 idAssignment = subscribeRequest.idAssignment!!
             )
         ).thenReturn(response)
 
-        val responseEntity = assignmentController.subscribeToAssignment(subscribeRequest)
+        val responseEntity = eventController.subscribeToAssignment(subscribeRequest)
 
         assert(responseEntity.statusCode == HttpStatus.OK)
         assert(responseEntity.body == response)
@@ -155,13 +152,13 @@ class EventControllerTest {
         )
 
         `when`(
-            assignmentService.unsubscribe(
+            eventService.unsubscribe(
                 idUser = subscribeRequest.idUser!!,
                 idAssignment = subscribeRequest.idAssignment!!
             )
         ).thenReturn(response)
 
-        val responseEntity = assignmentController.unsubscribeToAssignment(subscribeRequest)
+        val responseEntity = eventController.unsubscribeToAssignment(subscribeRequest)
 
         assert(responseEntity.statusCode == HttpStatus.OK)
         assert(responseEntity.body == response)
@@ -169,20 +166,20 @@ class EventControllerTest {
 
     @Test
     fun `test create a particular assignment`() {
-        `when`(assignmentService.createEvent(assignmentReq)).thenReturn(assignmentRes)
+        `when`(eventService.createEvent(eventReq)).thenReturn(eventRes)
 
-        val responseEntity = assignmentController.createEvent(assignmentReq)
+        val responseEntity = eventController.createEvent(eventReq)
 
         assert(responseEntity.statusCode == HttpStatus.OK)
-        assert(responseEntity.body == assignmentRes)
+        assert(responseEntity.body == eventRes)
     }
 
     @Test
     fun `test delete a particular assignment`() {
         val uuid = UUID.randomUUID().toString()
-        `when`(assignmentService.deleteEvent(uuid, principal)).then { }
+        `when`(eventService.deleteEvent(uuid, principal)).then { }
 
-        val responseEntity = assignmentController.deleteEvent(uuid, principal)
+        val responseEntity = eventController.deleteEvent(uuid, principal)
 
         assert(responseEntity.statusCode == HttpStatus.OK)
         assert(responseEntity.body == mapOf("message" to "Assignment eliminado correctamente."))
@@ -198,9 +195,9 @@ class EventControllerTest {
             email = user.email
         ))
 
-        `when`(assignmentService.getUsersInEvent(uuid)).thenReturn(listOfSubscriptions)
+        `when`(eventService.getUsersInEvent(uuid)).thenReturn(listOfSubscriptions)
 
-        val responseEntity = assignmentController.getAssignmentSuscribedUsers(uuid)
+        val responseEntity = eventController.getAssignmentSuscribedUsers(uuid)
 
         assert(responseEntity.statusCode == HttpStatus.OK)
         assert(responseEntity.body == listOfSubscriptions)

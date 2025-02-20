@@ -47,8 +47,8 @@ interface InstitutionRepository : JpaRepository<Institution, UUID> {
         SELECT CASE WHEN COUNT(users) = 0 THEN true ELSE false END
         FROM Institution i
         JOIN i.courses courses
-        JOIN courses.events assignments
-        LEFT JOIN assignments.subscribedUsers users
+        JOIN courses.events events
+        LEFT JOIN events.users users
         WHERE i.id = :idInstitution
     """
     )
