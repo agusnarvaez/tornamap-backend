@@ -4,6 +4,7 @@ import ar.edu.unsam.pds.dto.request.EventRequestDto
 import ar.edu.unsam.pds.dto.request.ScheduleRequestDto
 import ar.edu.unsam.pds.dto.request.SubscribeRequestDto
 import ar.edu.unsam.pds.dto.response.EventResponseDto
+import ar.edu.unsam.pds.dto.response.ScheduleResponseDto
 import ar.edu.unsam.pds.models.User
 import ar.edu.unsam.pds.models.enums.RecurrenceWeeks
 import ar.edu.unsam.pds.security.models.Principal
