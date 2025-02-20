@@ -186,7 +186,7 @@ class UserControllerTest {
             )
         )
 
-        `when`(userService.getSubscribedCourses(uuid)).thenReturn(subscribedCourses)
+        `when`(userService.getAssignedCourses(uuid)).thenReturn(subscribedCourses)
 
         val responseEntity = userController.getSubscribedCourses(uuid)
 
