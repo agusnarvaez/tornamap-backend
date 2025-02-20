@@ -23,8 +23,6 @@ data class UserRequestUpdateDto(
     // máximo de internet explorer, por compatibilidad, el más largo del más corto
     val file: MultipartFile?,
 
-    @field:PositiveOrZero(message = "Los créditos deben ser un número positivo o cero")
-    val credits: Double = -1.0,
 
     @field: NotNull(message = "El ID no debe ser nulo")
     @field: NotBlank(message = "El ID no debe estar en blanco")
@@ -33,8 +31,6 @@ data class UserRequestUpdateDto(
         message = "UUID debe ser valido"
     )
     val id: String?,
-
-    val nextClass: String?
 
 
 )
