@@ -4,12 +4,10 @@ import ar.edu.unsam.pds.dto.request.LoginForm
 import ar.edu.unsam.pds.dto.request.RegisterFormDto
 import ar.edu.unsam.pds.dto.request.UserRequestUpdateDto
 import ar.edu.unsam.pds.dto.response.CourseResponseDto
-import ar.edu.unsam.pds.dto.response.SubscriptionResponseDto
 import ar.edu.unsam.pds.dto.response.UserDetailResponseDto
 import ar.edu.unsam.pds.dto.response.UserResponseDto
 import ar.edu.unsam.pds.exceptions.InternalServerError
 import ar.edu.unsam.pds.exceptions.NotFoundException
-import ar.edu.unsam.pds.mappers.AssignmentMapper
 import ar.edu.unsam.pds.mappers.CourseMapper
 import ar.edu.unsam.pds.mappers.UserMapper
 import ar.edu.unsam.pds.models.User
@@ -52,9 +50,8 @@ class UserService(
         }
 
         val principalUser = (auth.principal as Principal).getUser()
-        val nextClass = getSubscriptions(principalUser.id.toString()).firstOrNull()
 
-        return UserMapper.buildUserDetailDto(principalUser, nextClass)
+        return UserMapper.buildUserDetailDto(principalUser)
     }
 
     @Transactional
@@ -95,8 +92,7 @@ class UserService(
 
     fun getUserDetail(idUser: String): UserDetailResponseDto {
         val user = findUserById(idUser)
-        val nextClass = getSubscriptions(idUser).firstOrNull()
-        return UserMapper.buildUserDetailDto(user, nextClass)
+        return UserMapper.buildUserDetailDto(user)
     }
 
     @Transactional
@@ -113,15 +109,11 @@ class UserService(
         user.lastName = userDetail.lastName
         user.email = userDetail.email
 
-        if (user.credits < userDetail.credits) {
-            emailService.sendCreditsLoadedEmail(user.email, userDetail.credits, user.name)
-        }
-        user.credits = userDetail.credits //?: user.credits
         userRepository.save(user)
         return UserMapper.buildUserDto(user)
     }
 
-    fun getSubscribedCourses(idUser: String): List<CourseResponseDto> {
+    fun getAssignedCourses(idUser: String): List<CourseResponseDto> {
         val user = findUserById(idUser)
         return user.assignedCourses().map { CourseMapper.buildCourseDto(it) }
     }
@@ -131,19 +123,6 @@ class UserService(
         return userRepository.findById(uuid).orElseThrow {
             NotFoundException("Usuario no encontrado para el uuid suministrado")
         }
-    }
-
-    fun getSubscriptions(idUser: String): List<SubscriptionResponseDto> {
-        val user = findUserById(idUser)
-        val subscriptions = user.assignmentsList.map { assignment ->
-            val institution = institutionService.findInstitutionByCourseId(assignment.course.id)
-            AssignmentMapper.buildSubscriptionDto(assignment, institution)
-        }
-        return orderSubscriptionsByDate(subscriptions)
-    }
-
-    private fun orderSubscriptionsByDate(subscriptions: List<SubscriptionResponseDto>): List<SubscriptionResponseDto> {
-        return subscriptions.sortedBy { it.date }
     }
 
     @Transactional

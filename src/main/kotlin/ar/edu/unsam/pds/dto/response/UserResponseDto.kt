@@ -6,6 +6,5 @@ data class UserResponseDto(
     val email: String,
     val image: String,
     val id: String,
-    val credits: Double? = null,
     val isAdmin: Boolean
 )

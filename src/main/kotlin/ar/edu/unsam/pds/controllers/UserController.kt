@@ -76,21 +76,12 @@ class UserController : UUIDValid() {
     }
 
     @GetMapping("/{idUser}/courses")
-    @Operation(summary = "Get the user's subscribed courses")
-    fun getSubscribedCourses(
+    @Operation(summary = "Get the user's assigned courses")
+    fun getAssignedCourses(
         @PathVariable idUser: String
     ): ResponseEntity<List<CourseResponseDto>> {
         this.validatedUUID(idUser)
-        return ResponseEntity.ok(userService.getSubscribedCourses(idUser))
-    }
-
-    @GetMapping("/{idUser}/subscriptions")
-    @Operation(summary = "Get the user's subscriptions")
-    fun getSubscriptions(
-        @PathVariable idUser: String
-    ): ResponseEntity<List<SubscriptionResponseDto>> {
-        this.validatedUUID(idUser)
-        return ResponseEntity.ok(userService.getSubscriptions(idUser))
+        return ResponseEntity.ok(userService.getAssignedCourses(idUser))
     }
 
     @DeleteMapping("")
