@@ -32,13 +32,13 @@ class UserServiceTest : BootstrapNBTest() {
     @Mock
     private lateinit var mockRequest: HttpServletRequest
 
-    private lateinit var institutionService: InstitutionService
+    private lateinit var programService: ProgramService
     private lateinit var userDetailsService: AppUserDetailsService
     private lateinit var userService: UserService
 
     @BeforeEach
     fun prepareTestData() {
-        institutionService = InstitutionService(
+        programService = ProgramService(
             institutionRepository = institutionRepository,
             principalRepository = principalRepository,
             userRepository = userRepository,
@@ -48,7 +48,7 @@ class UserServiceTest : BootstrapNBTest() {
         userService = UserService(
             userRepository = userRepository,
             principalRepository = principalRepository,
-            institutionService = institutionService,
+            programService = programService,
 
             emailService = emailService,
             storageService = imageService,

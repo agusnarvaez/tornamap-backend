@@ -22,7 +22,7 @@ class BootstrapNBTest : BootstrapBasicTest() {
     @Autowired lateinit var scheduleRepository: ScheduleRepository
     @Autowired lateinit var assignmentRepository: AssignmentRepository
     @Autowired lateinit var courseRepository: CourseRepository
-    @Autowired lateinit var institutionRepository: InstitutionRepository
+    @Autowired lateinit var institutionRepository: ProgramRepository
 
     @Mock lateinit var imageService: StorageService
     @Mock lateinit var emailService: EmailService

@@ -208,7 +208,7 @@ class CoursesServiceTest : BootstrapNBTest() {
             description = "new course description",
             category = "new category",
             file = mockFile,
-            institutionId = programs[0].id.toString()
+            programId = programs[0].id.toString()
         )
 
         `when`(imageService.savePublic(mockFile)).thenReturn(
@@ -229,7 +229,7 @@ class CoursesServiceTest : BootstrapNBTest() {
             description = "new course description",
             category = "new category",
             file = mockFile,
-            institutionId = "029ce681-9f90-45e7-af7f-e74a8cfb4b57"
+            programId = "029ce681-9f90-45e7-af7f-e74a8cfb4b57"
         )
 
         assertThrows<NotFoundException> {

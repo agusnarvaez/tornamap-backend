@@ -1,11 +1,11 @@
 package ar.edu.unsam.pds.controllers
 
-import ar.edu.unsam.pds.dto.request.InstitutionRequestDto
+import ar.edu.unsam.pds.dto.request.ProgramRequestDto
 import ar.edu.unsam.pds.mappers.InstitutionMapper
 import ar.edu.unsam.pds.models.Program
 import ar.edu.unsam.pds.models.User
 import ar.edu.unsam.pds.security.models.Principal
-import ar.edu.unsam.pds.services.InstitutionService
+import ar.edu.unsam.pds.services.ProgramService
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -19,8 +19,8 @@ import java.util.*
 @ExtendWith(MockitoExtension::class)
 class ProgramControllerTest {
     @Mock
-    private lateinit var institutionService: InstitutionService
-    private lateinit var institutionController: InstitutionController
+    private lateinit var programService: ProgramService
+    private lateinit var programController: ProgramController
 
     private lateinit var program: Program
     private lateinit var principal: Principal
@@ -31,8 +31,8 @@ class ProgramControllerTest {
 
     @BeforeEach
     fun setUp() {
-        institutionController = InstitutionController()
-        institutionController.institutionService = institutionService
+        programController = ProgramController()
+        programController.programService = programService
 
         program = Program(
             name = "name",
@@ -74,9 +74,9 @@ class ProgramControllerTest {
     fun `test get all institutions - no query`() {
         val institutions = listOf(InstitutionMapper.buildInstitutionDto(program))
 
-        `when`(institutionService.getAll("")).thenReturn(institutions)
+        `when`(programService.getAll("")).thenReturn(institutions)
 
-        val responseEntity = institutionController.getAll(null)
+        val responseEntity = programController.getAll(null)
 
         assert(responseEntity.statusCode == HttpStatus.OK)
         assert(responseEntity.body == institutions)
@@ -86,9 +86,9 @@ class ProgramControllerTest {
     fun `test get all institutions - query`() {
         val institutions = listOf(InstitutionMapper.buildInstitutionDto(program))
 
-        `when`(institutionService.getAll("query")).thenReturn(institutions)
+        `when`(programService.getAll("query")).thenReturn(institutions)
 
-        val responseEntity0 = institutionController.getAll("query")
+        val responseEntity0 = programController.getAll("query")
 
         assert(responseEntity0.statusCode == HttpStatus.OK)
         assert(responseEntity0.body == institutions)
@@ -98,9 +98,9 @@ class ProgramControllerTest {
     fun `test get all institutions by principal - no query`() {
         val institutions = listOf(InstitutionMapper.buildInstitutionDto(program))
 
-        `when`(institutionService.getAllByPrincipal("", principal)).thenReturn(institutions)
+        `when`(programService.getAllByPrincipal("", principal)).thenReturn(institutions)
 
-        val responseEntity = institutionController.getAllByPrincipal(null, principal)
+        val responseEntity = programController.getAllByPrincipal(null, principal)
 
         assert(responseEntity.statusCode == HttpStatus.OK)
         assert(responseEntity.body == institutions)
@@ -110,9 +110,9 @@ class ProgramControllerTest {
     fun `test get all institutions by principal - query`() {
         val institutions = listOf(InstitutionMapper.buildInstitutionDto(program))
 
-        `when`(institutionService.getAllByPrincipal("query", principal)).thenReturn(institutions)
+        `when`(programService.getAllByPrincipal("query", principal)).thenReturn(institutions)
 
-        val responseEntity0 = institutionController.getAllByPrincipal("query", principal)
+        val responseEntity0 = programController.getAllByPrincipal("query", principal)
 
         assert(responseEntity0.statusCode == HttpStatus.OK)
         assert(responseEntity0.body == institutions)
@@ -122,9 +122,9 @@ class ProgramControllerTest {
     fun `test get a particular institution`() {
         val institution = InstitutionMapper.buildInstitutionDetailDto(program)
 
-        `when`(institutionService.getInstitution(uuid)).thenReturn(institution)
+        `when`(programService.getProgram(uuid)).thenReturn(institution)
 
-        val responseEntity = institutionController.getInstitution(uuid)
+        val responseEntity = programController.getProgram(uuid)
 
         assert(responseEntity.statusCode == HttpStatus.OK)
         assert(responseEntity.body == institution)
@@ -133,16 +133,16 @@ class ProgramControllerTest {
     @Test
     fun `test create a particular institution`() {
         val institutionRes = InstitutionMapper.buildInstitutionDto(program)
-        val institutionReq = InstitutionRequestDto(
+        val institutionReq = ProgramRequestDto(
             name = program.name,
             description = program.description,
             category = program.category,
             file = fileImg
         )
 
-        `when`(institutionService.createInstitution(institutionReq, principal)).thenReturn(institutionRes)
+        `when`(programService.createProgram(institutionReq, principal)).thenReturn(institutionRes)
 
-        val responseEntity = institutionController.createInstitution(institutionReq, principal)
+        val responseEntity = programController.createProgram(institutionReq, principal)
 
         assert(responseEntity.statusCode == HttpStatus.OK)
         assert(responseEntity.body == institutionRes)
@@ -150,9 +150,9 @@ class ProgramControllerTest {
 
     @Test
     fun `test delete a particular institution`() {
-        `when`(institutionService.deleteInstitution(uuid, principal)).then { }
+        `when`(programService.deleteProgram(uuid, principal)).then { }
 
-        val responseEntity = institutionController.deleteInstitution(uuid, principal)
+        val responseEntity = programController.deleteProgram(uuid, principal)
 
         assert(responseEntity.statusCode == HttpStatus.OK)
         assert(responseEntity.body == mapOf("message" to "Institution eliminado correctamente."))

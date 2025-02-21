@@ -1,9 +1,9 @@
 package ar.edu.unsam.pds.services
 
 import ar.edu.unsam.pds.BootstrapNBTest
-import ar.edu.unsam.pds.dto.request.InstitutionRequestDto
-import ar.edu.unsam.pds.dto.response.InstitutionDetailResponseDto
-import ar.edu.unsam.pds.dto.response.InstitutionResponseDto
+import ar.edu.unsam.pds.dto.request.ProgramRequestDto
+import ar.edu.unsam.pds.dto.response.ProgramDetailResponseDto
+import ar.edu.unsam.pds.dto.response.ProgramResponseDto
 import ar.edu.unsam.pds.exceptions.NotFoundException
 import ar.edu.unsam.pds.exceptions.PermissionDeniedException
 import ar.edu.unsam.pds.exceptions.ValidationException
@@ -15,12 +15,12 @@ import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito.`when`
 
 class ProgramServiceTest : BootstrapNBTest() {
-    private lateinit var institutionService: InstitutionService
+    private lateinit var institutionService: ProgramService
     private lateinit var assignmentService: AssignmentService
 
     @BeforeEach
     fun setUpInstitutionServiceTest() {
-        institutionService = InstitutionService(
+        institutionService = ProgramService(
             institutionRepository = institutionRepository,
             principalRepository = principalRepository,
             userRepository = userRepository,
@@ -99,7 +99,7 @@ class ProgramServiceTest : BootstrapNBTest() {
     @Test
     fun `test get mathematics institution - adam_email_com`() {
         val obtainedValue = institutionService.getAllByPrincipal("mathematics ins", principals[0]).toList()
-        val expectedValue = listOf<InstitutionResponseDto>()
+        val expectedValue = listOf<ProgramResponseDto>()
 
         assertEquals(obtainedValue, expectedValue)
     }
@@ -107,7 +107,7 @@ class ProgramServiceTest : BootstrapNBTest() {
     @Test
     fun `test get yoga institution - adam_email_com`() {
         val obtainedValue = institutionService.getAllByPrincipal("yoga_category", principals[0]).toList()
-        val expectedValue = listOf<InstitutionResponseDto>()
+        val expectedValue = listOf<ProgramResponseDto>()
 
         assertEquals(obtainedValue, expectedValue)
     }
@@ -115,7 +115,7 @@ class ProgramServiceTest : BootstrapNBTest() {
     @Test
     fun `test get a particular institution`() {
         val uuid = programs[0].id.toString()
-        val obtainedValue = institutionService.getInstitution(uuid)
+        val obtainedValue = institutionService.getProgram(uuid)
         val expectedValue = InstitutionMapper.buildInstitutionDetailDto(programs[0])
 
         assertEquals(obtainedValue, expectedValue)
@@ -125,13 +125,13 @@ class ProgramServiceTest : BootstrapNBTest() {
     fun `test throw get a particular institution`() {
         val uuid = "029ce681-9f90-45e7-af7f-e74a8cfb4b57"
         assertThrows<NotFoundException> {
-            institutionService.getInstitution(uuid)
+            institutionService.getProgram(uuid)
         }
     }
 
     @Test
     fun `test create institution`() {
-        val institution = InstitutionRequestDto(
+        val institution = ProgramRequestDto(
             name = "name",
             description = "description",
             category = "category",
@@ -140,8 +140,8 @@ class ProgramServiceTest : BootstrapNBTest() {
 
         `when`(imageService.savePublic(mockFile)).thenReturn(mockFileName)
 
-        val obtainedValue = institutionService.createInstitution(institution, principals[0])
-        val expectedValue = InstitutionResponseDto(
+        val obtainedValue = institutionService.createProgram(institution, principals[0])
+        val expectedValue = ProgramResponseDto(
             id = obtainedValue.id,
             name = "name",
             description = "description",
@@ -156,18 +156,18 @@ class ProgramServiceTest : BootstrapNBTest() {
     fun `test delete institution`() {
         `when`(imageService.savePublic(mockFile)).thenReturn(mockFileName)
 
-        val institutionRequest = InstitutionRequestDto(
+        val institutionRequest = ProgramRequestDto(
             name = "name",
             description = "description",
             category = "category",
             file = mockFile
         )
 
-        val id = institutionService.createInstitution(institutionRequest, principals[0]).id
+        val id = institutionService.createProgram(institutionRequest, principals[0]).id
 
         // #############################################################################################################
-        val obtainedValue = institutionService.getInstitution(id)
-        val expectedValue = InstitutionDetailResponseDto(
+        val obtainedValue = institutionService.getProgram(id)
+        val expectedValue = ProgramDetailResponseDto(
             id = id,
             name = "name",
             description = "description",
@@ -179,10 +179,10 @@ class ProgramServiceTest : BootstrapNBTest() {
         assertEquals(obtainedValue, expectedValue)
 
         // #############################################################################################################
-        institutionService.deleteInstitution(id, principals[0])
+        institutionService.deleteProgram(id, principals[0])
 
         assertThrows<NotFoundException> {
-            institutionService.getInstitution(id)
+            institutionService.getProgram(id)
         }
     }
 
@@ -191,7 +191,7 @@ class ProgramServiceTest : BootstrapNBTest() {
         val uuid = programs[1].id.toString()
 
         assertThrows<PermissionDeniedException> {
-            institutionService.deleteInstitution(uuid, principals[0])
+            institutionService.deleteProgram(uuid, principals[0])
         }
     }
 
@@ -216,7 +216,7 @@ class ProgramServiceTest : BootstrapNBTest() {
         )
 
         assertThrows<ValidationException> {
-            institutionService.deleteInstitution(programs[0].id.toString(), principals[0])
+            institutionService.deleteProgram(programs[0].id.toString(), principals[0])
         }
     }
 
