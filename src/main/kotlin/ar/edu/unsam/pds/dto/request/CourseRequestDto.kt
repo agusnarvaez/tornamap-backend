@@ -31,5 +31,5 @@ data class CourseRequestDto(
         regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
         message = "UUID debe ser valido"
     )
-    var institutionId: String?
+    var programId: String?
 )

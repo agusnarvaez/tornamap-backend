@@ -3,7 +3,7 @@ package ar.edu.unsam.pds.bootstrap
 import ar.edu.unsam.pds.models.Course
 import ar.edu.unsam.pds.models.Program
 import ar.edu.unsam.pds.repository.CourseRepository
-import ar.edu.unsam.pds.repository.InstitutionRepository
+import ar.edu.unsam.pds.repository.ProgramRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.DependsOn
 import org.springframework.core.env.Environment
@@ -11,9 +11,9 @@ import org.springframework.core.env.Profiles
 import org.springframework.stereotype.Component
 
 @Component(value = "InitCourses.beanName")
-@DependsOn(value = ["InitInstitutions.beanName"])
+@DependsOn(value = ["InitPrograms.beanName"])
 class InitCourses : BootstrapGeneric("Courses") {
-    @Autowired private lateinit var institutionRepository: InstitutionRepository
+    @Autowired private lateinit var programRepository: ProgramRepository
     @Autowired private lateinit var courseRepository: CourseRepository
     @Autowired private lateinit var environment: Environment
 
@@ -158,6 +158,6 @@ class InitCourses : BootstrapGeneric("Courses") {
     }
 
     fun findByName(name: String): Program? {
-        return institutionRepository.findAll().find { it.name.contains(name) }
+        return programRepository.findAll().find { it.name.contains(name) }
     }
 }
