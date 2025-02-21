@@ -4,7 +4,4 @@ data class CourseResponseDto(
     val id: String,
     val title: String,
     val description: String,
-    var category: String,
-    var image: String,
-    val averageRating: Double
 )
