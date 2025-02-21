@@ -4,7 +4,6 @@ import ar.edu.unsam.pds.exceptions.NotFoundException
 import ar.edu.unsam.pds.models.Building
 import ar.edu.unsam.pds.models.Classroom
 import ar.edu.unsam.pds.models.enums.ClassroomType
-import ar.edu.unsam.pds.models.enums.Floor
 import ar.edu.unsam.pds.repository.BuildingRepository
 import ar.edu.unsam.pds.repository.ClassroomRepository
 import java.util.UUID
@@ -24,7 +23,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
         val labo1 = Classroom(
             name = "Laboratorio de Computación 1",
             capacity = 50,
-            floor = Floor.FIRST,
+            floor = 1,
             type = ClassroomType.LABORATORY,
             building = tornavias
         )
