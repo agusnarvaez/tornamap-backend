@@ -1,5 +1,6 @@
 package ar.edu.unsam.pds.models
 
+import ar.edu.unsam.pds.exceptions.ValidationException
 import jakarta.persistence.*
 import java.io.Serializable
 import java.util.*
@@ -33,6 +34,20 @@ class Program(
     fun addCourse(course: Course) {
         courses.add(course)
     }
+
+    /*
+    HACE FALTA UN REMOVECOURSE O ES ALGO QUE SE VA A HACER DESDE LA DB?
+
+    fun removeCourse(course: Course) {
+        hasCourse(course)
+        courses.remove(course)
+    }
+
+    fun hasCourse(course: Course) {
+        if (!courses.contains(course)) {
+            throw ValidationException("El curso no forma parte de esta carrera")
+        }
+    }*/
 
     fun addAdmin(user: User) {
         admin.add(user)
