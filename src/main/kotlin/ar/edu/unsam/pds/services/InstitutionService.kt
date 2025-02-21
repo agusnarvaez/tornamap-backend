@@ -7,7 +7,7 @@ import ar.edu.unsam.pds.exceptions.NotFoundException
 import ar.edu.unsam.pds.exceptions.PermissionDeniedException
 import ar.edu.unsam.pds.exceptions.ValidationException
 import ar.edu.unsam.pds.mappers.InstitutionMapper
-import ar.edu.unsam.pds.models.Institution
+import ar.edu.unsam.pds.models.Program
 import ar.edu.unsam.pds.repository.InstitutionRepository
 import ar.edu.unsam.pds.repository.UserRepository
 import ar.edu.unsam.pds.security.models.Principal
@@ -39,14 +39,14 @@ class InstitutionService(
         return InstitutionMapper.buildInstitutionDetailDto(institution)
     }
 
-    fun findInstitutionById(idInstitution: String): Institution {
+    fun findInstitutionById(idInstitution: String): Program {
         val uuid = UUID.fromString(idInstitution)
         return institutionRepository.findById(uuid).orElseThrow {
             NotFoundException("Institucion no encontrada para el uuid suministrado")
         }
     }
 
-    fun findInstitutionByCourseId(courseId: UUID): Institution {
+    fun findInstitutionByCourseId(courseId: UUID): Program {
         return institutionRepository.findByCourseId(courseId)
     }
 
@@ -54,7 +54,7 @@ class InstitutionService(
     fun createInstitution(institution: InstitutionRequestDto, principal: Principal): InstitutionResponseDto {
         principal.getUser().isAdmin = true
         val imageName = imageService.savePublic(institution.file)
-        val newInstitution = Institution(
+        val newProgram = Program(
             name = institution.name,
             description = institution.description,
             category = institution.category,
@@ -64,9 +64,9 @@ class InstitutionService(
         }
         userRepository.save(principal.getUser())
         principalRepository.save(principal)
-        institutionRepository.save(newInstitution)
+        institutionRepository.save(newProgram)
 
-        return InstitutionMapper.buildInstitutionDto(newInstitution)
+        return InstitutionMapper.buildInstitutionDto(newProgram)
     }
 
     @Transactional

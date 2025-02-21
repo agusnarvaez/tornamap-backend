@@ -2,7 +2,7 @@ package ar.edu.unsam.pds.controllers
 
 import ar.edu.unsam.pds.dto.request.InstitutionRequestDto
 import ar.edu.unsam.pds.mappers.InstitutionMapper
-import ar.edu.unsam.pds.models.Institution
+import ar.edu.unsam.pds.models.Program
 import ar.edu.unsam.pds.models.User
 import ar.edu.unsam.pds.security.models.Principal
 import ar.edu.unsam.pds.services.InstitutionService
@@ -17,12 +17,12 @@ import org.springframework.mock.web.MockMultipartFile
 import java.util.*
 
 @ExtendWith(MockitoExtension::class)
-class InstitutionControllerTest {
+class ProgramControllerTest {
     @Mock
     private lateinit var institutionService: InstitutionService
     private lateinit var institutionController: InstitutionController
 
-    private lateinit var institution: Institution
+    private lateinit var program: Program
     private lateinit var principal: Principal
     private lateinit var user: User
     private lateinit var uuid: String
@@ -34,7 +34,7 @@ class InstitutionControllerTest {
         institutionController = InstitutionController()
         institutionController.institutionService = institutionService
 
-        institution = Institution(
+        program = Program(
             name = "name",
             description = "description",
             category = "category",
@@ -43,7 +43,7 @@ class InstitutionControllerTest {
             id = UUID.randomUUID()
         }
 
-        uuid = institution.id.toString()
+        uuid = program.id.toString()
 
         user = User(
             name = "Adam",
@@ -56,9 +56,9 @@ class InstitutionControllerTest {
 
         principal = Principal().apply {
             id = UUID.randomUUID()
-            username = this@InstitutionControllerTest.user.email
+            username = this@ProgramControllerTest.user.email
             password = "123"
-            user = this@InstitutionControllerTest.user
+            user = this@ProgramControllerTest.user
             this.initProperties()
         }
 
@@ -72,7 +72,7 @@ class InstitutionControllerTest {
 
     @Test
     fun `test get all institutions - no query`() {
-        val institutions = listOf(InstitutionMapper.buildInstitutionDto(institution))
+        val institutions = listOf(InstitutionMapper.buildInstitutionDto(program))
 
         `when`(institutionService.getAll("")).thenReturn(institutions)
 
@@ -84,7 +84,7 @@ class InstitutionControllerTest {
 
     @Test
     fun `test get all institutions - query`() {
-        val institutions = listOf(InstitutionMapper.buildInstitutionDto(institution))
+        val institutions = listOf(InstitutionMapper.buildInstitutionDto(program))
 
         `when`(institutionService.getAll("query")).thenReturn(institutions)
 
@@ -96,7 +96,7 @@ class InstitutionControllerTest {
 
     @Test
     fun `test get all institutions by principal - no query`() {
-        val institutions = listOf(InstitutionMapper.buildInstitutionDto(institution))
+        val institutions = listOf(InstitutionMapper.buildInstitutionDto(program))
 
         `when`(institutionService.getAllByPrincipal("", principal)).thenReturn(institutions)
 
@@ -108,7 +108,7 @@ class InstitutionControllerTest {
 
     @Test
     fun `test get all institutions by principal - query`() {
-        val institutions = listOf(InstitutionMapper.buildInstitutionDto(institution))
+        val institutions = listOf(InstitutionMapper.buildInstitutionDto(program))
 
         `when`(institutionService.getAllByPrincipal("query", principal)).thenReturn(institutions)
 
@@ -120,7 +120,7 @@ class InstitutionControllerTest {
 
     @Test
     fun `test get a particular institution`() {
-        val institution = InstitutionMapper.buildInstitutionDetailDto(institution)
+        val institution = InstitutionMapper.buildInstitutionDetailDto(program)
 
         `when`(institutionService.getInstitution(uuid)).thenReturn(institution)
 
@@ -132,11 +132,11 @@ class InstitutionControllerTest {
 
     @Test
     fun `test create a particular institution`() {
-        val institutionRes = InstitutionMapper.buildInstitutionDto(institution)
+        val institutionRes = InstitutionMapper.buildInstitutionDto(program)
         val institutionReq = InstitutionRequestDto(
-            name = institution.name,
-            description = institution.description,
-            category = institution.category,
+            name = program.name,
+            description = program.description,
+            category = program.category,
             file = fileImg
         )
 

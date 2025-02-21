@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 
 @ExtendWith(MockitoExtension::class)
-class InstitutionControllerDtosTest : ControllersDtosBasicTest() {
+class ProgramControllerDtosTest : ControllersDtosBasicTest() {
     @InjectMocks
     private lateinit var institutionController: InstitutionController
 

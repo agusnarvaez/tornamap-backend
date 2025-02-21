@@ -1,7 +1,7 @@
 package ar.edu.unsam.pds.bootstrap
 
 import ar.edu.unsam.pds.models.Course
-import ar.edu.unsam.pds.models.Institution
+import ar.edu.unsam.pds.models.Program
 import ar.edu.unsam.pds.repository.CourseRepository
 import ar.edu.unsam.pds.repository.InstitutionRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -157,7 +157,7 @@ class InitCourses : BootstrapGeneric("Courses") {
         courseRepository.save(course33)
     }
 
-    fun findByName(name: String): Institution? {
+    fun findByName(name: String): Program? {
         return institutionRepository.findAll().find { it.name.contains(name) }
     }
 }

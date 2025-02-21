@@ -40,7 +40,7 @@ class BootstrapNBTest : BootstrapBasicTest() {
         scheduleRepository.saveAll(schedules)
         assignmentRepository.saveAll(assignments)
         courseRepository.saveAll(courses)
-        institutionRepository.saveAll(institutions)
+        institutionRepository.saveAll(programs)
 
         mockFileName = "https://mock.pirulo/media/private/filename.jpg"
 

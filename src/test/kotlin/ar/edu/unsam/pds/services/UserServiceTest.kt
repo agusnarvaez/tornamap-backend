@@ -335,7 +335,7 @@ class UserServiceTest : BootstrapNBTest() {
 
         assertEquals(
             userService.getSubscriptions(users[0].id.toString()),
-            mutableListOf(AssignmentMapper.buildSubscriptionDto(assignments[0], institutions[0]))
+            mutableListOf(AssignmentMapper.buildSubscriptionDto(assignments[0], programs[0]))
         )
     }
 

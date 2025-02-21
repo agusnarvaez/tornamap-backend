@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito.`when`
 
-class InstitutionServiceTest : BootstrapNBTest() {
+class ProgramServiceTest : BootstrapNBTest() {
     private lateinit var institutionService: InstitutionService
     private lateinit var assignmentService: AssignmentService
 
@@ -40,7 +40,7 @@ class InstitutionServiceTest : BootstrapNBTest() {
     @Test
     fun `test get all institutions`() {
         val obtainedValue = institutionService.getAll("").toList()
-        val expectedValue = institutions.map {
+        val expectedValue = programs.map {
             InstitutionMapper.buildInstitutionDto(it)
         }
 
@@ -51,7 +51,7 @@ class InstitutionServiceTest : BootstrapNBTest() {
     fun `test get dance institution`() {
         val obtainedValue = institutionService.getAll("Enchanted Dance").toList()
 
-        val expectedValue = listOf(institutions[0]).map {
+        val expectedValue = listOf(programs[0]).map {
             InstitutionMapper.buildInstitutionDto(it)
         }
 
@@ -62,7 +62,7 @@ class InstitutionServiceTest : BootstrapNBTest() {
     fun `test get mathematics institution`() {
         val obtainedValue = institutionService.getAll("mathematics ins").toList()
 
-        val expectedValue = listOf(institutions[1]).map {
+        val expectedValue = listOf(programs[1]).map {
             InstitutionMapper.buildInstitutionDto(it)
         }
 
@@ -73,7 +73,7 @@ class InstitutionServiceTest : BootstrapNBTest() {
     fun `test get yoga institution`() {
         val obtainedValue = institutionService.getAll("yoga_category").toList()
 
-        val expectedValue = listOf(institutions[2]).map {
+        val expectedValue = listOf(programs[2]).map {
             InstitutionMapper.buildInstitutionDto(it)
         }
 
@@ -83,7 +83,7 @@ class InstitutionServiceTest : BootstrapNBTest() {
     @Test
     fun `test get all institutions - adam_email_com`() {
         val obtainedValue = institutionService.getAllByPrincipal("", principals[0]).toList()
-        val expectedValue = listOf(InstitutionMapper.buildInstitutionDto(institutions[0]))
+        val expectedValue = listOf(InstitutionMapper.buildInstitutionDto(programs[0]))
 
         assertEquals(obtainedValue, expectedValue)
     }
@@ -91,7 +91,7 @@ class InstitutionServiceTest : BootstrapNBTest() {
     @Test
     fun `test get dance institution - adam_email_com`() {
         val obtainedValue = institutionService.getAllByPrincipal("Enchanted Dance", principals[0]).toList()
-        val expectedValue = listOf(InstitutionMapper.buildInstitutionDto(institutions[0]))
+        val expectedValue = listOf(InstitutionMapper.buildInstitutionDto(programs[0]))
 
         assertEquals(obtainedValue, expectedValue)
     }
@@ -114,9 +114,9 @@ class InstitutionServiceTest : BootstrapNBTest() {
 
     @Test
     fun `test get a particular institution`() {
-        val uuid = institutions[0].id.toString()
+        val uuid = programs[0].id.toString()
         val obtainedValue = institutionService.getInstitution(uuid)
-        val expectedValue = InstitutionMapper.buildInstitutionDetailDto(institutions[0])
+        val expectedValue = InstitutionMapper.buildInstitutionDetailDto(programs[0])
 
         assertEquals(obtainedValue, expectedValue)
     }
@@ -188,7 +188,7 @@ class InstitutionServiceTest : BootstrapNBTest() {
 
     @Test
     fun `test delete institution - is not owner`() {
-        val uuid = institutions[1].id.toString()
+        val uuid = programs[1].id.toString()
 
         assertThrows<PermissionDeniedException> {
             institutionService.deleteInstitution(uuid, principals[0])
@@ -216,7 +216,7 @@ class InstitutionServiceTest : BootstrapNBTest() {
         )
 
         assertThrows<ValidationException> {
-            institutionService.deleteInstitution(institutions[0].id.toString(), principals[0])
+            institutionService.deleteInstitution(programs[0].id.toString(), principals[0])
         }
     }
 

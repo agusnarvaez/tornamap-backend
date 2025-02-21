@@ -1,7 +1,7 @@
 package ar.edu.unsam.pds.bootstrap
 
 import ar.edu.unsam.pds.exceptions.NotFoundException
-import ar.edu.unsam.pds.models.Institution
+import ar.edu.unsam.pds.models.Program
 import ar.edu.unsam.pds.models.User
 import ar.edu.unsam.pds.repository.InstitutionRepository
 import ar.edu.unsam.pds.repository.UserRepository
@@ -26,7 +26,7 @@ class InitInstitutions : BootstrapGeneric("Institutions") {
 
     override fun doAfterPropertiesSet() {
         institutionRepository.save(
-            Institution(
+            Program(
                 name = "Estrellas en Movimiento: Academia de Danza Mágica",
                 description = """
                     ¡Bienvenidos a Estrellas en Movimiento! Aquí, los sueños bailan y la magia se fusiona con el ritmo.
@@ -43,7 +43,7 @@ class InitInstitutions : BootstrapGeneric("Institutions") {
         )
 
         institutionRepository.save(
-            Institution(
+            Program(
                 name = "El Escenario Encantado: Academia de Arte Dramático",
                 description = """
                     ¡Bienvenidos a El Escenario Encantado! Aquí, la magia del teatro cobra vida. Nuestra academia ofrece
@@ -60,7 +60,7 @@ class InitInstitutions : BootstrapGeneric("Institutions") {
         )
 
         institutionRepository.save(
-            Institution(
+            Program(
                 name = "El Rincón Creativo: Academia de Arte Visual para Jóvenes",
                 description = """
                     Descubre tu creatividad en El Rincón Creativo. Nuestra academia es un oasis de expresión artística 

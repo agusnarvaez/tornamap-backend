@@ -2,28 +2,28 @@ package ar.edu.unsam.pds.mappers
 
 import ar.edu.unsam.pds.dto.response.InstitutionDetailResponseDto
 import ar.edu.unsam.pds.dto.response.InstitutionResponseDto
-import ar.edu.unsam.pds.models.Institution
+import ar.edu.unsam.pds.models.Program
 
 object InstitutionMapper {
 
-    fun buildInstitutionDto(institution: Institution): InstitutionResponseDto {
+    fun buildInstitutionDto(program: Program): InstitutionResponseDto {
         return InstitutionResponseDto(
-            id = institution.id.toString(),
-            name = institution.name,
-            description = institution.description,
-            category = institution.category,
-            image = institution.image
+            id = program.id.toString(),
+            name = program.name,
+            description = program.description,
+            category = program.category,
+            image = program.image
         )
     }
 
-    fun buildInstitutionDetailDto(institution: Institution): InstitutionDetailResponseDto {
+    fun buildInstitutionDetailDto(program: Program): InstitutionDetailResponseDto {
         return InstitutionDetailResponseDto(
-            id = institution.id.toString(),
-            name = institution.name,
-            description = institution.description,
-            category = institution.category,
-            image = institution.image,
-            courses = institution.courses.map { CourseMapper.buildCourseDto(it) }.toMutableSet()
+            id = program.id.toString(),
+            name = program.name,
+            description = program.description,
+            category = program.category,
+            image = program.image,
+            courses = program.courses.map { CourseMapper.buildCourseDto(it) }.toMutableSet()
         )
     }
 }

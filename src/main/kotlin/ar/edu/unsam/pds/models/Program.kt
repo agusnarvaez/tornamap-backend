@@ -5,7 +5,7 @@ import java.io.Serializable
 import java.util.*
 
 @Entity @Table(name = "APP_INSTITUTION")
-class Institution(
+class Program(
     val name: String,
 
     @Column(length = 1024)

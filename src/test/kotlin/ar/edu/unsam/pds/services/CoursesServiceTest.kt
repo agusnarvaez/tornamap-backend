@@ -208,7 +208,7 @@ class CoursesServiceTest : BootstrapNBTest() {
             description = "new course description",
             category = "new category",
             file = mockFile,
-            institutionId = institutions[0].id.toString()
+            institutionId = programs[0].id.toString()
         )
 
         `when`(imageService.savePublic(mockFile)).thenReturn(
