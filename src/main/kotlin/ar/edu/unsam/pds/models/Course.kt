@@ -13,8 +13,6 @@ Course(
     @Column(length = 1024)
     val description: String,
 
-    @Column(length = 1024)
-    var image: String
 ) : Timestamp(), Serializable {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
