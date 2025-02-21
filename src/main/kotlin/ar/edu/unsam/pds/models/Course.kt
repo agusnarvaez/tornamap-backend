@@ -16,4 +16,12 @@ Course(
 ) : Timestamp(), Serializable {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
+
+    /*@ManyToMany
+    @JoinTable(
+        name = "APP_COURSE_DEGREE",
+        joinColumns = [JoinColumn(name = "course_id")],
+        inverseJoinColumns = [JoinColumn(name = "degree_id")]
+    )*/
+    //var degrees:MutableSet<Degree>=mutableSetOf()
 }
