@@ -17,11 +17,11 @@ Course(
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
 
-    /*@ManyToMany
+    @ManyToMany
     @JoinTable(
-        name = "APP_COURSE_DEGREE",
+        name = "app_course_program",
         joinColumns = [JoinColumn(name = "course_id")],
-        inverseJoinColumns = [JoinColumn(name = "degree_id")]
-    )*/
-    //var degrees:MutableSet<Degree>=mutableSetOf()
+        inverseJoinColumns = [JoinColumn(name = "program_id")]
+    )
+    var programList:MutableSet<Program>=mutableSetOf()
 }
