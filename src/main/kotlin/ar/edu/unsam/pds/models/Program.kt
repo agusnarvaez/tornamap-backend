@@ -4,27 +4,28 @@ import jakarta.persistence.*
 import java.io.Serializable
 import java.util.*
 
-@Entity @Table(name = "APP_INSTITUTION")
+@Entity @Table(name = "APP_PROGRAM")
 class Program(
     val name: String,
 
     @Column(length = 1024)
     val description: String,
+    //  Es necesaria la descripción?
 
-    val category: String,
-    var image: String
+    //  Timestamp() es algo que también queda deprecado porque es para los
+    //  créditos y demás implementaciones de las subscripciones?
 ) : Timestamp(), Serializable {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
 
     @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
-    @JoinColumn(name="institution_id", referencedColumnName = "id")
+    @JoinColumn(name="program_id", referencedColumnName = "id")
     val courses: MutableSet<Course> = mutableSetOf()
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-        name = "app_user_institution",
-        joinColumns = [JoinColumn(name = "institution_id")],
+        name = "app_user_program",
+        joinColumns = [JoinColumn(name = "program_id")],
         inverseJoinColumns = [JoinColumn(name = "user_id")]
     )
     val admin = mutableSetOf<User>()
