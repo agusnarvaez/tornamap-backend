@@ -1,6 +1,6 @@
 package ar.edu.unsam.pds.exceptions.controllers
 
-import ar.edu.unsam.pds.controllers.AssignmentController
+import ar.edu.unsam.pds.controllers.EventController
 import ar.edu.unsam.pds.exceptions.RestExceptionHandler
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -14,11 +14,11 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 
 @ExtendWith(MockitoExtension::class)
-class AssignmentControllerDtosTest {
+class EventControllerDtosTest {
     private lateinit var mockMvc: MockMvc
 
     @InjectMocks
-    private lateinit var assignmentController: AssignmentController
+    private lateinit var assignmentController: EventController
 
     @BeforeEach
     fun setUp() {
@@ -31,7 +31,7 @@ class AssignmentControllerDtosTest {
     @Test
     fun `test assignmentItem`() {
         mockMvc.perform(
-            get("/api/assignments/cuchuflito").
+            get("/api/events/cuchuflito").
             contentType(APPLICATION_JSON)
         ).andExpect(status().isConflict)
 //        .andExpect(
@@ -43,7 +43,7 @@ class AssignmentControllerDtosTest {
     @Test
     fun `test subscribe to assignment - 1`() {
         mockMvc.perform(
-            post("/api/assignments/subscribe").
+            post("/api/events/subscribe").
             contentType(APPLICATION_JSON).
             content("""
                 {
@@ -61,7 +61,7 @@ class AssignmentControllerDtosTest {
     @Test
     fun `test subscribe to assignment - 2`() {
         mockMvc.perform(
-            post("/api/assignments/subscribe").
+            post("/api/events/subscribe").
             contentType(APPLICATION_JSON).
             content("""
                 {
@@ -79,7 +79,7 @@ class AssignmentControllerDtosTest {
     @Test
     fun `test unsubscribe to assignment - 1`() {
         mockMvc.perform(
-            post("/api/assignments/unsubscribe").
+            post("/api/events/unsubscribe").
             contentType(APPLICATION_JSON).
             content("""
                 {
@@ -97,7 +97,7 @@ class AssignmentControllerDtosTest {
     @Test
     fun `test unsubscribe to assignment - 2`() {
         mockMvc.perform(
-            post("/api/assignments/unsubscribe").
+            post("/api/events/unsubscribe").
             contentType(APPLICATION_JSON).
             content("""
                 {
@@ -115,7 +115,7 @@ class AssignmentControllerDtosTest {
     @Test
     fun `test create a particular assignment - incorrect id`() {
         mockMvc.perform(
-            post("/api/assignments").
+            post("/api/events").
             contentType(APPLICATION_JSON).
             content("""
                 {
@@ -142,7 +142,7 @@ class AssignmentControllerDtosTest {
     @Test
     fun `test create a particular assignment - incorrect quotas`() {
         mockMvc.perform(
-            post("/api/assignments").
+            post("/api/events").
             contentType(APPLICATION_JSON).
             content("""
                 {
@@ -169,7 +169,7 @@ class AssignmentControllerDtosTest {
     @Test
     fun `test delete a particular assignment`() {
         mockMvc.perform(
-            delete("/api/assignments/cuchuflito").
+            delete("/api/events/cuchuflito").
             contentType(APPLICATION_JSON)
         ).andExpect(status().isConflict)
 //        .andExpect(

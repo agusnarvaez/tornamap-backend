@@ -16,7 +16,7 @@ import org.mockito.Mockito.`when`
 
 class InstitutionServiceTest : BootstrapNBTest() {
     private lateinit var institutionService: InstitutionService
-    private lateinit var assignmentService: AssignmentService
+    private lateinit var assignmentService: EventService
 
     @BeforeEach
     fun setUpInstitutionServiceTest() {
@@ -27,8 +27,8 @@ class InstitutionServiceTest : BootstrapNBTest() {
             imageService = imageService
         )
 
-        assignmentService = AssignmentService(
-            assignmentRepository = assignmentRepository,
+        assignmentService = EventService(
+            eventRepository = assignmentRepository,
             userRepository = userRepository,
             scheduleRepository = scheduleRepository,
             courseRepository = courseRepository,
@@ -199,20 +199,20 @@ class InstitutionServiceTest : BootstrapNBTest() {
     fun `test delete institution - is not deletable`() {
         `when`(emailService.sendSubscriptionConfirmationEmail(
             to = users[0].email,
-            courseName = assignments[0].course.title,
+            courseName = events[0].course.title,
             userName = users[0].name
         )).then {  }
 
         `when`(emailService.sendPaymentConfirmationEmail(
             to = users[0].email,
-            amount = assignments[0].price,
+            amount = events[0].price,
             userName = users[0].name,
             transactionId = "ID_GENERADO_POR_OTRO_METODO"
         )).then {  }
 
         assignmentService.subscribe(
             idUser = users[0].id.toString(),
-            idAssignment = assignments[0].id.toString()
+            idAssignment = events[0].id.toString()
         )
 
         assertThrows<ValidationException> {

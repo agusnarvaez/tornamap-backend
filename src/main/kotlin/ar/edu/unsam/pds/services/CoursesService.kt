@@ -47,7 +47,7 @@ class CoursesService(
             throw PermissionDeniedException("No se puede borrar un curso del cual no es propietario")
         }
 
-        if (course.assignments.any { it.hasAnySubscribedUser() }) {
+        if (course.events.any { it.hasAnySubscribedUser() }) {
             throw ValidationException("No se puede eliminar un curso con usuarios inscriptos")
         }
         val imageName = course.image

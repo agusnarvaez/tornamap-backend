@@ -1,16 +1,16 @@
 package ar.edu.unsam.pds.services
 
 import ar.edu.unsam.pds.BootstrapNBTest
-import ar.edu.unsam.pds.dto.request.AssignmentRequestDto
+import ar.edu.unsam.pds.dto.request.EventRequestDto
 import ar.edu.unsam.pds.dto.request.ScheduleRequestDto
-import ar.edu.unsam.pds.dto.response.AssignmentResponseDto
+import ar.edu.unsam.pds.dto.response.EventRequestDto
 import ar.edu.unsam.pds.dto.response.ScheduleResponseDto
 import ar.edu.unsam.pds.dto.response.SubscribeResponseDto
 import ar.edu.unsam.pds.dto.response.UserSubscribedResponseDto
 import ar.edu.unsam.pds.exceptions.NotFoundException
 import ar.edu.unsam.pds.exceptions.PermissionDeniedException
 import ar.edu.unsam.pds.exceptions.ValidationException
-import ar.edu.unsam.pds.mappers.AssignmentMapper
+import ar.edu.unsam.pds.mappers.EventMapper
 import ar.edu.unsam.pds.models.enums.RecurrenceWeeks
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
@@ -24,13 +24,13 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 import java.util.*
 
-class AssignmentServiceTest : BootstrapNBTest() {
-    private lateinit var assignmentService: AssignmentService
+class EventServiceTest : BootstrapNBTest() {
+    private lateinit var assignmentService: EventService
 
     @BeforeEach
     fun prepareTestData() {
-        assignmentService = AssignmentService(
-            assignmentRepository = assignmentRepository,
+        assignmentService = EventService(
+            eventRepository = assignmentRepository,
             userRepository = userRepository,
             scheduleRepository = scheduleRepository,
             courseRepository = courseRepository,
@@ -42,8 +42,8 @@ class AssignmentServiceTest : BootstrapNBTest() {
     @Test
     fun `test all assignments`() {
         val obtainedValue = assignmentService.getAll().toList()
-        val expectedValue = assignments.map {
-            AssignmentMapper.buildAssignmentDto(it)
+        val expectedValue = events.map {
+            EventMapper.buildEventDto(it)
         }
 
         assertEquals(obtainedValue, expectedValue)
@@ -51,8 +51,8 @@ class AssignmentServiceTest : BootstrapNBTest() {
 
     @Test
     fun `test get a particular assignments`() {
-        val obtainedValue = assignmentService.getAssignment(assignments[0].id.toString())
-        val expectedValue = AssignmentMapper.buildAssignmentDto(assignments[0])
+        val obtainedValue = assignmentService.getEvent(events[0].id.toString())
+        val expectedValue = EventMapper.buildEventDto(events[0])
 
         assertEquals(obtainedValue, expectedValue)
     }
@@ -62,25 +62,25 @@ class AssignmentServiceTest : BootstrapNBTest() {
 
         `when`(emailService.sendSubscriptionConfirmationEmail(
             to = users[0].email,
-            courseName = assignments[0].course.title,
+            courseName = events[0].course.title,
             userName = users[0].name
         )).then {  }
 
         `when`(emailService.sendPaymentConfirmationEmail(
             to = users[0].email,
-            amount = assignments[0].price,
+            amount = events[0].price,
             userName = users[0].name,
             transactionId = "ID_GENERADO_POR_OTRO_METODO"
         )).then {  }
 
         val obtainedValue = assignmentService.subscribe(
             idUser = users[0].id.toString(),
-            idAssignment = assignments[0].id.toString()
+            idAssignment = events[0].id.toString()
         )
 
         val expectedValue = SubscribeResponseDto(
             idUser = users[0].id.toString(),
-            idAssignment = assignments[0].id.toString(),
+            idAssignment = events[0].id.toString(),
             message = "Suscripción exitosa",
             date = LocalDate.now()
         )
@@ -93,7 +93,7 @@ class AssignmentServiceTest : BootstrapNBTest() {
         assertThrows<NotFoundException> {
             assignmentService.subscribe(
                 idUser = UUID.randomUUID().toString(),
-                idAssignment = assignments[0].id.toString()
+                idAssignment = events[0].id.toString()
             )
         }
 
@@ -111,7 +111,7 @@ class AssignmentServiceTest : BootstrapNBTest() {
             users[1].credits = 0.0
             assignmentService.subscribe(
                 idUser = users[1].id.toString(),
-                idAssignment = assignments[0].id.toString()
+                idAssignment = events[0].id.toString()
             )
         }
     }
@@ -120,29 +120,29 @@ class AssignmentServiceTest : BootstrapNBTest() {
     fun `test unsubscribe to assignment`() {
         `when`(emailService.sendSubscriptionConfirmationEmail(
             to = users[0].email,
-            courseName = assignments[0].course.title,
+            courseName = events[0].course.title,
             userName = users[0].name
         )).then {  }
 
         `when`(emailService.sendPaymentConfirmationEmail(
             to = users[0].email,
-            amount = assignments[0].price,
+            amount = events[0].price,
             userName = users[0].name,
             transactionId = "ID_GENERADO_POR_OTRO_METODO"
         )).then {  }
 
         assignmentService.subscribe(
             idUser = users[0].id.toString(),
-            idAssignment = assignments[0].id.toString()
+            idAssignment = events[0].id.toString()
         )
 
         val obtainedValue = assignmentService.unsubscribe(
             idUser = users[0].id.toString(),
-            idAssignment = assignments[0].id.toString()
+            idAssignment = events[0].id.toString()
         )
         val expectedValue = SubscribeResponseDto(
             idUser = users[0].id.toString(),
-            idAssignment = assignments[0].id.toString(),
+            idAssignment = events[0].id.toString(),
             message = "Desuscripción exitosa",
             date = LocalDate.now()
         )
@@ -153,7 +153,7 @@ class AssignmentServiceTest : BootstrapNBTest() {
     @Test
     fun `test unsubscribe to assignment - credit check with refund`() {
         val userId = users[0].id.toString()
-        val assignmentId = assignments[0].id.toString()
+        val assignmentId = events[0].id.toString()
 
         // #############################################################################################################
         assertEquals(users[0].credits, 100000.0)
@@ -161,13 +161,13 @@ class AssignmentServiceTest : BootstrapNBTest() {
         // #############################################################################################################
         `when`(emailService.sendSubscriptionConfirmationEmail(
             to = users[0].email,
-            courseName = assignments[0].course.title,
+            courseName = events[0].course.title,
             userName = users[0].name
         )).then {  }
 
         `when`(emailService.sendPaymentConfirmationEmail(
             to = users[0].email,
-            amount = assignments[0].price,
+            amount = events[0].price,
             userName = users[0].name,
             transactionId = "ID_GENERADO_POR_OTRO_METODO"
         )).then {  }
@@ -183,7 +183,7 @@ class AssignmentServiceTest : BootstrapNBTest() {
     @Test
     fun `test unsubscribe to assignment - credit check no refund`() {
         val userId = users[0].id.toString()
-        val assignmentId = assignments[0].id.toString()
+        val assignmentId = events[0].id.toString()
 
         // #############################################################################################################
         assertEquals(users[0].credits, 100000.0)
@@ -191,13 +191,13 @@ class AssignmentServiceTest : BootstrapNBTest() {
         // #############################################################################################################
         `when`(emailService.sendSubscriptionConfirmationEmail(
             to = users[0].email,
-            courseName = assignments[0].course.title,
+            courseName = events[0].course.title,
             userName = users[0].name
         )).then {  }
 
         `when`(emailService.sendPaymentConfirmationEmail(
             to = users[0].email,
-            amount = assignments[0].price,
+            amount = events[0].price,
             userName = users[0].name,
             transactionId = "ID_GENERADO_POR_OTRO_METODO"
         )).then {  }
@@ -221,7 +221,7 @@ class AssignmentServiceTest : BootstrapNBTest() {
         assertThrows<NotFoundException> {
             assignmentService.unsubscribe(
                 idUser = UUID.randomUUID().toString(),
-                idAssignment = assignments[0].id.toString()
+                idAssignment = events[0].id.toString()
             )
         }
 
@@ -236,7 +236,7 @@ class AssignmentServiceTest : BootstrapNBTest() {
     @Test
     fun `test throw unsubscribe to assignment - no exist subscription`() {
         val userId = users[0].id.toString()
-        val assignmentId = assignments[0].id.toString()
+        val assignmentId = events[0].id.toString()
 
         assertThrows<ValidationException> {
             assignmentService.unsubscribe(userId, assignmentId)
@@ -250,7 +250,7 @@ class AssignmentServiceTest : BootstrapNBTest() {
         val startDate = LocalDate.now().plusMonths(1)
         val endDate = LocalDate.now().plusMonths(5)
 
-        val assignmentRequest = AssignmentRequestDto(
+        val assignmentRequest = EventRequestDto(
             idCourse = courses[0].id.toString(),
             quotas = 10,
             price = 1000.0,
@@ -264,8 +264,8 @@ class AssignmentServiceTest : BootstrapNBTest() {
             )
         )
 
-        val obtainedValue =  assignmentService.createAssignment(assignmentRequest)
-        val expectedValue = AssignmentResponseDto(
+        val obtainedValue =  assignmentService.createEvent(assignmentRequest)
+        val expectedValue = ar.edu.unsam.pds.dto.response.EventRequestDto(
             id = obtainedValue.id,
             quotas = 10,
             quantityAvailable = 10,
@@ -292,7 +292,7 @@ class AssignmentServiceTest : BootstrapNBTest() {
         val startDate = LocalDate.now().plusMonths(1)
         val endDate = LocalDate.now().plusMonths(5)
 
-        val assignmentRequest = AssignmentRequestDto(
+        val assignmentRequest = EventRequestDto(
             idCourse = UUID.randomUUID().toString(),
             quotas = 10,
             price = 1000.0,
@@ -307,7 +307,7 @@ class AssignmentServiceTest : BootstrapNBTest() {
         )
 
         assertThrows<NotFoundException> {
-            assignmentService.createAssignment(assignmentRequest)
+            assignmentService.createEvent(assignmentRequest)
         }
     }
 
@@ -318,7 +318,7 @@ class AssignmentServiceTest : BootstrapNBTest() {
         val startDate = LocalDate.now().plusMonths(1)
         val endDate = LocalDate.now().plusMonths(5)
 
-        val assignmentRequest = AssignmentRequestDto(
+        val assignmentRequest = EventRequestDto(
             idCourse = courses[0].id.toString(),
             quotas = 10,
             price = 1000.0,
@@ -333,7 +333,7 @@ class AssignmentServiceTest : BootstrapNBTest() {
         )
 
         assertThrows<ValidationException> {
-            assignmentService.createAssignment(assignmentRequest)
+            assignmentService.createEvent(assignmentRequest)
         }
     }
 
@@ -344,7 +344,7 @@ class AssignmentServiceTest : BootstrapNBTest() {
         val startDate = LocalDate.now().minusMonths(1)
         val endDate = LocalDate.now().plusMonths(5)
 
-        val assignmentRequest = AssignmentRequestDto(
+        val assignmentRequest = EventRequestDto(
             idCourse = courses[0].id.toString(),
             quotas = 10,
             price = 1000.0,
@@ -359,7 +359,7 @@ class AssignmentServiceTest : BootstrapNBTest() {
         )
 
         assertThrows<ValidationException> {
-            assignmentService.createAssignment(assignmentRequest)
+            assignmentService.createEvent(assignmentRequest)
         }
     }
 
@@ -370,7 +370,7 @@ class AssignmentServiceTest : BootstrapNBTest() {
         val startDate = LocalDate.now().plusMonths(5)
         val endDate = LocalDate.now().plusMonths(1)
 
-        val assignmentRequest = AssignmentRequestDto(
+        val assignmentRequest = EventRequestDto(
             idCourse = courses[0].id.toString(),
             quotas = 10,
             price = 1000.0,
@@ -385,26 +385,26 @@ class AssignmentServiceTest : BootstrapNBTest() {
         )
 
         assertThrows<ValidationException> {
-            assignmentService.createAssignment(assignmentRequest)
+            assignmentService.createEvent(assignmentRequest)
         }
     }
 
     @Test
     fun `test delete assignment`() {
-        val uuid = assignments[1].id.toString()
+        val uuid = events[1].id.toString()
 
         val obtainedValuePre = assignmentService.getAll().toList()
-        val expectedValuePre = assignments.map {
-            AssignmentMapper.buildAssignmentDto(it)
+        val expectedValuePre = events.map {
+            EventMapper.buildEventDto(it)
         }
 
         assertEquals(obtainedValuePre, expectedValuePre)
 
-        assignmentService.deleteAssignment(uuid, principals[0])
+        assignmentService.deleteEvent(uuid, principals[0])
 
         val obtainedValuePos = assignmentService.getAll().toList()
-        val expectedValuePos = listOf(assignments[0]).map {
-            AssignmentMapper.buildAssignmentDto(it)
+        val expectedValuePos = listOf(events[0]).map {
+            EventMapper.buildEventDto(it)
         }
 
         assertEquals(obtainedValuePos, expectedValuePos)
@@ -412,37 +412,37 @@ class AssignmentServiceTest : BootstrapNBTest() {
 
     @Test
     fun `test delete assignment - in not owner`() {
-        val uuid = assignments[0].id.toString()
+        val uuid = events[0].id.toString()
 
         assertThrows<PermissionDeniedException> {
-            assignmentService.deleteAssignment(uuid, principals[1])
+            assignmentService.deleteEvent(uuid, principals[1])
         }
     }
 
     @Test
     fun `test delete assignment - has any subscribed user`() {
-        val uuid = assignments[0].id.toString()
+        val uuid = events[0].id.toString()
 
         `when`(emailService.sendSubscriptionConfirmationEmail(
             to = users[0].email,
-            courseName = assignments[0].course.title,
+            courseName = events[0].course.title,
             userName = users[0].name
         )).then {  }
 
         `when`(emailService.sendPaymentConfirmationEmail(
             to = users[0].email,
-            amount = assignments[0].price,
+            amount = events[0].price,
             userName = users[0].name,
             transactionId = "ID_GENERADO_POR_OTRO_METODO"
         )).then {  }
 
         assignmentService.subscribe(
             idUser = users[0].id.toString(),
-            idAssignment = assignments[0].id.toString()
+            idAssignment = events[0].id.toString()
         )
 
         assertThrows<ValidationException> {
-            assignmentService.deleteAssignment(uuid, principals[0])
+            assignmentService.deleteEvent(uuid, principals[0])
         }
     }
 
@@ -458,27 +458,27 @@ class AssignmentServiceTest : BootstrapNBTest() {
 
     @Test
     fun `test get assignment described users`() {
-        val uuid = assignments[0].id.toString()
+        val uuid = events[0].id.toString()
 
         `when`(emailService.sendSubscriptionConfirmationEmail(
             to = users[0].email,
-            courseName = assignments[0].course.title,
+            courseName = events[0].course.title,
             userName = users[0].name
         )).then {  }
 
         `when`(emailService.sendPaymentConfirmationEmail(
             to = users[0].email,
-            amount = assignments[0].price,
+            amount = events[0].price,
             userName = users[0].name,
             transactionId = "ID_GENERADO_POR_OTRO_METODO"
         )).then {  }
 
         assignmentService.subscribe(
             idUser = users[0].id.toString(),
-            idAssignment = assignments[0].id.toString()
+            idAssignment = events[0].id.toString()
         )
 
-        val obtainedValue = assignmentService.getAssignmentSuscribedUsers(uuid)
+        val obtainedValue = assignmentService.getUsersInEvent(uuid)
         val expectedValue = listOf(UserSubscribedResponseDto(
             name = "Adam",
             lastName = "AdamAdam",

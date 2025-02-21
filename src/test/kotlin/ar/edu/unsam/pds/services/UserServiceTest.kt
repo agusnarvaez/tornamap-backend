@@ -9,7 +9,7 @@ import ar.edu.unsam.pds.dto.response.SubscriptionResponseDto
 import ar.edu.unsam.pds.dto.response.UserDetailResponseDto
 import ar.edu.unsam.pds.exceptions.InternalServerError
 import ar.edu.unsam.pds.exceptions.NotFoundException
-import ar.edu.unsam.pds.mappers.AssignmentMapper
+import ar.edu.unsam.pds.mappers.EventMapper
 import ar.edu.unsam.pds.mappers.CourseMapper
 import ar.edu.unsam.pds.mappers.UserMapper
 import ar.edu.unsam.pds.security.models.Principal
@@ -312,8 +312,8 @@ class UserServiceTest : BootstrapNBTest() {
             mutableListOf<CourseResponseDto>()
         )
 
-        users[0].addAssignment(assignments[0])
-        assignments[0].addSubscribedUser(users[0])
+        users[0].addAssignment(events[0])
+        events[0].addSubscribedUser(users[0])
         userRepository.save(users[0])
 
         assertEquals(
@@ -329,13 +329,13 @@ class UserServiceTest : BootstrapNBTest() {
             mutableListOf<SubscriptionResponseDto>()
         )
 
-        users[0].addAssignment(assignments[0])
-        assignments[0].addSubscribedUser(users[0])
+        users[0].addAssignment(events[0])
+        events[0].addSubscribedUser(users[0])
         userRepository.save(users[0])
 
         assertEquals(
             userService.getSubscriptions(users[0].id.toString()),
-            mutableListOf(AssignmentMapper.buildSubscriptionDto(assignments[0], institutions[0]))
+            mutableListOf(EventMapper.buildSubscriptionDto(events[0], institutions[0]))
         )
     }
 
