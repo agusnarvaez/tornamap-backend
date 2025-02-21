@@ -12,14 +12,16 @@ import java.util.*
 interface AssignmentRepository : JpaRepository<Assignment, UUID>{
 
 
-    @Query("""
+    @Query(
+        """
         SELECT COUNT(course.id) = 1
-            FROM Institution i
+            FROM Program i
             JOIN i.courses course
             JOIN course.assignments assignments
             JOIN i.admin admins
             WHERE assignments.id = :idAssignment AND admins.id = :#{#principal.user.id}
-            """)
+            """
+    )
 
     fun isOwner(@Param("idAssignment") idCourse: UUID, @Param("principal") principal: Principal) : Boolean
 

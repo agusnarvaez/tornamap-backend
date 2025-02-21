@@ -4,7 +4,7 @@ import ar.edu.unsam.pds.models.Assignment
 import ar.edu.unsam.pds.models.Course
 import ar.edu.unsam.pds.models.Schedule
 import ar.edu.unsam.pds.repository.AssignmentRepository
-import ar.edu.unsam.pds.repository.InstitutionRepository
+import ar.edu.unsam.pds.repository.ProgramRepository
 import ar.edu.unsam.pds.repository.ScheduleRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.DependsOn
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component
 @DependsOn(value = ["InitCourses.beanName", "InitSchedules.beanName"])
 class InitAssignments : BootstrapGeneric("Assignments") {
     @Autowired private lateinit var scheduleRepository: ScheduleRepository
-    @Autowired private lateinit var institutionRepository: InstitutionRepository
+    @Autowired private lateinit var programRepository: ProgramRepository
     @Autowired private lateinit var assignmentRepository: AssignmentRepository
 
     override fun doAfterPropertiesSet() {
@@ -347,7 +347,7 @@ class InitAssignments : BootstrapGeneric("Assignments") {
     }
 
     fun findByNameAndCourseTitle(name: String, title: String): Course? {
-        val course = institutionRepository.findAll().find { it.name.contains(name) }.let { institution ->
+        val course = programRepository.findAll().find { it.name.contains(name) }.let { institution ->
             institution?.courses.let { courses ->
                 courses?.find { it.title.contains(title) }
             }

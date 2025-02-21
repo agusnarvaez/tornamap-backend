@@ -1,9 +1,7 @@
 package ar.edu.unsam.pds.dto.response
 
-data class InstitutionResponseDto(
+data class ProgramResponseDto(
     val id: String,
     val name: String,
     val description: String,
-    val category: String,
-    val image: String,
 )
