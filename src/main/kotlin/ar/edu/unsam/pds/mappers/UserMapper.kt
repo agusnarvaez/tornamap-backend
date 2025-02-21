@@ -1,10 +1,8 @@
 package ar.edu.unsam.pds.mappers
 
 import ar.edu.unsam.pds.dto.request.UserRequestDto
-import ar.edu.unsam.pds.dto.response.SubscriptionResponseDto
 import ar.edu.unsam.pds.dto.response.UserDetailResponseDto
 import ar.edu.unsam.pds.dto.response.UserResponseDto
-import ar.edu.unsam.pds.dto.response.UserSubscribedResponseDto
 import ar.edu.unsam.pds.models.User
 
 object UserMapper {

@@ -17,8 +17,7 @@ object CourseMapper {
     }
 
     fun buildCourseDetailDto(course: Course): CourseDetailResponseDto {
-        val assignments = if(course.events.isEmpty()) mutableSetOf() else course.events.map { EventMapper.buildEventDto(it) }.toMutableSet()
-        val reviews = if(course.reviews.isEmpty()) mutableSetOf() else course.reviews.map { ReviewMapper.buildReviewCourseResponseDto(it) }.toMutableSet()
+        val events = if(course.events.isEmpty()) mutableSetOf() else course.events.map { EventMapper.buildEventDto(it) }.toMutableSet()
 
         return CourseDetailResponseDto(
             id = course.id.toString(),
@@ -26,9 +25,7 @@ object CourseMapper {
             description = course.description,
             category = course.category,
             image = course.image,
-            assignments = assignments,
-            reviews = reviews,
-            rating = course.averageRating()
+            events = events
         )
     }
 
@@ -39,7 +36,7 @@ object CourseMapper {
         val totalIncome = if (course.events.isEmpty()) 0.0 else course.totalIncome()
         val mostPopularAssignment = if (course.events.isEmpty()) null else EventMapper.buildEventStatsDto(course.mostPopularEvent())
         val mostProfitableAssignment = if (course.events.isEmpty()) null else EventMapper.buildEventStatsDto(course.mostProfitableEvent())
-        val assignments = if (course.events.isEmpty()) mutableSetOf() else course.events.map { EventMapper.buildEventStatsDto(it) }.toMutableSet()
+        val events = if (course.events.isEmpty()) mutableSetOf() else course.events.map { EventMapper.buildEventStatsDto(it) }.toMutableSet()
 
         return CourseStatsResponseDto(
             id = course.id.toString(),

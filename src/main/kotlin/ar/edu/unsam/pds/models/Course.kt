@@ -53,13 +53,5 @@ class Course(
         return events.map { it.activeDays() }.toSet()
     }
 
-    fun averageRating(): Double {
-        if (reviews.isEmpty()) {
-            return 0.0
-        }
-
-        val sum = reviews.sumOf { it.rating.toDouble() }
-        return sum / reviews.size
-    }
 
 }

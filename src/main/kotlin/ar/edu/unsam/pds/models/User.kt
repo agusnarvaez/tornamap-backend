@@ -22,7 +22,6 @@ class User(
         joinColumns = [JoinColumn(name = "user_id")],
         inverseJoinColumns = [JoinColumn(name = "event_id")]
     )
-
     val eventList = mutableSetOf<Event>()
 
     fun assignedCourses(): Set<Course> {
