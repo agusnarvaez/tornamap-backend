@@ -46,13 +46,4 @@ interface CourseRepository : JpaRepository<Course, UUID> {
     """)
     fun isOwner(@Param("idCourse") idCourse: UUID, @Param("principal") principal: Principal): Boolean
 
-
-   /* @Query("""
-        SELECT COUNT(u.id) = 1
-        FROM Course c
-        JOIN c.assignments a
-        LEFT JOIN a.subscribedUsers u
-        WHERE c.id = :#{#course.id} AND u.id = :#{#principal.user.id}
-    """)
-    fun isSubscribed(@Param("course") course: Course, @Param("principal") principal: Principal): Boolean*/
 }

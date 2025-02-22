@@ -5,9 +5,7 @@ import java.io.Serializable
 import java.util.*
 
 @Entity @Table(name = "APP_COURSE")
-class
-
-Course(
+class Course(
     val title: String,
 
     @Column(length = 1024)
