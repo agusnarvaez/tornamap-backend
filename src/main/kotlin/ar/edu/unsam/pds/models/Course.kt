@@ -15,6 +15,7 @@ class Course(
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
 
+
     @ManyToMany
     @JoinTable(
         name = "app_course_program",

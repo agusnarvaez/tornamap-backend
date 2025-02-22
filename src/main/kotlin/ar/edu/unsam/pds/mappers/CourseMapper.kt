@@ -14,20 +14,10 @@ object CourseMapper {
 
     fun buildCourseDetailDto(course: Course): CourseDetailResponseDto {
 
-
         return CourseDetailResponseDto(
             id = course.id.toString(),
             title = course.title,
             description = course.description
         )
     }
-
-  /*  fun buildCourseStatsDto(course: Course): CourseStatsResponseDto {
-
-
-        return CourseStatsResponseDto(
-            id = course.id.toString(),
-            title = course.title,
-        )
-    }*/
 }

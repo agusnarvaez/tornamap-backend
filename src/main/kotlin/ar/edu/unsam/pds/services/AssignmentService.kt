@@ -10,11 +10,9 @@ import ar.edu.unsam.pds.exceptions.ValidationException
 import ar.edu.unsam.pds.mappers.AssignmentMapper
 import ar.edu.unsam.pds.mappers.UserMapper
 import ar.edu.unsam.pds.models.Assignment
-import ar.edu.unsam.pds.models.Payment
 import ar.edu.unsam.pds.models.User
 import ar.edu.unsam.pds.models.Schedule
 import ar.edu.unsam.pds.repository.AssignmentRepository
-import ar.edu.unsam.pds.repository.PaymentRepository
 import ar.edu.unsam.pds.repository.CourseRepository
 import ar.edu.unsam.pds.repository.ScheduleRepository
 import ar.edu.unsam.pds.repository.UserRepository
@@ -30,7 +28,6 @@ import java.util.*
 class AssignmentService(
     private val assignmentRepository: AssignmentRepository,
     private val userRepository: UserRepository,
-    private val paymentRepository: PaymentRepository,
     private val scheduleRepository: ScheduleRepository,
     private val courseRepository: CourseRepository,
     private val emailService: EmailService,
@@ -53,18 +50,9 @@ class AssignmentService(
 
         user.subscribe(assignment)
         assignment.addSubscribedUser(user)
-        val payment = Payment(
-            amount = assignment.price,
-            date = LocalDateTime.now(),
-            status = "APPROVED",
-            paymentMethod = "CREDITS",
-            user = user,
-            assignment = assignment
-        )
 
         userRepository.save(user)
         emailService.sendSubscriptionConfirmationEmail(user.email, assignment.course.title, user.name)
-        paymentRepository.save(payment)
         emailService.sendPaymentConfirmationEmail(user.email, payment.amount, user.name, payment.id.toString())
 
         return AssignmentMapper.subscribeResponse(idUser, idAssignment)
@@ -75,9 +63,6 @@ class AssignmentService(
         val assignment = findAssignmentById(idAssignment)
         val user = findUserById(idUser)
 
-        paymentRepository.findLastPaymentByUserIdAndAssignmentId(user.id, assignment.id)?.let {
-            if (lessThanTwoHours(it.date)) user.credits += it.amount
-        }
 
         user.removeAssignment(assignment)
         assignment.removeSubscribedUser(user)
