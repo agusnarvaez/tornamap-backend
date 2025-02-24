@@ -2,6 +2,7 @@ package ar.edu.unsam.pds.models
 
 import ar.edu.unsam.pds.models.enums.RecurrenceWeeks
 import jakarta.persistence.*
+import jakarta.validation.constraints.AssertTrue
 import java.io.Serializable
 import java.time.DayOfWeek
 import java.time.LocalDate
@@ -13,12 +14,13 @@ import java.util.*
 class Schedule(
     val startTime: LocalTime,
     val endTime: LocalTime,
-    val day: DayOfWeek,
-    val date: LocalDate,
+    val weekDay: DayOfWeek?,
+    val date: LocalDate?,
     val isVirtual: Boolean,
 ) : Timestamp(), Serializable {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
+
 
 
 }
