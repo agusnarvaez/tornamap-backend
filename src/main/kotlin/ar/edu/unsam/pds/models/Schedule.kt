@@ -15,12 +15,24 @@ class Schedule(
     val startTime: LocalTime,
     val endTime: LocalTime,
     val weekDay: DayOfWeek?,
-    val date: LocalDate?,
+    val date: LocalDate?, //podra un schedule ser mas de un dia?
     val isVirtual: Boolean,
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "classroom_id", nullable = true)
+    val classroom: Classroom?,
+
+    /*@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "event_id", nullable = true)
+    val event: Event,*/
+
 ) : Timestamp(), Serializable {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
 
+   fun isBeforeEndDate(enteredDate: LocalDate): Boolean {
+        return enteredDate.isBefore(date) || enteredDate.isEqual(date)
+    }
 
 
 }

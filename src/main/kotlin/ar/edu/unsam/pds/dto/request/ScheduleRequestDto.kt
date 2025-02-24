@@ -1,11 +1,7 @@
 package ar.edu.unsam.pds.dto.request
 
 import ar.edu.unsam.pds.models.enums.RecurrenceWeeks
-import jakarta.validation.constraints.FutureOrPresent
-import jakarta.validation.constraints.Min
-import jakarta.validation.constraints.NotEmpty
-import jakarta.validation.constraints.NotNull
-import jakarta.validation.constraints.Size
+import jakarta.validation.constraints.*
 import org.springframework.cglib.core.Local
 import java.time.DayOfWeek
 import java.time.LocalDate
@@ -16,7 +12,7 @@ data class ScheduleRequestDto (
     @field: NotNull(message = "La hora de inicio no puede ser nula")
     val startTime: LocalTime,
 
-    @field: NotNull(message = "La hora de finalizaciin no puede ser nula")
+    @field: NotNull(message = "La hora de finalizacion no puede ser nula")
     val endTime: LocalTime,
 
     val weekDay:DayOfWeek?,
@@ -30,4 +26,21 @@ data class ScheduleRequestDto (
     @field: NotNull(message = "isVirtual no puede ser nulo")
     val isVirtual: Boolean,
 
+    @field: NotNull(message = "El ID no debe ser nulo")
+    @field: NotBlank(message = "El ID no debe estar en blanco")
+    @field: Pattern(
+        regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+        message = "UUID debe ser valido"
+    )
+    val idClassroom: String?,
+
+    /*lo mismo de la anotacion personalizada en isVirtual y idClassroom*/
+
+    @field: NotNull(message = "El ID no debe ser nulo")
+    @field: NotBlank(message = "El ID no debe estar en blanco")
+    @field: Pattern(
+        regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+        message = "UUID debe ser valido"
+    )
+    val idEvent: String,
     )
