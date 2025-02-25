@@ -4,4 +4,5 @@ data class CourseDetailResponseDto(
     val id: String,
     val title: String,
     val description: String,
+    val events: MutableSet<EventResponseDto>,
 )

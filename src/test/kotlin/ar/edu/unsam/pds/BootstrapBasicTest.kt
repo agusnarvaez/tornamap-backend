@@ -16,7 +16,7 @@ open class BootstrapBasicTest {
     var principals = mutableListOf<Principal>()
     var users = mutableListOf<User>()
     var schedules = mutableListOf<Schedule>()
-    var assignments = mutableListOf<Assignment>()
+    var events = mutableListOf<Event>()
     var courses = mutableListOf<Course>()
     var institutions = mutableListOf<Institution>()
 
@@ -90,19 +90,19 @@ open class BootstrapBasicTest {
             )
         )
 
-        assignments.add(
-            Assignment(
+        events.add(
+            Event(
                 quotas = 100,
-                isActive = true,
+                isApproved = true,
                 price = 100.0,
                 schedule = schedules[0]
             )
         )
 
-        assignments.add(
-            Assignment(
+        events.add(
+            Event(
                 quotas = 100,
-                isActive = true,
+                isApproved = true,
                 price = 100.0,
                 schedule = schedules[1]
             )
@@ -114,7 +114,7 @@ open class BootstrapBasicTest {
             category = "dance",
             image = ""
         ).apply {
-            addAssignment(this@BootstrapBasicTest.assignments[0])
+            addEvent(this@BootstrapBasicTest.events[0])
         })
 
         courses.add(Course(
@@ -123,7 +123,7 @@ open class BootstrapBasicTest {
             category = "dance",
             image = ""
         ).apply {
-            addAssignment(this@BootstrapBasicTest.assignments[1])
+            addEvent(this@BootstrapBasicTest.events[1])
         })
 
         courses.add(

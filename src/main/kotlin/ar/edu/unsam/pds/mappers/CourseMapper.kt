@@ -13,11 +13,13 @@ object CourseMapper {
     }
 
     fun buildCourseDetailDto(course: Course): CourseDetailResponseDto {
+        val events = if(course.events.isEmpty()) mutableSetOf() else course.events.map { EventMapper.buildEventDto(it) }.toMutableSet()
 
         return CourseDetailResponseDto(
             id = course.id.toString(),
             title = course.title,
-            description = course.description
+            description = course.description,
+            events = events
         )
     }
 }

@@ -15,6 +15,21 @@ class Course(
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "course", cascade = [CascadeType.ALL], orphanRemoval = true)
+    val events = mutableSetOf<Event>()
+
+    fun addEvent(event: Event) {
+        events.add(event)
+        event.attachCourse(this)
+    }
+
+    fun removeEvent(event: Event) {
+        events.removeIf{ it.id == event.id }
+    }
+
+    fun eventsNames(): Set<String> {
+        return events.map { it.activeDays() }.toSet()
+    }
 
     @ManyToMany
     @JoinTable(

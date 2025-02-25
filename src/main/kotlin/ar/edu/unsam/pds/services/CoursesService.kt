@@ -83,8 +83,4 @@ class CoursesService(
         return CourseMapper.buildCourseDto(newCourse)
     }
 
-  /*  fun getCourseStats(idCourse: String): CourseStatsResponseDto? {
-        val course = findCourseById(idCourse)
-        return CourseMapper.buildCourseStatsDto(course)
-    }*/
 }

@@ -46,4 +46,13 @@ interface CourseRepository : JpaRepository<Course, UUID> {
     """)
     fun isOwner(@Param("idCourse") idCourse: UUID, @Param("principal") principal: Principal): Boolean
 
+    @Query(
+        """
+        SELECT c FROM Course c 
+        JOIN c.events events
+        WHERE events.id = :idEvent
+    """
+    )
+    fun findByEventsId(@Param("idEvent") id: UUID): Optional<Course>
+
 }
