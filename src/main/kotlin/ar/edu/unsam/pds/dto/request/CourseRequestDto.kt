@@ -17,19 +17,11 @@ data class CourseRequestDto(
     @field: Size(max = 250, message = "El campo descripcion debe tener como máximo 250 caracteres")
     val description: String = "",
 
-    @field: NotBlank(message = "El campo categoria no puede estar vacío")
-    @field: NotNull(message = "El campo categoria no puede ser nulo")
-    @field: Size(max = 250, message = "El campo categoria debe tener como máximo 250 caracteres")
-    var category: String = "",
-
-    @field: NotNull(message = "El archivo no puede estar vacio")
-    val file: MultipartFile,
-
     @field: NotNull(message = "El ID no debe ser nulo")
     @field: NotBlank(message = "El ID no debe estar en blanco")
     @field: Pattern(
         regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
         message = "UUID debe ser valido"
     )
-    var institutionId: String?
+    var programId: String?
 )
