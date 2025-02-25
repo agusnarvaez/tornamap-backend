@@ -31,9 +31,8 @@ class ScheduleService(
         return schedules.map { ScheduleMapper.buildScheduleDto(this) }
     }
 
-    fun getAllByPrincipal(query: String, principal: Principal): List<CourseResponseDto> {
-        val schedules = scheduleRepository.getAllByPrincipal(query, principal)
-        return schedules.map { ScheduleMapper.buildScheduleDto(this) }
+    fun getByPrincipal(query: String, principal: Principal): Schedule? {
+        return scheduleRepository.getByPrincipal(query, principal)
     }
 
     fun getSchedule(idSchedule: String): ScheduleResponseDto {
@@ -48,8 +47,9 @@ class ScheduleService(
 
         if (!scheduleRepository.isOwner(uuid, principal)) {
             throw PermissionDeniedException("No se puede borrar un curso del cual no es propietario")
+        }else{
+            scheduleRepository.delete(schedule)
         }
-
     }
 
     @Transactional
