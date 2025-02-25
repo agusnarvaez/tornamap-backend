@@ -40,9 +40,9 @@ interface ScheduleRepository : JpaRepository<Schedule, UUID>{
         FROM Event i
         JOIN i.schedules schedules
         JOIN i.admin admins
-        WHERE schedules.id = :idCourse AND admins.id = :#{#principal.user.id}
+        WHERE schedules.id = :idSchedule AND admins.id = :#{#principal.user.id}
     """)
-    fun isOwner(@Param("idCourse") idCourse: UUID, @Param("principal") principal: Principal): Boolean
+    fun isOwner(@Param("idSchedule") idSchedule: UUID, @Param("principal") principal: Principal): Boolean
 
 
 }
