@@ -24,7 +24,7 @@ class ProgramController : UUIDValid() {
     fun getAll(
         @RequestParam(required = false) query: String?
     ): ResponseEntity<List<ProgramResponseDto>> {
-        return ResponseEntity.ok(programService.getAll(query ?: ""))
+        return ResponseEntity.ok(programService.getAll(query))
     }
 
     @GetMapping("admin")
@@ -33,7 +33,7 @@ class ProgramController : UUIDValid() {
         @RequestParam(required = false) query: String?,
         @AuthenticationPrincipal principal: Principal
     ): ResponseEntity<List<ProgramResponseDto>> {
-        return ResponseEntity.ok(programService.getAllByPrincipal(query ?: "", principal))
+        return ResponseEntity.ok(programService.getAllByPrincipal(query, principal))
     }
 
     @GetMapping("{idProgram}")
@@ -59,9 +59,12 @@ class ProgramController : UUIDValid() {
     fun deleteProgram(
         @PathVariable idProgram: String,
         @AuthenticationPrincipal principal: Principal
-    ): ResponseEntity<Map<String, String>> {
+    ): ResponseEntity<SuccessfulRequest> {
         this.validatedUUID(idProgram)
         programService.deleteProgram(idProgram, principal)
-        return ResponseEntity.ok(mapOf("message" to "Programa eliminado correctamente."))
+        return ResponseEntity.ok(SuccessfulRequest(message = "Programa eliminado correctamente."))
+        
     }
 }
+
+data class SuccessfulRequest(val message: String)

@@ -50,10 +50,10 @@ class FilterChainConfiguration {
                 antMatcher(POST, "/api/courses/**"),
                 antMatcher(DELETE, "/api/courses/**"),
                 antMatcher(DELETE, "/api/courses"),
-                antMatcher(POST, "/api/assignments"),
-                antMatcher(DELETE, "/api/assignments/**"),
+                antMatcher(POST, "/api/events"),
+                antMatcher(DELETE, "/api/events/**"),
                 antMatcher(DELETE, "/api/institutions/**"),
-                antMatcher(GET, "/api/assignments/*/admin"),
+                antMatcher(GET, "/api/events/*/admin"),
             ).hasRole("ADMIN")
 
             // USER @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -64,8 +64,8 @@ class FilterChainConfiguration {
             // USER Y ADMIN @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             .requestMatchers(
                 antMatcher(POST, "/api/institutions"),
-                antMatcher(POST, "/api/assignments/subscribe"),
-                antMatcher(POST, "/api/assignments/unsubscribe"),
+                antMatcher(POST, "/api/events/subscribe"),
+                antMatcher(POST, "/api/events/unsubscribe"),
                 antMatcher(PATCH, "/api/users/**"),
 
                 antMatcher(GET, "/api/users/reviews"),
@@ -93,8 +93,8 @@ class FilterChainConfiguration {
                 antMatcher(GET, "/api/courses"),
                 antMatcher(GET, "/api/courses/**"),
                 antMatcher(GET, "/api/courses/*/stats"),
-                antMatcher(GET, "/api/assignments"),
-                antMatcher(GET, "/api/assignments/**"),
+                antMatcher(GET, "/api/events"),
+                antMatcher(GET, "/api/events/**"),
                 antMatcher(GET, "/api/users"),
                 antMatcher(GET, "/api/users/*"),
                 antMatcher(GET, "/api/users/*/courses"),

@@ -35,9 +35,6 @@ class Program(
         courses.add(course)
     }
 
-    /*
-    HACE FALTA UN REMOVECOURSE O ES ALGO QUE SE VA A HACER DESDE LA DB?
-
     fun removeCourse(course: Course) {
         hasCourse(course)
         courses.remove(course)
@@ -47,7 +44,7 @@ class Program(
         if (!courses.contains(course)) {
             throw ValidationException("El curso no forma parte de esta carrera")
         }
-    }*/
+    }
 
     fun addAdmin(user: User) {
         admin.add(user)

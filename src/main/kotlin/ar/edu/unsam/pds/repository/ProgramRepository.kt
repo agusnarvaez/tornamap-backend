@@ -17,7 +17,7 @@ interface ProgramRepository : JpaRepository<Program, UUID> {
         OR p.description LIKE concat('%', :query, '%')
     """
     )
-    fun getAllBy(@Param("query") query: String): MutableList<Program>
+    fun getAllBy(@Param("query") query: String?): MutableList<Program>
 
     @Query(
         """
@@ -27,7 +27,7 @@ interface ProgramRepository : JpaRepository<Program, UUID> {
         OR p.description LIKE concat('%', :query, '%')
     """
     )
-    fun getAllByPrincipal(@Param("query")query: String, @Param("principal") principal: Principal): MutableList<Program>
+    fun getAllByPrincipal(@Param("query")query: String?, @Param("principal") principal: Principal): MutableList<Program>
 
     @Query(
         """

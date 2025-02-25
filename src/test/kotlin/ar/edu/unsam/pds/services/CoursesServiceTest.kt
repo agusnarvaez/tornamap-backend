@@ -7,7 +7,7 @@ import ar.edu.unsam.pds.dto.response.CourseStatsResponseDto
 import ar.edu.unsam.pds.exceptions.NotFoundException
 import ar.edu.unsam.pds.exceptions.PermissionDeniedException
 import ar.edu.unsam.pds.exceptions.ValidationException
-import ar.edu.unsam.pds.mappers.AssignmentMapper
+import ar.edu.unsam.pds.mappers.EventMapper
 import ar.edu.unsam.pds.mappers.CourseMapper
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
@@ -18,7 +18,7 @@ import java.util.*
 
 class CoursesServiceTest : BootstrapNBTest() {
     private lateinit var courseServices: CoursesService
-    private lateinit var assignmentService: AssignmentService
+    private lateinit var assignmentService: EventService
 
     @BeforeEach
     fun setUpCoursesServiceTest() {
@@ -28,8 +28,8 @@ class CoursesServiceTest : BootstrapNBTest() {
             imageService = imageService,
         )
 
-        assignmentService = AssignmentService(
-            assignmentRepository = assignmentRepository,
+        assignmentService = EventService(
+            eventRepository = assignmentRepository,
             userRepository = userRepository,
             scheduleRepository = scheduleRepository,
             courseRepository = courseRepository,
@@ -162,7 +162,7 @@ class CoursesServiceTest : BootstrapNBTest() {
     fun `test throw delete a particular course`() {
         val userId = users[0].id.toString()
         val courseId = courses[0].id.toString()
-        val assignmentId = assignments[0].id.toString()
+        val assignmentId = events[0].id.toString()
 
         assignmentService.subscribe(userId, assignmentId)
 
@@ -273,9 +273,9 @@ class CoursesServiceTest : BootstrapNBTest() {
             totalAssignments = 1,
             totalSubscriptions = 0,
             totalIncome = 0.0,
-            mostPopularAssignment = AssignmentMapper.buildAssignmentStatsDto(assignments[1]),
-            mostProfitableAssignment = AssignmentMapper.buildAssignmentStatsDto(assignments[1]),
-            assignments = mutableSetOf(AssignmentMapper.buildAssignmentStatsDto(assignments[1]))
+            mostPopularAssignment = EventMapper.buildEventStatsDto(events[1]),
+            mostProfitableAssignment = EventMapper.buildEventStatsDto(events[1]),
+            assignments = mutableSetOf(EventMapper.buildEventStatsDto(events[1]))
         )
 
         val obtainedValue = courseServices.getCourseStats(uuid)

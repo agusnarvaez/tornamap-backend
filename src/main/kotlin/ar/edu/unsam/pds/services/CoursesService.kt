@@ -20,7 +20,6 @@ import java.util.*
 class CoursesService(
     private val courseRepository: CourseRepository,
     private val programRepository: ProgramRepository,
-    private val imageService: StorageService
 ) {
 
     fun getAll(query: String): List<CourseResponseDto> {
@@ -47,12 +46,6 @@ class CoursesService(
             throw PermissionDeniedException("No se puede borrar un curso del cual no es propietario")
         }
 
-        if (course.assignments.any { it.hasAnySubscribedUser() }) {
-            throw ValidationException("No se puede eliminar un curso con usuarios inscriptos")
-        }
-        val imageName = course.image
-        courseRepository.delete(course)
-        imageService.deletePublic(imageName)
     }
 
     @Transactional
@@ -71,29 +64,23 @@ class CoursesService(
 
     @Transactional
     fun createCourse(course: CourseRequestDto): CourseResponseDto? {
-        val institutionId = UUID.fromString(course.programId)
-        val institution = institutionRepository.findById(institutionId).orElseThrow {
+        val programId = UUID.fromString(course.programId)
+        val program = programRepository.findById(programId).orElseThrow {
             NotFoundException("Institución no encontrada para el uuid suministrado")
         }
 
-        val imageName = imageService.savePublic(course.file)
+
 
         val newCourse = Course(
             course.title,
             course.description,
-            course.category,
-            imageName,
         )
         courseRepository.save(newCourse)
 
-        institution.addCourse(newCourse)
-        institutionRepository.save(institution)
+        program.addCourse(newCourse)
+        programRepository.save(program)
 
         return CourseMapper.buildCourseDto(newCourse)
     }
 
-    fun getCourseStats(idCourse: String): CourseStatsResponseDto? {
-        val course = findCourseById(idCourse)
-        return CourseMapper.buildCourseStatsDto(course)
-    }
 }

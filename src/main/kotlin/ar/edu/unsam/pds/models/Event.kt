@@ -7,11 +7,11 @@ import java.io.Serializable
 import java.time.LocalDate
 import java.util.*
 
-@Entity @Table(name = "APP_ASSIGNMENT")
-class Assignment(
-    val quotas: Int,
-    var isActive: Boolean,
-    val price: Double,
+@Entity @Table(name = "APP_EVENT")
+class Event(
+    var name: String,
+    var isApproved: Boolean,
+    var isCancelled: Boolean = false,
 
     @ManyToOne(fetch = FetchType.EAGER)
     var schedule: Schedule
@@ -20,12 +20,15 @@ class Assignment(
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "assignmentsList")
-    val subscribedUsers = mutableSetOf<User>()
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "eventList")
+    val users = mutableSetOf<User>()
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     lateinit var course: Course
+
+/*    @ManyToOne(fetch = FetchType.EAGER)
+    lateinit var period: Period*/
 
     fun status(): String {
         return if (schedule.isBeforeEndDate(LocalDate.now())) {
@@ -35,43 +38,35 @@ class Assignment(
         }
     }
 
-    fun quantityAvailable(): Int {
-        return quotas - subscribedUsers.size
-    }
-
     fun attachCourse(course: Course) {
         this.course = course
     }
 
-    fun addSubscribedUser(user: User) {
-        if (quotas > subscribedUsers.size) {
-            subscribedUsers.add(user)
-        } else {
-            throw ValidationException("No hay cupos disponibles")
+    fun addUser(user: User) {
+        if (validateUserId(user)) {
+            throw ValidationException("El usuario ya es parte de este evento")
         }
+        users.add(user)
     }
 
-    fun removeSubscribedUser(user: User) {
-        if (!subscribedUsers.any { it.id == user.id }) {
+    fun removeUser(user: User) {
+        if (!validateUserId(user)) {
             throw ValidationException("El usuario no está subscripto")
-        } else {
-            subscribedUsers.removeIf { it.id == user.id }
         }
+        users.removeAll { it.id == user.id }
     }
 
-    fun hasAnySubscribedUser(): Boolean {
-        return subscribedUsers.isNotEmpty()
+    fun validateUserId(user: User) = users.any { it.id == user.id }
+    
+    fun hasAnyUser(): Boolean {
+        return users.isNotEmpty()
     }
 
-    fun totalSubscribedUsers(): Int {
-        return subscribedUsers.size
+    fun userCount(): Int {
+        return users.size
     }
-
-    fun totalIncome(): Double {
-        return price * subscribedUsers.size
-    }
-
-    fun name(): String {
+    
+    fun activeDays(): String {
         return schedule.days.joinToString(", ") { it.name }
     }
 }

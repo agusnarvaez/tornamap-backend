@@ -1,10 +1,9 @@
 package ar.edu.unsam.pds.dto.response
 
-data class AssignmentResponseDto(
+data class EventResponseDto(
     val id: String,
-    val quotas: Int,
-    var quantityAvailable: Int,
+    val name: String,
     var isActive: Boolean,
-    val price: Double,
+    var isCancelled: Boolean,
     val schedule: ScheduleResponseDto
 )

@@ -24,12 +24,12 @@ class ProgramService(
     private val imageService: StorageService
 ) {
 
-    fun getAll(query: String): List<ProgramResponseDto> {
+    fun getAll(query: String?): List<ProgramResponseDto> {
         val programs = programRepository.getAllBy(query)
         return programs.map { ProgramMapper.buildProgramDto(it) }
     }
 
-    fun getAllByPrincipal(query: String, principal: Principal): List<ProgramResponseDto> {
+    fun getAllByPrincipal(query: String?, principal: Principal): List<ProgramResponseDto> {
         val programs = programRepository.getAllByPrincipal(query, principal)
         return programs.map { ProgramMapper.buildProgramDto(it) }
     }
