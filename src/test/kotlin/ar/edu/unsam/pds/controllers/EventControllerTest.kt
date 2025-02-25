@@ -36,8 +36,7 @@ class EventControllerTest {
     private lateinit var user: User
 
     @BeforeEach
-    fun setUp() {
-        eventController = EventController()
+    fun setUp(eventController : EventController) {
         eventController.eventService = eventService
 
         scheduleReq = ScheduleRequestDto(

@@ -52,6 +52,4 @@ class Course(
     fun eventsNames(): Set<String> {
         return events.map { it.activeDays() }.toSet()
     }
-
-
 }
