@@ -30,7 +30,10 @@ class Schedule(
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
 
-   fun isBeforeEndDate(enteredDate: LocalDate): Boolean {
+    fun isBeforeEndDate(enteredDate: LocalDate): Boolean {
+        if (date == null) {
+            throw IllegalStateException("No se puede verificar la fecha porque 'date' es nulo en este Schedule")
+        }
         return enteredDate.isBefore(date) || enteredDate.isEqual(date)
     }
 
