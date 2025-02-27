@@ -15,16 +15,16 @@ class Schedule(
     val startTime: LocalTime,
     val endTime: LocalTime,
     val weekDay: DayOfWeek?,
-    val date: LocalDate?, //podra un schedule ser mas de un dia?
+    val date: LocalDate?,
     val isVirtual: Boolean,
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "classroom_id", nullable = true)
     val classroom: Classroom?,
 
-    /*@ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "event_id", nullable = true)
-    val event: Event,*/
+    val event: Event,
 
 ) : Timestamp(), Serializable {
     @Id @GeneratedValue(strategy = GenerationType.UUID)

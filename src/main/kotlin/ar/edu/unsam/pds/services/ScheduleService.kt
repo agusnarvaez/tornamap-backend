@@ -23,8 +23,8 @@ import java.util.*
 @Service
 class ScheduleService(
     val scheduleRepository: ScheduleRepository,
-    val classroomRepository: ClassroomRepository
-    // val eventRepository : EventRepository
+    val classroomRepository: ClassroomRepository,
+    val eventRepository : EventRepository
 ) {
     fun getAll(query: String): List<ScheduleResponseDto> {
         val schedules = scheduleRepository.getAllBy(query)
@@ -70,9 +70,9 @@ class ScheduleService(
     fun createSchedule(schedule: ScheduleRequestDto){
         if (isValidDateOrWeekDay(schedule.date,schedule.weekDay)){
             val idEvent = UUID.fromString(schedule.idEvent)
-            /*val event=eventRepository.findById(idEvent).orElseThrow {
+            val event=eventRepository.findById(idEvent).orElseThrow {
                 NotFoundException("Evento no encontrado para el uuid suministrado")
-            }*/
+            }
 
             val classroom=createClassroom(schedule)
 
@@ -83,7 +83,7 @@ class ScheduleService(
                 schedule.date,
                 schedule.isVirtual,
                 classroom,
-                //event
+                event
             )
 
             scheduleRepository.save(newSchedule)

@@ -33,7 +33,7 @@ interface ScheduleRepository : JpaRepository<Schedule, UUID>{
 """)
     fun getByPrincipal(@Param("query") query: String, @Param("principal") principal: Principal): Schedule?
 
-/*en principio por lo que vi cada event tenia un solo schedule*/
+/*en principio por lo que vi cada event tenia un solo schedule por eso cambbie a getByPrincipal*/
 
     @Query("""
         SELECT COUNT(schedules.id) = 1
