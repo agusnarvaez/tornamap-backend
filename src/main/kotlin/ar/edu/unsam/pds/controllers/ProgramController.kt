@@ -3,6 +3,7 @@ package ar.edu.unsam.pds.controllers
 import ar.edu.unsam.pds.dto.request.ProgramRequestDto
 import ar.edu.unsam.pds.dto.response.ProgramDetailResponseDto
 import ar.edu.unsam.pds.dto.response.ProgramResponseDto
+import ar.edu.unsam.pds.dto.response.ResponseMessage
 import ar.edu.unsam.pds.security.models.Principal
 import ar.edu.unsam.pds.services.ProgramService
 import io.swagger.v3.oas.annotations.Operation
@@ -59,12 +60,11 @@ class ProgramController : UUIDValid() {
     fun deleteProgram(
         @PathVariable idProgram: String,
         @AuthenticationPrincipal principal: Principal
-    ): ResponseEntity<SuccessfulRequest> {
+    ): ResponseEntity<ResponseMessage> {
         this.validatedUUID(idProgram)
         programService.deleteProgram(idProgram, principal)
-        return ResponseEntity.ok(SuccessfulRequest(message = "Programa eliminado correctamente."))
+        return ResponseEntity.ok(ResponseMessage(message = "Programa eliminado correctamente."))
         
     }
 }
 
-data class SuccessfulRequest(val message: String)
