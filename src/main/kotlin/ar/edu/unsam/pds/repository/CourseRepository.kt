@@ -23,7 +23,7 @@ interface CourseRepository : JpaRepository<Course, UUID> {
     fun getAllBy(@Param("query") query: String): MutableList<Course>
 
     @Query("""
-    SELECT courses FROM Institution i
+    SELECT courses FROM Program i
     JOIN i.courses courses
     JOIN i.admin admins
     WHERE admins.id = :#{#principal.user.id}
@@ -34,16 +34,19 @@ interface CourseRepository : JpaRepository<Course, UUID> {
             WHEN courses.title LIKE concat('%', :query, '%') THEN 1
             ELSE 3
         END
-""")
-    fun getAllByPrincipal(@Param("query") query: String, @Param("principal") principal: Principal): MutableList<Course>
+    """
+    )
+    fun getAllByPrincipal(@Param("query")query: String, @Param("principal") principal: Principal): MutableList<Course>
 
-    @Query("""
+    @Query(
+        """
         SELECT COUNT(cursos.id) = 1
-        FROM Institution i
+        FROM Program i
         JOIN i.courses cursos
         JOIN i.admin admins
         WHERE cursos.id = :idCourse AND admins.id = :#{#principal.user.id}
-    """)
+    """
+    )
     fun isOwner(@Param("idCourse") idCourse: UUID, @Param("principal") principal: Principal): Boolean
 
     @Query(

@@ -14,8 +14,8 @@ interface EventRepository : JpaRepository<Event, UUID>{
 
     @Query(
         """
-            SELECT COUNT(course.id) = 1
-            FROM Institution i
+        SELECT COUNT(course.id) = 1
+            FROM Program i
             JOIN i.courses course
             JOIN course.events events
             JOIN i.admin admins

@@ -150,7 +150,7 @@ class CoursesControllerTest {
             description = "description",
             category = "category",
             file = fileImg,
-            institutionId = "123"
+            programId = "123"
         )
 
         `when`(courseServices.createCourse(courseRequest)).thenReturn(course)

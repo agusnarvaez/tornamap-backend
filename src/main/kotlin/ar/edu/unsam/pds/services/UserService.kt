@@ -31,7 +31,7 @@ import java.util.*
 class UserService(
     private val userRepository: UserRepository,
     private val principalRepository: PrincipalRepository,
-    private val institutionService: InstitutionService,
+    private val programService: ProgramService,
 
     private val emailService: EmailService,
     private val storageService: StorageService,

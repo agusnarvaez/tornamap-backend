@@ -1,6 +1,6 @@
 package ar.edu.unsam.pds.exceptions.controllers
 
-import ar.edu.unsam.pds.controllers.InstitutionController
+import ar.edu.unsam.pds.controllers.ProgramController
 import ar.edu.unsam.pds.exceptions.RestExceptionHandler
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -13,9 +13,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 
 @ExtendWith(MockitoExtension::class)
-class InstitutionControllerDtosTest : ControllersDtosBasicTest() {
+class ProgramControllerDtosTest : ControllersDtosBasicTest() {
     @InjectMocks
-    private lateinit var institutionController: InstitutionController
+    private lateinit var institutionController: ProgramController
 
     @BeforeEach
     fun setUpInstitutionControllerDtosTest() {

@@ -10,7 +10,7 @@ import ar.edu.unsam.pds.exceptions.ValidationException
 import ar.edu.unsam.pds.mappers.CourseMapper
 import ar.edu.unsam.pds.models.Course
 import ar.edu.unsam.pds.repository.CourseRepository
-import ar.edu.unsam.pds.repository.InstitutionRepository
+import ar.edu.unsam.pds.repository.ProgramRepository
 import ar.edu.unsam.pds.security.models.Principal
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service

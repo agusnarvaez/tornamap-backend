@@ -18,7 +18,7 @@ open class BootstrapBasicTest {
     var schedules = mutableListOf<Schedule>()
     var events = mutableListOf<Event>()
     var courses = mutableListOf<Course>()
-    var institutions = mutableListOf<Institution>()
+    var programs = mutableListOf<Program>()
 
     val defaultImage = "https://mock.pirulo/media/private/default.png"
 
@@ -135,7 +135,7 @@ open class BootstrapBasicTest {
             )
         )
 
-        institutions.add(Institution(
+        programs.add(Program(
             name = "Enchanted Dance",
             description = "dance institution",
             category = "dance_category",
@@ -146,15 +146,15 @@ open class BootstrapBasicTest {
             addAdmin(principals[0].getUser())
         })
 
-        institutions.add(Institution(
+        programs.add(Program(
             name = "The Kingdom of Calculations",
             description = "mathematics institution",
             category = "mathematics_category",
             image = "",
         ))
 
-        institutions.add(
-            Institution(
+        programs.add(
+            Program(
                 name = "Serenity and Postures",
                 description = "yoga institution",
                 category = "yoga_category",
