@@ -44,8 +44,10 @@ class CoursesService(
 
         if (!courseRepository.isOwner(uuid, principal)) {
             throw PermissionDeniedException("No se puede borrar un curso del cual no es propietario")
+        } else{
+            courseRepository.delete(course)
         }
-        //falta que elimine
+
     }
 
     @Transactional

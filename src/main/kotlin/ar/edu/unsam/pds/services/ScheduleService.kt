@@ -28,7 +28,7 @@ class ScheduleService(
 ) {
     fun getAll(query: String): List<ScheduleResponseDto> {
         val schedules = scheduleRepository.getAllBy(query)
-        return schedules.map { ScheduleMapper.buildScheduleDto(this) }
+        return schedules.map { ScheduleMapper.buildScheduleDto(it) }
     }
 
     fun getByPrincipal(query: String, principal: Principal): Schedule? {
@@ -76,6 +76,8 @@ class ScheduleService(
 
             val classroom=createClassroom(schedule)
 
+           // val newSchedule=schedule.copy(classroom=classroom, event=event)
+
             val newSchedule=Schedule(
                 schedule.startTime,
                 schedule.endTime,
@@ -93,11 +95,10 @@ class ScheduleService(
     private fun createClassroom(schedule: ScheduleRequestDto): Classroom? {
         if (schedule.isVirtual){
             return null
-        } else{
-            val idClassroom = UUID.fromString(schedule.idClassroom)
-            return classroomRepository.findById(idClassroom).orElseThrow{
-                NotFoundException("Aula no encontrada para el id suministrado")
-            }
+        }
+        val idClassroom = UUID.fromString(schedule.idClassroom)
+        return classroomRepository.findById(idClassroom).orElseThrow{
+            NotFoundException("Aula no encontrada para el id suministrado")
         }
     }
 
