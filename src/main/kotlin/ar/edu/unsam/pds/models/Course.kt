@@ -9,7 +9,7 @@ class Course(
     val title: String,
 
     @Column(length = 1024)
-    val description: String,
+    val description: String?,
 
 ) : Timestamp(), Serializable {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
