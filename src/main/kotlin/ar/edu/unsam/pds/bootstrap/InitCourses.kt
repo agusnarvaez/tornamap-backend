@@ -24,14 +24,29 @@ class InitCourses : BootstrapGeneric("Courses") {
         else "localhost"
 
     override fun doAfterPropertiesSet() {
+
+        courseRepository.save(
+            Course(
+                    title="Matematica I",
+                    description="Asignatura introductoria que aborda los fundamentos del análisis en una variable, álgebra y geometría. Se aprenden conceptos clave como funciones, límites, derivadas, polinomios y ecuaciones, desarrollando habilidades esenciales para el razonamiento matemático y la resolución de problemas.")
+        )
+
+        courseRepository.save(
+            Course(
+                title="Laboratorio de Informatica I",
+                description = "Asignatura introductoria que aborda las nociones básicas de una computadora, utilización de programas e introducción a la resolución de pequeños problemas.")
+            )
+
         courseRepository.save(
             Course(title="Redes Locales", description = null)
         )
 
 
+
+
     }
 
-    fun findByName(name: String): Program? {
+    fun findProgramByName(name: String): Program? {
         return programRepository.findAll().find { it.name.contains(name) }
     }
 }
