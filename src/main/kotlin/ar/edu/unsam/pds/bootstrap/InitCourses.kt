@@ -38,11 +38,46 @@ class InitCourses : BootstrapGeneric("Courses") {
             )
 
         courseRepository.save(
-            Course(title="Redes Locales", description = null)
+            Course(
+                title="Electricidad y Magnetismo",
+                description="Asignatura introductoria que aborda los principios fundamentales de la electricidad y el magnetismo, incluyendo electrostática, circuitos eléctricos, inducción electromagnética y ondas electromagnéticas, con aplicaciones en equipos informáticos y de comunicaciones."
+            )
         )
 
+        courseRepository.save(
+            Course(
+                title="Laboratorio de Computación II",
+                description="Asignatura orientada a la resolución de problemas mediante herramientas informáticas, incluyendo programación, redes, sistemas operativos y aplicaciones matemáticas para algoritmos numéricos y problemas algebraicos."
+            )
+        )
 
+        courseRepository.save(
+            Course(
+                title="Sistemas de Procesamiento de Datos",
+                description="Asignatura que aborda la organización interna de sistemas de computadoras digitales, incluyendo el modelo de Von Neumann, la función del procesador, entrada/salida, software de base y arquitecturas avanzadas."
+            )
+        )
 
+        courseRepository.save(
+            Course(
+                title="Matemática II",
+                description="Asignatura que profundiza en geometría analítica, lógica proposicional, teoría de conjuntos, números enteros y polinomios, brindando herramientas matemáticas esenciales para la informática."
+            )
+        )
+
+        courseRepository.save(
+            Course(
+                title="Algoritmos I",
+                description="Asignatura centrada en la especificación, implementación y corrección de programas, abordando el tratamiento de secuencias, tipos abstractos de datos y archivos secuenciales mediante pequeños proyectos computacionales."
+            )
+        )
+
+        courseRepository.save(
+            Course(
+                title="Conceptos de Arquitecturas y Sistemas Operativos",
+                description="Asignatura que introduce las funciones principales de los sistemas operativos y su relación con la arquitectura del computador, incluyendo administración de recursos, procesos concurrentes y sistemas distribuidos."
+            )
+        )
 
     }
 
