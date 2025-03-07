@@ -1,18 +1,24 @@
 package ar.edu.unsam.pds.services
 
 
+import ar.edu.unsam.pds.dto.request.PeriodRequestDto
 import ar.edu.unsam.pds.dto.response.PeriodResponseDto
 import ar.edu.unsam.pds.exceptions.NotFoundException
 import ar.edu.unsam.pds.exceptions.PermissionDeniedException
 import ar.edu.unsam.pds.mappers.PeriodMapper
 import ar.edu.unsam.pds.models.Period
+import ar.edu.unsam.pds.repository.EventRepository
 import ar.edu.unsam.pds.repository.PeriodRepository
 import ar.edu.unsam.pds.security.models.Principal
 import jakarta.transaction.Transactional
+import org.springframework.stereotype.Service
 import java.util.*
 
+
+@Service
 class PeriodService(
-    private val periodRepository : PeriodRepository
+    private val periodRepository : PeriodRepository,
+    private val eventRepository: EventRepository,
 ) {
     fun getAll(query: String): List<PeriodResponseDto> {
         val periods = periodRepository.getAllBy(query)
@@ -36,8 +42,10 @@ class PeriodService(
 
         if (!periodRepository.isOwner(uuid, principal)) {
             throw PermissionDeniedException("No se puede borrar un periodo del cual no es propietario")
+        }else{
+            periodRepository.delete(period)
         }
-        //TODO: agregar delete
+
     }
 
     @Transactional
@@ -54,25 +62,15 @@ class PeriodService(
         }
     }
 
-   /* @Transactional
-    fun createPeriod(course: CourseRequestDto): CourseResponseDto? {
-        val programId = UUID.fromString(course.programId)
-        val program = programRepository.findById(programId).orElseThrow {
-            NotFoundException("Institución no encontrada para el uuid suministrado")
-        }
-
-
-
-        val newCourse = Course(
-            course.title,
-            course.description,
+    @Transactional
+    fun createPeriod(period: PeriodRequestDto): PeriodResponseDto? {
+        val newPeriod = Period(
+            period.startDate,
+            period.endDate,
         )
-        courseRepository.save(newCourse)
+        periodRepository.save(newPeriod)
 
-        program.addCourse(newCourse)
-        programRepository.save(program)
-
-        return CourseMapper.buildCourseDto(newCourse)
-    }*/
+        return PeriodMapper.buildPeriodDto(newPeriod)
+    }
 
 }
