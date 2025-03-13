@@ -1,5 +1,6 @@
 package ar.edu.unsam.pds.repository
 
+import ar.edu.unsam.pds.models.Course
 import ar.edu.unsam.pds.models.Period
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
@@ -20,7 +21,7 @@ interface PeriodRepository: JpaRepository<Period, UUID> {
     SELECT period FROM Event i
     JOIN i.period period
     JOIN i.admin admins
-    WHERE admins.id = :#{#principal.user.id}
+    WHERE admins.id = :#{#principal.user.id} 
     AND (
            FUNCTION('TEXT', period.startDate) LIKE concat('%', :query, '%')
            )
@@ -39,4 +40,13 @@ interface PeriodRepository: JpaRepository<Period, UUID> {
     """
     )
     fun isOwner(@Param("idPeriod") idPeriod: UUID, @Param("principal") principal: Principal): Boolean
+
+
+    @Query("""
+    SELECT p FROM Period p
+    JOIN Event e ON e.period = p
+    WHERE e.id = :idEvent
+""")
+    fun findByEventId(@Param("idEvent") id: UUID): Period
+
 }
