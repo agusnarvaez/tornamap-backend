@@ -14,8 +14,6 @@ class PeriodRequestDto (
 
     @field: NotNull(message = "La fecha de finalización no puede ser nula")
     @field: FutureOrPresent(message = "La fecha de finalizacion no puede ser en el pasado")
-    //anotacion personalizada para comprobar que endDate no sea antes que startDate?
-
     val endDate: LocalDate,
 
 )
