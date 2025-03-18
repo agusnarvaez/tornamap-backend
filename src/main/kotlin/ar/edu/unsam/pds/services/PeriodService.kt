@@ -68,6 +68,7 @@ class PeriodService(
     fun createPeriod(period: PeriodRequestDto): PeriodResponseDto? {
         if(isValidEndDate(period.startDate, period.endDate)){
             val newPeriod = Period(
+                period.title,
                 period.startDate,
                 period.endDate,
             )
