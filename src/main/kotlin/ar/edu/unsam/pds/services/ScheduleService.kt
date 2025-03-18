@@ -12,6 +12,7 @@ import ar.edu.unsam.pds.models.Classroom
 import ar.edu.unsam.pds.models.Course
 import ar.edu.unsam.pds.models.Schedule
 import ar.edu.unsam.pds.repository.ClassroomRepository
+import ar.edu.unsam.pds.repository.EventRepository
 import ar.edu.unsam.pds.repository.ScheduleRepository
 import ar.edu.unsam.pds.security.models.Principal
 import jakarta.transaction.Transactional
@@ -31,15 +32,18 @@ class ScheduleService(
         return schedules.map { ScheduleMapper.buildScheduleDto(it) }
     }
 
+/*
     fun getByPrincipal(query: String, principal: Principal): Schedule? {
         return scheduleRepository.getByPrincipal(query, principal)
     }
+*/
 
     fun getSchedule(idSchedule: String): ScheduleResponseDto {
         val schedule = findScheduleById(idSchedule)
         return ScheduleMapper.buildScheduleDto(schedule)
     }
 
+/*
     @Transactional
     fun deleteSchedule(idSchedule: String, principal: Principal) {
         val schedule = findScheduleById(idSchedule)
@@ -51,13 +55,16 @@ class ScheduleService(
             scheduleRepository.delete(schedule)
         }
     }
+*/
 
+/*
     @Transactional
     fun deleteAllById(scheduleIds: List<String>, principal: Principal) {
         scheduleIds.forEach { id ->
             deleteSchedule(id, principal)
         }
     }
+*/
 
     private fun findScheduleById(idSchedule: String): Schedule {
         val uuid = UUID.fromString(idSchedule)

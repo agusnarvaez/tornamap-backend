@@ -26,17 +26,19 @@ class PeriodService(
         val periods = periodRepository.getAllBy(query)
         return periods.map { PeriodMapper.buildPeriodDto(it) }
     }
-
+/*
     fun getAllByPrincipal(query: String, principal: Principal): List<PeriodResponseDto> {
         val periods = periodRepository.getAllByPrincipal(query, principal)
         return periods.map { PeriodMapper.buildPeriodDto(it) }
     }
+*/
 
     fun getPeriod(idPeriod: String): PeriodResponseDto {
         val period = findPeriodById(idPeriod)
         return PeriodMapper.buildPeriodDto(period)
     }
 
+/*
     @Transactional
     fun deletePeriod(idPeriod: String, principal: Principal) {
         val period = findPeriodById(idPeriod)
@@ -49,13 +51,16 @@ class PeriodService(
         }
 
     }
+*/
 
+/*
     @Transactional
     fun deleteAllById(periodIds: List<String>, principal: Principal) {
         periodIds.forEach { id ->
             deletePeriod(id, principal)
         }
     }
+*/
 
     private fun findPeriodById(idPeriod: String): Period {
         val uuid = UUID.fromString(idPeriod)

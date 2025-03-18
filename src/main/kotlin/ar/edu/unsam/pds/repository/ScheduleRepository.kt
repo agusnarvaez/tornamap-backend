@@ -21,6 +21,7 @@ interface ScheduleRepository : JpaRepository<Schedule, UUID>{
     fun getAllBy(@Param("query") query: String): MutableList<Schedule>
 
 
+/*
     @Query("""
     SELECT schedule FROM Event i
     JOIN i.schedule schedule
@@ -33,7 +34,7 @@ interface ScheduleRepository : JpaRepository<Schedule, UUID>{
 """)
     fun getByPrincipal(@Param("query") query: String, @Param("principal") principal: Principal): Schedule?
 
-/*en principio por lo que vi cada event tenia un solo schedule por eso cambbie a getByPrincipal*/
+*//*en principio por lo que vi cada event tenia un solo schedule por eso cambbie a getByPrincipal*//*
 
     @Query("""
         SELECT COUNT(schedules.id) = 1
@@ -43,6 +44,6 @@ interface ScheduleRepository : JpaRepository<Schedule, UUID>{
         WHERE schedules.id = :idSchedule AND admins.id = :#{#principal.user.id}
     """)
     fun isOwner(@Param("idSchedule") idSchedule: UUID, @Param("principal") principal: Principal): Boolean
-
+*/
 
 }

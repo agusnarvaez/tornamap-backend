@@ -17,6 +17,7 @@ interface PeriodRepository: JpaRepository<Period, UUID> {
     """)
     fun getAllBy(@Param("query") query: String): MutableList<Period>
 
+/*
     @Query("""
     SELECT period FROM Event i
     JOIN i.period period
@@ -40,6 +41,7 @@ interface PeriodRepository: JpaRepository<Period, UUID> {
     """
     )
     fun isOwner(@Param("idPeriod") idPeriod: UUID, @Param("principal") principal: Principal): Boolean
+*/
 
 
     @Query("""
