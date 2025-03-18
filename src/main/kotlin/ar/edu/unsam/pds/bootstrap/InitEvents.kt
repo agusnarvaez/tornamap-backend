@@ -11,9 +11,8 @@ import org.springframework.context.annotation.DependsOn
 import org.springframework.stereotype.Component
 import ar.edu.unsam.pds.exceptions.NotFoundException
 
-@Component(value = "InitAssignments.beanName")
-@DependsOn(value = ["InitCourses.beanName", "InitSchedules.beanName"])
 @Component(value = "InitEvents.beanName")
+@DependsOn(value = ["InitCourses.beanName", "InitPrograms.beanName"])
 class InitEvents : BootstrapGeneric("Events") {
     @Autowired private lateinit var scheduleRepository: ScheduleRepository
     @Autowired private lateinit var programRepository: ProgramRepository
