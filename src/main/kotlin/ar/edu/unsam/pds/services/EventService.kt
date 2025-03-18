@@ -100,7 +100,7 @@ class EventService(
             throw ValidationException("No se puede eliminar un curso con usuarios inscriptos")
         }
 
-        val course = courseRepository.findByAssignmentId(event.id).orElseThrow {
+        val course = courseRepository.findByEventsId(event.id).orElseThrow {
             NotFoundException("curso no encontrado")
         }
 
