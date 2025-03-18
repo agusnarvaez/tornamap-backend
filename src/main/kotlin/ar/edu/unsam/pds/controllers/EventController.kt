@@ -33,6 +33,7 @@ class EventController : UUIDValid() {
         return ResponseEntity.ok(eventService.getEvent(idEvent))
     }
 
+/*
     @PostMapping("")
     @Operation(summary = "Create a event")
     fun createEvent(
@@ -40,6 +41,7 @@ class EventController : UUIDValid() {
     ): ResponseEntity<EventResponseDto> {
         return ResponseEntity.ok(eventService.createEvent(event))
     }
+*/
 
     @DeleteMapping("{idEvent}")
     @Operation(summary = "Delete event by id")

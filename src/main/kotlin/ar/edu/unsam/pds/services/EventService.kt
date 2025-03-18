@@ -43,6 +43,7 @@ class EventService(
         }
     }
 
+/*
     fun createEvent(event: EventRequestDto): EventResponseDto {
         val courseId = UUID.fromString(event.idCourse)
         val course = courseRepository.findById(courseId).orElseThrow {
@@ -53,11 +54,11 @@ class EventService(
             throw ValidationException("La hora de inicio no puede ser posterior a la hora de fin")
         }
 
-        if(event.schedule.startDate.isBefore(LocalDate.now())) {
-            throw ValidationException("La fecha de inicio no puede ser anterior a la fecha actual")
+        if(event.schedule.date.isBefore(LocalDate.now())) {
+            throw ValidationException("La fecha del evento no puede ser anterior a la fecha actual")
         }
 
-        if (event.schedule.startDate.isAfter(event.schedule.endDate)) {
+        if (event.schedule.date.isAfter(event.schedule.endDate)) {
             throw ValidationException("La fecha de inicio no puede ser posterior a la fecha de fin")
         }
 
@@ -84,6 +85,7 @@ class EventService(
 
         return EventMapper.buildEventDto(newEvent)
     }
+*/
 
     @Transactional
     fun deleteEvent(eventId: String, principal: Principal) {
