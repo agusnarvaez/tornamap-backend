@@ -54,15 +54,13 @@ class InitEvents : BootstrapGeneric("Events") {
 
       }
 
-    //EL TITLE NO IRIA
-    fun findByNameAndCourseTitle(name: String, title: String): Course? {
-        val course = institutionRepository.findAll().find { it.name.contains(name) }.let { institution ->
-            institution?.courses.let { courses ->
-                courses?.find { it.title.contains(title) }
-            }
-        } ?: error("error find to $name and $title")
-
-        return course
+    fun findByName(name: String): Course? {
+        val programsList = programRepository.findAll()
+        val allCourses = programsList.map { it.courses }.flatten()
+        if (allCourses.isEmpty()) {
+            throw NotFoundException("No se hallaron materias")
+        }
+        return allCourses.find { it.name == name }
     }
 
     fun findRandomSchedule(): Schedule {
