@@ -1,7 +1,13 @@
 package ar.edu.unsam.pds.bootstrap
 
+import ar.edu.unsam.pds.exceptions.NotFoundException
+import ar.edu.unsam.pds.models.Building
+import ar.edu.unsam.pds.models.Classroom
+import ar.edu.unsam.pds.models.Event
 import ar.edu.unsam.pds.models.enums.RecurrenceWeeks
 import ar.edu.unsam.pds.models.Schedule
+import ar.edu.unsam.pds.repository.ClassroomRepository
+import ar.edu.unsam.pds.repository.EventRepository
 import ar.edu.unsam.pds.repository.ScheduleRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -11,214 +17,66 @@ import java.time.LocalTime
 
 @Component(value = "InitSchedules.beanName")
 class InitSchedules : BootstrapGeneric("Schedules") {
+    @Autowired private lateinit var eventRepository: EventRepository
     @Autowired private lateinit var scheduleRepository: ScheduleRepository
+    @Autowired private lateinit var classRoomRepository: ClassroomRepository
 
     override fun doAfterPropertiesSet() {
+
+        val labo1 = findClassroomByName("Laboratorio de Computacion 1")
+
         val schedule1 = Schedule(
-            days = listOf(DayOfWeek.MONDAY),
-            startTime = LocalTime.of(19, 0),
-            endTime = LocalTime.of(20, 0),
-            startDate = LocalDate.of(2023, 3, 1),
-            endDate = LocalDate.of(2024, 10, 30),
-            recurrenceWeeks = RecurrenceWeeks.WEEKLY,
+            startTime = LocalTime.of(8, 30),
+            endTime = LocalTime.of(10, 0),
+            weekDay = DayOfWeek.MONDAY,
+            date = LocalDate.of(2025, 3, 20),
+            isVirtual = false,
+            classroom = labo1,
+            event = findRandomEvent()
         )
+
         scheduleRepository.save(schedule1)
 
-
         val schedule2 = Schedule(
-            days = listOf(DayOfWeek.TUESDAY),
-            startTime = LocalTime.of(19, 0),
-            endTime = LocalTime.of(21, 0),
-            startDate = LocalDate.of(2023, 3, 1),
-            endDate = LocalDate.of(2024, 12, 30),
-            recurrenceWeeks = RecurrenceWeeks.BIWEEKLY,
+            startTime = LocalTime.of(10, 30),
+            endTime = LocalTime.of(12, 0),
+            weekDay = DayOfWeek.FRIDAY,
+            date = LocalDate.of(2025, 3, 21),
+            isVirtual = true,
+            classroom = null,
+            event = findRandomEvent()
         )
+
         scheduleRepository.save(schedule2)
 
+    }
 
-        val schedule3 = Schedule(
-            days = listOf(DayOfWeek.MONDAY, DayOfWeek.WEDNESDAY),
-            startTime = LocalTime.of(12, 0),
-            endTime = LocalTime.of(14, 0),
-            startDate = LocalDate.of(2023, 3, 1),
-            endDate = LocalDate.of(2025, 6, 30),
-            recurrenceWeeks = RecurrenceWeeks.MONTHLY,
-        )
-        scheduleRepository.save(schedule3)
+    fun findRandomEvent(): Event {
+        eventRepository.findAll().randomOrNull()?.let {
+            return it
+        } ?: error("error find random event, event repository is empty")
+    }
 
-
-        val schedule4 = Schedule(
-            days = listOf(DayOfWeek.THURSDAY),
-            startTime = LocalTime.of(12, 0),
-            endTime = LocalTime.of(14, 0),
-            startDate = LocalDate.of(2023, 3, 1),
-            endDate = LocalDate.of(2025, 3, 30),
-            recurrenceWeeks = RecurrenceWeeks.MONTHLY,
-        )
-        scheduleRepository.save(schedule4)
-
-        val schedule5 = Schedule(
-            days = listOf(DayOfWeek.FRIDAY),
-            startTime = LocalTime.of(12, 0),
-            endTime = LocalTime.of(14, 0),
-            startDate = LocalDate.of(2023, 3, 1),
-            endDate = LocalDate.of(2025, 3, 30),
-            recurrenceWeeks = RecurrenceWeeks.MONTHLY,
-        )
-        scheduleRepository.save(schedule5)
-
-        // Create 10 more random schedules
-
-        val schedule6 = Schedule(
-            days = listOf(DayOfWeek.MONDAY, DayOfWeek.WEDNESDAY, DayOfWeek.FRIDAY),
-            startTime = LocalTime.of(12, 0),
-            endTime = LocalTime.of(14, 0),
-            startDate = LocalDate.of(2023, 3, 1),
-            endDate = LocalDate.of(2025, 3, 30),
-            recurrenceWeeks = RecurrenceWeeks.MONTHLY,
-        )
-        scheduleRepository.save(schedule6)
-
-        val schedule7 = Schedule(
-            days = listOf(DayOfWeek.TUESDAY, DayOfWeek.THURSDAY),
-            startTime = LocalTime.of(12, 0),
-            endTime = LocalTime.of(14, 0),
-            startDate = LocalDate.of(2023, 3, 1),
-            endDate = LocalDate.of(2025, 3, 30),
-            recurrenceWeeks = RecurrenceWeeks.MONTHLY,
-        )
-
-        scheduleRepository.save(schedule7)
-
-        val schedule8 = Schedule(
-            days = listOf(DayOfWeek.MONDAY, DayOfWeek.WEDNESDAY, DayOfWeek.FRIDAY),
-            startTime = LocalTime.of(12, 0),
-            endTime = LocalTime.of(14, 0),
-            startDate = LocalDate.of(2023, 3, 1),
-            endDate = LocalDate.of(2025, 3, 30),
-            recurrenceWeeks = RecurrenceWeeks.MONTHLY,
-        )
-        scheduleRepository.save(schedule8)
-
-        val schedule9 = Schedule(
-            days = listOf(DayOfWeek.TUESDAY, DayOfWeek.THURSDAY),
-            startTime = LocalTime.of(12, 0),
-            endTime = LocalTime.of(14, 0),
-            startDate = LocalDate.of(2023, 3, 1),
-            endDate = LocalDate.of(2025, 3, 30),
-            recurrenceWeeks = RecurrenceWeeks.MONTHLY,
-        )
-        scheduleRepository.save(schedule9)
-
-        val schedule10 = Schedule(
-            days = listOf(DayOfWeek.MONDAY, DayOfWeek.WEDNESDAY, DayOfWeek.FRIDAY),
-            startTime = LocalTime.of(12, 0),
-            endTime = LocalTime.of(14, 0),
-            startDate = LocalDate.of(2023, 3, 1),
-            endDate = LocalDate.of(2025, 3, 30),
-            recurrenceWeeks = RecurrenceWeeks.MONTHLY,
-        )
-        scheduleRepository.save(schedule10)
-
-        val schedule11 = Schedule(
-            days = listOf(DayOfWeek.TUESDAY, DayOfWeek.THURSDAY),
-            startTime = LocalTime.of(12, 0),
-            endTime = LocalTime.of(14, 0),
-            startDate = LocalDate.of(2023, 3, 1),
-            endDate = LocalDate.of(2025, 3, 30),
-            recurrenceWeeks = RecurrenceWeeks.MONTHLY,
-        )
-        scheduleRepository.save(schedule11)
-
-        val schedule12 = Schedule(
-            days = listOf(DayOfWeek.MONDAY, DayOfWeek.WEDNESDAY, DayOfWeek.FRIDAY),
-            startTime = LocalTime.of(12, 0),
-            endTime = LocalTime.of(14, 0),
-            startDate = LocalDate.of(2023, 3, 1),
-            endDate = LocalDate.of(2025, 3, 30),
-            recurrenceWeeks = RecurrenceWeeks.MONTHLY,
-        )
-        scheduleRepository.save(schedule12)
-
-        val schedule13 = Schedule(
-            days = listOf(DayOfWeek.TUESDAY, DayOfWeek.THURSDAY),
-            startTime = LocalTime.of(12, 0),
-            endTime = LocalTime.of(14, 0),
-            startDate = LocalDate.of(2023, 3, 1),
-            endDate = LocalDate.of(2025, 3, 30),
-            recurrenceWeeks = RecurrenceWeeks.MONTHLY,
-        )
-        scheduleRepository.save(schedule13)
-
-        val schedule14 = Schedule(
-            days = listOf(DayOfWeek.MONDAY, DayOfWeek.WEDNESDAY, DayOfWeek.FRIDAY),
-            startTime = LocalTime.of(12, 0),
-            endTime = LocalTime.of(14, 0),
-            startDate = LocalDate.of(2023, 3, 1),
-            endDate = LocalDate.of(2025, 3, 30),
-            recurrenceWeeks = RecurrenceWeeks.MONTHLY,
-        )
-        scheduleRepository.save(schedule14)
-
-        val schedule15 = Schedule(
-            days = listOf(DayOfWeek.TUESDAY, DayOfWeek.THURSDAY),
-            startTime = LocalTime.of(12, 0),
-            endTime = LocalTime.of(14, 0),
-            startDate = LocalDate.of(2023, 3, 1),
-            endDate = LocalDate.of(2025, 3, 30),
-            recurrenceWeeks = RecurrenceWeeks.MONTHLY,
-        )
-        scheduleRepository.save(schedule15)
-
-        val schedule16 = Schedule(
-            days = listOf(DayOfWeek.MONDAY, DayOfWeek.WEDNESDAY, DayOfWeek.FRIDAY),
-            startTime = LocalTime.of(12, 0),
-            endTime = LocalTime.of(14, 0),
-            startDate = LocalDate.of(2023, 3, 1),
-            endDate = LocalDate.of(2025, 3, 30),
-            recurrenceWeeks = RecurrenceWeeks.MONTHLY,
-        )
-        scheduleRepository.save(schedule16)
-
-        val schedule17 = Schedule(
-            days = listOf(DayOfWeek.TUESDAY, DayOfWeek.THURSDAY),
-            startTime = LocalTime.of(12, 0),
-            endTime = LocalTime.of(14, 0),
-            startDate = LocalDate.of(2023, 3, 1),
-            endDate = LocalDate.of(2025, 3, 30),
-            recurrenceWeeks = RecurrenceWeeks.MONTHLY,
-        )
-        scheduleRepository.save(schedule17)
-
-        val schedule18 = Schedule(
-            days = listOf(DayOfWeek.MONDAY, DayOfWeek.WEDNESDAY, DayOfWeek.FRIDAY),
-            startTime = LocalTime.of(12, 0),
-            endTime = LocalTime.of(14, 0),
-            startDate = LocalDate.of(2023, 3, 1),
-            endDate = LocalDate.of(2025, 3, 30),
-            recurrenceWeeks = RecurrenceWeeks.MONTHLY,
-        )
-        scheduleRepository.save(schedule18)
-
-        val schedule19 = Schedule(
-            days = listOf(DayOfWeek.TUESDAY, DayOfWeek.THURSDAY),
-            startTime = LocalTime.of(12, 0),
-            endTime = LocalTime.of(14, 0),
-            startDate = LocalDate.of(2023, 3, 1),
-            endDate = LocalDate.of(2025, 3, 30),
-            recurrenceWeeks = RecurrenceWeeks.MONTHLY,
-        )
-        scheduleRepository.save(schedule19)
-
-        val schedule20 = Schedule(
-            days = listOf(DayOfWeek.MONDAY, DayOfWeek.WEDNESDAY, DayOfWeek.FRIDAY),
-            startTime = LocalTime.of(12, 0),
-            endTime = LocalTime.of(14, 0),
-            startDate = LocalDate.of(2023, 3, 1),
-            endDate = LocalDate.of(2025, 3, 30),
-            recurrenceWeeks = RecurrenceWeeks.MONTHLY,
-        )
-        scheduleRepository.save(schedule20)
+    fun findClassroomByName(name: String): Classroom? {
+        val allClasrooms = classRoomRepository.findAll()
+        validateClassroomList(allClasrooms)
+        validateClassroomSearch(allClasrooms,name)
+        return allClasrooms.find { it.name == name }!!
 
     }
+
+    private fun validateClassroomList(classrooms: List<Classroom>) {
+        if (classrooms.isEmpty()) {
+            throw NotFoundException("No hay aulas cargadas")
+        }
+    }
+
+    private fun validateClassroomSearch(classrooms: List<Classroom>, classroomName: String) {
+        if (!classrooms.map {it.name}.contains(classroomName)) {
+            throw NotFoundException("No hay una aula con el nombre indicado.")
+        }
+    }
+
+
+
 }
