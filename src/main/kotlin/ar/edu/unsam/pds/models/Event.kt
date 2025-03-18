@@ -27,8 +27,8 @@ class Event(
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     lateinit var course: Course
 
-/*    @ManyToOne(fetch = FetchType.EAGER)
-    lateinit var period: Period*/
+    @ManyToOne(fetch = FetchType.EAGER)
+    lateinit var period: Period
 
     fun status(): String {
         return if (schedule.isBeforeEndDate(LocalDate.now())) {
