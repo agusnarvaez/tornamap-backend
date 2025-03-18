@@ -40,6 +40,7 @@ class InitPrograms : BootstrapGeneric("Programs") {
                         .trimIndent(),
             ).apply {
                 addAdmin(userByEmail("admin@admin.com"))
+                addCourse(courseRepository.findAll().first())
             }
         )
 
@@ -54,6 +55,7 @@ class InitPrograms : BootstrapGeneric("Programs") {
                         .trimIndent(),
             ).apply {
                 addAdmin(userByEmail("admin@admin.com"))
+                addCourse(courseRepository.findAll().first())
             }
         )
     }
@@ -63,5 +65,4 @@ class InitPrograms : BootstrapGeneric("Programs") {
             NotFoundException("usuario no encontrado")
         }
     }
-
 }
