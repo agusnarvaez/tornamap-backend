@@ -34,7 +34,7 @@ class CoursesControllerTest {
         coursesController.courseServices = courseServices
 
         course = Course(
-            title = "title 1",
+            name = "title 1",
             description = "description",
             category = "category",
             image = ""
@@ -165,7 +165,7 @@ class CoursesControllerTest {
     fun `test get course stats`() {
         val courseStats = CourseStatsResponseDto(
             id = uuid,
-            title = course.title,
+            title = course.name,
             description = course.description,
             category = course.category,
             image = "",

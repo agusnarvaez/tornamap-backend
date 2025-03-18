@@ -8,7 +8,7 @@ object CourseMapper {
     fun buildCourseDto(course: Course): CourseResponseDto {
         return CourseResponseDto(
             id = course.id.toString(),
-            title = course.title,
+            title = course.name,
         )
     }
 
@@ -17,7 +17,7 @@ object CourseMapper {
 
         return CourseDetailResponseDto(
             id = course.id.toString(),
-            title = course.title,
+            title = course.name,
             description = course.description,
             events = events
         )

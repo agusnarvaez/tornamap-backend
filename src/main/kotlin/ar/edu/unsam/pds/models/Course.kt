@@ -6,7 +6,7 @@ import java.util.*
 
 @Entity @Table(name = "APP_COURSE")
 class Course(
-    val title: String,
+    val name: String,
 
     @Column(length = 1024)
     val description: String,

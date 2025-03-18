@@ -10,28 +10,31 @@ import java.util.*
 
 @RepositoryRestResource(exported = false)
 interface CourseRepository : JpaRepository<Course, UUID> {
-    @Query("""
+    @Query(
+        """
         SELECT c FROM Course c
-        WHERE c.title LIKE concat('%', :query, '%')
+        WHERE c.name LIKE concat('%', :query, '%')
         OR c.description LIKE concat('%', :query, '%')
         ORDER BY 
         CASE 
-            WHEN c.title LIKE concat('%', :query, '%') THEN 1
+            WHEN c.name LIKE concat('%', :query, '%') THEN 1
             ELSE 3
         END
-    """)
+    """
+    )
     fun getAllBy(@Param("query") query: String): MutableList<Course>
 
-    @Query("""
+    @Query(
+        """
     SELECT courses FROM Program i
     JOIN i.courses courses
     JOIN i.admin admins
     WHERE admins.id = :#{#principal.user.id}
-    AND (courses.title LIKE concat('%', :query, '%') 
+    AND (courses.name LIKE concat('%', :query, '%') 
          OR courses.description LIKE concat('%', :query, '%'))
     ORDER BY 
         CASE 
-            WHEN courses.title LIKE concat('%', :query, '%') THEN 1
+            WHEN courses.name LIKE concat('%', :query, '%') THEN 1
             ELSE 3
         END
     """

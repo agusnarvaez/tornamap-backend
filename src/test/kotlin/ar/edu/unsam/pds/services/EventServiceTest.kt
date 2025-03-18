@@ -62,7 +62,7 @@ class EventServiceTest : BootstrapNBTest() {
 
         `when`(emailService.sendSubscriptionConfirmationEmail(
             to = users[0].email,
-            courseName = events[0].course.title,
+            courseName = events[0].course.name,
             userName = users[0].name
         )).then {  }
 
@@ -120,7 +120,7 @@ class EventServiceTest : BootstrapNBTest() {
     fun `test unsubscribe to assignment`() {
         `when`(emailService.sendSubscriptionConfirmationEmail(
             to = users[0].email,
-            courseName = events[0].course.title,
+            courseName = events[0].course.name,
             userName = users[0].name
         )).then {  }
 
@@ -161,7 +161,7 @@ class EventServiceTest : BootstrapNBTest() {
         // #############################################################################################################
         `when`(emailService.sendSubscriptionConfirmationEmail(
             to = users[0].email,
-            courseName = events[0].course.title,
+            courseName = events[0].course.name,
             userName = users[0].name
         )).then {  }
 
@@ -191,7 +191,7 @@ class EventServiceTest : BootstrapNBTest() {
         // #############################################################################################################
         `when`(emailService.sendSubscriptionConfirmationEmail(
             to = users[0].email,
-            courseName = events[0].course.title,
+            courseName = events[0].course.name,
             userName = users[0].name
         )).then {  }
 
@@ -425,7 +425,7 @@ class EventServiceTest : BootstrapNBTest() {
 
         `when`(emailService.sendSubscriptionConfirmationEmail(
             to = users[0].email,
-            courseName = events[0].course.title,
+            courseName = events[0].course.name,
             userName = users[0].name
         )).then {  }
 
@@ -462,7 +462,7 @@ class EventServiceTest : BootstrapNBTest() {
 
         `when`(emailService.sendSubscriptionConfirmationEmail(
             to = users[0].email,
-            courseName = events[0].course.title,
+            courseName = events[0].course.name,
             userName = users[0].name
         )).then {  }
 
