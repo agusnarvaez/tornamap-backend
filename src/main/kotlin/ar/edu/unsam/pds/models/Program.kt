@@ -19,8 +19,12 @@ class Program(
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
 
-    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
-    @JoinColumn(name="program_id", referencedColumnName = "id")
+    @ManyToMany
+    @JoinTable(
+        name = "app_course_program",
+        joinColumns = [JoinColumn(name = "program_id")],
+        inverseJoinColumns = [JoinColumn(name = "course_id")]
+    )
     val courses: MutableSet<Course> = mutableSetOf()
 
     @ManyToMany(fetch = FetchType.EAGER)

@@ -11,7 +11,7 @@ class Course(
     @Column(length = 1024)
     val description: String,
 
-) : Timestamp(), Serializable {
+    ) : Timestamp(), Serializable {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
 
@@ -26,16 +26,4 @@ class Course(
     fun removeEvent(event: Event) {
         events.removeIf{ it.id == event.id }
     }
-
-    fun eventsNames(): Set<String> {
-        return events.map { it.activeDays() }.toSet()
-    }
-
-    @ManyToMany
-    @JoinTable(
-        name = "app_course_program",
-        joinColumns = [JoinColumn(name = "course_id")],
-        inverseJoinColumns = [JoinColumn(name = "program_id")]
-    )
-    var programList:MutableSet<Program>=mutableSetOf()
 }
