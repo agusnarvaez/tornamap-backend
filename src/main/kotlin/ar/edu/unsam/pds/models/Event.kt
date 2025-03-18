@@ -65,8 +65,4 @@ class Event(
     fun userCount(): Int {
         return users.size
     }
-    
-    fun activeDays(): String {
-        return schedule.days.joinToString(", ") { it.name }
-    }
 }
