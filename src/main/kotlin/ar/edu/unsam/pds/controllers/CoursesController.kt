@@ -75,13 +75,4 @@ class CoursesController : UUIDValid() {
         this.validatedUUID(idCourse)
         return ResponseEntity.ok(courseServices.getCourse(idCourse))
     }
-
-    @GetMapping("{idCourse}/stats")
-    @Operation(summary = "Get course stats")
-    fun getCourseStats(
-        @PathVariable idCourse: String
-    ): ResponseEntity<CourseStatsResponseDto> {
-        this.validatedUUID(idCourse)
-        return ResponseEntity.ok(courseServices.getCourseStats(idCourse))
-    }
 }
