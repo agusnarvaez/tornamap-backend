@@ -9,7 +9,8 @@ object PeriodMapper {
         return PeriodResponseDto(
             startDate = period.startDate.toString(),
             endDate= period.endDate.toString(),
-            id=period.id.toString()
+            id=period.id.toString(),
+            title=period.title,
         )
     }
 }
