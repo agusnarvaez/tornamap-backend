@@ -8,11 +8,4 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource
 import java.util.*
 
 @RepositoryRestResource(exported = false)
-interface ClassroomRepository : JpaRepository<Classroom, UUID> {
-
-    //Filtrar aulas según un edificio
-    @Query("SELECT c FROM Classroom c WHERE c.building.id = :buildingId")
-    fun findByBuildingId(@Param("buildingId") buildingId: UUID): List<Classroom>
-
-
-}
+interface ClassroomRepository : JpaRepository<Classroom, UUID>
