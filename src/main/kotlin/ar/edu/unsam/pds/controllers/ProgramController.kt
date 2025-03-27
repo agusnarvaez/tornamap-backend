@@ -1,17 +1,8 @@
 package ar.edu.unsam.pds.controllers
 
-import ar.edu.unsam.pds.dto.request.ProgramRequestDto
-import ar.edu.unsam.pds.dto.response.ProgramDetailResponseDto
-import ar.edu.unsam.pds.dto.response.ProgramResponseDto
-import ar.edu.unsam.pds.dto.response.ResponseMessage
-import ar.edu.unsam.pds.security.models.Principal
 import ar.edu.unsam.pds.services.ProgramService
 import io.swagger.v3.oas.annotations.Operation
-import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.MediaType
-import org.springframework.http.ResponseEntity
-import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -22,49 +13,19 @@ class ProgramController : UUIDValid() {
 
     @GetMapping("")
     @Operation(summary = "Get all programs")
-    fun getAll(
-        @RequestParam(required = false) query: String?
-    ): ResponseEntity<List<ProgramResponseDto>> {
-        return ResponseEntity.ok(programService.getAll(query))
-    }
+    fun getAll(){}
 
-    @GetMapping("admin")
-    @Operation(summary = "Get all programs")
-    fun getAllByPrincipal(
-        @RequestParam(required = false) query: String?,
-        @AuthenticationPrincipal principal: Principal
-    ): ResponseEntity<List<ProgramResponseDto>> {
-        return ResponseEntity.ok(programService.getAllByPrincipal(query, principal))
-    }
 
     @GetMapping("{idProgram}")
-    @Operation(summary = "Get program by id")
-    fun getProgram(
-        @PathVariable idProgram: String
-    ): ResponseEntity<ProgramDetailResponseDto> {
-        this.validatedUUID(idProgram)
-        return ResponseEntity.ok(programService.getProgram(idProgram))
-    }
+    @Operation(summary = "Get a program by ID")
+    fun getProgram(){}
 
-    @PostMapping(value = [""], consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
+    @PostMapping(value = [""])
     @Operation(summary = "Create a program")
-    fun createProgram(
-        @ModelAttribute @Valid program: ProgramRequestDto,
-        @AuthenticationPrincipal principal: Principal
-    ): ResponseEntity<ProgramResponseDto> {
-        return ResponseEntity.ok(programService.createProgram(program, principal))
-    }
+    fun createProgram(){}
 
-    @DeleteMapping("{idProgram}")
-    @Operation(summary = "Delete program by id")
-    fun deleteProgram(
-        @PathVariable idProgram: String,
-        @AuthenticationPrincipal principal: Principal
-    ): ResponseEntity<ResponseMessage> {
-        this.validatedUUID(idProgram)
-        programService.deleteProgram(idProgram, principal)
-        return ResponseEntity.ok(ResponseMessage(message = "Programa eliminado correctamente."))
-        
-    }
+    @DeleteMapping("{programId}")
+    @Operation(summary = "Delete a program by ID")
+    fun deleteProgram(programId: String) {}
 }
 
