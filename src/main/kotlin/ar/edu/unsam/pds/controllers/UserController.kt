@@ -24,9 +24,7 @@ class UserController : UUIDValid() {
 
     @GetMapping("")
     @Operation(summary = "Get all users")
-    fun getAll(): ResponseEntity<List<UserResponseDto>> {
-        return ResponseEntity.ok(userService.getUserAll())
-    }
+    fun getAll(){}
 
     @PostMapping("login")
     fun login(
@@ -52,15 +50,6 @@ class UserController : UUIDValid() {
     ): ResponseEntity<UserResponseDto> {
         val registeredUser = userService.register(form)
         return ResponseEntity.ok(registeredUser)
-    }
-
-    @GetMapping("/{idUser}")
-    @Operation(summary = "Get user id")
-    fun userItem(
-        @PathVariable idUser: String
-    ): ResponseEntity<UserDetailResponseDto> {
-        this.validatedUUID(idUser)
-        return ResponseEntity.ok(userService.getUserDetail(idUser))
     }
 
     @PatchMapping(value = ["/{idUser}"], consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])

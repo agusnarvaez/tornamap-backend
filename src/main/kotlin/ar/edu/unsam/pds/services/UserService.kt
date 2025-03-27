@@ -86,15 +86,6 @@ class UserService(
         return encoder.encode(password)
     }
 
-    fun getUserAll(): List<UserResponseDto> {
-        val user = userRepository.findAllEnabled()
-        return user.map { UserMapper.buildUserDto(it) }
-    }
-
-    fun getUserDetail(idUser: String): UserDetailResponseDto {
-        val user = findUserById(idUser)
-        return UserMapper.buildUserDetailDto(user)
-    }
 
     @Transactional
     fun updateDetail(idUser: String, userDetail: UserRequestUpdateDto): UserResponseDto {
