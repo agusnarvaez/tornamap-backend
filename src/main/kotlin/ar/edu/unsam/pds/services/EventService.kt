@@ -26,94 +26,15 @@ class EventService(
     private val courseRepository: CourseRepository,
 ) {
 
-    fun getAll(): List<EventResponseDto> {
-        val events = eventRepository.findAll()
-        return events.map { EventMapper.buildEventDto(it) }
-    }
+    fun getAll(){}
 
-    fun getEvent(eventId: String): EventResponseDto {
-        val assignments = findEventById(eventId)
-        return EventMapper.buildEventDto(assignments)
-    }
+    fun getEvent(eventId: String){}
 
-    private fun findEventById(eventId: String): Event {
-        val uuid = UUID.fromString(eventId)
-        return eventRepository.findById(uuid).orElseThrow {
-            NotFoundException("Clase no encontrada, para el uuid suministrado")
-        }
-    }
+    private fun findEventById(){}
 
-/*
-    fun createEvent(event: EventRequestDto): EventResponseDto {
-        val courseId = UUID.fromString(event.idCourse)
-        val course = courseRepository.findById(courseId).orElseThrow {
-            NotFoundException("Curso no encontrado, para el uuid suministrado")
-        }
-
-        if(event.schedule.startTime.isAfter(event.schedule.endTime)) {
-            throw ValidationException("La hora de inicio no puede ser posterior a la hora de fin")
-        }
-
-        if(event.schedule.date.isBefore(LocalDate.now())) {
-            throw ValidationException("La fecha del evento no puede ser anterior a la fecha actual")
-        }
-
-        if (event.schedule.date.isAfter(event.schedule.endDate)) {
-            throw ValidationException("La fecha de inicio no puede ser posterior a la fecha de fin")
-        }
-
-        val newSchedule = Schedule(
-            days = event.schedule.days,
-            startTime = event.schedule.startTime,
-            endTime = event.schedule.endTime,
-            startDate = event.schedule.startDate,
-            endDate = event.schedule.endDate,
-            recurrenceWeeks = event.schedule.recurrenceWeeks,
-        )
-
-        scheduleRepository.save(newSchedule)
-
-        val newEvent = Event(
-            name = event.name,
-            isApproved = true,
-            schedule = newSchedule
-        )
-
-        eventRepository.save(newEvent)
-        course.addEvent(newEvent)
-        courseRepository.save(course)
-
-        return EventMapper.buildEventDto(newEvent)
-    }
-*/
+    fun createEvent(){}
 
     @Transactional
-    fun deleteEvent(eventId: String, principal: Principal) {
-        val uuid = UUID.fromString(eventId)
-        if (!eventRepository.isOwner(uuid, principal)) {
-            throw PermissionDeniedException("Acceso denegado")
-        }
-
-        val event = findEventById(eventId)
-
-        if (event.hasAnyUser()) {
-            throw ValidationException("No se puede eliminar un curso con usuarios inscriptos")
-        }
-
-        val course = courseRepository.findByEventsId(event.id).orElseThrow {
-            NotFoundException("curso no encontrado")
-        }
-
-        course.removeEvent(event)
-        courseRepository.save(course)
-    }
-
-    fun getUsersInEvent(eventId: String): MutableList<UserResponseDto> {
-        val event = findEventById(eventId)
-        val users = event.users.map { user ->
-            UserMapper.buildUserDto(user)
-        }.toMutableList()
-        return users
-    }
+    fun deleteEvent() {}
 
 }
