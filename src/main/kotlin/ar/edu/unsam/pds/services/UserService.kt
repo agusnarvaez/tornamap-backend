@@ -4,7 +4,6 @@ import ar.edu.unsam.pds.dto.request.LoginForm
 import ar.edu.unsam.pds.dto.request.RegisterFormDto
 import ar.edu.unsam.pds.dto.request.UserRequestUpdateDto
 import ar.edu.unsam.pds.dto.response.CourseResponseDto
-import ar.edu.unsam.pds.dto.response.SubscriptionResponseDto
 import ar.edu.unsam.pds.dto.response.UserDetailResponseDto
 import ar.edu.unsam.pds.dto.response.UserResponseDto
 import ar.edu.unsam.pds.exceptions.InternalServerError
@@ -87,15 +86,6 @@ class UserService(
         return encoder.encode(password)
     }
 
-    fun getUserAll(): List<UserResponseDto> {
-        val user = userRepository.findAllEnabled()
-        return user.map { UserMapper.buildUserDto(it) }
-    }
-
-    fun getUserDetail(idUser: String): UserDetailResponseDto {
-        val user = findUserById(idUser)
-        return UserMapper.buildUserDetailDto(user)
-    }
 
     @Transactional
     fun updateDetail(idUser: String, userDetail: UserRequestUpdateDto): UserResponseDto {

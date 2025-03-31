@@ -27,6 +27,8 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             type = ClassroomType.LABORATORY,
             building = tornavias
         )
+
+        classroomRepository.save(labo1)
     }
 
     fun findBuildingByName(name: String) : Building {

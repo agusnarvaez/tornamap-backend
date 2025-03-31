@@ -243,7 +243,7 @@ class CoursesServiceTest : BootstrapNBTest() {
 
         val expectedValue = CourseStatsResponseDto(
             id = uuid,
-            title = courses[2].title,
+            title = courses[2].name,
             description = courses[2].description,
             category = courses[2].category,
             image = "",
@@ -266,7 +266,7 @@ class CoursesServiceTest : BootstrapNBTest() {
 
         val expectedValue = CourseStatsResponseDto(
             id = uuid,
-            title = courses[1].title,
+            title = courses[1].name,
             description = courses[1].description,
             category = courses[1].category,
             image = "",

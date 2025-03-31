@@ -109,7 +109,7 @@ open class BootstrapBasicTest {
         )
 
         courses.add(Course(
-            title = "classic dance",
+            name = "classic dance",
             description = "classical dance course",
             category = "dance",
             image = ""
@@ -118,7 +118,7 @@ open class BootstrapBasicTest {
         })
 
         courses.add(Course(
-            title = "modern dance",
+            name = "modern dance",
             description = "modern dance course",
             category = "dance",
             image = ""
@@ -128,7 +128,7 @@ open class BootstrapBasicTest {
 
         courses.add(
             Course(
-                title = "yoga",
+                name = "yoga",
                 description = "yoga course",
                 category = "yoga_category",
                 image = ""

@@ -9,12 +9,5 @@ import java.util.*
 
 @RepositoryRestResource(exported = false)
 interface UserRepository : JpaRepository<User, UUID> {
-    @Query("SELECT u FROM Principal p JOIN p.user u WHERE p.enabled = TRUE")
-    fun findAllEnabled(): List<User>
-
-    @Query("Select u from User u where u.email =:mail ")
-    fun findByEmail(@Param("mail") mail: String): Optional<User>
-
-    @Query("SELECT u FROM Principal p JOIN p.user u WHERE p.enabled = TRUE AND u.id = :id")
-    override fun findById(@Param("id") id: UUID): Optional<User>
+    fun findByEmail(email: String): Optional<User>
 }

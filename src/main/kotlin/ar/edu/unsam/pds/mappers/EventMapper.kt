@@ -16,15 +16,5 @@ object EventMapper {
         )
     }
 
-    fun buildEventStatsDto(event: Event): EventStatsResponseDto {
-        return EventStatsResponseDto(
-            id = event.id.toString(),
-            isActive = event.isApproved,
-            schedule = ScheduleMapper.buildScheduleDto(event.schedule),
-            name = event.activeDays(),
-            users = event.users.map { UserMapper.buildUserDto(it) }.toMutableSet(),
-            status = event.status()
-        )
-    }
 
 }

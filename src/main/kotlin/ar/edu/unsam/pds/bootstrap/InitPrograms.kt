@@ -3,6 +3,8 @@ package ar.edu.unsam.pds.bootstrap
 import ar.edu.unsam.pds.exceptions.NotFoundException
 import ar.edu.unsam.pds.models.Program
 import ar.edu.unsam.pds.models.User
+import ar.edu.unsam.pds.repository.CourseRepository
+import ar.edu.unsam.pds.repository.EventRepository
 import ar.edu.unsam.pds.repository.ProgramRepository
 import ar.edu.unsam.pds.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -12,8 +14,9 @@ import org.springframework.core.env.Profiles
 import org.springframework.stereotype.Component
 
 @Component(value = "InitPrograms.beanName")
-@DependsOn(value = ["InitUsers.beanName"])
+@DependsOn(value = ["InitUsers.beanName", "InitCourses.beanName"])
 class InitPrograms : BootstrapGeneric("Programs") {
+    @Autowired private lateinit var courseRepository: CourseRepository
     @Autowired private lateinit var programRepository: ProgramRepository
     @Autowired private lateinit var userRepository: UserRepository
     @Autowired private lateinit var environment: Environment
@@ -37,6 +40,7 @@ class InitPrograms : BootstrapGeneric("Programs") {
                         .trimIndent(),
             ).apply {
                 addAdmin(userByEmail("admin@admin.com"))
+                addCourse(courseRepository.findAll().first())
             }
         )
 
@@ -51,6 +55,7 @@ class InitPrograms : BootstrapGeneric("Programs") {
                         .trimIndent(),
             ).apply {
                 addAdmin(userByEmail("admin@admin.com"))
+                addCourse(courseRepository.findAll().first())
             }
         )
     }
@@ -60,5 +65,4 @@ class InitPrograms : BootstrapGeneric("Programs") {
             NotFoundException("usuario no encontrado")
         }
     }
-
 }

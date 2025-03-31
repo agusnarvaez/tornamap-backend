@@ -28,60 +28,24 @@ class CoursesController : UUIDValid() {
         return ResponseEntity.ok(courseServices.getAll(query ?: ""))
     }
 
-    @GetMapping("admin")
-    @Operation(summary = "Get all courses")
-    fun getAllByPrincipal(
-        @RequestParam(required = false) query: String?,
-        @AuthenticationPrincipal principal: Principal
-    ): ResponseEntity<List<CourseResponseDto>> {
-        return ResponseEntity.ok(courseServices.getAllByPrincipal(query ?: "", principal))
-    }
-
     @DeleteMapping("")
-    @Operation(summary = "Delete multiple courses by ids")
-    fun deleteMultipleCourses(
-        @RequestBody idCourses: List<String>,
-        @AuthenticationPrincipal principal : Principal
-    ): ResponseEntity<Map<String, String>> {
-        idCourses.map { this.validatedUUID(it) }
-        courseServices.deleteAllById(idCourses, principal)
-        return ResponseEntity.ok(mapOf("message" to "Cursos eliminados correctamente."))
-    }
+    @Operation(summary = "Delete n courses by n IDs")
+    fun deleteMultipleCourses() {}
 
-    @DeleteMapping("{idCourse}")
-    @Operation(summary = "Delete course by id")
-    fun deleteCourse(
-        @PathVariable idCourse: String,
-        @AuthenticationPrincipal principal : Principal
-    ): ResponseEntity<Map<String, String>> {
-        this.validatedUUID(idCourse)
-        courseServices.deleteCourse(idCourse, principal)
-        return ResponseEntity.ok(mapOf("message" to "Curso eliminado correctamente."))
-    }
+    @DeleteMapping("{courseId}")
+    @Operation(summary = "Delete a course by ID")
+    fun deleteCourse() {}
 
     @PostMapping(value = [""], consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
     @Operation(summary = "Create a course")
-    fun createCourse(
-        @ModelAttribute @Valid course: CourseRequestDto
-    ): ResponseEntity<CourseResponseDto> {
-        return ResponseEntity.ok(courseServices.createCourse(course))
-    }
+    fun createCourse() {}
 
-    @GetMapping("{idCourse}")
-    @Operation(summary = "Get course by id")
+    @GetMapping("{courseId}")
+    @Operation(summary = "Get a course by ID")
     fun getCourse(
         @PathVariable idCourse: String
-    ): ResponseEntity<CourseDetailResponseDto> {
+    ): ResponseEntity<CourseResponseDto> {
         this.validatedUUID(idCourse)
-        return ResponseEntity.ok(courseServices.getCourse(idCourse))
-    }
-
-    @GetMapping("{idCourse}/stats")
-    @Operation(summary = "Get course stats")
-    fun getCourseStats(
-        @PathVariable idCourse: String
-    ): ResponseEntity<CourseStatsResponseDto> {
-        this.validatedUUID(idCourse)
-        return ResponseEntity.ok(courseServices.getCourseStats(idCourse))
+        return ResponseEntity.ok(courseServices.findCourseById(idCourse))
     }
 }

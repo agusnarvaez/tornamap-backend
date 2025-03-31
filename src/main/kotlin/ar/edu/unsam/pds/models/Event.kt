@@ -13,10 +13,10 @@ class Event(
     var isApproved: Boolean,
     var isCancelled: Boolean = false,
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    var schedule: Schedule
-
 ) : Timestamp(), Serializable {
+    @ManyToOne(fetch = FetchType.EAGER)
+    lateinit var schedule: Schedule
+
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
 
@@ -64,9 +64,5 @@ class Event(
 
     fun userCount(): Int {
         return users.size
-    }
-    
-    fun activeDays(): String {
-        return schedule.days.joinToString(", ") { it.name }
     }
 }

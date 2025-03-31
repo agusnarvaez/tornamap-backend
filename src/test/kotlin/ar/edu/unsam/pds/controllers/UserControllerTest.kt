@@ -178,7 +178,7 @@ class UserControllerTest {
         val subscribedCourses = listOf(
             CourseResponseDto(
                 id = "123",
-                title = "title",
+                name = "title",
                 description = "description",
                 category = "category",
                 image = "image",
