@@ -15,6 +15,8 @@ class Schedule(
     val startTime: LocalTime,
     val endTime: LocalTime,
     val weekDay: DayOfWeek?,
+    @ElementCollection
+    val proffesors: Set<String>, //Los profesores van a ser entidades User o seran cargados manualmente?
     val date: LocalDate?,
     val isVirtual: Boolean,
 
