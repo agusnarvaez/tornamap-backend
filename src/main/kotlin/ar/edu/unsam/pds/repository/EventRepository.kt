@@ -9,4 +9,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource
 import java.util.*
 
 @RepositoryRestResource(exported = false)
-interface EventRepository : JpaRepository<Event, UUID>
+interface EventRepository : JpaRepository<Event, UUID> {
+    fun findByName(name: String): Optional<Event>
+}

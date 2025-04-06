@@ -20,10 +20,10 @@ class InitEvents : BootstrapGeneric("Events") {
 
     override fun doAfterPropertiesSet() {
         // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        // Estrellas en Movimiento + Ballet Clásico para Principiantes #################################################
-        val course11 = this.findByName(
+        val course11 = this.findCourseByName(
             name = "Matematica I"
         )
+
 
         val event111 = Event(
             name = "Parcial",
@@ -51,7 +51,7 @@ class InitEvents : BootstrapGeneric("Events") {
 
       }
 
-    fun findByName(name: String): Course? {
+    fun findCourseByName(name: String): Course? {
         val programsList = programRepository.findAll()
         val allCourses = programsList.map { it.courses }.flatten()
         if (allCourses.isEmpty()) {

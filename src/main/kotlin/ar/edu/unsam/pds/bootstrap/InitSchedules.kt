@@ -24,11 +24,9 @@ class InitSchedules : BootstrapGeneric("Schedules") {
     @Autowired private lateinit var classRoomRepository: ClassroomRepository
 
     override fun doAfterPropertiesSet() {
-        val parcial = Event(
-            name = "Parcial",
-            isApproved = true
-        )
-        eventRepository.save(parcial)
+        val evento1 = findEvent("Recuperatorio")
+        val evento2 = findEvent("Parcial")
+        val evento3 = findEvent("Final")
 
         val labo1 = findClassroomByName("Laboratorio de Computación 1")
 
@@ -39,10 +37,14 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             date = LocalDate.of(2025, 3, 20),
             isVirtual = false,
             classroom = labo1,
-            event = parcial
+            event = evento1
         )
 
         scheduleRepository.save(schedule1)
+
+        evento1.apply {
+            schedule = schedule1
+        }
 
         val schedule2 = Schedule(
             startTime = LocalTime.of(10, 30),
@@ -51,18 +53,35 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             date = LocalDate.of(2025, 3, 21),
             isVirtual = true,
             classroom = null,
-            event = parcial
+            event = evento2
         )
 
         scheduleRepository.save(schedule2)
 
+        evento2.apply {
+            schedule = schedule2
+        }
+
+        val schedule3 = Schedule(
+            startTime = LocalTime.of(10, 30),
+            endTime = LocalTime.of(12, 0),
+            weekDay = DayOfWeek.FRIDAY,
+            date = LocalDate.of(2025, 3, 21),
+            isVirtual = true,
+            classroom = null,
+            event = evento3
+        )
+
+        scheduleRepository.save(schedule3)
+
+        evento3.apply {
+            schedule = schedule3
+        }
+
     }
 
-    fun findRandomEvent(): Event {
-        if(eventRepository.findAll().isEmpty()) {
-            throw NotFoundException("Error hallando un evento al azar, no existen eventos")
-        }
-        return eventRepository.findAll().random()
+    fun findEvent(name: String): Event {
+        return eventRepository.findByName(name).orElseThrow{ NotFoundException("No se halló un evento con ese nombre") }
     }
 
     fun findClassroomByName(name: String): Classroom? {
