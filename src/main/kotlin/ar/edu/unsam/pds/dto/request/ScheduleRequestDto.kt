@@ -19,10 +19,6 @@ data class ScheduleRequestDto (
 
     val date:LocalDate?,
 
-    /*por ahora dejo que weekDay y date puedan ser nulos, lei algo de una anotacion
-    personalizada para esto pero no sabía si usarlo. Valida en el service por ahora
-     */
-
     @field: NotNull(message = "isVirtual no puede ser nulo")
     val isVirtual: Boolean,
 
@@ -34,13 +30,11 @@ data class ScheduleRequestDto (
     )
     val idClassroom: String?,
 
-    /*lo mismo de la anotacion personalizada en isVirtual y idClassroom*/
-
-    @field: NotNull(message = "El ID no debe ser nulo")
+   /* @field: NotNull(message = "El ID no debe ser nulo")
     @field: NotBlank(message = "El ID no debe estar en blanco")
     @field: Pattern(
         regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
         message = "UUID debe ser valido"
     )
-    val idEvent: String,
+    val idEvent: String,*/
     )
