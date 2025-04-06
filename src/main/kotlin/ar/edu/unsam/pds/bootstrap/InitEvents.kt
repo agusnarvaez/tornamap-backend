@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.DependsOn
 import org.springframework.stereotype.Component
 import ar.edu.unsam.pds.exceptions.NotFoundException
+import ar.edu.unsam.pds.models.User
+import ar.edu.unsam.pds.repository.UserRepository
 
 @Component(value = "InitEvents.beanName")
 @DependsOn(value = ["InitCourses.beanName", "InitPrograms.beanName"])
@@ -17,6 +19,7 @@ class InitEvents : BootstrapGeneric("Events") {
     @Autowired private lateinit var scheduleRepository: ScheduleRepository
     @Autowired private lateinit var programRepository: ProgramRepository
     @Autowired private lateinit var eventRepository: EventRepository
+    @Autowired private lateinit var userRepository: UserRepository
 
     override fun doAfterPropertiesSet() {
         // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -24,11 +27,16 @@ class InitEvents : BootstrapGeneric("Events") {
             name = "Matematica I"
         )
 
+        val profesora = this.userByEmail("bartesi@estudiantes.unsam.edu.ar")
+
+
 
         val event111 = Event(
             name = "Parcial",
             isApproved = true
-        )
+        ).apply {
+            this.addUser(profesora)
+        }
 
         course11?.addEvent(event111)
         eventRepository.save(event111)
@@ -36,7 +44,9 @@ class InitEvents : BootstrapGeneric("Events") {
         val event112 = Event(
             name = "Final",
             isApproved = true
-        )
+        ).apply {
+            this.addUser(profesora)
+        }
 
         course11?.addEvent(event112)
         eventRepository.save(event112)
@@ -44,7 +54,9 @@ class InitEvents : BootstrapGeneric("Events") {
         val event113 = Event(
             name = "Recuperatorio",
             isApproved = true
-        )
+        ).apply {
+            this.addUser(profesora)
+        }
 
         course11?.addEvent(event113)
         eventRepository.save(event113)
@@ -64,5 +76,9 @@ class InitEvents : BootstrapGeneric("Events") {
         scheduleRepository.findAll().randomOrNull()?.let {
             return it
         } ?: error("error find random schedule, schedule repository is empty")
+    }
+
+    fun userByEmail(mail: String): User {
+        return userRepository.findByEmail(mail).orElseThrow { NotFoundException("No se encontró profesor con el email suministrado") }
     }
 }

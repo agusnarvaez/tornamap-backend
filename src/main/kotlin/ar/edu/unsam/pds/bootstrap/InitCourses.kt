@@ -1,9 +1,12 @@
 package ar.edu.unsam.pds.bootstrap
 
+import ar.edu.unsam.pds.exceptions.NotFoundException
 import ar.edu.unsam.pds.models.Course
 import ar.edu.unsam.pds.models.Program
+import ar.edu.unsam.pds.models.User
 import ar.edu.unsam.pds.repository.CourseRepository
 import ar.edu.unsam.pds.repository.ProgramRepository
+import ar.edu.unsam.pds.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.DependsOn
 import org.springframework.core.env.Environment
@@ -26,7 +29,8 @@ class InitCourses : BootstrapGeneric("Courses") {
         courseRepository.save(
             Course(
                     name="Matematica I",
-                    description="Asignatura introductoria que aborda los fundamentos del análisis en una variable, álgebra y geometría. Se aprenden conceptos clave como funciones, límites, derivadas, polinomios y ecuaciones, desarrollando habilidades esenciales para el razonamiento matemático y la resolución de problemas.")
+                    description="Asignatura introductoria que aborda los fundamentos del análisis en una variable, álgebra y geometría. Se aprenden conceptos clave como funciones, límites, derivadas, polinomios y ecuaciones, desarrollando habilidades esenciales para el razonamiento matemático y la resolución de problemas."
+            )
         )
 
         courseRepository.save(
