@@ -26,4 +26,8 @@ class Course(
     fun removeEvent(event: Event) {
         events.removeIf{ it.id == event.id }
     }
+
+    fun programNames(): List<String> {
+        return programs.map { it.name }
+    }
 }
