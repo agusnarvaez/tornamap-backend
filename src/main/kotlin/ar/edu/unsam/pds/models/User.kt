@@ -43,4 +43,8 @@ class User(
             eventList.removeIf { it.id == event.id }
         }
     }
+
+    fun fullName(): String {
+        return "$name $lastName"
+    }
 }

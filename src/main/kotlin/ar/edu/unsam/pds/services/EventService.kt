@@ -1,5 +1,6 @@
 package ar.edu.unsam.pds.services
 
+import ar.edu.unsam.pds.controllers.UUIDValid
 import ar.edu.unsam.pds.dto.request.EventRequestDto
 import ar.edu.unsam.pds.dto.response.EventResponseDto
 import ar.edu.unsam.pds.dto.response.UserResponseDto
@@ -28,7 +29,13 @@ class EventService(
 
     fun getAll(){}
 
-    fun getEvent(eventId: String){}
+    fun getEvent(eventId: String): EventResponseDto? {
+        val eventUUID = UUID.fromString(eventId)
+        val matchingEvent = eventRepository.findById(eventUUID)
+            .orElseThrow { NotFoundException("Evento no encontrado para el uuid suministrado") }
+
+        return EventMapper.buildEventDto(matchingEvent)
+    }
 
     private fun findEventById(){}
 

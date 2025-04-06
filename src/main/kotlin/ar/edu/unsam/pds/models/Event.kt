@@ -65,4 +65,16 @@ class Event(
     fun userCount(): Int {
         return users.size
     }
+
+    fun getCourseName(): String {
+        return course.name
+    }
+
+    fun getProgramNames(): List<String> {
+        return course.programNames()
+    }
+
+    fun getProfessorNames(): List<String> {
+        return users.map { it.fullName() }
+    }
 }

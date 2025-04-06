@@ -1,6 +1,7 @@
 package ar.edu.unsam.pds.controllers
 
 import ar.edu.unsam.pds.dto.request.EventRequestDto
+import ar.edu.unsam.pds.dto.response.EventResponseDto
 import ar.edu.unsam.pds.services.EventService
 import io.swagger.v3.oas.annotations.Operation
 import jakarta.validation.Valid
