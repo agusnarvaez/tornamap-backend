@@ -25,7 +25,10 @@ class EventController : UUIDValid() {
 
     @GetMapping("{eventId}")
     @Operation(summary = "Get an event by ID")
-    fun getEvent(){}
+    fun getEvent (@PathVariable (value="eventID", required= true) eventID: String): EventResponseDto? {
+        validatedUUID(eventID)
+        return eventService.getEvent(eventID)
+    }
 
 
     @PostMapping("")

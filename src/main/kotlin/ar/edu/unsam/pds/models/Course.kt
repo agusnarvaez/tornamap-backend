@@ -18,6 +18,9 @@ class Course(
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "course", cascade = [CascadeType.ALL], orphanRemoval = true)
     val events = mutableSetOf<Event>()
 
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "courses", cascade = [CascadeType.ALL])
+    val programs = mutableSetOf<Program>()
+
     fun addEvent(event: Event) {
         events.add(event)
         event.attachCourse(this)

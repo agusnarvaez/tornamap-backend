@@ -14,6 +14,7 @@ object ScheduleMapper {
             date = schedule.date,
             weekDay = schedule.weekDay,
             isVirtual = schedule.isVirtual,
+            classroom = getClassroomDto(schedule)
         )
     }
 
@@ -25,3 +26,32 @@ object ScheduleMapper {
         }
     }
 }
+
+/*{
+    "className": "nombreClase",                         OK
+    "programs": ["Carrera 1", "Carrera 2"],
+    "schedules":[
+    {
+        "startTime": "18:00",
+        "endTime": "22:00",
+        "professors": ["Profesor 1", "Profesor 2"],
+        "weekDay": "Martes",
+        "date": "null",
+        "classRoom": [
+        {
+            id: "A28",
+            name: "A28 - Edificio Tornavías"
+            ],
+            "isVirtual": "false"
+        },
+        {
+            "startTime": "19:00",
+            "endTime": "21:00",
+            "professors": ["Profesor 1"],
+            "weekDay": "Jueves",
+            "date": "null"
+            "classRoom": [],
+            "isVirtual": "true"
+        }
+        ]
+    }*/

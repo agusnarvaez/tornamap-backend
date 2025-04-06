@@ -2,8 +2,8 @@ package ar.edu.unsam.pds.dto.response
 
 data class EventResponseDto(
     val id: String,
-    val name: String,
-    var isActive: Boolean,
-    var isCancelled: Boolean,
-    val schedule: ScheduleResponseDto
+    val courseName: String,
+    val programNames: List<String>,
+    val professorsName: List<String>,
+    val schedule: ScheduleResponseDto,
 )

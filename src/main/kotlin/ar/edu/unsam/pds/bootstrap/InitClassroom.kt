@@ -21,6 +21,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
         val tornavias = findBuildingByName("Tornavías")
 
         val labo1 = Classroom(
+            code = "LC1",
             name = "Laboratorio de Computación 1",
             capacity = 50,
             floor = 1,

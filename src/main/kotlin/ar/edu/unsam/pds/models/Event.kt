@@ -20,6 +20,7 @@ class Event(
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
 
+    //Professors
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "eventList")
     val users = mutableSetOf<User>()
 
