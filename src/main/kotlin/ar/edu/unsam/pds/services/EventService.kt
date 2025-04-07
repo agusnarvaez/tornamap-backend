@@ -29,6 +29,8 @@ class EventService(
     private val periodService: PeriodService
 ) {
 
+    private final val scheduleService: ScheduleService = TODO("initialize me")
+
     fun getAll(){}
 
     fun getEvent(eventId: String){}
@@ -39,7 +41,7 @@ class EventService(
 
         val course= event.courseID?.let { courseService.findCourseById(it) }
         val period= event.periodID?.let{ periodService.findPeriodById(it) }
-        //val schedules=
+        //val schedules: List<Schedule> = event.schedules.map {scheduleService.createSchedule(it) }
 
         val newEvent = Event(event.name,
                             isApproved = true,
@@ -48,7 +50,7 @@ class EventService(
 
         course?.let { newEvent.attachCourse(it) }
         period?.let { newEvent.addPeriod(it) }
-       // event.schedules.forEach { newEvent.addSchedule(it) }
+        //schedules.forEach { newEvent.addSchedule(it) }
 
         eventRepository.save(newEvent)
     }
