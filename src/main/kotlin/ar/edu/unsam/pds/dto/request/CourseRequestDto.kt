@@ -4,7 +4,6 @@ import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Size
-import org.springframework.web.multipart.MultipartFile
 
 data class CourseRequestDto(
     @field: NotBlank(message = "El campo titulo no puede estar vacío")
@@ -23,5 +22,5 @@ data class CourseRequestDto(
         regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
         message = "UUID debe ser valido"
     )
-    var programId: String?
+    var programID: String?
 )

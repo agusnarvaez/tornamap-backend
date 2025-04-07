@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class CoursesService(
+class CourseService(
     private val courseRepository: CourseRepository,
     private val programRepository: ProgramRepository,
 ) {
@@ -43,8 +43,8 @@ class CoursesService(
 
     @Transactional
     fun createCourse(course: CourseRequestDto): CourseResponseDto? {
-        val programId = UUID.fromString(course.programId)
-        val program = programRepository.findById(programId).orElseThrow {
+        val programID = UUID.fromString(course.programID)
+        val program = programRepository.findById(programID).orElseThrow {
             NotFoundException("Asignatura no encontrada para el uuid suministrado")
         }
 

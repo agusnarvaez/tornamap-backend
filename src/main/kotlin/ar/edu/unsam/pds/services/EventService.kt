@@ -8,6 +8,7 @@ import ar.edu.unsam.pds.exceptions.PermissionDeniedException
 import ar.edu.unsam.pds.exceptions.ValidationException
 import ar.edu.unsam.pds.mappers.EventMapper
 import ar.edu.unsam.pds.mappers.UserMapper
+import ar.edu.unsam.pds.models.Course
 import ar.edu.unsam.pds.models.Event
 import ar.edu.unsam.pds.models.Schedule
 import ar.edu.unsam.pds.repository.EventRepository
@@ -24,6 +25,7 @@ class EventService(
     private val eventRepository: EventRepository,
     private val scheduleRepository: ScheduleRepository,
     private val courseRepository: CourseRepository,
+    private val courseService:CourseService
 ) {
 
     fun getAll(){}
@@ -32,7 +34,10 @@ class EventService(
 
     private fun findEventById(){}
 
-    fun createEvent(){}
+    fun createEvent(event: EventRequestDto){
+        val course= event.courseID?.let { courseService.findCourseById(it) }
+        //val period= event.periodID?.let{}
+    }
 
     @Transactional
     fun deleteEvent() {}
