@@ -44,6 +44,14 @@ class Event(
         this.course = course
     }
 
+    fun addPeriod(period: Period) {
+        this.period = period
+    }
+
+    fun addSchedule(schedule: Schedule){
+        this.schedules.add(schedule)
+    }
+
     fun addUser(user: User) {
         if (validateUserId(user)) {
             throw ValidationException("El usuario ya es parte de este evento")
