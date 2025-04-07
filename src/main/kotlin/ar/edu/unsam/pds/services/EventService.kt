@@ -48,7 +48,7 @@ class EventService(
 
         course?.let { newEvent.attachCourse(it) }
         period?.let { newEvent.addPeriod(it) }
-        event.schedules.forEach { newEvent.addSchedule(it) }
+       // event.schedules.forEach { newEvent.addSchedule(it) }
 
         eventRepository.save(newEvent)
     }

@@ -30,11 +30,11 @@ data class ScheduleRequestDto (
     )
     val classroomID: String?,
 
-   /* @field: NotNull(message = "El ID no debe ser nulo")
+    @field: NotNull(message = "El ID no debe ser nulo")
     @field: NotBlank(message = "El ID no debe estar en blanco")
     @field: Pattern(
         regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
         message = "UUID debe ser valido"
     )
-    val eventID: String,*/
+    val eventID: String,
     )
