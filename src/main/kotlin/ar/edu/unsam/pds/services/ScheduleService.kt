@@ -36,16 +36,11 @@ class ScheduleService(
     }
 
 
-    fun createSchedule(schedule: ScheduleRequestDto){
-        if (isValidDateOrWeekDay(schedule.date,schedule.weekDay)){
-            /*val eventID = UUID.fromString(schedule.eventID)
-            val event=eventRepository.findById(eventID).orElseThrow {
-                NotFoundException("Evento no encontrado para el uuid suministrado")
-            }*/
+    fun createSchedule(schedule: ScheduleRequestDto): Schedule {
+        if (isValidDateOrWeekDay(schedule.date, schedule.weekDay)) {
+            val classroom = createClassroom(schedule)
 
-            val classroom=createClassroom(schedule)
-
-            val newSchedule=Schedule(
+            val newSchedule = Schedule(
                 schedule.startTime,
                 schedule.endTime,
                 schedule.weekDay,
@@ -54,10 +49,11 @@ class ScheduleService(
                 classroom,
             )
 
-            scheduleRepository.save(newSchedule)
+            return scheduleRepository.save(newSchedule)
+        } else {
+            throw IllegalArgumentException("Debe ingresar un día de la semana o una fecha válida")
         }
     }
-
 
 
     private fun createClassroom(schedule: ScheduleRequestDto): Classroom? {
