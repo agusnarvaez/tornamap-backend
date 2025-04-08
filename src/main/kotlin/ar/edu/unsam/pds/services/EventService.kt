@@ -24,19 +24,21 @@ import java.util.*
 @Service
 class EventService(
     private val eventRepository: EventRepository,
-    private val scheduleRepository: ScheduleRepository,
-    private val courseRepository: CourseRepository,
     private val courseService:CourseService,
-    private val periodService: PeriodService
+    private val periodService: PeriodService,
+    private val scheduleService:ScheduleService,
 ) {
-
-    private final val scheduleService: ScheduleService = TODO("initialize me")
 
     fun getAll(){}
 
     fun getEvent(eventId: String){}
 
-    private fun findEventById(){}
+    private fun findEventByID(id:String):Event{
+        val eventID= UUID.fromString(id)
+        return eventRepository.findById(eventID).orElseThrow {
+            NotFoundException("Evento no encontrado para el uuid suministrado")
+        }
+    }
 
     @Transactional
     fun createEvent(event: EventRequestDto){
@@ -59,10 +61,7 @@ class EventService(
 
     @Transactional
     fun deleteEvent(id: String) {
-        val eventID= UUID.fromString(id)
-        val event=eventRepository.findById(eventID).orElseThrow {
-            NotFoundException("Evento no encontrado para el uuid suministrado")
-        }
+        val event=findEventByID(id)
         eventRepository.delete(event)
     }
 
