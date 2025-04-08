@@ -5,6 +5,7 @@ import ar.edu.unsam.pds.dto.response.CourseResponseDto
 import ar.edu.unsam.pds.exceptions.NotFoundException
 import ar.edu.unsam.pds.mappers.CourseMapper
 import ar.edu.unsam.pds.models.Course
+import ar.edu.unsam.pds.models.Period
 import ar.edu.unsam.pds.repository.CourseRepository
 import ar.edu.unsam.pds.repository.ProgramRepository
 import jakarta.transaction.Transactional
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class CoursesService(
+class CourseService(
     private val courseRepository: CourseRepository,
     private val programRepository: ProgramRepository,
 ) {
@@ -22,29 +23,18 @@ class CoursesService(
         return courses.map { CourseMapper.buildCourseDto(it) }
     }
 
-    fun findCourseById(courseId: String): CourseResponseDto {
-        val uuid = UUID.fromString(courseId)
-        val matchingCourse = courseRepository.findById(uuid).orElseThrow({
-            NotFoundException("Asignatura no encontrada para el uuid suministrado")
-        })
-        return CourseMapper.buildCourseDto(matchingCourse)
+    fun findCourseById(courseID: String): Course {
+        val uuid = UUID.fromString(courseID)
+        return courseRepository.findById(uuid).orElseThrow {
+            NotFoundException("Periodo no encontrado para el uuid suministrado")
+        }
     }
-
-/*
-    @Transactional
-    fun deleteCourse() {}
-*/
-
-/*
-    @Transactional
-    fun deleteAllById() {}
-*/
 
 
     @Transactional
     fun createCourse(course: CourseRequestDto): CourseResponseDto? {
-        val programId = UUID.fromString(course.programId)
-        val program = programRepository.findById(programId).orElseThrow {
+        val programID = UUID.fromString(course.programID)
+        val program = programRepository.findById(programID).orElseThrow {
             NotFoundException("Asignatura no encontrada para el uuid suministrado")
         }
 

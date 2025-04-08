@@ -14,8 +14,8 @@ class Event(
     var isCancelled: Boolean = false,
 
 ) : Timestamp(), Serializable {
-    @ManyToOne(fetch = FetchType.EAGER)
-    lateinit var schedule: Schedule
+    @OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
+    lateinit var schedules : MutableSet<Schedule>
 
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
@@ -31,15 +31,25 @@ class Event(
     lateinit var period: Period
 
     fun status(): String {
-        return if (schedule.isBeforeEndDate(LocalDate.now())) {
+        return if (this.hasUpcomingSchedules()) {
             Status.CONFIRMED.name
         } else {
             Status.FINISHED.name
         }
     }
 
+    private fun hasUpcomingSchedules():Boolean = schedules.any { it.date?.isAfter(LocalDate.now()) ?: false }
+
     fun attachCourse(course: Course) {
         this.course = course
+    }
+
+    fun addPeriod(period: Period) {
+        this.period = period
+    }
+
+    fun addSchedule(schedule: Schedule){
+        this.schedules.add(schedule)
     }
 
     fun addUser(user: User) {
