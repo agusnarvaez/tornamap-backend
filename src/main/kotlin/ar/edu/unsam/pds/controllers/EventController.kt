@@ -31,13 +31,13 @@ class EventController : UUIDValid() {
     @Operation(summary = "Create an event")
     fun createEvent(
         @RequestBody @Valid event: EventRequestDto
-    ){}
+    ){ eventService.createEvent(event) }
 
 
     @DeleteMapping("{eventId}")
     @Operation(summary = "Delete an event by ID")
     fun deleteEvent(
-        @PathVariable eventId: String
-    ){}
+        @PathVariable eventID: String
+    ){ eventService.deleteEvent(eventID) }
 
 }

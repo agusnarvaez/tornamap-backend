@@ -36,6 +36,7 @@ class ScheduleService(
     }
 
 
+    @Transactional
     fun createSchedule(schedule: ScheduleRequestDto): Schedule {
         if (isValidDateOrWeekDay(schedule.date, schedule.weekDay)) {
             val classroom = createClassroom(schedule)

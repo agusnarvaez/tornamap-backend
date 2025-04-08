@@ -15,6 +15,7 @@ import ar.edu.unsam.pds.repository.EventRepository
 import ar.edu.unsam.pds.repository.CourseRepository
 import ar.edu.unsam.pds.repository.ScheduleRepository
 import ar.edu.unsam.pds.security.models.Principal
+import com.sun.java.accessibility.util.EventID
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate
@@ -37,6 +38,7 @@ class EventService(
 
     private fun findEventById(){}
 
+    @Transactional
     fun createEvent(event: EventRequestDto){
 
         val course= event.courseID?.let { courseService.findCourseById(it) }
@@ -56,6 +58,12 @@ class EventService(
     }
 
     @Transactional
-    fun deleteEvent() {}
+    fun deleteEvent(id: String) {
+        val eventID= UUID.fromString(id)
+        val event=eventRepository.findById(eventID).orElseThrow {
+            NotFoundException("Evento no encontrado para el uuid suministrado")
+        }
+        eventRepository.delete(event)
+    }
 
 }
