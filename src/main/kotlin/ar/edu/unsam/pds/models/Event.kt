@@ -14,8 +14,8 @@ class Event(
     var isCancelled: Boolean = false,
 
 ) : Timestamp(), Serializable {
-    @OneToMany(mappedBy = "event", fetch = FetchType.EAGER)
-    lateinit var schedules : MutableList<Schedule>
+    @OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
+    lateinit var schedules : MutableSet<Schedule>
 
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID

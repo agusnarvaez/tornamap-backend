@@ -31,7 +31,7 @@ class ScheduleService(
     private fun findScheduleById(idSchedule: String): Schedule {
         val uuid = UUID.fromString(idSchedule)
         return scheduleRepository.findById(uuid).orElseThrow {
-            NotFoundException("Curso no encontrado para el uuid suministrado")
+            NotFoundException("Schedule no encontrado para el uuid suministrado")
         }
     }
 

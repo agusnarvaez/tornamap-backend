@@ -30,16 +30,6 @@ class CourseService(
         }
     }
 
-/*
-    @Transactional
-    fun deleteCourse() {}
-*/
-
-/*
-    @Transactional
-    fun deleteAllById() {}
-*/
-
 
     @Transactional
     fun createCourse(course: CourseRequestDto): CourseResponseDto? {
