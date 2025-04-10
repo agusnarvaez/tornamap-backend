@@ -40,7 +40,7 @@ class InitPrograms : BootstrapGeneric("Programs") {
                         .trimIndent(),
             ).apply {
                 addAdmin(userByEmail("admin@admin.com"))
-                addCourse(courseRepository.findAll().first())
+                addCourse(courseRepository.findAll())
             }
         )
 
@@ -55,7 +55,7 @@ class InitPrograms : BootstrapGeneric("Programs") {
                         .trimIndent(),
             ).apply {
                 addAdmin(userByEmail("admin@admin.com"))
-                addCourse(courseRepository.findAll().first())
+                addCourse(courseRepository.findAll())
             }
         )
     }

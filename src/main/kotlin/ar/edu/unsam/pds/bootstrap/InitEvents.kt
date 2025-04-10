@@ -27,6 +27,10 @@ class InitEvents : BootstrapGeneric("Events") {
             name = "Matematica I"
         )
 
+        val course22 = this.findCourseByName(
+            name = "Electricidad y Magnetismo"
+        )
+
         val event111 = Event(
             name = "Parcial",
             isApproved = true,
@@ -48,10 +52,10 @@ class InitEvents : BootstrapGeneric("Events") {
         val event113 = Event(
             name = "Recuperatorio",
             isApproved = true,
-            course = course11
+            course = course22!!
         )
 
-        course11.addEvent(event113)
+        course22.addEvent(event113)
         eventRepository.save(event113)
 
       }
