@@ -1,6 +1,7 @@
 package ar.edu.unsam.pds.controllers
 
 import ar.edu.unsam.pds.dto.request.EventRequestDto
+import ar.edu.unsam.pds.dto.request.SearchEventRequestDto
 import ar.edu.unsam.pds.dto.response.EventResponseDto
 import ar.edu.unsam.pds.services.EventService
 import io.swagger.v3.oas.annotations.Operation
@@ -17,13 +18,14 @@ class EventController : UUIDValid() {
 
     @GetMapping("")
     @Operation(summary = "Get all events")
-    fun getAll(
-        @PathVariable(value = "search", required = false) search: String?,
-        @PathVariable(value = "eventDate", required = false) eventDate: LocalDate?,
-        @PathVariable(value = "classroomName", required = false) classroomName: String?
-    ): List<EventResponseDto> {
-        return eventService.getAll()
+    fun getAll(@ModelAttribute searchEventRequestDto: SearchEventRequestDto): List<EventResponseDto> {
+        println(searchEventRequestDto.searchQuery)
+        if (searchEventRequestDto.notBlankID()){
+            validatedUUID(searchEventRequestDto.classroomID)
+        }
+        return eventService.searchBy(searchEventRequestDto)
     }
+
 
     @GetMapping("{eventID}")
     @Operation(summary = "Get an event by ID")

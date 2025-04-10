@@ -2,6 +2,7 @@ package ar.edu.unsam.pds.services
 
 import ar.edu.unsam.pds.controllers.UUIDValid
 import ar.edu.unsam.pds.dto.request.EventRequestDto
+import ar.edu.unsam.pds.dto.request.SearchEventRequestDto
 import ar.edu.unsam.pds.dto.response.EventResponseDto
 import ar.edu.unsam.pds.dto.response.UserResponseDto
 import ar.edu.unsam.pds.exceptions.NotFoundException
@@ -27,9 +28,40 @@ class EventService(
     private val courseRepository: CourseRepository,
 ) {
 
-    fun getAll(): List<EventResponseDto> {
-        return eventRepository.findAll().map { EventMapper.buildEventDto(it) }
+    //si no hay busqueda devuelve toda la lista ordenada por horario OK
+
+    //si viene el searchQuery devuelve solo los eventos que contengan el nombre y desestima eventDate y classroomID
+    //si viene el eventDate devuelve solo los eventos que contengan la fecha y desestima el searchQuery y classroomID
+    //si viene el classroomID devuelve solo los eventos que contengan el id del aula y desestima el searchQuery y eventDate
+
+
+    fun searchBy(searchEventRequestDto: SearchEventRequestDto): List<EventResponseDto> {
+        if (searchEventRequestDto.notBlankQuery()) {
+            val searchEvent = eventRepository.findByQuery(
+                searchEventRequestDto.searchQuery!!
+            )
+            return searchEvent.map { EventMapper.buildEventDto(it) }
+        }
+//        if (searchEventRequestDto.hasDateAndClassroomID()) {
+//            val searchEvent = eventRepository.findByClassroomIDAndDate(
+//                searchEventRequestDto.classroomID!!,
+//                searchEventRequestDto.eventDate!!
+//            )
+//            return searchEvent.map { EventMapper.buildEventDto(it) }
+//        }
+        return getAll(searchEventRequestDto)
     }
+
+
+    fun getAll(searchEventRequestDto: SearchEventRequestDto): List<EventResponseDto> {
+        val sortedEvents = eventRepository.findAllByOrderByNameAsc()
+        return sortedEvents.map { EventMapper.buildEventDto(it) }
+    }
+
+//    fun orderByAscDate(): List<Event> {
+//        scheduleService.sortedDates(this.findAll())
+//    }
+
 
     fun getEvent(eventId: String): EventResponseDto? {
         val eventUUID = UUID.fromString(eventId)
