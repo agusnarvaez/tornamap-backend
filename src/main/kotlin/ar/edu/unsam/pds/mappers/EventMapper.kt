@@ -9,6 +9,7 @@ object EventMapper {
     fun buildEventDto(event: Event): EventResponseDto {
         return EventResponseDto(
             id = event.id.toString(),
+            name = event.name,
             courseName = event.getCourseName(),
             programNames= event.getProgramNames(),
             professorsName= event.getProfessorNames(),
