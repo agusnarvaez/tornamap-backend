@@ -27,7 +27,9 @@ class EventService(
     private val courseRepository: CourseRepository,
 ) {
 
-    fun getAll(){}
+    fun getAll(): List<EventResponseDto> {
+        return eventRepository.findAll().map { EventMapper.buildEventDto(it) }
+    }
 
     fun getEvent(eventId: String): EventResponseDto? {
         val eventUUID = UUID.fromString(eventId)

@@ -3,6 +3,7 @@ package ar.edu.unsam.pds.models
 import ar.edu.unsam.pds.exceptions.ValidationException
 import ar.edu.unsam.pds.models.enums.Status
 import jakarta.persistence.*
+import org.springframework.lang.Nullable
 import java.io.Serializable
 import java.time.LocalDate
 import java.util.*
@@ -13,9 +14,13 @@ class Event(
     var isApproved: Boolean,
     var isCancelled: Boolean = false,
 
-) : Timestamp(), Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
-    lateinit var schedule: Schedule
+    @JoinColumn(name = "course_id", referencedColumnName = "id")
+    var course: Course,
+
+    @OneToMany(mappedBy = "event", cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
+    var schedule: MutableList<Schedule> = mutableListOf()
+) : Timestamp(), Serializable {
 
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
@@ -25,19 +30,16 @@ class Event(
     val users = mutableSetOf<User>()
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "course_id", referencedColumnName = "id")
-    lateinit var course: Course
+    @Nullable
+    var period: Period? = null
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    lateinit var period: Period
-
-    fun status(): String {
+/*    fun status(): String {
         return if (schedule.isBeforeEndDate(LocalDate.now())) {
             Status.CONFIRMED.name
         } else {
             Status.FINISHED.name
         }
-    }
+    }*/
 
     fun attachCourse(course: Course) {
         this.course = course

@@ -9,4 +9,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource
 import java.util.*
 
 @RepositoryRestResource(exported = false)
-interface CourseRepository : JpaRepository<Course, UUID>
+interface CourseRepository : JpaRepository<Course, UUID> {
+    fun findByName(name: String): MutableList<Course>
+}

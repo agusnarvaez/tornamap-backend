@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.DependsOn
 import org.springframework.stereotype.Component
 import ar.edu.unsam.pds.exceptions.NotFoundException
+import java.time.DayOfWeek
+import java.time.LocalDate
+import java.time.LocalTime
 
 @Component(value = "InitEvents.beanName")
 @DependsOn(value = ["InitCourses.beanName", "InitPrograms.beanName"])
@@ -27,27 +30,20 @@ class InitEvents : BootstrapGeneric("Events") {
 
         val event111 = Event(
             name = "Parcial",
-            isApproved = true
+            isApproved = true,
+            schedule = mutableListOf(Schedule(
+                startTime = LocalTime.of(10, 0),
+                endTime = LocalTime.of(12, 0),
+                weekDay = DayOfWeek.MONDAY,
+                date = LocalDate.of(2023, 10, 30),
+                isVirtual = false,
+                classroom = null
+            )),
+            course = course11!!
         )
 
-        course11?.addEvent(event111)
+        course11.addEvent(event111)
         eventRepository.save(event111)
-
-        val event112 = Event(
-            name = "Final",
-            isApproved = true
-        )
-
-        course11?.addEvent(event112)
-        eventRepository.save(event112)
-
-        val event113 = Event(
-            name = "Recuperatorio",
-            isApproved = true
-        )
-
-        course11?.addEvent(event113)
-        eventRepository.save(event113)
 
       }
 

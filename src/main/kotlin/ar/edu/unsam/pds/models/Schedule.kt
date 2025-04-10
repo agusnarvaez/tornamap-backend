@@ -22,13 +22,13 @@ class Schedule(
     @JoinColumn(name = "classroom_id", nullable = true)
     val classroom: Classroom?,
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "event_id", nullable = true)
-    val event: Event,
-
 ) : Timestamp(), Serializable {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "event_id")
+    lateinit var event: Event
 
     fun isBeforeEndDate(enteredDate: LocalDate): Boolean {
         if (date == null) {
