@@ -21,7 +21,9 @@ class EventController : UUIDValid() {
         @PathVariable(value = "search", required = false) search: String?,
         @PathVariable(value = "eventDate", required = false) eventDate: LocalDate?,
         @PathVariable(value = "classroomName", required = false) classroomName: String?
-    ){}
+    ): List<EventResponseDto> {
+        return eventService.getAll()
+    }
 
     @GetMapping("{eventID}")
     @Operation(summary = "Get an event by ID")
