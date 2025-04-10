@@ -1,14 +1,11 @@
 package ar.edu.unsam.pds.bootstrap
 
 import ar.edu.unsam.pds.exceptions.NotFoundException
-import ar.edu.unsam.pds.models.Building
-import ar.edu.unsam.pds.models.Classroom
-import ar.edu.unsam.pds.models.Event
-import ar.edu.unsam.pds.models.enums.RecurrenceWeeks
-import ar.edu.unsam.pds.models.Schedule
+import ar.edu.unsam.pds.models.*
 import ar.edu.unsam.pds.repository.ClassroomRepository
 import ar.edu.unsam.pds.repository.EventRepository
 import ar.edu.unsam.pds.repository.ScheduleRepository
+import ar.edu.unsam.pds.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.DependsOn
 import org.springframework.stereotype.Component
@@ -20,14 +17,15 @@ import java.time.LocalTime
 @DependsOn(value = ["InitEvents.beanName", "InitClassroom.beanName"])
 class InitSchedules : BootstrapGeneric("Schedules") {
     @Autowired private lateinit var eventRepository: EventRepository
+    @Autowired private lateinit var userRepository: UserRepository
     @Autowired private lateinit var scheduleRepository: ScheduleRepository
     @Autowired private lateinit var classRoomRepository: ClassroomRepository
 
     override fun doAfterPropertiesSet() {
-        val evento1 = findEvent("Recuperatorio")
-        val evento2 = findEvent("Parcial")
-        val evento3 = findEvent("Final")
-
+        val event1 = findEvent("Recuperatorio")
+        val event2 = findEvent("Parcial")
+        val event3 = findEvent("Final")
+        val teacher = userByEmail("cscirica@estudiantes.unsam.edu.ar")
         val labo1 = findClassroomByName("Laboratorio de Computación 1")
 
         val schedule1 = Schedule(
@@ -36,15 +34,13 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             weekDay = DayOfWeek.MONDAY,
             date = LocalDate.of(2025, 3, 20),
             isVirtual = false,
-            classroom = labo1,
-            event = evento1
-        )
+            classroom = labo1
+        ).apply {
+            event = event1
+        }
 
         scheduleRepository.save(schedule1)
-
-        evento1.apply {
-            schedule = schedule1
-        }
+        event1.addSchedule(schedule1)
 
         val schedule2 = Schedule(
             startTime = LocalTime.of(10, 30),
@@ -53,14 +49,13 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             date = LocalDate.of(2025, 3, 21),
             isVirtual = true,
             classroom = null,
-            event = evento2
-        )
+        ).apply {
+            event = event2
+        }
 
         scheduleRepository.save(schedule2)
 
-        evento2.apply {
-            schedule = schedule2
-        }
+        event2.addSchedule(schedule2)
 
         val schedule3 = Schedule(
             startTime = LocalTime.of(10, 30),
@@ -68,15 +63,13 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             weekDay = DayOfWeek.FRIDAY,
             date = LocalDate.of(2025, 3, 21),
             isVirtual = true,
-            classroom = null,
-            event = evento3
-        )
+            classroom = null
+        ).apply {
+            event = event3
+        }
 
         scheduleRepository.save(schedule3)
-
-        evento3.apply {
-            schedule = schedule3
-        }
+        event3.addSchedule(schedule3)
 
     }
 
@@ -104,6 +97,8 @@ class InitSchedules : BootstrapGeneric("Schedules") {
         }
     }
 
-
+    fun userByEmail(mail: String): User {
+        return userRepository.findByEmail(mail).orElseThrow { NotFoundException("No se encontró profesor con el email suministrado") }
+    }
 
 }

@@ -36,9 +36,9 @@ class InitUser : BootstrapGeneric("users") {
         // region user = USER @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         userRepository.save(
             User(
-                name = "Beatriz",
-                lastName = "Artesi",
-                email = "bartesi@estudiantes.unsam.edu.ar",
+                name = "Carlos",
+                lastName = "Scirica",
+                email = "cscirica@estudiantes.unsam.edu.ar",
                 image = storageService.defaultImage()
             )
         )

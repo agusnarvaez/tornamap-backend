@@ -27,38 +27,31 @@ class InitEvents : BootstrapGeneric("Events") {
             name = "Matematica I"
         )
 
-        val profesora = this.userByEmail("bartesi@estudiantes.unsam.edu.ar")
-
-
-
         val event111 = Event(
             name = "Parcial",
-            isApproved = true
-        ).apply {
-            this.addUser(profesora)
-        }
+            isApproved = true,
+            course = course11!!
+        )
 
-        course11?.addEvent(event111)
+        course11.addEvent(event111)
         eventRepository.save(event111)
 
         val event112 = Event(
             name = "Final",
-            isApproved = true
-        ).apply {
-            this.addUser(profesora)
-        }
+            isApproved = true,
+            course = course11
+        )
 
-        course11?.addEvent(event112)
+        course11.addEvent(event112)
         eventRepository.save(event112)
 
         val event113 = Event(
             name = "Recuperatorio",
-            isApproved = true
-        ).apply {
-            this.addUser(profesora)
-        }
+            isApproved = true,
+            course = course11
+        )
 
-        course11?.addEvent(event113)
+        course11.addEvent(event113)
         eventRepository.save(event113)
 
       }
@@ -76,9 +69,5 @@ class InitEvents : BootstrapGeneric("Events") {
         scheduleRepository.findAll().randomOrNull()?.let {
             return it
         } ?: error("error find random schedule, schedule repository is empty")
-    }
-
-    fun userByEmail(mail: String): User {
-        return userRepository.findByEmail(mail).orElseThrow { NotFoundException("No se encontró profesor con el email suministrado") }
     }
 }
