@@ -45,5 +45,7 @@ class Schedule(
         return enteredDate.isBefore(date) || enteredDate.isEqual(date)
     }
 
-
+    fun assignProfessor(user: User) {
+        assignedProfessors.add(user)
+    }
 }
