@@ -15,23 +15,17 @@ import java.time.LocalDate
 class EventController : UUIDValid() {
     @Autowired lateinit var eventService: EventService
 
-/*    @GetMapping("")
+    @GetMapping("")
     @Operation(summary = "Get all events")
     fun getAll(
         @PathVariable(value = "search", required = false) search: String?,
         @PathVariable(value = "eventDate", required = false) eventDate: LocalDate?,
         @PathVariable(value = "classroomName", required = false) classroomName: String?
-    ){}*/
+    ){}
 
-    @GetMapping("")
-    @Operation(summary = "Get all events")
-    fun getAll() : List<EventResponseDto> {
-        return eventService.getAll()
-    }
-
-    @GetMapping("/{eventID}")
+    @GetMapping("{eventID}")
     @Operation(summary = "Get an event by ID")
-    fun getEvent (@PathVariable eventID: String): EventResponseDto? {
+    fun getEvent (@PathVariable (value="eventID", required= true) eventID: String): EventResponseDto? {
         validatedUUID(eventID)
         return eventService.getEvent(eventID)
     }

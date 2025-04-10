@@ -10,9 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.DependsOn
 import org.springframework.stereotype.Component
 import ar.edu.unsam.pds.exceptions.NotFoundException
-import java.time.DayOfWeek
-import java.time.LocalDate
-import java.time.LocalTime
+import ar.edu.unsam.pds.models.User
+import ar.edu.unsam.pds.repository.UserRepository
 
 @Component(value = "InitEvents.beanName")
 @DependsOn(value = ["InitCourses.beanName", "InitPrograms.beanName"])
@@ -20,34 +19,51 @@ class InitEvents : BootstrapGeneric("Events") {
     @Autowired private lateinit var scheduleRepository: ScheduleRepository
     @Autowired private lateinit var programRepository: ProgramRepository
     @Autowired private lateinit var eventRepository: EventRepository
+    @Autowired private lateinit var userRepository: UserRepository
 
     override fun doAfterPropertiesSet() {
         // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        // Estrellas en Movimiento + Ballet Clásico para Principiantes #################################################
-        val course11 = this.findByName(
+        val course11 = this.findCourseByName(
             name = "Matematica I"
         )
 
+        val profesora = this.userByEmail("bartesi@estudiantes.unsam.edu.ar")
+
+
+
         val event111 = Event(
             name = "Parcial",
-            isApproved = true,
-            schedule = mutableListOf(Schedule(
-                startTime = LocalTime.of(10, 0),
-                endTime = LocalTime.of(12, 0),
-                weekDay = DayOfWeek.MONDAY,
-                date = LocalDate.of(2023, 10, 30),
-                isVirtual = false,
-                classroom = null
-            )),
-            course = course11!!
-        )
+            isApproved = true
+        ).apply {
+            this.addUser(profesora)
+        }
 
-        course11.addEvent(event111)
+        course11?.addEvent(event111)
         eventRepository.save(event111)
+
+        val event112 = Event(
+            name = "Final",
+            isApproved = true
+        ).apply {
+            this.addUser(profesora)
+        }
+
+        course11?.addEvent(event112)
+        eventRepository.save(event112)
+
+        val event113 = Event(
+            name = "Recuperatorio",
+            isApproved = true
+        ).apply {
+            this.addUser(profesora)
+        }
+
+        course11?.addEvent(event113)
+        eventRepository.save(event113)
 
       }
 
-    fun findByName(name: String): Course? {
+    fun findCourseByName(name: String): Course? {
         val programsList = programRepository.findAll()
         val allCourses = programsList.map { it.courses }.flatten()
         if (allCourses.isEmpty()) {
@@ -60,5 +76,9 @@ class InitEvents : BootstrapGeneric("Events") {
         scheduleRepository.findAll().randomOrNull()?.let {
             return it
         } ?: error("error find random schedule, schedule repository is empty")
+    }
+
+    fun userByEmail(mail: String): User {
+        return userRepository.findByEmail(mail).orElseThrow { NotFoundException("No se encontró profesor con el email suministrado") }
     }
 }

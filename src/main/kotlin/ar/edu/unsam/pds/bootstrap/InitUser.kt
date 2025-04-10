@@ -1,6 +1,7 @@
 package ar.edu.unsam.pds.bootstrap
 
 import ar.edu.unsam.pds.models.User
+import ar.edu.unsam.pds.repository.UserRepository
 import ar.edu.unsam.pds.security.models.Principal
 import ar.edu.unsam.pds.security.repository.PrincipalRepository
 import ar.edu.unsam.pds.services.StorageService
@@ -13,6 +14,7 @@ class InitUser : BootstrapGeneric("users") {
     @Autowired private lateinit var passwordEncoder: PasswordEncoder
     @Autowired private lateinit var principalRepository: PrincipalRepository
     @Autowired private lateinit var storageService: StorageService
+    @Autowired private lateinit var userRepository: UserRepository
 
     override fun doAfterPropertiesSet() {
         // region user = ADMIN @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -31,6 +33,15 @@ class InitUser : BootstrapGeneric("users") {
             }
         )
         // endregion
+        // region user = USER @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        userRepository.save(
+            User(
+                name = "Beatriz",
+                lastName = "Artesi",
+                email = "bartesi@estudiantes.unsam.edu.ar",
+                image = storageService.defaultImage()
+            )
+        )
     }
 
     fun encode(clave: String): String {
