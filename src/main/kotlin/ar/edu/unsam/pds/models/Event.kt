@@ -18,8 +18,6 @@ class Event(
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     var course: Course,
 
-    @OneToMany(mappedBy = "event", cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
-    var schedule: MutableList<Schedule> = mutableListOf()
 ) : Timestamp(), Serializable {
 
     @Id @GeneratedValue(strategy = GenerationType.UUID)
