@@ -76,5 +76,9 @@ class Event(
             throw ValidationException("El usuario indicado no es parte del evento")
         }
     }
+
+    fun getAssociatedPrograms(): List<String> {
+        return course.programs.map { it.name }
+    }
 }
 
