@@ -37,45 +37,41 @@ class Event(
         } else {
             Status.FINISHED.name
         }
-    }*/
+    }
+*/
+    fun addUserToSchedule(schedule:Schedule, user:User) {
+        validateScheduleInEvent(schedule)
+        validateUserInEvent(user)
+        schedule.assignProfessor(user)
+    }
 
     fun attachCourse(course: Course) {
         this.course = course
     }
 
-    fun addUser(user: User) {
-        if (validateUserId(user)) {
-            throw ValidationException("El usuario ya es parte de este evento")
+    fun getCourseName(): String = course.name
+
+    fun getProgramNames(): List<String> = course.programNames()
+
+    fun getProfessorNames(): List<String> = users.map { it.fullName() }
+
+    fun addSchedule(schedule: Schedule) = schedules.add(schedule)
+
+    fun removeSchedule(schedule: Schedule){
+        validateScheduleInEvent(schedule)
+        schedules.remove(schedule)
+    }
+
+    fun validateScheduleInEvent(schedule: Schedule) {
+        if (!schedules.contains(schedule)) {
+            throw ValidationException("El horario indicado no es parte del evento")
         }
-        users.add(user)
     }
 
-    fun removeUser(user: User) {
-        if (!validateUserId(user)) {
-            throw ValidationException("El usuario no está subscripto")
+    fun validateUserInEvent(user: User) {
+        if (!users.contains(user)) {
+            throw ValidationException("El usuario indicado no es parte del evento")
         }
-        users.removeAll { it.id == user.id }
-    }
-
-    fun validateUserId(user: User) = users.any { it.id == user.id }
-    
-    fun hasAnyUser(): Boolean {
-        return users.isNotEmpty()
-    }
-
-    fun userCount(): Int {
-        return users.size
-    }
-
-    fun getCourseName(): String {
-        return course.name
-    }
-
-    fun getProgramNames(): List<String> {
-        return course.programNames()
-    }
-
-    fun getProfessorNames(): List<String> {
-        return users.map { it.fullName() }
     }
 }
+
