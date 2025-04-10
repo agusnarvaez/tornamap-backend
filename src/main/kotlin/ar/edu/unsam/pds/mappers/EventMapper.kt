@@ -12,7 +12,7 @@ object EventMapper {
             courseName = event.getCourseName(),
             programNames= event.getProgramNames(),
             professorsName= event.getProfessorNames(),
-            schedule = event.schedule.map { ScheduleMapper.buildScheduleDto(it) },
+            schedules = event.schedules.map { ScheduleMapper.buildScheduleDto(it) },
         )
     }
 

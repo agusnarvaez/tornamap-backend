@@ -5,5 +5,5 @@ data class EventResponseDto(
     val courseName: String,
     val programNames: List<String>,
     val professorsName: List<String>,
-    val schedule: List<ScheduleResponseDto>,
+    val schedules: List<ScheduleResponseDto>,
 )
