@@ -30,6 +30,14 @@ class Schedule(
     @JoinColumn(name = "event_id")
     lateinit var event: Event
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "app_schedule_user",
+        joinColumns = [JoinColumn(name = "user_id")],
+        inverseJoinColumns = [JoinColumn(name = "schedule_id")]
+    )
+    val assignedProfessors = mutableSetOf<User>()
+
     fun isBeforeEndDate(enteredDate: LocalDate): Boolean {
         if (date == null) {
             throw IllegalStateException("No se puede verificar la fecha porque 'date' es nulo en este Schedule")
