@@ -54,7 +54,7 @@ class CoursesService(
         )
         courseRepository.save(newCourse)
 
-        program.addCourse(newCourse)
+        program.addCourse(listOf(newCourse))
         programRepository.save(program)
 
         return CourseMapper.buildCourseDto(newCourse)

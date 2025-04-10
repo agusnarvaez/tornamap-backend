@@ -35,8 +35,8 @@ class Program(
     )
     val admin = mutableSetOf<User>()
 
-    fun addCourse(course: Course) {
-        courses.add(course)
+    fun addCourse(newCourses: List<Course>) {
+        courses.addAll(newCourses)
     }
 
     fun removeCourse(course: Course) {
