@@ -40,4 +40,10 @@ class EventController : UUIDValid() {
         @PathVariable eventID: String
     ){ eventService.deleteEvent(eventID) }
 
+    @PutMapping("{eventId}")
+    @Operation(summary = "Edit an event by ID")
+    fun editEvent(@PathVariable eventID: String,
+                  @RequestBody @Valid event: EventRequestDto){
+        eventService.editEvent(eventID,event)
+    }
 }
