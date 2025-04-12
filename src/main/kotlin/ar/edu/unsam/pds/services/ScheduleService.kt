@@ -39,9 +39,8 @@ class ScheduleService(
         return schedule
     }
 
-    fun deleteSchedule(idSchedule: String) {
-        val uuid = UUID.fromString(idSchedule)
-        scheduleRepository.deleteById(uuid)
+    fun deleteSchedule(idSchedule: UUID) {
+        scheduleRepository.deleteById(idSchedule)
     }
 
 }
