@@ -25,7 +25,7 @@ spring:
     activate:
       on-profile: test # Perfil por defecto
   application:
-    name: PDS-2024-backend
+    name: TORNAMAP-backend
   thymeleaf:
     check-template-location: false
   mvc:

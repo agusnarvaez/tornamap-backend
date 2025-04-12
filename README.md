@@ -1,4 +1,4 @@
-[![Coverage Status](https://coveralls.io/repos/github/TV3ntu/PDS-2024-backend/badge.svg?branch=master)](https://coveralls.io/github/TV3ntu/PDS-2024-backend?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/agusnarvaez/tornamap-backend/badge.svg?branch=master)](https://coveralls.io/github/TV3ntu/PDS-2024-backend?branch=master)
 
 # Tornamap - Backend
 En este repositorio se encuentra el código fuente del backend de la aplicación Tornamap, desarrollado en Kotlin con Spring Boot.
