@@ -19,7 +19,7 @@ class InitSchedules : BootstrapGeneric("Schedules") {
     @Autowired private lateinit var eventRepository: EventRepository
     @Autowired private lateinit var userRepository: UserRepository
     @Autowired private lateinit var scheduleRepository: ScheduleRepository
-    @Autowired private lateinit var classRoomRepository: ClassroomRepository
+    @Autowired private lateinit var classroomRepository: ClassroomRepository
 
     override fun doAfterPropertiesSet() {
         val event1 = findEvent("Recuperatorio")
@@ -32,11 +32,12 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             startTime = LocalTime.of(8, 30),
             endTime = LocalTime.of(10, 0),
             weekDay = DayOfWeek.MONDAY,
-            date = LocalDate.of(2025, 3, 20),
+            date = LocalDate.now(),
             isVirtual = false,
             classroom = labo1
         ).apply {
             event = event1
+            assignUserToSchedule(teacher, this)
         }
 
         scheduleRepository.save(schedule1)
@@ -46,11 +47,12 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             startTime = LocalTime.of(10, 30),
             endTime = LocalTime.of(12, 0),
             weekDay = DayOfWeek.FRIDAY,
-            date = LocalDate.of(2025, 3, 21),
+            date = LocalDate.now(),
             isVirtual = true,
             classroom = null,
         ).apply {
             event = event2
+            assignUserToSchedule(teacher, this)
         }
 
         scheduleRepository.save(schedule2)
@@ -61,11 +63,12 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             startTime = LocalTime.of(10, 30),
             endTime = LocalTime.of(12, 0),
             weekDay = DayOfWeek.FRIDAY,
-            date = LocalDate.of(2025, 3, 21),
+            date = LocalDate.now(),
             isVirtual = true,
             classroom = null
         ).apply {
             event = event3
+            assignUserToSchedule(teacher, this)
         }
 
         scheduleRepository.save(schedule3)
@@ -78,7 +81,7 @@ class InitSchedules : BootstrapGeneric("Schedules") {
     }
 
     fun findClassroomByName(name: String): Classroom? {
-        val allClasrooms = classRoomRepository.findAll()
+        val allClasrooms = classroomRepository.findAll()
         validateClassroomList(allClasrooms)
         validateClassroomSearch(allClasrooms,name)
         return allClasrooms.find { it.name == name }!!

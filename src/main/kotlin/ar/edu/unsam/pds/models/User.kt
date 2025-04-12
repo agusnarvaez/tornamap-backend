@@ -18,33 +18,11 @@ class User(
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-        name = "app_user_event",
+        name = "app_user_schedule",
         joinColumns = [JoinColumn(name = "user_id")],
-        inverseJoinColumns = [JoinColumn(name = "event_id")]
+        inverseJoinColumns = [JoinColumn(name = "schedule_id")]
     )
-    val eventList = mutableSetOf<Event>()
-
-
-
-    fun assignedCourses(): Set<Course> {
-        return eventList.map { it.course }.toSet()
-    }
-
-    fun addEvent(event: Event) {
-        if (eventList.any { it.id == event.id }) {
-            throw ValidationException("El usuario ya forma parte de este evento")
-        } else {
-            eventList.add(event)
-        }
-    }
-
-    fun removeEvent(event: Event) {
-        if (!eventList.any { it.id == event.id }) {
-            throw ValidationException("El usuario no forma parte de este evento")
-        } else {
-            eventList.removeIf { it.id == event.id }
-        }
-    }
+    val scheduleList = mutableSetOf<Schedule>()
 
     fun fullName(): String {
         return "$name $lastName"

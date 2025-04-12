@@ -26,10 +26,6 @@ class Event(
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
 
-    //Professors
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "eventList")
-    val users = mutableSetOf<User>()
-
     @ManyToOne(fetch = FetchType.EAGER)
     @Nullable
     var period: Period? = null
@@ -44,8 +40,7 @@ class Event(
 */
     fun addUserToSchedule(schedule:Schedule, user:User) {
         validateScheduleInEvent(schedule)
-        validateUserInEvent(user)
-        schedule.assignProfessor(user)
+        schedule.assignUserToSchedule(user, schedule)
     }
 
     fun attachCourse(course: Course) {

@@ -12,14 +12,31 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class CoursesService(
+class CourseService (
     private val courseRepository: CourseRepository,
     private val programRepository: ProgramRepository,
 ) {
 
-    fun getAll(query: String): List<CourseResponseDto> {
-        val courses = courseRepository.findAll()
-        return courses.map { CourseMapper.buildCourseDto(it) }
+    fun searchBy(query: String): List<Course> {
+        if (query.isNotBlank()) {
+//            val searchCourse = allCourses.apply {
+//                filterByName(this, query)
+//                filterByProgram(this, query)
+//                filterByUserName(this, query)
+//            }
+            return (courseRepository.findByProgramsNameContainingIgnoreCase(query).toSet() + courseRepository.findByNameContainingIgnoreCase(query).toSet()).toList()
+        }
+        return getAll()
+    }
+
+    fun filterByName(courseList: List<Course>, query: String) = courseList.filter { it.name.contains(query)}
+
+    fun filterByProgram(courseList: List<Course>, query: String) = courseList.filter { it.programNames().contains(query)}
+
+    fun filterByUserName(courseList: List<Course>, query: String) = courseList.filter { it.userNames().contains(query)}
+
+    fun getAll(): List<Course> {
+        return courseRepository.findAllByOrderByNameAsc()
     }
 
     fun findCourseById(courseId: String): CourseResponseDto {

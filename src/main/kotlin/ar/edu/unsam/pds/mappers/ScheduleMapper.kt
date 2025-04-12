@@ -2,7 +2,6 @@ package ar.edu.unsam.pds.mappers
 
 import ar.edu.unsam.pds.dto.response.ClassroomResponseDto
 import ar.edu.unsam.pds.dto.response.ScheduleResponseDto
-import ar.edu.unsam.pds.models.Classroom
 import ar.edu.unsam.pds.models.Schedule
 
 object ScheduleMapper {
@@ -37,7 +36,7 @@ object ScheduleMapper {
         "professors": ["Profesor 1", "Profesor 2"],
         "weekDay": "Martes",
         "date": "null",
-        "classRoom": [
+        "classroom": [
         {
             id: "A28",
             name: "A28 - Edificio Tornavías"
@@ -50,7 +49,7 @@ object ScheduleMapper {
             "professors": ["Profesor 1"],
             "weekDay": "Jueves",
             "date": "null"
-            "classRoom": [],
+            "classroom": [],
             "isVirtual": "true"
         }
         ]
