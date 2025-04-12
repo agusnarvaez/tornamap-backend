@@ -9,6 +9,8 @@ object CourseMapper {
         return CourseResponseDto(
             id = course.id.toString(),
             name = course.name,
+            programNames = course.programNames(),
+            schedules = course.getSchedules().map { ScheduleMapper.buildScheduleDto(it) }
         )
     }
 

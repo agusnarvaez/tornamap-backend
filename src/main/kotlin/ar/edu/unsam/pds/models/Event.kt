@@ -51,7 +51,7 @@ class Event(
 
     fun getProgramNames(): List<String> = course.programNames()
 
-    fun getProfessorNames(): List<String> = users.map { it.fullName() }
+    fun getProfessorNames(): Set<String> = schedules.flatMap { it.getUserNames() }.toSet()
 
     fun addSchedule(schedule: Schedule) = schedules.add(schedule)
 
@@ -64,16 +64,6 @@ class Event(
         if (!schedules.contains(schedule)) {
             throw ValidationException("El horario indicado no es parte del evento")
         }
-    }
-
-    fun validateUserInEvent(user: User) {
-        if (!users.contains(user)) {
-            throw ValidationException("El usuario indicado no es parte del evento")
-        }
-    }
-
-    fun getAssociatedPrograms(): List<String> {
-        return course.programs.map { it.name }
     }
 }
 

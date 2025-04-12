@@ -23,7 +23,7 @@ import java.util.*
 @Service
 class EventService(
     private val eventRepository: EventRepository,
-    private val scheduleRepository: ScheduleRepository,
+    private val scheduleService: ScheduleService,
     private val courseRepository: CourseRepository,
 ) {
 
@@ -49,7 +49,7 @@ class EventService(
         return EventMapper.buildEventDto(matchingEvent)
     }
 
-    private fun findEventById(){}
+
 
     fun createEvent(){}
 

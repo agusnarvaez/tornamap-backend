@@ -12,4 +12,6 @@ import java.time.LocalDate
 import java.util.*
 
 @RepositoryRestResource(exported = false)
-interface ScheduleRepository : JpaRepository<Schedule, UUID>
+interface ScheduleRepository : JpaRepository<Schedule, UUID> {
+    fun findByClassroomIdAndDate(classroomID: UUID, date: LocalDate): List<Schedule>
+}

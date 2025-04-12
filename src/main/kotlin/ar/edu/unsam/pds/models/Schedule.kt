@@ -37,6 +37,10 @@ class Schedule(
         return enteredDate.isBefore(date) || enteredDate.isEqual(date)
     }
 
+    fun getUserNames(): List<String> {
+        return assignedUsers.map { it.fullName() }
+    }
+
     fun assignUserToSchedule(user: User, schedule: Schedule) {
         this.assignedUsers.add(user)
         user.scheduleList.add(schedule)

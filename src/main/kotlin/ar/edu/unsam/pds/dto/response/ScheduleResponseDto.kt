@@ -11,6 +11,7 @@ data class ScheduleResponseDto (
     val weekDay:DayOfWeek?,
     val date: LocalDate?,
     val isVirtual:Boolean,
+    val professors: List<String>,
     val classroom: ClassroomResponseDto?
 )
 

@@ -13,6 +13,7 @@ object ScheduleMapper {
             date = schedule.date,
             weekDay = schedule.weekDay,
             isVirtual = schedule.isVirtual,
+            professors = schedule.assignedUsers.map { it.fullName() },
             classroom = getClassroomDto(schedule)
         )
     }

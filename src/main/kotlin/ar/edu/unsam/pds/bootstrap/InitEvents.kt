@@ -37,7 +37,6 @@ class InitEvents : BootstrapGeneric("Events") {
             course = course11!!
         )
 
-        course11.addEvent(event111)
         eventRepository.save(event111)
 
         val event112 = Event(
@@ -46,7 +45,6 @@ class InitEvents : BootstrapGeneric("Events") {
             course = course11
         )
 
-        course11.addEvent(event112)
         eventRepository.save(event112)
 
         val event113 = Event(
@@ -55,7 +53,6 @@ class InitEvents : BootstrapGeneric("Events") {
             course = course22!!
         )
 
-        course22.addEvent(event113)
         eventRepository.save(event113)
 
       }
