@@ -27,6 +27,9 @@ class ScheduleService(
     val classroomRepository: ClassroomRepository,
     val eventRepository : EventRepository
 ) {
+    fun getAll(): List<Schedule> {
+        return scheduleRepository.findAll()
+    }
 
     private fun findScheduleById(idSchedule: String): Schedule {
         val uuid = UUID.fromString(idSchedule)
