@@ -1,10 +1,8 @@
 package ar.edu.unsam.pds.bootstrap
 
 import ar.edu.unsam.pds.exceptions.NotFoundException
-import ar.edu.unsam.pds.models.Building
 import ar.edu.unsam.pds.models.Classroom
 import ar.edu.unsam.pds.models.Event
-import ar.edu.unsam.pds.models.enums.RecurrenceWeeks
 import ar.edu.unsam.pds.models.Schedule
 import ar.edu.unsam.pds.repository.ClassroomRepository
 import ar.edu.unsam.pds.repository.EventRepository
@@ -59,12 +57,6 @@ class InitSchedules : BootstrapGeneric("Schedules") {
 
     }
 
-    fun findRandomEvent(): Event {
-        if(eventRepository.findAll().isEmpty()) {
-            throw NotFoundException("Error hallando un evento al azar, no existen eventos")
-        }
-        return eventRepository.findAll().random()
-    }
 
     fun findClassroomByName(name: String): Classroom? {
         val allClasrooms = classRoomRepository.findAll()
