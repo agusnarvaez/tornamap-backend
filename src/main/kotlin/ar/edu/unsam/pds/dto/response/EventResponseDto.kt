@@ -5,5 +5,5 @@ data class EventResponseDto(
     val name: String,
     var isActive: Boolean,
     var isCancelled: Boolean,
-    val schedule: ScheduleResponseDto
+    val schedules: MutableSet<ScheduleResponseDto>
 )
