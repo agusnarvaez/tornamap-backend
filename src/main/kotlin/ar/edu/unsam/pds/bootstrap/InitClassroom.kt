@@ -6,7 +6,6 @@ import ar.edu.unsam.pds.models.Classroom
 import ar.edu.unsam.pds.models.enums.ClassroomType
 import ar.edu.unsam.pds.repository.BuildingRepository
 import ar.edu.unsam.pds.repository.ClassroomRepository
-import java.util.UUID
 import org.springframework.stereotype.Component
 import org.springframework.context.annotation.DependsOn
 import org.springframework.beans.factory.annotation.Autowired
