@@ -37,10 +37,11 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             endTime = LocalTime.of(10, 0),
             weekDay = DayOfWeek.MONDAY,
             date = LocalDate.of(2025, 3, 20),
-            isVirtual = false,
-            classroom = labo1,
+            isVirtual = false
+        ).apply {
             event = parcial
-        )
+            classroom = labo1
+        }
 
         scheduleRepository.save(schedule1)
 
@@ -49,10 +50,10 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             endTime = LocalTime.of(12, 0),
             weekDay = DayOfWeek.FRIDAY,
             date = LocalDate.of(2025, 3, 21),
-            isVirtual = true,
-            classroom = null,
+            isVirtual = true
+        ).apply {
             event = parcial
-        )
+        }
 
         scheduleRepository.save(schedule2)
 
@@ -70,7 +71,6 @@ class InitSchedules : BootstrapGeneric("Schedules") {
         validateClassroomList(allClasrooms)
         validateClassroomSearch(allClasrooms,name)
         return allClasrooms.find { it.name == name }!!
-
     }
 
     private fun validateClassroomList(classrooms: List<Classroom>) {
@@ -84,7 +84,5 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             throw NotFoundException("No hay un aula con el nombre indicado.")
         }
     }
-
-
 
 }
