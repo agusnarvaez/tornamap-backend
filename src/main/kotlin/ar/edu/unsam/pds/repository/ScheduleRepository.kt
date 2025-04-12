@@ -11,4 +11,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource
 import java.util.*
 
 @RepositoryRestResource(exported = false)
-interface ScheduleRepository : JpaRepository<Schedule, UUID>
+interface ScheduleRepository : JpaRepository<Schedule, UUID>{
+
+
+}

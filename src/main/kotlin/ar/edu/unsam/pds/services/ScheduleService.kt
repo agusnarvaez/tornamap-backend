@@ -35,11 +35,24 @@ class ScheduleService(
         }
     }
 
+    @Transactional
+    fun editSchedule(scheduleID: String,schedule: ScheduleRequestDto) {
+        this.scheduleRepository.save(schedule)
+        val updatedSchedule = buildSchedule(schedule, scheduleID)
+        scheduleRepository.save(updatedSchedule)
+    }
 
     @Transactional
-    fun createSchedule(schedule: ScheduleRequestDto): Schedule {
+    fun createSchedule(schedule: ScheduleRequestDto) {
+        val newSchedule = buildSchedule(schedule)
+        scheduleRepository.save(newSchedule)
+    }
+
+
+    private fun buildSchedule(schedule: ScheduleRequestDto, existingID:String? = null): Schedule {
         if (isValidDateOrWeekDay(schedule.date, schedule.weekDay)) {
-            val classroom = createClassroom(schedule)
+            val classroom = findClassroom(schedule)
+
 
             val newSchedule = Schedule(
                 schedule.startTime,
@@ -50,19 +63,22 @@ class ScheduleService(
                 classroom,
             )
 
-            return scheduleRepository.save(newSchedule)
+
+            newSchedule.id=UUID.fromString(existingID) ?: UUID.randomUUID()
+
+            return newSchedule
         } else {
             throw IllegalArgumentException("Debe ingresar un día de la semana o una fecha válida")
         }
     }
 
 
-    private fun createClassroom(schedule: ScheduleRequestDto): Classroom? {
+    fun findClassroom(schedule: ScheduleRequestDto): Classroom? {
         if (schedule.isVirtual){
             return null
         }
-        val idClassroom = UUID.fromString(schedule.classroomID)
-        return classroomRepository.findById(idClassroom).orElseThrow{
+        val classroomID = UUID.fromString(schedule.classroomID)
+        return classroomRepository.findById(classroomID).orElseThrow{
             NotFoundException("Aula no encontrada para el id suministrado")
         }
     }
