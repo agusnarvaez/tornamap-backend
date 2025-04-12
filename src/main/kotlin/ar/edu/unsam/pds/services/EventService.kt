@@ -24,7 +24,6 @@ import java.util.*
 class EventService(
     private val eventRepository: EventRepository,
     private val scheduleService: ScheduleService,
-    private val courseRepository: CourseRepository,
 ) {
 
     fun searchBy(classroomID: String, date: String): List<Event> {
@@ -48,8 +47,6 @@ class EventService(
 
         return EventMapper.buildEventDto(matchingEvent)
     }
-
-
 
     fun createEvent(){}
 
