@@ -28,7 +28,34 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             building = tornavias
         )
 
+        val aulaA28 = Classroom(
+            name = "Aula A28",
+            capacity = 30,
+            floor = 2,
+            type = ClassroomType.CLASSROOM,
+            building = tornavias
+        )
+
+        val salaLectura = Classroom(
+            name = "Sala de Lectura",
+            capacity = 20,
+            floor = 1,
+            type = ClassroomType.LECTURE,
+            building = tornavias
+        )
+
+        val carpaAuditorio = Classroom(
+            name = "Carpa Auditorio",
+            capacity = 100,
+            floor = 0,
+            type = ClassroomType.AUDITORIUM,
+            building = tornavias
+        )
+
         classroomRepository.save(labo1)
+        classroomRepository.save(aulaA28)
+        classroomRepository.save(salaLectura)
+        classroomRepository.save(carpaAuditorio)
     }
 
     fun findBuildingByName(name: String) : Building {
