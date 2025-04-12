@@ -9,6 +9,8 @@ import java.time.LocalTime
 
 data class ScheduleRequestDto (
 
+    val id: String?,
+
     @field: NotNull(message = "La hora de inicio no puede ser nula")
     val startTime: LocalTime,
 
@@ -16,18 +18,10 @@ data class ScheduleRequestDto (
     val endTime: LocalTime,
 
     val weekDay:DayOfWeek?,
-
     val date:LocalDate?,
 
     @field: NotNull(message = "isVirtual no puede ser nulo")
     val isVirtual: Boolean,
 
-    @field: NotNull(message = "El ID no debe ser nulo")
-    @field: NotBlank(message = "El ID no debe estar en blanco")
-    @field: Pattern(
-        regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
-        message = "UUID debe ser valido"
-    )
-    val classroomID: String?,
-
-    )
+    val classroomId: String? = null,
+)
