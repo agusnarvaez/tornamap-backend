@@ -19,7 +19,7 @@ class CoursesController : UUIDValid() {
     fun getAll(@RequestParam(value = "query", required = false) query: String?): ResponseEntity<CustomResponse> {
         return ResponseEntity.status(200).body(
             CustomResponse (
-                message = "Courses retrieved successfully",
+                message = "Coursos obtenidos con exito",
                 data = courseService.searchBy(query ?: "").map { CourseMapper.buildCourseDto(it) }
             )
         )
@@ -33,7 +33,7 @@ class CoursesController : UUIDValid() {
         this.validatedUUID(idCourse)
         return ResponseEntity.status(200).body(
             CustomResponse (
-                message = "Courses retrieved successfully",
+                message = "Courso obtenido con exito",
                 data = courseService.findCourseById(idCourse)
             )
         )
