@@ -58,6 +58,21 @@ class InitPrograms : BootstrapGeneric("Programs") {
                 addCourse(courseRepository.findAll())
             }
         )
+
+        programRepository.save(
+            Program(
+                name = "Licenciatura en Ciencia de datos",
+                description =
+                    """
+                    La carrera tiene un bloque curricular constituido por asignaturas básicas de matemática, electricidad y magnetismo,
+                    y los fundamentos básicos de la computación y la programación.
+                    """
+                        .trimIndent(),
+            ).apply {
+                addAdmin(userByEmail("admin@admin.com"))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Matematica I")!!))
+            }
+        )
     }
 
     fun userByEmail(mail : String): User {

@@ -41,7 +41,7 @@ class InitCourses : BootstrapGeneric("Courses") {
 
         courseRepository.save(
             Course(
-                name="Electricidad y Magnetismo",
+                name="Telecomunicaciones y Redes",
                 description="Asignatura introductoria que aborda los principios fundamentales de la electricidad y el magnetismo, incluyendo electrostática, circuitos eléctricos, inducción electromagnética y ondas electromagnéticas, con aplicaciones en equipos informáticos y de comunicaciones."
             )
         )

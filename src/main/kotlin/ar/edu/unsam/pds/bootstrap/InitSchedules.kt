@@ -22,11 +22,15 @@ class InitSchedules : BootstrapGeneric("Schedules") {
     @Autowired private lateinit var classroomRepository: ClassroomRepository
 
     override fun doAfterPropertiesSet() {
-        val event1 = findEvent("Recuperatorio")
-        val event2 = findEvent("Parcial")
-        val event3 = findEvent("Final")
-        val teacher = userByEmail("cscirica@estudiantes.unsam.edu.ar")
+        val event1 = findEvent("Cursada Algoritmos I")
+        val event2 = findEvent("Parcial Telecomunicaciones y Redes")
+        val event3 = findEvent("Final Matematica I")
+        val carlos = userByEmail("cscirica@estudiantes.unsam.edu.ar")
+        val dodino = userByEmail("dodain@estudiantes.unsam.edu.ar")
+        val mc = userByEmail("mcabeledo@estudiantes.unsam.edu.ar")
         val labo1 = findClassroomByName("Laboratorio de Computación 1")
+        val cidi = findClassroomByName("Centro de investigacion y desarrollo de informatica")
+        val aula10 = findClassroomByName("Aula 10")
 
         val schedule1 = Schedule(
             startTime = LocalTime.of(8, 30),
@@ -37,7 +41,7 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             classroom = labo1
         ).apply {
             event = event1
-            assignUserToSchedule(teacher, this)
+            assignUserToSchedule(dodino, this)
         }
 
         scheduleRepository.save(schedule1)
@@ -49,14 +53,13 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             weekDay = DayOfWeek.FRIDAY,
             date = LocalDate.now(),
             isVirtual = true,
-            classroom = null,
+            classroom = cidi,
         ).apply {
             event = event2
-            assignUserToSchedule(teacher, this)
+            assignUserToSchedule(mc , this)
         }
 
         scheduleRepository.save(schedule2)
-
         event2.addSchedule(schedule2)
 
         val schedule3 = Schedule(
@@ -65,10 +68,10 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             weekDay = DayOfWeek.FRIDAY,
             date = LocalDate.now(),
             isVirtual = true,
-            classroom = null
+            classroom = aula10
         ).apply {
             event = event3
-            assignUserToSchedule(teacher, this)
+            assignUserToSchedule(carlos, this)
         }
 
         scheduleRepository.save(schedule3)

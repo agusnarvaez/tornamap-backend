@@ -17,26 +17,15 @@ class CourseService (
     private val programRepository: ProgramRepository,
 ) {
 
-    fun searchBy(query: String): List<Course> {
-        if (query.isNotBlank()) {
-//            val searchCourse = allCourses.apply {
-//                filterByName(this, query)
-//                filterByProgram(this, query)
-//                filterByUserName(this, query)
-//            }
-            return (courseRepository.findByProgramsNameContainingIgnoreCase(query).toSet() + courseRepository.findByNameContainingIgnoreCase(query).toSet()).toList()
-        }
-        return getAll()
-    }
-
-    fun filterByName(courseList: List<Course>, query: String) = courseList.filter { it.name.contains(query)}
-
-    fun filterByProgram(courseList: List<Course>, query: String) = courseList.filter { it.programNames().contains(query)}
-
-    fun filterByUserName(courseList: List<Course>, query: String) = courseList.filter { it.userNames().contains(query)}
-
     fun getAll(): List<Course> {
         return courseRepository.findAllByOrderByNameAsc()
+    }
+
+    fun searchBy(query: String): List<Course> {
+        if (query.isNotBlank()) {
+            return courseRepository.searchByNameOrProgramOrProfessor(query)
+        }
+        return getAll()
     }
 
     fun findCourseById(courseId: String): CourseResponseDto {
@@ -46,17 +35,6 @@ class CourseService (
         })
         return CourseMapper.buildCourseDto(matchingCourse)
     }
-
-/*
-    @Transactional
-    fun deleteCourse() {}
-*/
-
-/*
-    @Transactional
-    fun deleteAllById() {}
-*/
-
 
     @Transactional
     fun createCourse(course: CourseRequestDto): CourseResponseDto? {

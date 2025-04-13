@@ -13,12 +13,21 @@ import java.util.*
 
 @RepositoryRestResource(exported = false)
 interface CourseRepository : JpaRepository<Course, UUID> {
-    fun findByName(name: String): MutableList<Course>
+
+    fun findCourseByName(courseName: String): Course?
 
     fun findAllByOrderByNameAsc(): List<Course>
 
-    fun findByProgramsNameContainingIgnoreCase(name: String): List<Course>
-
-    fun findByNameContainingIgnoreCase(name: String): List<Course>
+    @Query("""
+        SELECT DISTINCT c FROM Course c 
+        LEFT JOIN c.programs p
+        LEFT JOIN c.events e
+        LEFT JOIN e.schedules s
+        LEFT JOIN s.assignedUsers u
+        WHERE LOWER(c.name) LIKE LOWER(CONCAT('%', :query, '%'))
+        OR LOWER(p.name) LIKE LOWER(CONCAT('%', :query, '%'))
+        OR LOWER(CONCAT(u.name, ' ', u.lastName)) LIKE LOWER(CONCAT('%', :query, '%'))
+    """)
+    fun searchByNameOrProgramOrProfessor(@Param("query") query: String): List<Course>
 
 }

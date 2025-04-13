@@ -19,41 +19,44 @@ class InitEvents : BootstrapGeneric("Events") {
     @Autowired private lateinit var scheduleRepository: ScheduleRepository
     @Autowired private lateinit var programRepository: ProgramRepository
     @Autowired private lateinit var eventRepository: EventRepository
-    @Autowired private lateinit var userRepository: UserRepository
 
     override fun doAfterPropertiesSet() {
         // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        val course11 = this.findCourseByName(
+        val mate1 = this.findCourseByName(
             name = "Matematica I"
         )
 
-        val course22 = this.findCourseByName(
-            name = "Electricidad y Magnetismo"
+        val redes = this.findCourseByName(
+            name = "Telecomunicaciones y Redes"
         )
 
-        val event111 = Event(
-            name = "Parcial",
+        val algo1 = this.findCourseByName(
+            name = "Algoritmos I"
+        )
+
+        val event1 = Event(
+            name = "Cursada Algoritmos I",
             isApproved = true,
-            course = course11!!
+            course = algo1!!
         )
 
-        eventRepository.save(event111)
+        eventRepository.save(event1)
 
-        val event112 = Event(
-            name = "Final",
+        val event2 = Event(
+            name = "Parcial Telecomunicaciones y Redes",
             isApproved = true,
-            course = course11
+            course = redes!!
         )
 
-        eventRepository.save(event112)
+        eventRepository.save(event2)
 
-        val event113 = Event(
-            name = "Recuperatorio",
+        val event3 = Event(
+            name = "Final Matematica I",
             isApproved = true,
-            course = course22!!
+            course = mate1!!
         )
 
-        eventRepository.save(event113)
+        eventRepository.save(event3)
 
       }
 

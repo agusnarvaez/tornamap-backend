@@ -1,11 +1,10 @@
 package ar.edu.unsam.pds.controllers
 
-import ar.edu.unsam.pds.dto.response.CourseResponseDto
+import ar.edu.unsam.pds.dto.response.CustomResponse
 import ar.edu.unsam.pds.mappers.CourseMapper
 import ar.edu.unsam.pds.services.CourseService
 import io.swagger.v3.oas.annotations.Operation
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -17,18 +16,30 @@ class CoursesController : UUIDValid() {
 
     @GetMapping("")
     @Operation(summary = "Get all courses")
-    fun getAll(@RequestParam(value = "query", required = false) query: String?): List<CourseResponseDto> {
-        return courseService.searchBy(query ?: "").map { CourseMapper.buildCourseDto(it) }
+    fun getAll(@RequestParam(value = "query", required = false) query: String?): ResponseEntity<CustomResponse> {
+        return ResponseEntity.status(200).body(
+            CustomResponse (
+                message = "Courses retrieved successfully",
+                data = courseService.searchBy(query ?: "").map { CourseMapper.buildCourseDto(it) }
+            )
+        )
     }
 
-    /*@GetMapping("")
-    @Operation(summary = "Get all courses")
-    fun getAll(
-        @RequestParam(required = false) query: String?
-    ): ResponseEntity<List<CourseResponseDto>> {
-        return ResponseEntity.ok(courseServices.getAll(query ?: ""))
-    }*/
+    @GetMapping("{idCourse}")
+    @Operation(summary = "Get a course by ID")
+    fun getCourse(
+        @PathVariable idCourse: String
+    ): ResponseEntity<CustomResponse> {
+        this.validatedUUID(idCourse)
+        return ResponseEntity.status(200).body(
+            CustomResponse (
+                message = "Courses retrieved successfully",
+                data = courseService.findCourseById(idCourse)
+            )
+        )
+    }
 
+    /*
     @DeleteMapping("")
     @Operation(summary = "Delete n courses by n IDs")
     fun deleteMultipleCourses() {}
@@ -40,13 +51,6 @@ class CoursesController : UUIDValid() {
     @PostMapping(value = [""], consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
     @Operation(summary = "Create a course")
     fun createCourse() {}
+    */
 
-    @GetMapping("{courseId}")
-    @Operation(summary = "Get a course by ID")
-    fun getCourse(
-        @PathVariable idCourse: String
-    ): ResponseEntity<CourseResponseDto> {
-        this.validatedUUID(idCourse)
-        return ResponseEntity.ok(courseService.findCourseById(idCourse))
-    }
 }

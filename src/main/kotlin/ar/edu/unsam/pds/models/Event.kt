@@ -30,14 +30,6 @@ class Event(
     @Nullable
     var period: Period? = null
 
-/*    fun status(): String {
-        return if (schedule.isBeforeEndDate(LocalDate.now())) {
-            Status.CONFIRMED.name
-        } else {
-            Status.FINISHED.name
-        }
-    }
-*/
     fun addUserToSchedule(schedule:Schedule, user:User) {
         validateScheduleInEvent(schedule)
         schedule.assignUserToSchedule(user, schedule)
