@@ -12,6 +12,10 @@ import java.util.*
 
 @RepositoryRestResource(exported = false)
 interface EventRepository : JpaRepository<Event, UUID> {
+
+    @EntityGraph(attributePaths = ["course", "course.programs", "schedules","schedules.classroom","schedules.classroom.building", "schedules.assignedUsers"])
+    override fun findById(id: UUID): Optional<Event>
+
     fun findByName(name: String): Optional<Event>
 
     @EntityGraph(attributePaths = ["course", "course.programs", "schedules","schedules.classroom","schedules.classroom.building", "schedules.assignedUsers"])
