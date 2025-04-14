@@ -30,7 +30,7 @@ class CourseController : UUIDValid() {
     fun getCourse(
         @PathVariable idCourse: String
     ): ResponseEntity<CustomResponse> {
-        this.validatedUUID(idCourse)
+
         return ResponseEntity.status(200).body(
             CustomResponse (
                 message = "Courso obtenido con exito",
