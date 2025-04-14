@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("api/courses")
 @CrossOrigin("*")
-class CoursesController : UUIDValid() {
+class CourseController : UUIDValid() {
     @Autowired lateinit var courseService: CourseService
 
     @GetMapping("")
