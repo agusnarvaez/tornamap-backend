@@ -15,7 +15,7 @@ object ScheduleMapper {
             weekDay = schedule.weekDay,
             isVirtual = schedule.isVirtual,
             classroom = schedule.classroom?.let { ClassroomMapper.buildClasroomDto(it) },
-            professors = schedule.assignedUsers.map { it.name },
+            professors = schedule.assignedUsers.map { it.lastName+", "+it.name },
         )
     }
 
