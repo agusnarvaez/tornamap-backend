@@ -8,4 +8,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource
 import java.util.*
 
 @RepositoryRestResource(exported = false)
-interface ClassroomRepository : JpaRepository<Classroom, UUID>
+interface ClassroomRepository : JpaRepository<Classroom, UUID>{
+
+    fun findByName(@Param("name") name: String): Optional<Classroom>
+}
