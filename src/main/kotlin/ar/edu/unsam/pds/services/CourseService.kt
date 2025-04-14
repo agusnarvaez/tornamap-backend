@@ -5,7 +5,6 @@ import ar.edu.unsam.pds.dto.response.CourseResponseDto
 import ar.edu.unsam.pds.exceptions.NotFoundException
 import ar.edu.unsam.pds.mappers.CourseMapper
 import ar.edu.unsam.pds.models.Course
-import ar.edu.unsam.pds.models.Period
 import ar.edu.unsam.pds.repository.CourseRepository
 import ar.edu.unsam.pds.repository.ProgramRepository
 import jakarta.transaction.Transactional
@@ -32,7 +31,7 @@ class CourseService (
     fun findCourseById(courseID: String): Course {
         val uuid = UUID.fromString(courseID)
         return courseRepository.findById(uuid).orElseThrow {
-            NotFoundException("Periodo no encontrado para el uuid suministrado")
+            NotFoundException("Curso no encontrado para el uuid suministrado")
         }
     }
 
@@ -40,7 +39,7 @@ class CourseService (
     fun createCourse(course: CourseRequestDto): CourseResponseDto? {
         val programId = UUID.fromString(course.programId)
         val program = programRepository.findById(programId).orElseThrow {
-            NotFoundException("Asignatura no encontrada para el uuid suministrado")
+            NotFoundException("Carrera no encontrada para el uuid suministrado")
         }
 
         val newCourse = Course(
