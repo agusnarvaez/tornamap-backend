@@ -29,6 +29,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
         )
 
         val aulaA28 = Classroom(
+            code = "A28",
             name = "Aula A28",
             capacity = 30,
             floor = 2,
@@ -37,6 +38,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
         )
 
         val salaLectura = Classroom(
+            code = "SAL",
             name = "Sala de Lectura",
             capacity = 20,
             floor = 1,
@@ -45,6 +47,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
         )
 
         val carpaAuditorio = Classroom(
+            code = "CAR",
             name = "Carpa Auditorio",
             capacity = 100,
             floor = 0,

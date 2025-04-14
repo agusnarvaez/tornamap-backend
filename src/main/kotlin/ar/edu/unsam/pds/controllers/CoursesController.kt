@@ -1,8 +1,6 @@
 package ar.edu.unsam.pds.controllers
 
 import ar.edu.unsam.pds.dto.response.CourseResponseDto
-import ar.edu.unsam.pds.mappers.CourseMapper
-import ar.edu.unsam.pds.services.CourseService
 import ar.edu.unsam.pds.dto.response.CustomResponse
 import ar.edu.unsam.pds.mappers.CourseMapper
 import ar.edu.unsam.pds.services.CourseService
@@ -19,10 +17,6 @@ class CoursesController : UUIDValid() {
 
     @GetMapping("")
     @Operation(summary = "Get all courses")
-    fun getAll(
-        @RequestParam(required = false) query: String?
-    ): ResponseEntity<List<CourseResponseDto>> {
-        return ResponseEntity.ok(courseService.getAll(query ?: ""))
     fun getAll(@RequestParam(value = "query", required = false) query: String?): ResponseEntity<CustomResponse> {
         return ResponseEntity.status(200).body(
             CustomResponse (

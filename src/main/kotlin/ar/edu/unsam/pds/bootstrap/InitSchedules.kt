@@ -41,16 +41,9 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             weekDay = DayOfWeek.MONDAY,
             date = LocalDate.now(),
             isVirtual = false,
-            classroom = labo1
         ).apply {
             event = event1
             assignUserToSchedule(dodino, this)
-        }
-            date = LocalDate.of(2025, 3, 20),
-            isVirtual = false
-        ).apply {
-            event = parcial
-            classroom = labo1
         }
 
         scheduleRepository.save(schedule1)
@@ -62,15 +55,9 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             weekDay = DayOfWeek.FRIDAY,
             date = LocalDate.now(),
             isVirtual = true,
-            classroom = cidi,
         ).apply {
             event = event2
             assignUserToSchedule(mc , this)
-        }
-            date = LocalDate.of(2025, 3, 21),
-            isVirtual = true
-        ).apply {
-            event = parcial
         }
 
         scheduleRepository.save(schedule2)
@@ -82,7 +69,6 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             weekDay = DayOfWeek.FRIDAY,
             date = LocalDate.now(),
             isVirtual = true,
-            classroom = aula10
         ).apply {
             event = event3
             assignUserToSchedule(carlos, this)
