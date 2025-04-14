@@ -20,7 +20,6 @@ class EventController : UUIDValid() {
     @Operation(summary = "Get all events in a given classroom")
     fun getByClassroom(@PathVariable (value="classroomID", required= true) classroomID : String,
                        @PathVariable (value="date", required= true) date: String): ResponseEntity<CustomResponse> {
-        validatedUUID(classroomID)
         return ResponseEntity.status(200).body (
             CustomResponse(
                 message = "Eventos obtenidos con exito",

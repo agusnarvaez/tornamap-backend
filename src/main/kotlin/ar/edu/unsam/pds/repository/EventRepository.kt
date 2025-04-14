@@ -2,6 +2,7 @@ package ar.edu.unsam.pds.repository
 
 import ar.edu.unsam.pds.models.Course
 import ar.edu.unsam.pds.models.Event
+import org.springframework.data.jpa.repository.EntityGraph
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
@@ -13,6 +14,7 @@ import java.util.*
 interface EventRepository : JpaRepository<Event, UUID> {
     fun findByName(name: String): Optional<Event>
 
+    @EntityGraph(attributePaths = ["course", "course.programs", "schedules","schedules.classroom","schedules.classroom.building", "schedules.assignedUsers"])
     fun findBySchedules_IdIn(scheduleIds: List<UUID>): List<Event>
 
 }
