@@ -3,9 +3,10 @@ package ar.edu.unsam.pds.controllers
 import ar.edu.unsam.pds.dto.request.LoginForm
 import ar.edu.unsam.pds.dto.request.RegisterFormDto
 import ar.edu.unsam.pds.dto.request.UserRequestUpdateDto
-import ar.edu.unsam.pds.dto.response.CourseResponseDto
 import ar.edu.unsam.pds.dto.response.UserDetailResponseDto
 import ar.edu.unsam.pds.dto.response.UserResponseDto
+import ar.edu.unsam.pds.mappers.UserMapper
+import ar.edu.unsam.pds.security.models.Principal
 import ar.edu.unsam.pds.services.UserService
 import io.swagger.v3.oas.annotations.Operation
 import jakarta.servlet.http.HttpServletRequest
@@ -14,6 +15,7 @@ import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
+import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -25,6 +27,17 @@ class UserController : UUIDValid() {
     @GetMapping("")
     @Operation(summary = "Get all users")
     fun getAll(){}
+
+    @GetMapping("profile")
+    @Operation(summary = "Get user profile")
+    fun getProfile(
+        request: HttpServletRequest
+    ): ResponseEntity<UserDetailResponseDto> {
+        val auth: Authentication = request.userPrincipal as Authentication
+        val principalUser = (auth.principal as Principal).getUser()
+
+        return ResponseEntity.ok(UserMapper.buildUserDetailDto(principalUser))
+    }
 
     @PostMapping("login")
     fun login(

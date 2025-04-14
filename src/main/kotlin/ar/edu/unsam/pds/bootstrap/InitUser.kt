@@ -21,7 +21,7 @@ class InitUser : BootstrapGeneric("users") {
         principalRepository.save(
             Principal().apply {
                 username = "admin@admin.com"
-                password = encode("123")
+                password = encode("admin")
                 user = User(
                     name = "Luciano",
                     lastName = "D'Fabio",
