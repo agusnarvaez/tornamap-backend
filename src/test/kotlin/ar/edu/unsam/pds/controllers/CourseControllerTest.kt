@@ -1,6 +1,5 @@
 package ar.edu.unsam.pds.controllers
 
-import ar.edu.unsam.pds.mappers.CourseMapper
 import ar.edu.unsam.pds.models.Course
 import ar.edu.unsam.pds.models.User
 import ar.edu.unsam.pds.security.models.Principal
@@ -9,7 +8,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
 import org.springframework.http.HttpStatus
 import org.springframework.mock.web.MockMultipartFile
@@ -63,7 +61,7 @@ class CourseControllerTest {
 
     @Test
     fun `test get all courses - not query`() {
-        val courses = listOf(CourseMapper.buildCourseDto(course))
+//        val courses = listOf(CourseMapper.buildCourseDto(course))
 
 //        `when`(courseServices.getAll("")).thenReturn(courses)
         val responseEntity = courseController.getAll(null)
@@ -74,7 +72,7 @@ class CourseControllerTest {
 
     @Test
     fun `test get all courses - query`() {
-        val courses = listOf(CourseMapper.buildCourseDto(course))
+//        val courses = listOf(CourseMapper.buildCourseDto(course))
 
 //        `when`(courseServices.getAll("query")).thenReturn(courses)
         val responseEntity = courseController.getAll("query")
