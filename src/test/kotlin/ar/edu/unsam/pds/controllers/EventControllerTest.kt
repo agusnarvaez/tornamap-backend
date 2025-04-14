@@ -40,8 +40,7 @@ class EventControllerTest {
             weekDay = DayOfWeek.FRIDAY,
             date = LocalDate.now(),
             isVirtual = true,
-            idClassroom = null,
-            idEvent = UUID.randomUUID().toString(),
+            classroomID = null,
         )
 
         scheduleRes = ScheduleResponseDto(
@@ -55,9 +54,10 @@ class EventControllerTest {
         )
 
         eventReq = EventRequestDto(
-            idCourse = UUID.randomUUID().toString(),
+            courseID = UUID.randomUUID().toString(),
             name = "Event Name",
-            schedule = scheduleReq
+            schedules = mutableListOf(scheduleReq),
+            periodID = UUID.randomUUID().toString()
         )
 
         eventRes = EventResponseDto(
