@@ -31,11 +31,4 @@ object ScheduleMapper {
         )
     }
 
-    fun getClassroomDto(schedule: Schedule): ClassroomResponseDto? {
-        return if (schedule.classroom != null) {
-            ClassroomMapper.buildClasroomDto(schedule.classroom!!)
-        } else {
-            null
-        }
-    }
 }

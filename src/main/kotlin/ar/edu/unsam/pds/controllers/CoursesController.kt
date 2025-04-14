@@ -1,6 +1,5 @@
 package ar.edu.unsam.pds.controllers
 
-import ar.edu.unsam.pds.dto.response.CourseResponseDto
 import ar.edu.unsam.pds.dto.response.CustomResponse
 import ar.edu.unsam.pds.mappers.CourseMapper
 import ar.edu.unsam.pds.services.CourseService

@@ -31,9 +31,6 @@ class InitSchedules : BootstrapGeneric("Schedules") {
         val carlos = userByEmail("cscirica@estudiantes.unsam.edu.ar")
         val dodino = userByEmail("dodain@estudiantes.unsam.edu.ar")
         val mc = userByEmail("mcabeledo@estudiantes.unsam.edu.ar")
-        val labo1 = findClassroomByName("Laboratorio de Computación 1")
-        val cidi = findClassroomByName("Centro de investigacion y desarrollo de informatica")
-        val aula10 = findClassroomByName("Aula 10")
 
         val schedule1 = Schedule(
             startTime = LocalTime.of(8, 30),
