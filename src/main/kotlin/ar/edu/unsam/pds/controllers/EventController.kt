@@ -59,9 +59,9 @@ class EventController : UUIDValid() {
 
     @PutMapping("{eventId}")
     @Operation(summary = "Edit an event by ID")
-    fun editEvent(@PathVariable eventID: String,
+    fun editEvent(@PathVariable eventId: String,
                   @RequestBody @Valid event: EventRequestDto
     ){
-        eventService.editEvent(eventID,event)
+        eventService.editEvent(eventId,event)
     }
 }

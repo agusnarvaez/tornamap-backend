@@ -1,22 +1,13 @@
 package ar.edu.unsam.pds.services
 
-import ar.edu.unsam.pds.controllers.UUIDValid
 import ar.edu.unsam.pds.dto.request.EventRequestDto
 import ar.edu.unsam.pds.dto.response.EventResponseDto
-import ar.edu.unsam.pds.dto.response.UserResponseDto
 import ar.edu.unsam.pds.exceptions.NotFoundException
-import ar.edu.unsam.pds.exceptions.PermissionDeniedException
 import ar.edu.unsam.pds.exceptions.ValidationException
 import ar.edu.unsam.pds.mappers.EventMapper
-import ar.edu.unsam.pds.mappers.UserMapper
-import ar.edu.unsam.pds.models.Course
 import ar.edu.unsam.pds.models.Event
 import ar.edu.unsam.pds.models.Schedule
 import ar.edu.unsam.pds.repository.EventRepository
-import ar.edu.unsam.pds.repository.CourseRepository
-import ar.edu.unsam.pds.repository.ScheduleRepository
-import ar.edu.unsam.pds.security.models.Principal
-import com.sun.java.accessibility.util.EventID
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate
@@ -84,7 +75,7 @@ class EventService(
         )
 
         newEvent.id = UUID.fromString(existingID) ?: UUID.randomUUID()
-        course?.let { newEvent.attachCourse(it) }
+        course.let { newEvent.attachCourse(it) }
         period?.let { newEvent.addPeriod(it) }
         schedules.forEach { newEvent.addSchedule(it) }
 
