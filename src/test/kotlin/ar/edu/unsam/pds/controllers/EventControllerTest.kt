@@ -35,38 +35,37 @@ class EventControllerTest {
         eventController.eventService = eventService
 
         scheduleReq = ScheduleRequestDto(
-            id = UUID.randomUUID().toString(),
             startTime = LocalTime.now(),
             endTime = LocalTime.now(),
-            isVirtual = true,
-            date = LocalDate.now(),
             weekDay = DayOfWeek.FRIDAY,
+            date = LocalDate.now(),
+            isVirtual = true,
+            classroomID = null,
         )
 
         scheduleRes = ScheduleResponseDto(
-            id = UUID.randomUUID().toString(),
             startTime = LocalTime.now(),
             endTime = LocalTime.now(),
-            isVirtual = true,
-            date = LocalDate.now(),
             weekDay = DayOfWeek.FRIDAY,
+            date = LocalDate.now(),
+            isVirtual = true,
+            professors = listOf("Prof 1", "Prof 2"),
             classroom = null
         )
 
         eventReq = EventRequestDto(
-            name = "Event",
-            schedules = mutableListOf(scheduleReq),
             courseID = UUID.randomUUID().toString(),
+            name = "Event Name",
+            schedules = mutableListOf(scheduleReq),
             periodID = UUID.randomUUID().toString()
         )
 
         eventRes = EventResponseDto(
             id = UUID.randomUUID().toString(),
-            name = eventReq.name,
-            schedules = mutableSetOf(scheduleRes),
-            isActive = true,
-            isCancelled = false
-
+            name = "Event Name",
+            courseName = "Course Name",
+            programNames = listOf("Program 1", "Program 2"),
+            schedules = listOf(scheduleRes),
         )
 
         user = User(
@@ -88,47 +87,16 @@ class EventControllerTest {
 
     @Test
     fun `test assignmentAll`() {
-//        val assignments = listOf(eventRes)
 
-//        `when`(eventService.getAll()).thenReturn(assignments)
+//        `when`(eventService.).thenReturn(assignments)
 
 //        val responseEntity = eventController.getAll()
 
-//        assert(responseEntity == HttpStatus.OK)
+//        assert(responseEntity.statusCode == HttpStatus.OK)
 //        assert(responseEntity.body == assignments)
     }
 
-    @Test
-    fun `test assignmentItem`() {
-//        val uuid = UUID.randomUUID().toString()
-//        `when`(eventService.getEvent(uuid)).thenReturn(eventRes)
 
-//        val responseEntity = eventController.getEvent(uuid)
-
-//        assert(responseEntity.statusCode == HttpStatus.OK)
-//        assert(responseEntity.body == eventRes)
-    }
-
-    @Test
-    fun `test create a particular assignment`() {
-//        `when`(eventService.createEvent(eventReq)).thenReturn(eventRes)
-//
-//        val responseEntity = eventController.createEvent(eventReq)
-
-//        assert(responseEntity.statusCode == HttpStatus.OK)
-//        assert(responseEntity.body == eventRes)
-    }
-
-    @Test
-    fun `test delete a particular assignment`() {
-//        val uuid = UUID.randomUUID().toString()
-//        `when`(eventService.deleteEvent(uuid, principal)).then { }
-//
-//        val responseEntity = eventController.deleteEvent(uuid, principal)
-//
-//        assert(responseEntity.statusCode == HttpStatus.OK)
-//        assert(responseEntity.body == mapOf("message" to "Assignment eliminado correctamente."))
-    }
 
 
 }

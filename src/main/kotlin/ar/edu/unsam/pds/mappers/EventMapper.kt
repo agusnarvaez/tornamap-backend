@@ -12,8 +12,9 @@ object EventMapper {
             isActive = event.isApproved,
             schedules = event.schedules.map { ScheduleMapper.buildScheduleDto(it) }.toMutableSet(),
             isCancelled = event.isCancelled
+            courseName = event.getCourseName(),
+            programNames= event.getProgramNames(),
+            schedules = event.schedules.map { ScheduleMapper.buildScheduleDto(it) },
         )
     }
-
-
 }

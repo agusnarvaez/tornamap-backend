@@ -13,14 +13,20 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class CourseService(
+class CourseService (
     private val courseRepository: CourseRepository,
     private val programRepository: ProgramRepository,
 ) {
 
-    fun getAll(query: String): List<CourseResponseDto> {
-        val courses = courseRepository.findAll()
-        return courses.map { CourseMapper.buildCourseDto(it) }
+    fun getAll(): List<Course> {
+        return courseRepository.findAllByOrderByNameAsc()
+    }
+
+    fun searchBy(query: String): List<Course> {
+        if (query.isNotBlank()) {
+            return courseRepository.searchByNameOrProgramOrProfessor(query)
+        }
+        return getAll()
     }
 
     fun findCourseById(courseID: String): Course {
@@ -30,11 +36,10 @@ class CourseService(
         }
     }
 
-
     @Transactional
     fun createCourse(course: CourseRequestDto): CourseResponseDto? {
-        val programID = UUID.fromString(course.programID)
-        val program = programRepository.findById(programID).orElseThrow {
+        val programId = UUID.fromString(course.programId)
+        val program = programRepository.findById(programId).orElseThrow {
             NotFoundException("Asignatura no encontrada para el uuid suministrado")
         }
 
@@ -44,7 +49,7 @@ class CourseService(
         )
         courseRepository.save(newCourse)
 
-        program.addCourse(newCourse)
+        program.addCourse(listOf(newCourse))
         programRepository.save(program)
 
         return CourseMapper.buildCourseDto(newCourse)

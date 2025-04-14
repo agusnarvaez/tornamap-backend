@@ -1,8 +1,8 @@
 package ar.edu.unsam.pds.models
 
 import ar.edu.unsam.pds.exceptions.ValidationException
-import ar.edu.unsam.pds.models.enums.Status
 import jakarta.persistence.*
+import org.springframework.lang.Nullable
 import java.io.Serializable
 import java.time.LocalDate
 import java.util.*
@@ -13,29 +13,25 @@ class Event(
     var isApproved: Boolean,
     var isCancelled: Boolean = false,
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "course_id", referencedColumnName = "id")
+    var course: Course,
+
 ) : Timestamp(), Serializable {
-    @OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
-    lateinit var schedules : MutableSet<Schedule>
+
+    @OneToMany(mappedBy = "event", cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
+    lateinit var schedules: MutableSet<Schedule>
 
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "eventList")
-    val users = mutableSetOf<User>()
-
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "course_id", referencedColumnName = "id")
-    lateinit var course: Course
+    @Nullable
+    var period: Period? = null
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    lateinit var period: Period
-
-    fun status(): String {
-        return if (this.hasUpcomingSchedules()) {
-            Status.CONFIRMED.name
-        } else {
-            Status.FINISHED.name
-        }
+    fun addUserToSchedule(schedule:Schedule, user:User) {
+        validateScheduleInEvent(schedule)
+        schedule.assignUserToSchedule(user, schedule)
     }
 
     private fun hasUpcomingSchedules():Boolean = schedules.any { it.date?.isAfter(LocalDate.now()) ?: false }
@@ -44,35 +40,33 @@ class Event(
         this.course = course
     }
 
+    fun getCourseName(): String = course.name
     fun addPeriod(period: Period) {
         this.period = period
     }
 
-    fun addSchedule(schedule: Schedule){
-        this.schedules.add(schedule)
+//    fun addUser(user: User) {
+//        if (validateUserId(user)) {
+//            throw ValidationException("El usuario ya es parte de este evento")
+//        }
+//        users.add(user)
+//    }
+
+    fun getProgramNames(): List<String> = course.programNames()
+
+    fun getProfessorNames(): Set<String> = schedules.flatMap { it.getUserNames() }.toSet()
+
+    fun addSchedule(schedule: Schedule) = schedules.add(schedule)
+
+    fun removeSchedule(schedule: Schedule){
+        validateScheduleInEvent(schedule)
+        schedules.remove(schedule)
     }
 
-    fun addUser(user: User) {
-        if (validateUserId(user)) {
-            throw ValidationException("El usuario ya es parte de este evento")
+    fun validateScheduleInEvent(schedule: Schedule) {
+        if (!schedules.contains(schedule)) {
+            throw ValidationException("El horario indicado no es parte del evento")
         }
-        users.add(user)
-    }
-
-    fun removeUser(user: User) {
-        if (!validateUserId(user)) {
-            throw ValidationException("El usuario no está subscripto")
-        }
-        users.removeAll { it.id == user.id }
-    }
-
-    fun validateUserId(user: User) = users.any { it.id == user.id }
-    
-    fun hasAnyUser(): Boolean {
-        return users.isNotEmpty()
-    }
-
-    fun userCount(): Int {
-        return users.size
     }
 }
+

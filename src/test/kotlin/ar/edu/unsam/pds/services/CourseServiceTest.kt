@@ -16,13 +16,13 @@ import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito.`when`
 import java.util.*
 
-class CoursesServiceTest : BootstrapNBTest() {
-    private lateinit var courseServices: CoursesService
+class CourseServiceTest : BootstrapNBTest() {
+    private lateinit var courseServices: CourseService
     private lateinit var assignmentService: EventService
 
     @BeforeEach
     fun setUpCoursesServiceTest() {
-        courseServices = CoursesService(
+        courseServices = CourseService(
             courseRepository = courseRepository,
             institutionRepository = institutionRepository,
             imageService = imageService,

@@ -7,4 +7,5 @@ data class ClassroomResponseDto(
     val type: String,
     val floor: Int,
     val building: BuildingResponseDto
+    val code: String,
 )

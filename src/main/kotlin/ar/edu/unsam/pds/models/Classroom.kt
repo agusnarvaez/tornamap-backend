@@ -7,6 +7,7 @@ import java.util.UUID
 
 @Entity @Table(name = "APP_CLASSROOM")
 class Classroom(
+    val code: String,
     val name: String,
     val type: ClassroomType,
     val capacity: Int,
@@ -20,4 +21,7 @@ class Classroom(
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
 
+    fun getFullName(): String {
+        return "$name (${building.name})"
+    }
 }

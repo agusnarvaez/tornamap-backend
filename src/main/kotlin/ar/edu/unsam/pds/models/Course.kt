@@ -18,12 +18,19 @@ class Course(
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "course", cascade = [CascadeType.ALL], orphanRemoval = true)
     val events = mutableSetOf<Event>()
 
-    fun addEvent(event: Event) {
-        events.add(event)
-        event.attachCourse(this)
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "courses", cascade = [CascadeType.ALL])
+    val programs = mutableSetOf<Program>()
+
+    fun programNames(): List<String> {
+        return programs.map { it.name }
     }
 
-    fun removeEvent(event: Event) {
-        events.removeIf{ it.id == event.id }
+    fun userNames(): List<String> {
+        return events.flatMap { it.getProfessorNames() }
     }
+
+    fun getSchedules(): List<Schedule> {
+        return events.flatMap { it.schedules }
+    }
+
 }
