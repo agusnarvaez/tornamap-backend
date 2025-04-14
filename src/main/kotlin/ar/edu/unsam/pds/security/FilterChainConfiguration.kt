@@ -101,6 +101,12 @@ class FilterChainConfiguration {
                 antMatcher(GET, "/api/users/*/subscriptions"),
 
                 antMatcher(GET, "/api/courses/*/reviews"),
+
+                // Schedules
+                antMatcher(GET, "/api/schedules"),
+                antMatcher(POST, "/api/schedules"),
+                antMatcher(PUT, "/api/schedules"),
+                antMatcher(DELETE, "/api/schedules/*"),
             ).permitAll()
 
             // H2 DataBase @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

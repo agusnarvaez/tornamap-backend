@@ -29,8 +29,4 @@ class Course(
         return events.flatMap { it.getProfessorNames() }
     }
 
-    fun getSchedules(): List<Schedule> {
-        return events.flatMap { it.schedules }
-    }
-
 }

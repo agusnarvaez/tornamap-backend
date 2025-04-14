@@ -1,6 +1,8 @@
 package ar.edu.unsam.pds.bootstrap
 
 import ar.edu.unsam.pds.exceptions.NotFoundException
+import ar.edu.unsam.pds.models.Event
+import ar.edu.unsam.pds.models.Schedule
 import ar.edu.unsam.pds.models.*
 import ar.edu.unsam.pds.repository.ClassroomRepository
 import ar.edu.unsam.pds.repository.EventRepository
@@ -28,9 +30,6 @@ class InitSchedules : BootstrapGeneric("Schedules") {
         val carlos = userByEmail("cscirica@estudiantes.unsam.edu.ar")
         val dodino = userByEmail("dodain@estudiantes.unsam.edu.ar")
         val mc = userByEmail("mcabeledo@estudiantes.unsam.edu.ar")
-        val labo1 = findClassroomByName("Laboratorio de Computación 1")
-        val cidi = findClassroomByName("Centro de investigacion y desarrollo de informatica")
-        val aula10 = findClassroomByName("Aula 10")
 
         val schedule1 = Schedule(
             startTime = LocalTime.of(8, 30),
@@ -38,9 +37,9 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             weekDay = DayOfWeek.MONDAY,
             date = LocalDate.now(),
             isVirtual = false,
-            classroom = labo1
         ).apply {
             event = event1
+            classroom = classroomRepository.findByName("Aula A28").orElseThrow { NotFoundException("No se halló el aula") }
             assignUserToSchedule(dodino, this)
         }
 
@@ -53,7 +52,6 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             weekDay = DayOfWeek.FRIDAY,
             date = LocalDate.now(),
             isVirtual = true,
-            classroom = cidi,
         ).apply {
             event = event2
             assignUserToSchedule(mc , this)
@@ -68,7 +66,6 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             weekDay = DayOfWeek.FRIDAY,
             date = LocalDate.now(),
             isVirtual = true,
-            classroom = aula10
         ).apply {
             event = event3
             assignUserToSchedule(carlos, this)
@@ -83,25 +80,18 @@ class InitSchedules : BootstrapGeneric("Schedules") {
         return eventRepository.findByName(name).orElseThrow{ NotFoundException("No se halló un evento con ese nombre") }
     }
 
-    fun findClassroomByName(name: String): Classroom? {
-        val allClasrooms = classroomRepository.findAll()
-        validateClassroomList(allClasrooms)
-        validateClassroomSearch(allClasrooms,name)
-        return allClasrooms.find { it.name == name }!!
 
-    }
+//    private fun validateClassroomList(classrooms: List<Classroom>) {
+//        if (classrooms.isEmpty()) {
+//            throw NotFoundException("No hay aulas cargadas")
+//        }
+//    }
 
-    private fun validateClassroomList(classrooms: List<Classroom>) {
-        if (classrooms.isEmpty()) {
-            throw NotFoundException("No hay aulas cargadas")
-        }
-    }
-
-    private fun validateClassroomSearch(classrooms: List<Classroom>, classroomName: String) {
-        if (!classrooms.map {it.name}.contains(classroomName)) {
-            throw NotFoundException("No hay un aula con el nombre indicado.")
-        }
-    }
+//    private fun validateClassroomSearch(classrooms: List<Classroom>, classroomName: String) {
+//        if (!classrooms.map {it.name}.contains(classroomName)) {
+//            throw NotFoundException("No hay un aula con el nombre indicado.")
+//        }
+//    }
 
     fun userByEmail(mail: String): User {
         return userRepository.findByEmail(mail).orElseThrow { NotFoundException("No se encontró profesor con el email suministrado") }

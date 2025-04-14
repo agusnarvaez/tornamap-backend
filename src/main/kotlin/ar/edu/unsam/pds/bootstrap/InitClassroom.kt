@@ -6,7 +6,6 @@ import ar.edu.unsam.pds.models.Classroom
 import ar.edu.unsam.pds.models.enums.ClassroomType
 import ar.edu.unsam.pds.repository.BuildingRepository
 import ar.edu.unsam.pds.repository.ClassroomRepository
-import java.util.UUID
 import org.springframework.stereotype.Component
 import org.springframework.context.annotation.DependsOn
 import org.springframework.beans.factory.annotation.Autowired
@@ -26,6 +25,33 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             capacity = 50,
             floor = 1,
             type = ClassroomType.LABORATORY,
+            building = tornavias
+        )
+
+        val aulaA28 = Classroom(
+            code = "A28",
+            name = "Aula A28",
+            capacity = 30,
+            floor = 2,
+            type = ClassroomType.CLASSROOM,
+            building = tornavias
+        )
+
+        val salaLectura = Classroom(
+            code = "SAL",
+            name = "Sala de Lectura",
+            capacity = 20,
+            floor = 1,
+            type = ClassroomType.LECTURE,
+            building = tornavias
+        )
+
+        val carpaAuditorio = Classroom(
+            code = "CAR",
+            name = "Carpa Auditorio",
+            capacity = 100,
+            floor = 0,
+            type = ClassroomType.AUDITORIUM,
             building = tornavias
         )
 
@@ -54,6 +80,9 @@ class InitClassroom : BootstrapGeneric("Classroom") {
         classroomRepository.save(labo1)
         classroomRepository.save(cidi)
         classroomRepository.save(aula10)
+        classroomRepository.save(aulaA28)
+        classroomRepository.save(salaLectura)
+        classroomRepository.save(carpaAuditorio)
     }
 
     fun findBuildingByName(name: String) : Building {

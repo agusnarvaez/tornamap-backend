@@ -13,7 +13,7 @@ class Event(
     var isApproved: Boolean,
     var isCancelled: Boolean = false,
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     var course: Course,
 

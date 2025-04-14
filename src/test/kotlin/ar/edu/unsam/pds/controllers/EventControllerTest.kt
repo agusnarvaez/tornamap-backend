@@ -35,15 +35,17 @@ class EventControllerTest {
         eventController.eventService = eventService
 
         scheduleReq = ScheduleRequestDto(
+            id = UUID.randomUUID().toString(),
             startTime = LocalTime.now(),
             endTime = LocalTime.now(),
             weekDay = DayOfWeek.FRIDAY,
             date = LocalDate.now(),
             isVirtual = true,
-            classroomID = null,
+            classroomId = null,
         )
 
         scheduleRes = ScheduleResponseDto(
+            id = UUID.randomUUID().toString(),
             startTime = LocalTime.now(),
             endTime = LocalTime.now(),
             weekDay = DayOfWeek.FRIDAY,
@@ -66,6 +68,8 @@ class EventControllerTest {
             courseName = "Course Name",
             programNames = listOf("Program 1", "Program 2"),
             schedules = listOf(scheduleRes),
+            isActive = true,
+            isCancelled = false
         )
 
         user = User(

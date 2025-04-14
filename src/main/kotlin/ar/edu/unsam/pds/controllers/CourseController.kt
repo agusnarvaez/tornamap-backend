@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("api/courses")
 @CrossOrigin("*")
-class CoursesController : UUIDValid() {
+class CourseController : UUIDValid() {
     @Autowired lateinit var courseService: CourseService
 
     @GetMapping("")
@@ -30,11 +30,11 @@ class CoursesController : UUIDValid() {
     fun getCourse(
         @PathVariable idCourse: String
     ): ResponseEntity<CustomResponse> {
-        this.validatedUUID(idCourse)
+
         return ResponseEntity.status(200).body(
             CustomResponse (
                 message = "Courso obtenido con exito",
-                data = courseService.findCourseById(idCourse)
+                data = CourseMapper.buildCourseDetailDto(courseService.findCourseById(idCourse))
             )
         )
     }
