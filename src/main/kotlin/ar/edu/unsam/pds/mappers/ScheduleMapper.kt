@@ -1,7 +1,6 @@
 package ar.edu.unsam.pds.mappers
 
 import ar.edu.unsam.pds.dto.request.ScheduleRequestDto
-import ar.edu.unsam.pds.dto.response.ClassroomResponseDto
 import ar.edu.unsam.pds.dto.response.ScheduleResponseDto
 import ar.edu.unsam.pds.models.Schedule
 
