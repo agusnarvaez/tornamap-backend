@@ -7,6 +7,7 @@ object ClassroomMapper {
 
     fun buildClasroomDto(classroom: Classroom): ClassroomResponseDto{
         return ClassroomResponseDto(
+            code = classroom.code,
             id = classroom.id.toString(),
             name = classroom.name,
             capacity = classroom.capacity,
