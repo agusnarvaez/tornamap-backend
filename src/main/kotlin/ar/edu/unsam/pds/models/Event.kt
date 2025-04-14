@@ -46,16 +46,12 @@ class Event(
         this.period = period
     }
 
-    fun addSchedule(schedule: Schedule){
-        this.schedules.add(schedule)
-    }
-
-    fun addUser(user: User) {
-        if (validateUserId(user)) {
-            throw ValidationException("El usuario ya es parte de este evento")
-        }
-        users.add(user)
-    }
+//    fun addUser(user: User) {
+//        if (validateUserId(user)) {
+//            throw ValidationException("El usuario ya es parte de este evento")
+//        }
+//        users.add(user)
+//    }
 
     fun getProgramNames(): List<String> = course.programNames()
 

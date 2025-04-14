@@ -25,7 +25,6 @@ import java.util.*
 @Service
 class EventService(
     private val eventRepository: EventRepository,
-    private val scheduleService: ScheduleService,
     private val courseService:CourseService,
     private val periodService: PeriodService,
     private val scheduleService:ScheduleService,
@@ -81,6 +80,7 @@ class EventService(
             event.name,
             isApproved = true,
             isCancelled = false,
+            course = course ?: throw ValidationException("El evento no tiene curso asociado"),
         )
 
         newEvent.id = UUID.fromString(existingID) ?: UUID.randomUUID()
