@@ -1,9 +1,11 @@
 package ar.edu.unsam.pds.controllers
 
+import ar.edu.unsam.pds.dto.request.EventRequestDto
 import ar.edu.unsam.pds.dto.response.CustomResponse
 import ar.edu.unsam.pds.mappers.EventMapper
 import ar.edu.unsam.pds.services.EventService
 import io.swagger.v3.oas.annotations.Operation
+import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -49,16 +51,17 @@ class EventController : UUIDValid() {
     @DeleteMapping("{eventId}")
     @Operation(summary = "Delete an event by ID")
     fun deleteEvent(
-        @PathVariable eventId: String
-    ){}
-*/
         @PathVariable eventID: String
-    ){ eventService.deleteEvent(eventID) }
+    ){
+        eventService.deleteEvent(eventID)
+    }
+*/
 
     @PutMapping("{eventId}")
     @Operation(summary = "Edit an event by ID")
     fun editEvent(@PathVariable eventID: String,
-                  @RequestBody @Valid event: EventRequestDto){
+                  @RequestBody @Valid event: EventRequestDto
+    ){
         eventService.editEvent(eventID,event)
     }
 }
