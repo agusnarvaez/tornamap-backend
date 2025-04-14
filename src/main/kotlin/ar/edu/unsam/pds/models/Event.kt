@@ -35,11 +35,27 @@ class Event(
         schedule.assignUserToSchedule(user, schedule)
     }
 
+    private fun hasUpcomingSchedules():Boolean = schedules.any { it.date?.isAfter(LocalDate.now()) ?: false }
+
     fun attachCourse(course: Course) {
         this.course = course
     }
 
     fun getCourseName(): String = course.name
+    fun addPeriod(period: Period) {
+        this.period = period
+    }
+
+    fun addSchedule(schedule: Schedule){
+        this.schedules.add(schedule)
+    }
+
+    fun addUser(user: User) {
+        if (validateUserId(user)) {
+            throw ValidationException("El usuario ya es parte de este evento")
+        }
+        users.add(user)
+    }
 
     fun getProgramNames(): List<String> = course.programNames()
 

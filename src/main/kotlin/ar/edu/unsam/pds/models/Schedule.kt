@@ -23,12 +23,12 @@ class Schedule(
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "event_id")
-    lateinit var event: Event
-
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "scheduleList")
     val assignedUsers = mutableSetOf<User>()
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "event_id", nullable = true)
+    lateinit var event: Event
 
     fun isBeforeEndDate(enteredDate: LocalDate): Boolean {
         if (date == null) {

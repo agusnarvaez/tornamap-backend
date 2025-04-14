@@ -27,10 +27,40 @@ class ScheduleService(
     val classroomRepository: ClassroomRepository,
     val eventRepository : EventRepository
 ) {
+
+
     fun getIDByClassroomIDAndDate(classroomID: String, date: LocalDate): List<UUID> {
         val classroomUUID = UUID.fromString(classroomID)
         val matchingSchedules = scheduleRepository.findByClassroomIdAndDate(classroomUUID,date)
         return schedulesToUUIDs(matchingSchedules)
+    }
+
+    private fun findScheduleById(idSchedule: String): Schedule {
+        val uuid = UUID.fromString(idSchedule)
+        return scheduleRepository.findById(uuid).orElseThrow {
+            NotFoundException("Schedule no encontrado para el uuid suministrado")
+        }
+    }
+
+
+    @Transactional
+    fun createSchedule(schedule: ScheduleRequestDto): Schedule {
+        if (isValidDateOrWeekDay(schedule.date, schedule.weekDay)) {
+            val classroom = createClassroom(schedule)
+
+            val newSchedule = Schedule(
+                schedule.startTime,
+                schedule.endTime,
+                schedule.weekDay,
+                schedule.date,
+                schedule.isVirtual,
+                classroom,
+            )
+
+            return scheduleRepository.save(newSchedule)
+        } else {
+            throw IllegalArgumentException("Debe ingresar un día de la semana o una fecha válida")
+        }
     }
 
     fun schedulesToUUIDs(schedules: List<Schedule>): List<UUID> {
@@ -39,4 +69,27 @@ class ScheduleService(
         }
         return schedules.map { it.id }
     }
+
+
+    private fun createClassroom(schedule: ScheduleRequestDto): Classroom? {
+        if (schedule.isVirtual){
+            return null
+        }
+        val idClassroom = UUID.fromString(schedule.classroomID)
+        return classroomRepository.findById(idClassroom).orElseThrow{
+            NotFoundException("Aula no encontrada para el id suministrado")
+        }
+    }
+
+
+
+    private fun isValidDateOrWeekDay(date: LocalDate?, weekDay:DayOfWeek?):Boolean{
+        return (date == null) != (weekDay == null)
+    }
 }
+
+
+
+
+
+

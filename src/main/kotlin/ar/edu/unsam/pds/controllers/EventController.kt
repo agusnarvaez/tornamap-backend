@@ -44,7 +44,7 @@ class EventController : UUIDValid() {
     @Operation(summary = "Create an event")
     fun createEvent(
         @RequestBody @Valid event: EventRequestDto
-    ){}
+    ){ eventService.createEvent(event) }
 
     @DeleteMapping("{eventId}")
     @Operation(summary = "Delete an event by ID")
@@ -52,5 +52,13 @@ class EventController : UUIDValid() {
         @PathVariable eventId: String
     ){}
 */
+        @PathVariable eventID: String
+    ){ eventService.deleteEvent(eventID) }
 
+    @PutMapping("{eventId}")
+    @Operation(summary = "Edit an event by ID")
+    fun editEvent(@PathVariable eventID: String,
+                  @RequestBody @Valid event: EventRequestDto){
+        eventService.editEvent(eventID,event)
+    }
 }
