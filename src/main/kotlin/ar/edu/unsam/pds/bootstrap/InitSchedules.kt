@@ -4,6 +4,7 @@ import ar.edu.unsam.pds.exceptions.NotFoundException
 import ar.edu.unsam.pds.models.Event
 import ar.edu.unsam.pds.models.Schedule
 import ar.edu.unsam.pds.models.*
+import ar.edu.unsam.pds.repository.ClassroomRepository
 import ar.edu.unsam.pds.repository.EventRepository
 import ar.edu.unsam.pds.repository.ScheduleRepository
 import ar.edu.unsam.pds.repository.UserRepository
@@ -20,6 +21,7 @@ class InitSchedules : BootstrapGeneric("Schedules") {
     @Autowired private lateinit var eventRepository: EventRepository
     @Autowired private lateinit var userRepository: UserRepository
     @Autowired private lateinit var scheduleRepository: ScheduleRepository
+    @Autowired private lateinit var classroomRepository: ClassroomRepository
 
     override fun doAfterPropertiesSet() {
         val event1 = findEvent("Cursada Algoritmos I")
@@ -37,6 +39,7 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             isVirtual = false,
         ).apply {
             event = event1
+            classroom = classroomRepository.findByName("Aula A28").orElseThrow { NotFoundException("No se halló el aula") }
             assignUserToSchedule(dodino, this)
         }
 
