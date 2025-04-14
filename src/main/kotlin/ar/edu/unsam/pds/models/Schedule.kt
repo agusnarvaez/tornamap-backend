@@ -1,13 +1,10 @@
 package ar.edu.unsam.pds.models
 
-import ar.edu.unsam.pds.models.enums.RecurrenceWeeks
 import jakarta.persistence.*
-import jakarta.validation.constraints.AssertTrue
 import java.io.Serializable
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
-import java.time.temporal.TemporalAdjusters
 import java.util.*
 
 @Entity @Table(name = "APP_SCHEDULE")
@@ -26,6 +23,9 @@ class Schedule(
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
 
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "scheduleList")
+    val assignedUsers = mutableSetOf<User>()
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "event_id", nullable = true)
     lateinit var event: Event
@@ -35,6 +35,15 @@ class Schedule(
             throw IllegalStateException("No se puede verificar la fecha porque 'date' es nulo en este Schedule")
         }
         return enteredDate.isBefore(date) || enteredDate.isEqual(date)
+    }
+
+    fun getUserNames(): List<String> {
+        return assignedUsers.map { it.fullName() }
+    }
+
+    fun assignUserToSchedule(user: User, schedule: Schedule) {
+        this.assignedUsers.add(user)
+        user.scheduleList.add(schedule)
     }
 
 

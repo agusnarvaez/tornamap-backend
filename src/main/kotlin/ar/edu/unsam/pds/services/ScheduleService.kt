@@ -28,6 +28,13 @@ class ScheduleService(
     val eventRepository : EventRepository
 ) {
 
+
+    fun getIDByClassroomIDAndDate(classroomID: String, date: LocalDate): List<UUID> {
+        val classroomUUID = UUID.fromString(classroomID)
+        val matchingSchedules = scheduleRepository.findByClassroomIdAndDate(classroomUUID,date)
+        return schedulesToUUIDs(matchingSchedules)
+    }
+
     private fun findScheduleById(idSchedule: String): Schedule {
         val uuid = UUID.fromString(idSchedule)
         return scheduleRepository.findById(uuid).orElseThrow {
@@ -56,6 +63,13 @@ class ScheduleService(
         }
     }
 
+    fun schedulesToUUIDs(schedules: List<Schedule>): List<UUID> {
+        if (schedules.isEmpty()) {
+            throw NotFoundException("No se encontraron horarios para el aula y la fecha especificadas")
+        }
+        return schedules.map { it.id }
+    }
+
 
     private fun createClassroom(schedule: ScheduleRequestDto): Classroom? {
         if (schedule.isVirtual){
@@ -68,9 +82,14 @@ class ScheduleService(
     }
 
 
+
     private fun isValidDateOrWeekDay(date: LocalDate?, weekDay:DayOfWeek?):Boolean{
         return (date == null) != (weekDay == null)
     }
-
-
 }
+
+
+
+
+
+

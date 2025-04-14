@@ -10,11 +10,9 @@ object EventMapper {
         return EventResponseDto(
             id = event.id.toString(),
             name = event.name,
-            isActive = event.isApproved,
-            schedule = ScheduleMapper.buildScheduleDto(event.schedule),
-            isCancelled = event.isCancelled
+            courseName = event.getCourseName(),
+            programNames= event.getProgramNames(),
+            schedules = event.schedules.map { ScheduleMapper.buildScheduleDto(it) },
         )
     }
-
-
 }

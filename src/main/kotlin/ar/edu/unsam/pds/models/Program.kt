@@ -11,10 +11,7 @@ class Program(
 
     @Column(length = 1024)
     val description: String,
-    //  Es necesaria la descripción?
 
-    //  Timestamp() es algo que también queda deprecado porque es para los
-    //  créditos y demás implementaciones de las subscripciones?
 ) : Timestamp(), Serializable {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
@@ -35,8 +32,8 @@ class Program(
     )
     val admin = mutableSetOf<User>()
 
-    fun addCourse(course: Course) {
-        courses.add(course)
+    fun addCourse(newCourses: List<Course>) {
+        courses.addAll(newCourses)
     }
 
     fun removeCourse(course: Course) {

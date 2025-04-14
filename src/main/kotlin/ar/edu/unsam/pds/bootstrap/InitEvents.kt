@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.DependsOn
 import org.springframework.stereotype.Component
 import ar.edu.unsam.pds.exceptions.NotFoundException
+import ar.edu.unsam.pds.models.User
+import ar.edu.unsam.pds.repository.UserRepository
 
 @Component(value = "InitEvents.beanName")
 @DependsOn(value = ["InitCourses.beanName", "InitPrograms.beanName"])
@@ -20,38 +22,45 @@ class InitEvents : BootstrapGeneric("Events") {
 
     override fun doAfterPropertiesSet() {
         // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        // Estrellas en Movimiento + Ballet Clásico para Principiantes #################################################
-        val course11 = this.findByName(
+        val mate1 = this.findCourseByName(
             name = "Matematica I"
         )
 
-        val event111 = Event(
-            name = "Parcial",
-            isApproved = true
+        val redes = this.findCourseByName(
+            name = "Telecomunicaciones y Redes"
         )
 
-        course11?.addEvent(event111)
-        eventRepository.save(event111)
-
-        val event112 = Event(
-            name = "Final",
-            isApproved = true
+        val algo1 = this.findCourseByName(
+            name = "Algoritmos I"
         )
 
-        course11?.addEvent(event112)
-        eventRepository.save(event112)
-
-        val event113 = Event(
-            name = "Recuperatorio",
-            isApproved = true
+        val event1 = Event(
+            name = "Cursada Algoritmos I",
+            isApproved = true,
+            course = algo1!!
         )
 
-        course11?.addEvent(event113)
-        eventRepository.save(event113)
+        eventRepository.save(event1)
+
+        val event2 = Event(
+            name = "Parcial Telecomunicaciones y Redes",
+            isApproved = true,
+            course = redes!!
+        )
+
+        eventRepository.save(event2)
+
+        val event3 = Event(
+            name = "Final Matematica I",
+            isApproved = true,
+            course = mate1!!
+        )
+
+        eventRepository.save(event3)
 
       }
 
-    fun findByName(name: String): Course? {
+    fun findCourseByName(name: String): Course? {
         val programsList = programRepository.findAll()
         val allCourses = programsList.map { it.courses }.flatten()
         if (allCourses.isEmpty()) {

@@ -105,11 +105,6 @@ class UserService(
         return UserMapper.buildUserDto(user)
     }
 
-    fun getAssignedCourses(idUser: String): List<CourseResponseDto> {
-        val user = findUserById(idUser)
-        return user.assignedCourses().map { CourseMapper.buildCourseDto(it) }
-    }
-
     private fun findUserById(idUser: String): User {
         val uuid = UUID.fromString(idUser)
         return userRepository.findById(uuid).orElseThrow {

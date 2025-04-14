@@ -1,14 +1,11 @@
 package ar.edu.unsam.pds.bootstrap
 
 import ar.edu.unsam.pds.exceptions.NotFoundException
-import ar.edu.unsam.pds.models.Building
-import ar.edu.unsam.pds.models.Classroom
-import ar.edu.unsam.pds.models.Event
-import ar.edu.unsam.pds.models.enums.RecurrenceWeeks
-import ar.edu.unsam.pds.models.Schedule
+import ar.edu.unsam.pds.models.*
 import ar.edu.unsam.pds.repository.ClassroomRepository
 import ar.edu.unsam.pds.repository.EventRepository
 import ar.edu.unsam.pds.repository.ScheduleRepository
+import ar.edu.unsam.pds.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.DependsOn
 import org.springframework.stereotype.Component
@@ -20,53 +17,74 @@ import java.time.LocalTime
 @DependsOn(value = ["InitEvents.beanName", "InitClassroom.beanName"])
 class InitSchedules : BootstrapGeneric("Schedules") {
     @Autowired private lateinit var eventRepository: EventRepository
+    @Autowired private lateinit var userRepository: UserRepository
     @Autowired private lateinit var scheduleRepository: ScheduleRepository
-    @Autowired private lateinit var classRoomRepository: ClassroomRepository
+    @Autowired private lateinit var classroomRepository: ClassroomRepository
 
     override fun doAfterPropertiesSet() {
-        val parcial = Event(
-            name = "Parcial",
-            isApproved = true
-        )
-        eventRepository.save(parcial)
-
+        val event1 = findEvent("Cursada Algoritmos I")
+        val event2 = findEvent("Parcial Telecomunicaciones y Redes")
+        val event3 = findEvent("Final Matematica I")
+        val carlos = userByEmail("cscirica@estudiantes.unsam.edu.ar")
+        val dodino = userByEmail("dodain@estudiantes.unsam.edu.ar")
+        val mc = userByEmail("mcabeledo@estudiantes.unsam.edu.ar")
         val labo1 = findClassroomByName("Laboratorio de Computación 1")
+        val cidi = findClassroomByName("Centro de investigacion y desarrollo de informatica")
+        val aula10 = findClassroomByName("Aula 10")
 
         val schedule1 = Schedule(
             startTime = LocalTime.of(8, 30),
             endTime = LocalTime.of(10, 0),
             weekDay = DayOfWeek.MONDAY,
-            date = LocalDate.of(2025, 3, 20),
+            date = LocalDate.now(),
             isVirtual = false,
-            classroom = labo1,
-            event = parcial
-        )
+            classroom = labo1
+        ).apply {
+            event = event1
+            assignUserToSchedule(dodino, this)
+        }
 
         scheduleRepository.save(schedule1)
+        event1.addSchedule(schedule1)
 
         val schedule2 = Schedule(
             startTime = LocalTime.of(10, 30),
             endTime = LocalTime.of(12, 0),
             weekDay = DayOfWeek.FRIDAY,
-            date = LocalDate.of(2025, 3, 21),
+            date = LocalDate.now(),
             isVirtual = true,
-            classroom = null,
-            event = parcial
-        )
+            classroom = cidi,
+        ).apply {
+            event = event2
+            assignUserToSchedule(mc , this)
+        }
 
         scheduleRepository.save(schedule2)
+        event2.addSchedule(schedule2)
+
+        val schedule3 = Schedule(
+            startTime = LocalTime.of(10, 30),
+            endTime = LocalTime.of(12, 0),
+            weekDay = DayOfWeek.FRIDAY,
+            date = LocalDate.now(),
+            isVirtual = true,
+            classroom = aula10
+        ).apply {
+            event = event3
+            assignUserToSchedule(carlos, this)
+        }
+
+        scheduleRepository.save(schedule3)
+        event3.addSchedule(schedule3)
 
     }
 
-    fun findRandomEvent(): Event {
-        if(eventRepository.findAll().isEmpty()) {
-            throw NotFoundException("Error hallando un evento al azar, no existen eventos")
-        }
-        return eventRepository.findAll().random()
+    fun findEvent(name: String): Event {
+        return eventRepository.findByName(name).orElseThrow{ NotFoundException("No se halló un evento con ese nombre") }
     }
 
     fun findClassroomByName(name: String): Classroom? {
-        val allClasrooms = classRoomRepository.findAll()
+        val allClasrooms = classroomRepository.findAll()
         validateClassroomList(allClasrooms)
         validateClassroomSearch(allClasrooms,name)
         return allClasrooms.find { it.name == name }!!
@@ -85,6 +103,8 @@ class InitSchedules : BootstrapGeneric("Schedules") {
         }
     }
 
-
+    fun userByEmail(mail: String): User {
+        return userRepository.findByEmail(mail).orElseThrow { NotFoundException("No se encontró profesor con el email suministrado") }
+    }
 
 }
