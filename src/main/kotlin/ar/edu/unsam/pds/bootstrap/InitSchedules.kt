@@ -80,12 +80,6 @@ class InitSchedules : BootstrapGeneric("Schedules") {
         return eventRepository.findByName(name).orElseThrow{ NotFoundException("No se halló un evento con ese nombre") }
     }
 
-    fun findClassroomByName(name: String): Classroom? {
-        val allClasrooms = classroomRepository.findAll()
-        validateClassroomList(allClasrooms)
-        validateClassroomSearch(allClasrooms,name)
-        return allClasrooms.find { it.name == name }!!
-    }
 
     private fun validateClassroomList(classrooms: List<Classroom>) {
         if (classrooms.isEmpty()) {
