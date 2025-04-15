@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.DependsOn
 import org.springframework.stereotype.Component
 import ar.edu.unsam.pds.exceptions.NotFoundException
-import ar.edu.unsam.pds.models.User
-import ar.edu.unsam.pds.repository.UserRepository
 
 @Component(value = "InitEvents.beanName")
 @DependsOn(value = ["InitCourses.beanName", "InitPrograms.beanName"])
@@ -72,11 +70,5 @@ class InitEvents : BootstrapGeneric("Events") {
             throw NotFoundException("No se hallaron materias")
         }
         return allCourses.find { it.name == name }
-    }
-
-    fun findRandomSchedule(): Schedule {
-        scheduleRepository.findAll().randomOrNull()?.let {
-            return it
-        } ?: error("error find random schedule, schedule repository is empty")
     }
 }
