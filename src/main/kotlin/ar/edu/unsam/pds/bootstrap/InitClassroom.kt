@@ -69,7 +69,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "A10",
             name = "Aula 10",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.LABORATORY,
             building = tornavias
         )
@@ -78,18 +78,18 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "A6",
             name = "Aula 6",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type=  ClassroomType.CLASSROOM,
             building = tornavias
         )
 
-        //A6 Bis¿?
+//A6 Bis¿?
 
         val aulaA7 = Classroom(
             code = "A7",
             name = "Aula 7",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type=  ClassroomType.CLASSROOM,
             building = tornavias
         )
@@ -98,7 +98,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "A5",
             name = "Aula 5",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type=  ClassroomType.CLASSROOM,
             building = tornavias
         )
@@ -107,7 +107,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "A1",
             name = "Aula 1",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
@@ -117,7 +117,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "A2",
             name = "Aula 2",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
@@ -127,7 +127,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "A3",
             name = "Aula 3",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
@@ -137,7 +137,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "A4",
             name = "Aula 4",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
@@ -147,7 +147,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "A8",
             name = "Aula 8",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
@@ -157,7 +157,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "A9",
             name = "Aula 9",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
@@ -167,7 +167,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "A11",
             name = "Aula 11",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
@@ -177,7 +177,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "A12",
             name = "Aula 12",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
@@ -187,7 +187,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "A13",
             name = "Aula 13",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
@@ -197,7 +197,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "A14",
             name = "Aula 14",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
@@ -207,7 +207,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "A15",
             name = "Aula 15",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
@@ -217,7 +217,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "A16",
             name = "Aula 16",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
@@ -227,7 +227,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "A17",
             name = "Aula 17",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
@@ -237,7 +237,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "A18",
             name = "Aula 18",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
@@ -247,7 +247,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "A19",
             name = "Aula 19",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
@@ -257,7 +257,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "A20",
             name = "Aula 20",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
@@ -267,7 +267,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "A21",
             name = "Aula 21",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
@@ -277,7 +277,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "A22",
             name = "Aula 22",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
@@ -287,7 +287,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "A23",
             name = "Aula 23",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
@@ -297,18 +297,17 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "A24",
             name = "Aula 24",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
         classroomRepository.save(aulaA24)
 
-
         val laboQuimica = Classroom(
             code = "LQ",
             name = "Laboratorio de Quimica",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.LABORATORY,
             building = tornavias
         )
@@ -318,18 +317,17 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "LB",
             name = "Laboratorio de Biologia",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.LABORATORY,
             building = tornavias
         )
         classroomRepository.save(laboBiologia)
-        //hay 2 labos?
 
         val laboFisica = Classroom(
             code = "LF",
             name = "Laboratorio de Física",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.LABORATORY,
             building = tornavias
         )
@@ -339,7 +337,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "LN",
             name = "Laboratorio de Neuroingeniería",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.LABORATORY,
             building = tornavias
         )
@@ -349,7 +347,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "LE2",
             name = "Laboratorio de Electrónica 2",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.LABORATORY,
             building = tornavias
         )
@@ -359,7 +357,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "LT",
             name = "Laboratorio de Termodinámica",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.LABORATORY,
             building = tornavias
         )
@@ -369,11 +367,163 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "LC4",
             name = "Laboratorio de Computación 4",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.LABORATORY,
             building = tornavias
         )
         classroomRepository.save(laboComputacion4)
+
+        val  aulaA30= Classroom(
+            code = "A30",
+            name = "Aula 30",
+            capacity = 50,
+            floor = 1,
+            type = ClassroomType.CLASSROOM,
+            building = tornavias
+        )
+        classroomRepository.save(aulaA30)
+
+        val  aulaA31= Classroom(
+            code = "A31",
+            name = "Aula 31",
+            capacity = 50,
+            floor = 1,
+            type = ClassroomType.CLASSROOM,
+            building = tornavias
+        )
+        classroomRepository.save(aulaA31)
+
+        val  aulaA32= Classroom(
+            code = "A32",
+            name = "Aula 32",
+            capacity = 50,
+            floor = 1,
+            type = ClassroomType.CLASSROOM,
+            building = tornavias
+        )
+        classroomRepository.save(aulaA32)
+
+        val  aulaA33= Classroom(
+            code = "A33",
+            name = "Aula 33",
+            capacity = 50,
+            floor = 1,
+            type = ClassroomType.CLASSROOM,
+            building = tornavias
+        )
+        classroomRepository.save(aulaA33)
+
+        val  aulaA34= Classroom(
+            code = "A34",
+            name = "Aula 34",
+            capacity = 50,
+            floor = 1,
+            type = ClassroomType.CLASSROOM,
+            building = tornavias
+        )
+        classroomRepository.save(aulaA34)
+
+        val aulaA35= Classroom(
+            code = "A35",
+            name = "Aula 35",
+            capacity = 50,
+            floor = 1,
+            type = ClassroomType.CLASSROOM,
+            building = tornavias
+        )
+        classroomRepository.save(aulaA35)
+
+        val laboComputacion2= Classroom(
+            code = "LC2",
+            name = "Laboratorio de Computacion 2",
+            capacity = 50,
+            floor = 1,
+            type = ClassroomType.LABORATORY,
+            building = tornavias
+        )
+        classroomRepository.save(laboComputacion2)
+
+        val laboComputacion3 = Classroom(
+            code = "LC3",
+            name = "Laboratorio de Computación 3",
+            capacity = 50,
+            floor = 1,
+            type = ClassroomType.LABORATORY,
+            building = tornavias
+        )
+        classroomRepository.save(laboComputacion3)
+
+        val laboImagenes = Classroom(
+            code = "LI",
+            name = "Laboratorio de Imágenes",
+            capacity = 50,
+            floor = 1,
+            type = ClassroomType.LABORATORY,
+            building = tornavias
+        )
+        classroomRepository.save(laboImagenes)
+
+        val laboOptica = Classroom(
+            code = "LO",
+            name = "Laboratorio de Óptica",
+            capacity = 50,
+            floor = 1,
+            type = ClassroomType.LABORATORY,
+            building = tornavias
+        )
+        classroomRepository.save(laboOptica)
+
+        val laboBiomedica = Classroom(
+            code = "LBM",
+            name = "Laboratorio de Biomédica",
+            capacity = 50,
+            floor = 1,
+            type = ClassroomType.LABORATORY,
+            building = tornavias
+        )
+        classroomRepository.save(laboBiomedica)
+
+        val laboElectronica1 = Classroom(
+            code = "LE1",
+            name = "Laboratorio de Electrónica 1",
+            capacity = 50,
+            floor = 1,
+            type = ClassroomType.LABORATORY,
+            building = tornavias
+        )
+        classroomRepository.save(laboElectronica1)
+
+        val laboElectronica3 = Classroom(
+            code = "LE3",
+            name = "Laboratorio de Electrónica 3",
+            capacity = 50,
+            floor = 1,
+            type = ClassroomType.LABORATORY,
+            building = tornavias
+        )
+        classroomRepository.save(laboElectronica3)
+
+        val laboElectronica4 = Classroom(
+            code = "LE4",
+            name = "Laboratorio de Electrónica 4",
+            capacity = 50,
+            floor = 1,
+            type = ClassroomType.LABORATORY,
+            building = tornavias
+        )
+        classroomRepository.save(laboElectronica4)
+
+        val laboCienciasHumanas = Classroom(
+            code = "LCH",
+            name = "Laboratorio de Ciencias Humanas",
+            capacity = 50,
+            floor = 1,
+            type = ClassroomType.LABORATORY,
+            building = tornavias
+        )
+        classroomRepository.save(laboCienciasHumanas)
+
+
 
 
         classroomRepository.save(cidi)
