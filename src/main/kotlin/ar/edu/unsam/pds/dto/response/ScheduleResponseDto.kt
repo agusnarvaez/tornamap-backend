@@ -7,8 +7,8 @@ import java.time.LocalTime
 
 data class ScheduleResponseDto (
     val id: String,
-    val startTime: LocalTime,
-    val endTime: LocalTime,
+    val startTime: String,
+    val endTime: String,
     val weekDay:DayOfWeek?,
     val date: LocalDate?,
     val isVirtual:Boolean,
