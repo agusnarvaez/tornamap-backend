@@ -25,13 +25,9 @@ class Course(
         return programs.map { it.name }
     }
 
-    fun userNames(): List<String> {
-        return events.flatMap { it.getProfessorNames() }
-    }
-
     fun events(): String = this.events.joinToString(", ") { it.name }
 
-    fun professors(): String = this.events.map { it.schedules.map { it.assignedUsers.map { it.name + ", " + it.lastName } } }.flatten().flatten().joinToString(" - ")
+    fun professors(): String = this.events.flatMap { it.getProfessorNames() }.joinToString(" - ")
 
     fun modality(): String {
         val isVirtual =  this.events.map { it.schedules.any{ it.isVirtual } }
