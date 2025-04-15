@@ -29,4 +29,20 @@ class Course(
         return events.flatMap { it.getProfessorNames() }
     }
 
+    fun events(): String = this.events.joinToString(", ") { it.name }
+
+    fun professors(): String = this.events.map { it.schedules.map { it.assignedUsers.map { it.name + ", " + it.lastName } } }.flatten().flatten().joinToString(" - ")
+
+    fun modality(): String {
+        val isVirtual =  this.events.map { it.schedules.any{ it.isVirtual } }
+        val isPresential = this.events.map { it.schedules.any{ !it.isVirtual } }
+        return when {
+            isVirtual.all { it } -> "Virtual"
+            isPresential.all { it } -> "Presencial"
+            else -> "Virtual - Presencial"
+        }
+    }
+
+    fun schedules() : String = this.events.flatMap { it.schedules }.joinToString(", ") { "${it.startTime} - ${it.endTime} ${it.weekDay}" }
+
 }
