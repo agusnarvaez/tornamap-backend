@@ -27,6 +27,7 @@ class InitSchedules : BootstrapGeneric("Schedules") {
         val event1 = findEvent("Cursada Algoritmos I")
         val event2 = findEvent("Parcial Telecomunicaciones y Redes")
         val event3 = findEvent("Final Matematica I")
+        val eventCharla = findEvent("Charla de Bienvenida")
         val carlos = userByEmail("cscirica@estudiantes.unsam.edu.ar")
         val dodino = userByEmail("dodain@estudiantes.unsam.edu.ar")
         val mc = userByEmail("mcabeledo@estudiantes.unsam.edu.ar")
@@ -74,6 +75,31 @@ class InitSchedules : BootstrapGeneric("Schedules") {
         scheduleRepository.save(schedule3)
         event3.addSchedule(schedule3)
 
+        val schedule4 = Schedule(
+            startTime = LocalTime.of(10, 30),
+            endTime = LocalTime.of(12, 0),
+            weekDay = DayOfWeek.FRIDAY,
+            date = LocalDate.now(),
+            isVirtual = true,
+        ).apply {
+            event = event1
+            assignUserToSchedule(carlos, this)
+        }
+        event1.addSchedule(schedule4)
+        scheduleRepository.save(schedule4)
+
+        val scheduleCharla = Schedule(
+            startTime = LocalTime.of(10, 30),
+            endTime = LocalTime.of(12, 0),
+            weekDay = DayOfWeek.FRIDAY,
+            date = LocalDate.now(),
+            isVirtual = true,
+        ).apply {
+            event = eventCharla
+            assignUserToSchedule(carlos, this)
+        }
+        eventCharla.addSchedule(scheduleCharla)
+        scheduleRepository.save(scheduleCharla)
     }
 
     fun findEvent(name: String): Event {
