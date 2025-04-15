@@ -22,7 +22,7 @@ class CourseController : UUIDValid() {
                 message = "Coursos obtenidos con exito",
                 data = courseService.searchBy(query ?: "").filter {
                     it.events.isNotEmpty()
-                }.map { CourseMapper.buildCourseDto(it) }
+                }.map { CourseMapper.buildCourseListDto(it) }
             )
         )
     }
