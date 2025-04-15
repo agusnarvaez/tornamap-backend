@@ -39,15 +39,20 @@ class InitEvents : BootstrapGeneric("Events") {
             isApproved = true,
             course = algo1!!
         )
-
         eventRepository.save(event1)
+
+        val eventCharla = Event(
+            name = "Charla de Bienvenida",
+            isApproved = true,
+            course = algo1
+        )
+        eventRepository.save(eventCharla)
 
         val event2 = Event(
             name = "Parcial Telecomunicaciones y Redes",
             isApproved = true,
             course = redes!!
         )
-
         eventRepository.save(event2)
 
         val event3 = Event(
