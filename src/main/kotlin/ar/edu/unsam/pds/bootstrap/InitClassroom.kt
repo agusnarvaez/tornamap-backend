@@ -29,7 +29,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
         )
         classroomRepository.save(laboComputacion1)
 
-        val aulaT28 = Classroom(
+        val aulaA28 = Classroom(
             code = "A28",
             name = "Aula A28",
             capacity = 30,
@@ -65,18 +65,18 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             building = tornavias
         )
 
-        val aulaT10 = Classroom(
+        val aulaA10 = Classroom(
             code = "A10",
-            name = "Aula 10",
+            name = "Aula A10",
             capacity = 50,
             floor = 0,
             type = ClassroomType.LABORATORY,
             building = tornavias
         )
 
-        val aulaT6 = Classroom(
+        val aulaA6 = Classroom(
             code = "A6",
-            name = "Aula 6",
+            name = "Aula A6",
             capacity = 50,
             floor = 0,
             type=  ClassroomType.CLASSROOM,
@@ -85,223 +85,223 @@ class InitClassroom : BootstrapGeneric("Classroom") {
 
 //A6 Bis¿?
 
-        val aulaT7 = Classroom(
+        val aulaA7 = Classroom(
             code = "A7",
-            name = "Aula 7",
+            name = "Aula A7",
             capacity = 50,
             floor = 0,
             type=  ClassroomType.CLASSROOM,
             building = tornavias
         )
 
-        val aulaT5 = Classroom(
+        val aulaA5 = Classroom(
             code = "A5",
-            name = "Aula 5",
+            name = "Aula A5",
             capacity = 50,
             floor = 0,
             type=  ClassroomType.CLASSROOM,
             building = tornavias
         )
 
-        val aulaT1 = Classroom(
+        val aulaA1 = Classroom(
             code = "A1",
-            name = "Aula 1",
+            name = "Aula A1",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
-        classroomRepository.save(aulaT1)
+        classroomRepository.save(aulaA1)
 
-        val aulaT2 = Classroom(
+        val aulaA2 = Classroom(
             code = "A2",
-            name = "Aula 2",
+            name = "Aula A2",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
-        classroomRepository.save(aulaT2)
+        classroomRepository.save(aulaA2)
 
-        val aulaT3 = Classroom(
+        val aulaA3 = Classroom(
             code = "A3",
-            name = "Aula 3",
+            name = "Aula A3",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
-        classroomRepository.save(aulaT3)
+        classroomRepository.save(aulaA3)
 
-        val aulaT4 = Classroom(
+        val aulaA4 = Classroom(
             code = "A4",
-            name = "Aula 4",
+            name = "Aula A4",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
-        classroomRepository.save(aulaT4)
+        classroomRepository.save(aulaA4)
 
-        val aulaT8 = Classroom(
+        val aulaA8 = Classroom(
             code = "A8",
-            name = "Aula 8",
+            name = "Aula A8",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
-        classroomRepository.save(aulaT8)
+        classroomRepository.save(aulaA8)
 
-        val aulaT9 = Classroom(
+        val aulaA9 = Classroom(
             code = "A9",
-            name = "Aula 9",
+            name = "Aula A9",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
-        classroomRepository.save(aulaT9)
+        classroomRepository.save(aulaA9)
 
-        val aulaT11 = Classroom(
+        val aulaA11 = Classroom(
             code = "A11",
-            name = "Aula 11",
+            name = "Aula A11",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
-        classroomRepository.save(aulaT11)
+        classroomRepository.save(aulaA11)
 
-        val aulaT12 = Classroom(
+        val aulaA12 = Classroom(
             code = "A12",
-            name = "Aula 12",
+            name = "Aula A12",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
-        classroomRepository.save(aulaT12)
+        classroomRepository.save(aulaA12)
 
-        val aulaT13 = Classroom(
+        val aulaA13 = Classroom(
             code = "A13",
-            name = "Aula 13",
+            name = "Aula A13",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
-        classroomRepository.save(aulaT13)
+        classroomRepository.save(aulaA13)
 
-        val aulaT14 = Classroom(
+        val aulaA14 = Classroom(
             code = "A14",
-            name = "Aula 14",
+            name = "Aula A14",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
-        classroomRepository.save(aulaT14)
+        classroomRepository.save(aulaA14)
 
-        val aulaT15 = Classroom(
+        val aulaA15 = Classroom(
             code = "A15",
-            name = "Aula 15",
+            name = "Aula A15",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
-        classroomRepository.save(aulaT15)
+        classroomRepository.save(aulaA15)
 
-        val aulaT16 = Classroom(
+        val aulaA16 = Classroom(
             code = "A16",
-            name = "Aula 16",
+            name = "Aula A16",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
-        classroomRepository.save(aulaT16)
+        classroomRepository.save(aulaA16)
 
-        val aulaT17 = Classroom(
+        val aulaA17 = Classroom(
             code = "A17",
-            name = "Aula 17",
+            name = "Aula A17",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
-        classroomRepository.save(aulaT17)
+        classroomRepository.save(aulaA17)
 
-        val aulaT18 = Classroom(
+        val aulaA18 = Classroom(
             code = "A18",
-            name = "Aula 18",
+            name = "Aula A18",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
-        classroomRepository.save(aulaT18)
+        classroomRepository.save(aulaA18)
 
-        val aulaT19 = Classroom(
+        val aulaA19 = Classroom(
             code = "A19",
-            name = "Aula 19",
+            name = "Aula A19",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
-        classroomRepository.save(aulaT19)
+        classroomRepository.save(aulaA19)
 
-        val aulaT20 = Classroom(
+        val aulaA20 = Classroom(
             code = "A20",
-            name = "Aula 20",
+            name = "Aula A20",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
-        classroomRepository.save(aulaT20)
+        classroomRepository.save(aulaA20)
 
-        val aulaT21 = Classroom(
+        val aulaA21 = Classroom(
             code = "A21",
-            name = "Aula 21",
+            name = "Aula A21",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
-        classroomRepository.save(aulaT21)
+        classroomRepository.save(aulaA21)
 
-        val aulaT22 = Classroom(
+        val aulaA22 = Classroom(
             code = "A22",
-            name = "Aula 22",
+            name = "Aula A22",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
-        classroomRepository.save(aulaT22)
+        classroomRepository.save(aulaA22)
 
-        val aulaT23 = Classroom(
+        val aulaA23 = Classroom(
             code = "A23",
-            name = "Aula 23",
+            name = "Aula A23",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
-        classroomRepository.save(aulaT23)
+        classroomRepository.save(aulaA23)
 
-        val aulaT24 = Classroom(
+        val aulaA24 = Classroom(
             code = "A24",
-            name = "Aula 24",
+            name = "Aula A24",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
-        classroomRepository.save(aulaT24)
+        classroomRepository.save(aulaA24)
 
         val laboQuimica = Classroom(
             code = "LQ",
@@ -373,27 +373,27 @@ class InitClassroom : BootstrapGeneric("Classroom") {
         )
         classroomRepository.save(laboComputacion4)
 
-        val  aulaT30= Classroom(
+        val  aulaA30= Classroom(
             code = "A30",
-            name = "Aula 30",
+            name = "Aula A30",
             capacity = 50,
             floor = 1,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
-        classroomRepository.save(aulaT30)
+        classroomRepository.save(aulaA30)
 
-        val  aulaT31= Classroom(
+        val  aulaA31= Classroom(
             code = "A31",
-            name = "Aula 31",
+            name = "Aula A31",
             capacity = 50,
             floor = 1,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
-        classroomRepository.save(aulaT31)
+        classroomRepository.save(aulaA31)
 
-        val  aulaT32= Classroom(
+        val  aulaA32= Classroom(
             code = "A32",
             name = "Aula 32",
             capacity = 50,
@@ -401,37 +401,37 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
-        classroomRepository.save(aulaT32)
+        classroomRepository.save(aulaA32)
 
-        val  aulaT33= Classroom(
+        val  aulaA33= Classroom(
             code = "A33",
-            name = "Aula 33",
+            name = "Aula A33",
             capacity = 50,
             floor = 1,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
-        classroomRepository.save(aulaT33)
+        classroomRepository.save(aulaA33)
 
-        val  aulaT34= Classroom(
+        val  aulaA34= Classroom(
             code = "A34",
-            name = "Aula 34",
+            name = "Aula A34",
             capacity = 50,
             floor = 1,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
-        classroomRepository.save(aulaT34)
+        classroomRepository.save(aulaA34)
 
-        val aulaT35= Classroom(
+        val aulaA35= Classroom(
             code = "A35",
-            name = "Aula 35",
+            name = "Aula A35",
             capacity = 50,
             floor = 1,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
-        classroomRepository.save(aulaT35)
+        classroomRepository.save(aulaA35)
 
         val laboComputacion2= Classroom(
             code = "LC2",
@@ -524,13 +524,13 @@ class InitClassroom : BootstrapGeneric("Classroom") {
         classroomRepository.save(laboCienciasHumanas)
 
         classroomRepository.save(cidi)
-        classroomRepository.save(aulaT10)
-        classroomRepository.save(aulaT28)
+        classroomRepository.save(aulaA10)
+        classroomRepository.save(aulaA28)
         classroomRepository.save(salaLectura)
         classroomRepository.save(carpaAuditorio)
-        classroomRepository.save(aulaT6)
-        classroomRepository.save(aulaT7)
-        classroomRepository.save(aulaT5)
+        classroomRepository.save(aulaA6)
+        classroomRepository.save(aulaA7)
+        classroomRepository.save(aulaA5)
 
         val aulario= findBuildingByName("Aulario")
 
