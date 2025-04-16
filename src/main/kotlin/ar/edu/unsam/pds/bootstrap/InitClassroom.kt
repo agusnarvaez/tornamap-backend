@@ -523,9 +523,6 @@ class InitClassroom : BootstrapGeneric("Classroom") {
         )
         classroomRepository.save(laboCienciasHumanas)
 
-
-
-
         classroomRepository.save(cidi)
         classroomRepository.save(aulaA10)
         classroomRepository.save(aulaA28)
@@ -534,6 +531,11 @@ class InitClassroom : BootstrapGeneric("Classroom") {
         classroomRepository.save(aulaA6)
         classroomRepository.save(aulaA7)
         classroomRepository.save(aulaA5)
+
+        val aulario= findBuildingByName("Aulario")
+
+
+
 
     }
 
