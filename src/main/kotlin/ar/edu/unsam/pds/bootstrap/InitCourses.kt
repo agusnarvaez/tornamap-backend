@@ -28,7 +28,7 @@ class InitCourses : BootstrapGeneric("Courses") {
 
         courseRepository.save(
             Course(
-                    name="Matematica I",
+                    name="Matemática I",
                     description="Asignatura introductoria que aborda los fundamentos del análisis en una variable, álgebra y geometría. Se aprenden conceptos clave como funciones, límites, derivadas, polinomios y ecuaciones, desarrollando habilidades esenciales para el razonamiento matemático y la resolución de problemas."
             )
         )
@@ -42,7 +42,7 @@ class InitCourses : BootstrapGeneric("Courses") {
 
         courseRepository.save(
             Course(
-                name="Matematica III",
+                name="Matemática III",
                 description="Asignatura introductoria que aborda los fundamentos del análisis en una variable, álgebra y geometría. Se aprenden conceptos clave como funciones, límites, derivadas, polinomios y ecuaciones, desarrollando habilidades esenciales para el razonamiento matemático y la resolución de problemas."
             )
         )
