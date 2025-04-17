@@ -1,14 +1,8 @@
 package ar.edu.unsam.pds.bootstrap
 
-import ar.edu.unsam.pds.exceptions.NotFoundException
 import ar.edu.unsam.pds.models.Course
-import ar.edu.unsam.pds.models.Program
-import ar.edu.unsam.pds.models.User
 import ar.edu.unsam.pds.repository.CourseRepository
-import ar.edu.unsam.pds.repository.ProgramRepository
-import ar.edu.unsam.pds.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.context.annotation.DependsOn
 import org.springframework.core.env.Environment
 import org.springframework.core.env.Profiles
 import org.springframework.stereotype.Component
