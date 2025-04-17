@@ -55,7 +55,7 @@ class InitCourses : BootstrapGeneric("Courses") {
 
         courseRepository.save(
             Course(
-                name="Laboratorio de Compitación I",
+                name="Laboratorio de Computación I",
                 description = "Asignatura introductoria que aborda las nociones básicas de una computadora, utilización de programas e introducción a la resolución de pequeños problemas.")
             )
 

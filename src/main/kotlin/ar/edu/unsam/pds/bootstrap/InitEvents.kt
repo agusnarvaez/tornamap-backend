@@ -31,14 +31,31 @@ class InitEvents : BootstrapGeneric("Events") {
         val mate3 = this.findCourseByName(name = "Matemática III")
         val metodosNumericos = this.findCourseByName(name = "Métodos Numéricos")
         val caso = this.findCourseByName(name = "Conceptos de Arquitecturas y Sistemas Operativos")
+        val laboratorioCompu1 = this.findCourseByName(name = "Laboratorio de Computación I")
+        val laboratorioCompu2 = this.findCourseByName(name = "Laboratorio de Computación II")
+        val spd = this.findCourseByName(name = "Sistemas de Procesamiento de Datos")
 
 
         val cursadaMate1TM = Event(
-            name = "Cursada Matemática I",
+            name = "Turno Mañana",
             isApproved = true,
             course = mate1!!
         )
         eventRepository.save(cursadaMate1TM)
+
+        val cursadaMate1TT = Event(
+            name = "Turno Tarde",
+            isApproved = true,
+            course = mate1
+        )
+        eventRepository.save(cursadaMate1TT)
+
+        val cursadaMate1TN = Event(
+            name = "Turno Noche",
+            isApproved = true,
+            course = mate1
+        )
+        eventRepository.save(cursadaMate1TN)
 
         val cursadaMate2 = Event(
             name = "Cursada Matemática II",
@@ -54,6 +71,13 @@ class InitEvents : BootstrapGeneric("Events") {
         )
         eventRepository.save(cursadaMate3)
 
+        val cursadaMate3B = Event(
+            name = "Mate III - Comisión B",
+            isApproved = true,
+            course = mate3
+        )
+        eventRepository.save(cursadaMate3B)
+
         val cursadaAlgo1 = Event(
             name = "Cursada Algoritmos I",
             isApproved = true,
@@ -67,14 +91,6 @@ class InitEvents : BootstrapGeneric("Events") {
             course = algo2!!
         )
         eventRepository.save(cursadaAlgo2)
-
-//        val mate1TT = Event(
-//            name = "Cursada Matematica I",
-//            isApproved = true,
-//            course = mate1
-//        )
-//        eventRepository.save(mate1TT)
-
 
         val redes = Event(
             name = "Cursada Telecomunicaciones y Redes",
@@ -111,12 +127,26 @@ class InitEvents : BootstrapGeneric("Events") {
         )
         eventRepository.save(paradigmas)
 
-        val cursadaEyM= Event(
+        val cursadaEyMN1= Event(
             name = "Cursada EyM",
             isApproved = true,
             course = electricidadYMagnetismo!!
         )
-        eventRepository.save(cursadaEyM)
+        eventRepository.save(cursadaEyMN1)
+
+        val cursadaEyMN2= Event(
+            name = "Cursada EyM - lab Jueves",
+            isApproved = true,
+            course = electricidadYMagnetismo
+        )
+        eventRepository.save(cursadaEyMN2)
+
+        val cursadaEyMT= Event(
+            name = "Cursada EyM TT",
+            isApproved = true,
+            course = electricidadYMagnetismo
+        )
+        eventRepository.save(cursadaEyMT)
 
         val cursadaCASO= Event(
             name = "Cursada CASO",
@@ -125,20 +155,26 @@ class InitEvents : BootstrapGeneric("Events") {
         )
         eventRepository.save(cursadaCASO)
 
-//        val eym = this.findCourseByName(
-//            name= "Electricidad y Magnetismo"
-//        )
-//
-//
+        val cursadaLabo1 = Event(
+            name = "Cursada Labo1",
+            isApproved = true,
+            course = laboratorioCompu1!!
+        )
+        eventRepository.save(cursadaLabo1)
 
+        val cursadaLabo2 = Event(
+            name = "Cursada Labo2",
+            isApproved = true,
+            course = laboratorioCompu2!!
+        )
+        eventRepository.save(cursadaLabo2)
 
-//
-//        val event2 = Event(
-//            name = "Cursada Telecomunicaciones y Redes",
-//            isApproved = true,
-//            course = redes!!
-//        )
-//        eventRepository.save(event2)
+        val cursadaSPD = Event(
+            name = "Cursada SPD",
+            isApproved = true,
+            course = spd!!
+        )
+        eventRepository.save(cursadaSPD)
 
 
 
