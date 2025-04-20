@@ -6,7 +6,6 @@ import ar.edu.unsam.pds.exceptions.NotFoundException
 import ar.edu.unsam.pds.exceptions.ValidationException
 import ar.edu.unsam.pds.mappers.EventMapper
 import ar.edu.unsam.pds.models.Event
-import ar.edu.unsam.pds.models.Schedule
 import ar.edu.unsam.pds.repository.EventRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -21,11 +20,8 @@ class EventService(
     private val scheduleService:ScheduleService,
 ) {
 
-    fun searchBy(classroomID: String, date: String): List<Event> {
-        val formattedDate = parseDate(date)
-        val scheduleUUIDs = scheduleService.getIDByClassroomIDAndDate(classroomID, formattedDate)
-        return eventRepository.findBySchedules_IdIn(scheduleUUIDs)
-    }
+    @Transactional(readOnly = true)
+    fun searchBy(classroomID: String, date: LocalDate): List<Event> = eventRepository.findEventsByClassroomAndDate(classroomID, date, date.dayOfWeek)
 
     fun parseDate(date: String): LocalDate {
         return try {
