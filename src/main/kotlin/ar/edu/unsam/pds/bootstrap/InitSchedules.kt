@@ -53,6 +53,19 @@ class InitSchedules : BootstrapGeneric("Schedules") {
        /*
         val event3 = findEvent("Final Matematica I")*/
 
+        val scheduleCharla = Schedule(
+            startTime = LocalTime.of(18, 0),
+            endTime = LocalTime.of(20, 0),
+            weekDay = null,
+            date = LocalDate.of(2025, 4, 14),
+            isVirtual = false,
+        ).apply {
+            event = cursadaMate1TM
+            classroom = classroomRepository.findByName("Aula A28").orElseThrow { NotFoundException("No se halló el aula") }
+            assignUserToSchedule(dodino, this)
+        }
+        scheduleRepository.save(scheduleCharla)
+
 
 //      Turno Mañana
         val scheduleMate1TM= Schedule(
