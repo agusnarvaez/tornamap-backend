@@ -18,9 +18,6 @@ interface EventRepository : JpaRepository<Event, UUID> {
 
     fun findByName(name: String): Optional<Event>
 
-//    @EntityGraph(attributePaths = ["course", "course.programs", "schedules","schedules.classroom","schedules.classroom.building", "schedules.assignedUsers"])
-//    fun findBySchedules_IdIn(scheduleIds: List<UUID>): List<Event>
-
     /**
      *  Búsqueda por código de aula + momento concreto.
      *
@@ -47,6 +44,7 @@ interface EventRepository : JpaRepository<Event, UUID> {
                 AND s.weekDay = :weekDay
             )
         )
+        ORDER BY s.startTime ASC
         """
     )
     fun findEventsByClassroomAndDate(
