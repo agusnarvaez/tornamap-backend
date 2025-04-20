@@ -29,7 +29,9 @@ class EventController : UUIDValid() {
         return ResponseEntity.status(200).body (
             CustomResponse(
                 message = "Eventos obtenidos con exito",
-                data = eventService.searchBy(classroomID, parsedDate).map { EventMapper.buildEventDto(it) }
+                data = eventService.searchBy(classroomID, parsedDate).flatMap { event ->
+                    event.schedules.map { schedule -> EventMapper.buildEventCardDto(event, schedule) }
+                }.sortedBy { event -> event.schedules[0].startTime }
             )
         )
     }
