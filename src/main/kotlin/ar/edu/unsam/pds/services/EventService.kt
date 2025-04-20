@@ -17,19 +17,10 @@ class EventService(
     private val eventRepository: EventRepository,
     private val courseService:CourseService,
     private val periodService: PeriodService,
-    private val scheduleService:ScheduleService,
 ) {
 
     @Transactional(readOnly = true)
     fun searchBy(classroomID: String, date: LocalDate): List<Event> = eventRepository.findEventsByClassroomAndDate(classroomID, date, date.dayOfWeek)
-
-    fun parseDate(date: String): LocalDate {
-        return try {
-            LocalDate.parse(date)
-        } catch (e: Exception) {
-            throw ValidationException("Formato de fecha inválido")
-        }
-    }
 
     private fun findEventByID(id:String):Event{
         val eventID= UUID.fromString(id)
