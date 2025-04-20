@@ -19,6 +19,7 @@ interface CourseRepository : JpaRepository<Course, UUID> {
     @EntityGraph(attributePaths = ["programs", "events", "events.schedules", "events.schedules.assignedUsers"])
     fun findAllByOrderByNameAsc(): List<Course>
 
+    @EntityGraph(attributePaths = ["programs", "events", "events.schedules", "events.schedules.assignedUsers"])
     @Query("""
         SELECT DISTINCT c FROM Course c 
         LEFT JOIN c.programs p
