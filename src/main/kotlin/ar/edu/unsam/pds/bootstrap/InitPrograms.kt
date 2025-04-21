@@ -1,51 +1,47 @@
 package ar.edu.unsam.pds.bootstrap
 
-import ar.edu.unsam.pds.exceptions.NotFoundException
 import ar.edu.unsam.pds.models.Program
-import ar.edu.unsam.pds.models.User
 import ar.edu.unsam.pds.repository.CourseRepository
 import ar.edu.unsam.pds.repository.ProgramRepository
 import ar.edu.unsam.pds.repository.UserRepository
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.DependsOn
 import org.springframework.context.annotation.Profile
-import org.springframework.core.env.Environment
-import org.springframework.core.env.Profiles
 import org.springframework.stereotype.Component
 
 @Component(value = "InitPrograms.beanName")
 @DependsOn(value = ["InitUsers.beanName", "InitCourses.beanName"])
 @Profile(value = ["dev", "prod", "test"])
-class InitPrograms : BootstrapGeneric("Programs") {
-    @Autowired private lateinit var courseRepository: CourseRepository
-    @Autowired private lateinit var programRepository: ProgramRepository
-    @Autowired private lateinit var userRepository: UserRepository
-    @Autowired private lateinit var environment: Environment
-
-    //fun urlBase() = "http://${this.getDomain()}:8080/media/public"
-
-    fun getDomain() =
-        if (environment.acceptsProfiles(Profiles.of("prod"))) "149.50.143.203"
-        else "localhost"
+class InitPrograms(
+    private val courseRepository: CourseRepository,
+    private val programRepository: ProgramRepository,
+    private val userRepository: UserRepository
+) : BootstrapGeneric("Programs") {
 
     override fun doAfterPropertiesSet() {
-        programRepository.save(
+        /* ---------- ADMIN  ------------------------------------------------ */
+        val admin = userRepository.findByEmail("admin@admin.com")
+            .orElseThrow { IllegalStateException(
+                "InitPrograms: falta el usuario admin@admin.com – se crea en InitUsers ?") }
+
+        /* ---------- CURSOS  ---------------------------------------------- */
+        val mateI  = courseRepository.findCourseByName("Matemática I")   // ← usa el mismo acento
+            ?: throw IllegalStateException(
+                "InitPrograms: falta el curso 'Matemática I' – se crea en InitCourses ?")
+
+        saveIfAbsent(
             Program(
                 name = "Tecnicatura Universitaria en Programación Informática",
-                description =
-                    """
-                    La carrera tienen un bloque curricular constituido por asignaturas básicas de matemática,
+                description = """La carrera tienen un bloque curricular constituido por asignaturas básicas de matemática,
                     electricidad y magnetismo, y los fundamentos básicos de la computación y la programación.
                     Luego se dividen en bloques curriculares específicos de Programación.
-                    """
-                        .trimIndent(),
+                    """.trimIndent(),
             ).apply {
-                addAdmin(userByEmail("admin@admin.com"))
+                addAdmin(admin)
                 addCourse(courseRepository.findAll())
             }
         )
 
-        programRepository.save(
+        saveIfAbsent(
             Program(
                 name = "Tecnicatura en Redes Informáticas",
                 description =
@@ -55,12 +51,12 @@ class InitPrograms : BootstrapGeneric("Programs") {
                     """
                         .trimIndent(),
             ).apply {
-                addAdmin(userByEmail("admin@admin.com"))
+                addAdmin(admin)
                 addCourse(courseRepository.findAll())
             }
         )
 
-        programRepository.save(
+        saveIfAbsent(
             Program(
                 name = "Licenciatura en Ciencia de datos",
                 description =
@@ -70,15 +66,16 @@ class InitPrograms : BootstrapGeneric("Programs") {
                     """
                         .trimIndent(),
             ).apply {
-                addAdmin(userByEmail("admin@admin.com"))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Matematica I")!!))
+                addAdmin(admin)
+                addCourse(listOf(mateI))
             }
         )
     }
 
-    fun userByEmail(mail : String): User {
-        return userRepository.findByEmail(mail).orElseThrow {
-            NotFoundException("usuario no encontrado")
+    private fun saveIfAbsent(p: Program) {
+        if (programRepository.findByName(p.name) == null) {
+            programRepository.save(p)
         }
     }
+
 }
