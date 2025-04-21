@@ -534,7 +534,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
         classroomRepository.save(aulaA7)
         classroomRepository.save(aulaA5)
 
-        val aulario= findBuildingByName("Aulario")
+        val aularioNA= findBuildingByName("Aulario Nave A")
 
         val aulaA4NaveA=Classroom(
             code = "A4",
@@ -542,9 +542,11 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             capacity = 50,
             floor = 1,
             type = ClassroomType.CLASSROOM,
-            building = aulario
+            building = aularioNA
         )
         classroomRepository.save(aulaA4NaveA)
+
+        val aularioN1= findBuildingByName("Aulario Nave 1")
 
         val aulaA10Nave1 = Classroom(
             code = "A10",
@@ -552,7 +554,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
-            building = aulario
+            building = aularioN1
         )
         classroomRepository.save(aulaA10Nave1)
 
@@ -562,7 +564,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
-            building = aulario
+            building = aularioN1
         )
         classroomRepository.save(aulaA9Nave1)
 
@@ -572,7 +574,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
-            building = aulario
+            building = aularioN1
         )
         classroomRepository.save(aulaA8Nave1)
 
@@ -582,9 +584,11 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
-            building = aulario
+            building = aularioN1
         )
         classroomRepository.save(aulaA7Nave1)
+
+        val aularioN2= findBuildingByName("Aulario Nave 2")
 
         val aulaA13Nave2= Classroom(
             code = "A13",
@@ -592,7 +596,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
-            building = aulario
+            building = aularioN2
         )
         classroomRepository.save(aulaA13Nave2)
 
@@ -602,7 +606,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
-            building = aulario
+            building = aularioN2
         )
         classroomRepository.save(aulaA14Nave2)
 
@@ -612,7 +616,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
-            building = aulario
+            building = aularioN2
         )
         classroomRepository.save(aulaA12Nave2)
 
@@ -622,9 +626,11 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
-            building = aulario
+            building = aularioN2
         )
         classroomRepository.save(aulaA11Nave2)
+
+        val aularioN3= findBuildingByName("Aulario Nave 3")
 
         val aulaA17Nave3= Classroom(
             code = "A17",
@@ -632,7 +638,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
-            building = aulario
+            building = aularioN3
         )
         classroomRepository.save(aulaA17Nave3)
 
@@ -642,7 +648,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
-            building = aulario
+            building = aularioN3
         )
         classroomRepository.save(aulaA16Nave3)
 
@@ -652,7 +658,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
-            building = aulario
+            building = aularioN3
         )
         classroomRepository.save(aulaA15Nave3)
 
@@ -662,7 +668,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             capacity = 50,
             floor = 1,
             type = ClassroomType.CLASSROOM,
-            building = aulario
+            building = aularioN3
         )
         classroomRepository.save(aulaA19Nave3)
 
@@ -673,7 +679,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             capacity = 50,
             floor = 1,
             type = ClassroomType.CLASSROOM,
-            building = aulario
+            building = aularioN3
         )
         classroomRepository.save(aulaA18Nave3)
 
@@ -684,7 +690,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             capacity = 50,
             floor = 1,
             type = ClassroomType.CLASSROOM,
-            building = aulario
+            building = aularioN3
         )
         classroomRepository.save(aulaA20Nave3)
     }
