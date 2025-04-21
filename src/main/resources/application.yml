@@ -50,9 +50,9 @@ spring:
     activate:
       on-profile: prod
   datasource:
-    url: jdbc:postgresql://postgres:5432/weekbook
-    username: admin
-    password: 1234
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=require   # ← “External Database URL” de Render, pero cambiá el prefijo a postgresql
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     open-in-view: false
@@ -62,9 +62,6 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-  h2:
-    console:
-      enabled: true
 email:
   enabled: true
 
