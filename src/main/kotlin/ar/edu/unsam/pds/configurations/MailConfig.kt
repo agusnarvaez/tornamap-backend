@@ -15,7 +15,7 @@ class MailConfig {
         mailSender.host = "smtp.gmail.com"
         mailSender.port = 587
 
-        mailSender.username = "weekbook.notifications@gmail.com"
+        mailSender.username = "tornamap.notifications@gmail.com"
         mailSender.password = "vwpe kapn wnxf ofbc"
 
         val props: Properties = mailSender.javaMailProperties
