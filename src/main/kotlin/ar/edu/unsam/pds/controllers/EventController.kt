@@ -9,6 +9,8 @@ import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @RestController
 @RequestMapping("api/events")
@@ -18,12 +20,18 @@ class EventController : UUIDValid() {
 
     @GetMapping("/{classroomID}/{date}")
     @Operation(summary = "Get all events in a given classroom")
-    fun getByClassroom(@PathVariable (value="classroomID", required= true) classroomID : String,
-                       @PathVariable (value="date", required= true) date: String): ResponseEntity<CustomResponse> {
+    fun getByClassroom(
+        @PathVariable classroomID: String,
+        @PathVariable date: String
+    ): ResponseEntity<CustomResponse> {
+        val formatter = DateTimeFormatter.ISO_DATE_TIME
+        val parsedDate = LocalDate.parse(date, formatter)
         return ResponseEntity.status(200).body (
             CustomResponse(
                 message = "Eventos obtenidos con exito",
-                data = eventService.searchBy(classroomID, date).map { EventMapper.buildEventDto(it) }
+                data = eventService.searchBy(classroomID, parsedDate).flatMap { event ->
+                    event.schedules.map { schedule -> EventMapper.buildEventCardDto(event, schedule) }
+                }.sortedBy { event -> event.schedules[0].startTime }
             )
         )
     }

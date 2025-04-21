@@ -32,7 +32,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "A28",
             name = "Aula A28",
             capacity = 30,
-            floor = 2,
+            floor = -1,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )
