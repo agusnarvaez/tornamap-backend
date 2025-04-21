@@ -1,6 +1,5 @@
 package ar.edu.unsam.pds.models
 
-import ar.edu.unsam.pds.exceptions.ValidationException
 import jakarta.persistence.*
 import java.io.Serializable
 import java.util.*
