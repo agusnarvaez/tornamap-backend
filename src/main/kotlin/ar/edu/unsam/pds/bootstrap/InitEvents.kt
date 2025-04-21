@@ -10,10 +10,12 @@ import org.springframework.stereotype.Component
 import ar.edu.unsam.pds.exceptions.NotFoundException
 import ar.edu.unsam.pds.models.Period
 import ar.edu.unsam.pds.repository.PeriodRepository
+import org.springframework.context.annotation.Profile
 import java.time.LocalDate
 
 @Component(value = "InitEvents.beanName")
 @DependsOn(value = ["InitCourses.beanName", "InitPrograms.beanName"])
+@Profile(value = ["dev", "prod", "test"])
 class InitEvents : BootstrapGeneric("Events") {
     @Autowired
     private lateinit var periodRepository: PeriodRepository

@@ -6,10 +6,12 @@ import ar.edu.unsam.pds.security.models.Principal
 import ar.edu.unsam.pds.security.repository.PrincipalRepository
 import ar.edu.unsam.pds.services.StorageService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.Profile
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 
 @Component(value = "InitUsers.beanName")
+@Profile(value = ["dev", "prod", "test"])
 class InitUser : BootstrapGeneric("users") {
     @Autowired private lateinit var passwordEncoder: PasswordEncoder
     @Autowired private lateinit var principalRepository: PrincipalRepository
