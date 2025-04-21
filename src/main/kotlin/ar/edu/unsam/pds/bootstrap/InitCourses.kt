@@ -1,163 +1,134 @@
 package ar.edu.unsam.pds.bootstrap
 
 import ar.edu.unsam.pds.models.Course
-import ar.edu.unsam.pds.models.Institution
 import ar.edu.unsam.pds.repository.CourseRepository
-import ar.edu.unsam.pds.repository.InstitutionRepository
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.context.annotation.DependsOn
+import org.springframework.context.annotation.Profile
 import org.springframework.core.env.Environment
 import org.springframework.core.env.Profiles
 import org.springframework.stereotype.Component
 
 @Component(value = "InitCourses.beanName")
-@DependsOn(value = ["InitInstitutions.beanName"])
+@Profile(value = ["dev", "prod", "test"])
 class InitCourses : BootstrapGeneric("Courses") {
-    @Autowired private lateinit var institutionRepository: InstitutionRepository
     @Autowired private lateinit var courseRepository: CourseRepository
     @Autowired private lateinit var environment: Environment
 
-    fun urlBase() = "http://${this.getDomain()}:8080/media/public"
+    // fun urlBase() = "http://${this.getDomain()}:8080/media/public"
 
     fun getDomain() =
         if (environment.acceptsProfiles(Profiles.of("prod"))) "149.50.143.203"
         else "localhost"
 
     override fun doAfterPropertiesSet() {
-        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        val estrellasEnMovimiento = this.findByName("Estrellas en Movimiento")
 
-        val course11 = Course(
-            title = "Ballet Clásico para Principiantes",
-            description = """
-                Un curso diseñado para niños y adolescentes que desean aprender los fundamentos del ballet clásico, 
-                incluyendo postura, técnica de pies y brazos, y movimientos básicos como pliés, tendus y rond de jambes.
-            """.trimIndent(),
-            category = "Ballet",
-            image = "${this.urlBase()}/estrellas_en_movimiento/ballet.jpg"
+        courseRepository.save(
+            Course(
+                    name="Matemática I",
+                    description="Asignatura introductoria que aborda los fundamentos del análisis en una variable, álgebra y geometría. Se aprenden conceptos clave como funciones, límites, derivadas, polinomios y ecuaciones, desarrollando habilidades esenciales para el razonamiento matemático y la resolución de problemas."
+            )
         )
 
-        estrellasEnMovimiento?.addCourse(course11)
-        courseRepository.save(course11)
-
-        val course12 = Course(
-            title = "Hip Hop Kids",
-            description = """
-                Una clase energética y divertida que introduce a los estudiantes a los fundamentos del hip hop, 
-                incluyendo movimientos de popping, locking, y breakdance adaptados a su edad y habilidades.
-            """.trimIndent(),
-            category = "Hip Hop",
-            image = "${this.urlBase()}/estrellas_en_movimiento/hip_hop.jpg"
+        courseRepository.save(
+            Course(
+                name="Matemática II",
+                description="Asignatura que profundiza en geometría analítica, lógica proposicional, teoría de conjuntos, números enteros y polinomios, brindando herramientas matemáticas esenciales para la informática."
+            )
         )
 
-        estrellasEnMovimiento?.addCourse(course12)
-        courseRepository.save(course12)
-
-        val course13 = Course(
-            title = "Jazz Dance Junior",
-            description = """
-                Un curso dinámico que combina elementos de ballet, danza contemporánea y estilos de baile moderno,
-                enseñando a los estudiantes rutinas coreografiadas con énfasis en la expresión y el estilo personal.
-            """.trimIndent(),
-            category = "Jazz Dance",
-            image = "${this.urlBase()}/estrellas_en_movimiento/jazz.jpg"
+        courseRepository.save(
+            Course(
+                name="Matemática III",
+                description="Asignatura introductoria que aborda los fundamentos del análisis en una variable, álgebra y geometría. Se aprenden conceptos clave como funciones, límites, derivadas, polinomios y ecuaciones, desarrollando habilidades esenciales para el razonamiento matemático y la resolución de problemas."
+            )
+        )
+        courseRepository.save(
+            Course(
+                name="Electricidad y Magnetismo",
+                description="Asignatura orientada a la resolución de problemas mediante herramientas informáticas, incluyendo programación, redes, sistemas operativos y aplicaciones matemáticas para algoritmos numéricos y problemas algebraicos."
+            )
         )
 
-        estrellasEnMovimiento?.addCourse(course13)
-        courseRepository.save(course13)
+        courseRepository.save(
+            Course(
+                name="Laboratorio de Computación I",
+                description = "Asignatura introductoria que aborda las nociones básicas de una computadora, utilización de programas e introducción a la resolución de pequeños problemas.")
+            )
 
-        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        val elEscenarioEncantado = this.findByName("El Escenario Encantado")
-
-        val course21 = Course(
-            title = "Actuación para Niños",
-            description = """
-                Un curso diseñado para niños de diversas edades que desean explorar el mundo del teatro. Incluye 
-                ejercicios de improvisación, técnicas de expresión vocal y corporal, y la preparación de pequeñas obras 
-                de teatro adaptadas a su edad.
-            """.trimIndent(),
-            category = "Actuación",
-            image = "${this.urlBase()}/el_escenario_encantado/actuacion_ninios.jpg"
+        courseRepository.save(
+            Course(
+                name="Laboratorio de Computación II",
+                description="Asignatura orientada a la resolución de problemas mediante herramientas informáticas, incluyendo programación, redes, sistemas operativos y aplicaciones matemáticas para algoritmos numéricos y problemas algebraicos."
+            )
         )
 
-        elEscenarioEncantado?.addCourse(course21)
-        courseRepository.save(course21)
-
-        val course22 = Course(
-            title = "Taller de Magia e Ilusionismo",
-            description = """
-                Una clase emocionante que enseña a los estudiantes los secretos detrás de los trucos de magia y 
-                ilusionismo. Aprenderán a realizar trucos sorprendentes, a dominar la prestidigitación y a crear su 
-                propia rutina mágica.
-            """.trimIndent(),
-            category = "Magia e Ilusionismo",
-            image = "${this.urlBase()}/el_escenario_encantado/magia.jpg"
+        courseRepository.save(
+            Course(
+                name="Telecomunicaciones y Redes",
+                description="Asignatura introductoria que aborda los principios fundamentales de la electricidad y el magnetismo, incluyendo electrostática, circuitos eléctricos, inducción electromagnética y ondas electromagnéticas, con aplicaciones en equipos informáticos y de comunicaciones."
+            )
         )
 
-        elEscenarioEncantado?.addCourse(course22)
-        courseRepository.save(course22)
-
-        val course23 = Course(
-            title = "Dramaturgia Creativa para Adolescentes",
-            description = """
-                Un curso dirigido a adolescentes interesados en la escritura teatral. Aprenderán los conceptos básicos 
-                de la dramaturgia, explorarán diferentes géneros teatrales y trabajarán en la creación de sus propios 
-                guiones y escenas originales.
-            """.trimIndent(),
-            category = "Dramaturgia",
-            image = "${this.urlBase()}/el_escenario_encantado/dramaturgia.jpg"
+        courseRepository.save(
+            Course(
+                name="Métodos Numéricos",
+                description="Asignatura orientada a la resolución de problemas mediante herramientas informáticas, incluyendo programación, redes, sistemas operativos y aplicaciones matemáticas para algoritmos numéricos y problemas algebraicos."
+            )
         )
 
-        elEscenarioEncantado?.addCourse(course23)
-        courseRepository.save(course23)
-
-        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        val elRinconCreativo = this.findByName("El Rincón Creativo")
-
-        val course31 = Course(
-            title = "Pintura y Dibujo para Niños",
-            description = """
-                Un curso diseñado para niños de todas las edades que deseen explorar su creatividad a través de la 
-                pintura y el dibujo. Los estudiantes aprenderán técnicas básicas de pintura al óleo, acuarela, 
-                acrílico y dibujo a lápiz, mientras desarrollan su estilo artístico único.
-            """.trimIndent(),
-            category = "Pintura y Dibujo",
-            image = "${this.urlBase()}/el_rincon_creativo/pintura_ninios.jpg"
+        courseRepository.save(
+            Course(
+                name="Sistemas de Procesamiento de Datos",
+                description="Asignatura que aborda la organización interna de sistemas de computadoras digitales, incluyendo el modelo de Von Neumann, la función del procesador, entrada/salida, software de base y arquitecturas avanzadas."
+            )
         )
 
-        elRinconCreativo?.addCourse(course31)
-        courseRepository.save(course31)
-
-        val course32 = Course(
-            title = "Artesanía Creativa",
-            description = """
-                Una clase que introduce a los niños y adolescentes al mundo de la artesanía y las manualidades. Desde 
-                la creación de joyas hasta la fabricación de esculturas con materiales reciclados, este curso fomenta 
-                la imaginación y la destreza manual de los estudiantes.
-            """.trimIndent(),
-            category = "Artesanía",
-            image = "${this.urlBase()}/el_rincon_creativo/artesania.jpg"
+        courseRepository.save(
+            Course(
+                name="Algoritmos I",
+                description="Asignatura centrada en la especificación, implementación y corrección de programas, abordando el tratamiento de secuencias, tipos abstractos de datos y archivos secuenciales mediante pequeños proyectos computacionales."
+            )
         )
 
-        elRinconCreativo?.addCourse(course32)
-        courseRepository.save(course32)
-
-        val course33 = Course(
-            title = "Explorando el Arte Digital",
-            description = """
-                Un taller que enseña a los estudiantes cómo utilizar herramientas digitales para crear arte. Desde la 
-                ilustración digital hasta el diseño gráfico básico, este curso les proporciona las habilidades 
-                necesarias para expresarse artísticamente en el mundo digital.
-            """.trimIndent(),
-            category = "Arte Digital",
-            image = "${this.urlBase()}/el_rincon_creativo/arte_digital.jpg"
+        courseRepository.save(
+            Course(
+                name="Algoritmos II",
+                description="Asignatura centrada en la especificación, implementación y corrección de programas, abordando el tratamiento de secuencias, tipos abstractos de datos y archivos secuenciales mediante pequeños proyectos computacionales."
+            )
         )
 
-        elRinconCreativo?.addCourse(course33)
-        courseRepository.save(course33)
-    }
+        courseRepository.save(
+            Course(
+                name="Algoritmos III",
+                description="Asignatura centrada en la especificación, implementación y corrección de programas, abordando el tratamiento de secuencias, tipos abstractos de datos y archivos secuenciales mediante pequeños proyectos computacionales."
+            )
+        )
 
-    fun findByName(name: String): Institution? {
-        return institutionRepository.findAll().find { it.name.contains(name) }
+        courseRepository.save(
+            Course(
+                name="Conceptos de Arquitecturas y Sistemas Operativos",
+                description="Asignatura que introduce las funciones principales de los sistemas operativos y su relación con la arquitectura del computador, incluyendo administración de recursos, procesos concurrentes y sistemas distribuidos."
+            )
+        )
+
+        courseRepository.save(
+            Course(
+                name="Programación con Herramientas Modernas",
+                description="Asignatura orientada a la resolución de problemas mediante herramientas informáticas, incluyendo programación, redes, sistemas operativos y aplicaciones matemáticas para algoritmos numéricos y problemas algebraicos."
+            )
+        )
+
+        courseRepository.save(
+            Course(
+                name="Proyectos de Software",
+                description="Asignatura orientada a la resolución de problemas mediante herramientas informáticas, incluyendo programación, redes, sistemas operativos y aplicaciones matemáticas para algoritmos numéricos y problemas algebraicos."
+            )
+        )
+        courseRepository.save(
+            Course(
+                name="Paradigmas de Programación",
+                description="Asignatura orientada a la resolución de problemas mediante herramientas informáticas, incluyendo programación, redes, sistemas operativos y aplicaciones matemáticas para algoritmos numéricos y problemas algebraicos."
+            )
+        )
     }
 }

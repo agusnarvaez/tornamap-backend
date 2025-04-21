@@ -25,7 +25,7 @@ spring:
     activate:
       on-profile: test # Perfil por defecto
   application:
-    name: PDS-2024-backend
+    name: TORNAMAP-backend
   thymeleaf:
     check-template-location: false
   mvc:
@@ -48,8 +48,8 @@ spring:
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:my_db;COLLATION=ENGLISH STRENGTH PRIMARY
-    username: pds
-    password: pds
+    username: tornamap
+    password: tornamap
   sql:
     init:
       mode: always

@@ -20,11 +20,9 @@ class BootstrapNBTest : BootstrapBasicTest() {
     @Autowired lateinit var principalRepository: PrincipalRepository
     @Autowired lateinit var userRepository: UserRepository
     @Autowired lateinit var scheduleRepository: ScheduleRepository
-    @Autowired lateinit var assignmentRepository: AssignmentRepository
+    @Autowired lateinit var assignmentRepository: EventRepository
     @Autowired lateinit var courseRepository: CourseRepository
-    @Autowired lateinit var institutionRepository: InstitutionRepository
-    @Autowired lateinit var paymentRepository: PaymentRepository
-    @Autowired lateinit var reviewRepository: ReviewRepository
+    @Autowired lateinit var institutionRepository: ProgramRepository
 
     @Mock lateinit var imageService: StorageService
     @Mock lateinit var emailService: EmailService
@@ -40,9 +38,9 @@ class BootstrapNBTest : BootstrapBasicTest() {
         userRepository.saveAll(users)
         principalRepository.saveAll(principals)
         scheduleRepository.saveAll(schedules)
-        assignmentRepository.saveAll(assignments)
+        assignmentRepository.saveAll(events)
         courseRepository.saveAll(courses)
-        institutionRepository.saveAll(institutions)
+        institutionRepository.saveAll(programs)
 
         mockFileName = "https://mock.pirulo/media/private/filename.jpg"
 

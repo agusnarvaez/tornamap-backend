@@ -2,11 +2,8 @@ package ar.edu.unsam.pds.dto.response
 
 data class CourseDetailResponseDto(
     val id: String,
-    val title: String,
+    val name: String,
     val description: String,
-    var category: String,
-    var image: String,
-    val assignments: MutableSet<AssignmentResponseDto>,
-    val reviews: MutableSet<ReviewCourseResponseDto>,
-    val rating: Double
+    val programs: List<String>,
+    val events: MutableSet<EventResponseDto>,
 )

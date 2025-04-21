@@ -1,2 +1,1 @@
-rootProject.name = "PDS-2024-backend"
-
+rootProject.name = "TORNAMAP-backend"

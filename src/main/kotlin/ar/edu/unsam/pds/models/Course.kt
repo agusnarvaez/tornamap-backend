@@ -6,60 +6,39 @@ import java.util.*
 
 @Entity @Table(name = "APP_COURSE")
 class Course(
-    val title: String,
+    val name: String,
 
     @Column(length = 1024)
     val description: String,
 
-    var category: String,
-    @Column(length = 1024)
-    var image: String
-) : Timestamp(), Serializable {
+    ) : Timestamp(), Serializable {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "course", cascade = [CascadeType.ALL], orphanRemoval = true)
-    val assignments = mutableSetOf<Assignment>()
+    val events = mutableSetOf<Event>()
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "course", cascade = [CascadeType.ALL], orphanRemoval = true)
-    val reviews= mutableSetOf<Review>()
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "courses", cascade = [CascadeType.ALL])
+    val programs = mutableSetOf<Program>()
 
-    fun addAssignment(assignment: Assignment) {
-        assignments.add(assignment)
-        assignment.attachCourse(this)
+    fun programNames(): List<String> {
+        return programs.map { it.name }
     }
 
-    fun removeAssignment(assignment: Assignment) {
-        assignments.removeIf{ it.id == assignment.id }
-    }
+    fun events(): String = this.events.joinToString(", ") { it.name }
 
-    fun totalIncome(): Double {
-        return assignments.sumOf { it.totalIncome() }
-    }
+    fun professors(): String = this.events.flatMap { it.getProfessorNames() }.joinToString(" - ")
 
-    fun mostPopularAssignment(): Assignment {
-        return assignments.maxByOrNull { it.subscribedUsers.size }!!
-    }
-
-    fun mostProfitableAssignment(): Assignment {
-        return assignments.maxByOrNull { it.totalIncome() }!!
-    }
-
-    fun totalSubscribedUsers(): Int {
-        return assignments.sumOf { it.totalSubscribedUsers() }
-    }
-
-    fun assigmentsNames(): Set<String> {
-        return assignments.map { it.name() }.toSet()
-    }
-
-    fun averageRating(): Double {
-        if (reviews.isEmpty()) {
-            return 0.0
+    fun modality(): String {
+        val isVirtual =  this.events.map { it.schedules.any{ it.isVirtual } }
+        val isPresential = this.events.map { it.schedules.any{ !it.isVirtual } }
+        return when {
+            isVirtual.all { it } -> "Virtual"
+            isPresential.all { it } -> "Presencial"
+            else -> "Virtual - Presencial"
         }
-
-        val sum = reviews.sumOf { it.rating.toDouble() }
-        return sum / reviews.size
     }
+
+    fun schedules() : String = this.events.flatMap { it.schedules }.joinToString(", ") { "${it.startTime} - ${it.endTime} ${it.weekDay}" }
 
 }

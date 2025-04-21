@@ -32,13 +32,13 @@ class UserServiceTest : BootstrapNBTest() {
     @Mock
     private lateinit var mockRequest: HttpServletRequest
 
-    private lateinit var institutionService: InstitutionService
+    private lateinit var programService: ProgramService
     private lateinit var userDetailsService: AppUserDetailsService
     private lateinit var userService: UserService
 
     @BeforeEach
     fun prepareTestData() {
-        institutionService = InstitutionService(
+        programService = ProgramService(
             institutionRepository = institutionRepository,
             principalRepository = principalRepository,
             userRepository = userRepository,
@@ -48,7 +48,7 @@ class UserServiceTest : BootstrapNBTest() {
         userService = UserService(
             userRepository = userRepository,
             principalRepository = principalRepository,
-            institutionService = institutionService,
+            programService = programService,
 
             emailService = emailService,
             storageService = imageService,
@@ -308,7 +308,7 @@ class UserServiceTest : BootstrapNBTest() {
     @Test
     fun `test get subscribed courses`() {
         assertEquals(
-            userService.getSubscribedCourses(users[0].id.toString()),
+            userService.getAssignedCourses(users[0].id.toString()),
             mutableListOf<CourseResponseDto>()
         )
 
@@ -317,7 +317,7 @@ class UserServiceTest : BootstrapNBTest() {
         userRepository.save(users[0])
 
         assertEquals(
-            userService.getSubscribedCourses(users[0].id.toString()),
+            userService.getAssignedCourses(users[0].id.toString()),
             mutableListOf(CourseMapper.buildCourseDto(assignments[0].course))
         )
     }
@@ -335,7 +335,7 @@ class UserServiceTest : BootstrapNBTest() {
 
         assertEquals(
             userService.getSubscriptions(users[0].id.toString()),
-            mutableListOf(AssignmentMapper.buildSubscriptionDto(assignments[0], institutions[0]))
+            mutableListOf(AssignmentMapper.buildSubscriptionDto(assignments[0], programs[0]))
         )
     }
 

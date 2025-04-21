@@ -3,10 +3,10 @@ package ar.edu.unsam.pds.controllers
 import ar.edu.unsam.pds.dto.request.LoginForm
 import ar.edu.unsam.pds.dto.request.RegisterFormDto
 import ar.edu.unsam.pds.dto.request.UserRequestUpdateDto
-import ar.edu.unsam.pds.dto.response.CourseResponseDto
-import ar.edu.unsam.pds.dto.response.SubscriptionResponseDto
 import ar.edu.unsam.pds.dto.response.UserDetailResponseDto
 import ar.edu.unsam.pds.dto.response.UserResponseDto
+import ar.edu.unsam.pds.mappers.UserMapper
+import ar.edu.unsam.pds.security.models.Principal
 import ar.edu.unsam.pds.services.UserService
 import io.swagger.v3.oas.annotations.Operation
 import jakarta.servlet.http.HttpServletRequest
@@ -15,6 +15,7 @@ import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
+import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -25,8 +26,17 @@ class UserController : UUIDValid() {
 
     @GetMapping("")
     @Operation(summary = "Get all users")
-    fun getAll(): ResponseEntity<List<UserResponseDto>> {
-        return ResponseEntity.ok(userService.getUserAll())
+    fun getAll(){}
+
+    @GetMapping("profile")
+    @Operation(summary = "Get user profile")
+    fun getProfile(
+        request: HttpServletRequest
+    ): ResponseEntity<UserDetailResponseDto> {
+        val auth: Authentication = request.userPrincipal as Authentication
+        val principalUser = (auth.principal as Principal).getUser()
+
+        return ResponseEntity.ok(UserMapper.buildUserDetailDto(principalUser))
     }
 
     @PostMapping("login")
@@ -55,15 +65,6 @@ class UserController : UUIDValid() {
         return ResponseEntity.ok(registeredUser)
     }
 
-    @GetMapping("/{idUser}")
-    @Operation(summary = "Get user id")
-    fun userItem(
-        @PathVariable idUser: String
-    ): ResponseEntity<UserDetailResponseDto> {
-        this.validatedUUID(idUser)
-        return ResponseEntity.ok(userService.getUserDetail(idUser))
-    }
-
     @PatchMapping(value = ["/{idUser}"], consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
     @Operation(summary = "Update a user's details")
     fun updateDetail(
@@ -73,24 +74,6 @@ class UserController : UUIDValid() {
         this.validatedUUID(idUser)
         val originalUser = userService.updateDetail(idUser, user)
         return ResponseEntity.ok().body(originalUser)
-    }
-
-    @GetMapping("/{idUser}/courses")
-    @Operation(summary = "Get the user's subscribed courses")
-    fun getSubscribedCourses(
-        @PathVariable idUser: String
-    ): ResponseEntity<List<CourseResponseDto>> {
-        this.validatedUUID(idUser)
-        return ResponseEntity.ok(userService.getSubscribedCourses(idUser))
-    }
-
-    @GetMapping("/{idUser}/subscriptions")
-    @Operation(summary = "Get the user's subscriptions")
-    fun getSubscriptions(
-        @PathVariable idUser: String
-    ): ResponseEntity<List<SubscriptionResponseDto>> {
-        this.validatedUUID(idUser)
-        return ResponseEntity.ok(userService.getSubscriptions(idUser))
     }
 
     @DeleteMapping("")

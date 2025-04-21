@@ -2,9 +2,17 @@ package ar.edu.unsam.pds.dto.response
 
 data class CourseResponseDto(
     val id: String,
-    val title: String,
-    val description: String,
-    var category: String,
-    var image: String,
-    val averageRating: Double
+    val name: String,
+    val programs: List<String>,
+    val events: List<EventResponseDto>
+)
+
+data class CourseListResponseDto(
+    val id: String,
+    val name: String,
+    val programs: String,
+    val events: String,
+    val professors: String,
+    val modality: String,
+    val schedules: String
 )

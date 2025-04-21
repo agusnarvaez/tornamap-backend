@@ -16,9 +16,9 @@ open class BootstrapBasicTest {
     var principals = mutableListOf<Principal>()
     var users = mutableListOf<User>()
     var schedules = mutableListOf<Schedule>()
-    var assignments = mutableListOf<Assignment>()
+    var events = mutableListOf<Event>()
     var courses = mutableListOf<Course>()
-    var institutions = mutableListOf<Institution>()
+    var programs = mutableListOf<Program>()
 
     val defaultImage = "https://mock.pirulo/media/private/default.png"
 
@@ -90,52 +90,52 @@ open class BootstrapBasicTest {
             )
         )
 
-        assignments.add(
-            Assignment(
+        events.add(
+            Event(
                 quotas = 100,
-                isActive = true,
+                isApproved = true,
                 price = 100.0,
                 schedule = schedules[0]
             )
         )
 
-        assignments.add(
-            Assignment(
+        events.add(
+            Event(
                 quotas = 100,
-                isActive = true,
+                isApproved = true,
                 price = 100.0,
                 schedule = schedules[1]
             )
         )
 
         courses.add(Course(
-            title = "classic dance",
+            name = "classic dance",
             description = "classical dance course",
             category = "dance",
             image = ""
         ).apply {
-            addAssignment(this@BootstrapBasicTest.assignments[0])
+            addEvent(this@BootstrapBasicTest.events[0])
         })
 
         courses.add(Course(
-            title = "modern dance",
+            name = "modern dance",
             description = "modern dance course",
             category = "dance",
             image = ""
         ).apply {
-            addAssignment(this@BootstrapBasicTest.assignments[1])
+            addEvent(this@BootstrapBasicTest.events[1])
         })
 
         courses.add(
             Course(
-                title = "yoga",
+                name = "yoga",
                 description = "yoga course",
                 category = "yoga_category",
                 image = ""
             )
         )
 
-        institutions.add(Institution(
+        programs.add(Program(
             name = "Enchanted Dance",
             description = "dance institution",
             category = "dance_category",
@@ -146,15 +146,15 @@ open class BootstrapBasicTest {
             addAdmin(principals[0].getUser())
         })
 
-        institutions.add(Institution(
+        programs.add(Program(
             name = "The Kingdom of Calculations",
             description = "mathematics institution",
             category = "mathematics_category",
             image = "",
         ))
 
-        institutions.add(
-            Institution(
+        programs.add(
+            Program(
                 name = "Serenity and Postures",
                 description = "yoga institution",
                 category = "yoga_category",

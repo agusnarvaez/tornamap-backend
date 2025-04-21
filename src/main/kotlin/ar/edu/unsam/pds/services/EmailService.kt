@@ -38,43 +38,6 @@ class EmailService(
         }
         return result
     }
-
-    @Async("taskExecutor")
-    fun sendPaymentConfirmationEmail(to: String, amount: Double, userName : String, transactionId: String) {
-        val subject = "Payment Confirmation"
-        val template = loadTemplate("src/main/resources/templates/payment_complete.html")
-        val placeholders = mapOf(
-            "\${amount}" to amount.toString(),
-            "\${user}" to userName,
-            "\${transactionId}" to transactionId
-        )
-        val htmlContent = replacePlaceholders(template, placeholders)
-        sendEmail(to, subject, htmlContent)
-    }
-
-    @Async("taskExecutor")
-    fun sendSubscriptionConfirmationEmail(to: String, courseName: String, userName : String) {
-        val subject = "Subscription Confirmation"
-        val placeholders = mapOf(
-            "\${courseName}" to courseName,
-            "\${user}" to userName
-        )
-        val template = loadTemplate("src/main/resources/templates/subscription_complete.html")
-        val htmlContent = replacePlaceholders(template, placeholders)
-        sendEmail(to, subject, htmlContent)
-    }
-
-    @Async("taskExecutor")
-    fun sendCreditsLoadedEmail(to: String, credits: Double, userName : String) {
-        val subject = "Credits Loaded"
-        val template = loadTemplate("src/main/resources/templates/credits_loaded.html")
-        val placeholders = mapOf(
-            "\${credits}" to credits.toString(),
-            "\${user}" to userName
-        )
-        val htmlContent = replacePlaceholders(template, placeholders)
-        sendEmail(to, subject, htmlContent)
-    }
 }
 
 
@@ -82,7 +45,4 @@ class EmailService(
 @ConditionalOnProperty(name = ["email.enabled"], havingValue = "false", matchIfMissing = true)
 class NoOpEmailService(mailSender: JavaMailSender) : EmailService(mailSender) {
     override fun sendEmail(to: String, subject: String, htmlContent: String) {}
-    override fun sendPaymentConfirmationEmail(to: String, amount: Double, userName: String, transactionId: String) {}
-    override fun sendSubscriptionConfirmationEmail(to: String, courseName: String, userName: String) {}
-    override fun sendCreditsLoadedEmail(to: String, credits: Double, userName: String) {}
 }

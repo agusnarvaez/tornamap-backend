@@ -7,6 +7,4 @@ data class UserDetailResponseDto(
     val image: String,
     val id: String,
     var isAdmin: Boolean,
-    var nextClass: SubscriptionResponseDto?,
-    var credits: Double?
 )
