@@ -49,7 +49,7 @@ class Schedule(
     }
 
     fun translateAndFormatWeekDay(): String {
-        val translatedDay = weekDay?.getDisplayName(TextStyle.FULL_STANDALONE, Locale("es")) ?: ""
+        val translatedDay = weekDay?.getDisplayName(TextStyle.FULL, Locale("es")) ?: ""
         return translatedDay.uppercase()
     }
 }
