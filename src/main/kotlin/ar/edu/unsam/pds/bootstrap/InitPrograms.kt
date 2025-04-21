@@ -31,7 +31,7 @@ class InitPrograms : BootstrapGeneric("Programs") {
     override fun doAfterPropertiesSet() {
         programRepository.save(
             Program(
-                name = "Tecnicatura Universitaria en Programación Informática",
+                name = "Tecnicatura en Programación Informática",
                 description =
                     """
                     La carrera tienen un bloque curricular constituido por asignaturas básicas de matemática,
