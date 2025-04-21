@@ -4,7 +4,6 @@ import ar.edu.unsam.pds.exceptions.NotFoundException
 import ar.edu.unsam.pds.models.Program
 import ar.edu.unsam.pds.models.User
 import ar.edu.unsam.pds.repository.CourseRepository
-import ar.edu.unsam.pds.repository.EventRepository
 import ar.edu.unsam.pds.repository.ProgramRepository
 import ar.edu.unsam.pds.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -23,7 +22,7 @@ class InitPrograms : BootstrapGeneric("Programs") {
     @Autowired private lateinit var userRepository: UserRepository
     @Autowired private lateinit var environment: Environment
 
-    fun urlBase() = "http://${this.getDomain()}:8080/media/public"
+    //fun urlBase() = "http://${this.getDomain()}:8080/media/public"
 
     fun getDomain() =
         if (environment.acceptsProfiles(Profiles.of("prod"))) "149.50.143.203"

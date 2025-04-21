@@ -14,7 +14,7 @@ class InitCourses : BootstrapGeneric("Courses") {
     @Autowired private lateinit var courseRepository: CourseRepository
     @Autowired private lateinit var environment: Environment
 
-    fun urlBase() = "http://${this.getDomain()}:8080/media/public"
+    // fun urlBase() = "http://${this.getDomain()}:8080/media/public"
 
     fun getDomain() =
         if (environment.acceptsProfiles(Profiles.of("prod"))) "149.50.143.203"
