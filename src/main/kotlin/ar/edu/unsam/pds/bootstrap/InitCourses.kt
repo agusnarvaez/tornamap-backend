@@ -3,11 +3,13 @@ package ar.edu.unsam.pds.bootstrap
 import ar.edu.unsam.pds.models.Course
 import ar.edu.unsam.pds.repository.CourseRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.Profile
 import org.springframework.core.env.Environment
 import org.springframework.core.env.Profiles
 import org.springframework.stereotype.Component
 
 @Component(value = "InitCourses.beanName")
+@Profile(value = ["dev", "prod", "test"])
 class InitCourses : BootstrapGeneric("Courses") {
     @Autowired private lateinit var courseRepository: CourseRepository
     @Autowired private lateinit var environment: Environment

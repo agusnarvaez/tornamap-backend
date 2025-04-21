@@ -10,6 +10,7 @@ import ar.edu.unsam.pds.repository.ScheduleRepository
 import ar.edu.unsam.pds.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.DependsOn
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 import java.time.DayOfWeek
 import java.time.LocalDate
@@ -17,6 +18,7 @@ import java.time.LocalTime
 
 @Component(value = "InitSchedules.beanName")
 @DependsOn(value = ["InitEvents.beanName", "InitClassroom.beanName"])
+@Profile(value = ["dev", "prod", "test"])
 class InitSchedules : BootstrapGeneric("Schedules") {
     @Autowired private lateinit var eventRepository: EventRepository
     @Autowired private lateinit var userRepository: UserRepository
