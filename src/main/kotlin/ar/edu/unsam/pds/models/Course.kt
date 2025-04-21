@@ -27,7 +27,7 @@ class Course(
 
     fun events(): String = this.events.joinToString(", ") { it.name }
 
-    fun professors(): String = this.events.flatMap { it.getProfessorNames() }.joinToString(" - ")
+    fun professors(): String = this.events.flatMap { it.getProfessorNames() }.toSet().joinToString(" - ")
 
     fun modality(): String {
         val isVirtual =  this.events.map { it.schedules.any{ it.isVirtual } }
