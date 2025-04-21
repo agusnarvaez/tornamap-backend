@@ -9,9 +9,11 @@ import ar.edu.unsam.pds.repository.ClassroomRepository
 import org.springframework.stereotype.Component
 import org.springframework.context.annotation.DependsOn
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.Profile
 
 @Component(value = "InitClassroom.beanName")
 @DependsOn(value = ["InitBuilding.beanName"])
+@Profile(value = ["dev", "prod", "test"])
 class InitClassroom : BootstrapGeneric("Classroom") {
     @Autowired private lateinit var classroomRepository: ClassroomRepository
     @Autowired private lateinit var buildingRepository: BuildingRepository
@@ -33,7 +35,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "A28",
             name = "Aula A28",
             capacity = 30,
-            floor = 2,
+            floor = -1,
             type = ClassroomType.CLASSROOM,
             building = tornavias
         )

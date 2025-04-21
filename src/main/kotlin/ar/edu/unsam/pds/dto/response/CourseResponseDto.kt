@@ -6,3 +6,13 @@ data class CourseResponseDto(
     val programs: List<String>,
     val events: List<EventResponseDto>
 )
+
+data class CourseListResponseDto(
+    val id: String,
+    val name: String,
+    val programs: String,
+    val events: String,
+    val professors: String,
+    val modality: String,
+    val schedules: String
+)

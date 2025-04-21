@@ -14,6 +14,18 @@ object CourseMapper {
         )
     }
 
+    fun buildCourseListDto(course: Course): CourseListResponseDto {
+        return CourseListResponseDto(
+            id = course.id.toString(),
+            name = course.name,
+            programs = course.programNames().joinToString(", "),
+            events = course.events(),
+            professors = course.professors(),
+            modality= course.modality(),
+            schedules = course.schedules()
+        )
+    }
+
     fun buildCourseDetailDto(course: Course): CourseDetailResponseDto {
         val events = if(course.events.isEmpty()) mutableSetOf() else course.events.map { EventMapper.buildEventDto(it) }.toMutableSet()
 
@@ -21,6 +33,7 @@ object CourseMapper {
             id = course.id.toString(),
             name = course.name,
             description = course.description,
+            programs = course.programNames(),
             events = events
         )
     }

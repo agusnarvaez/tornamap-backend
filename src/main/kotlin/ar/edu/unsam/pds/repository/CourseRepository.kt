@@ -1,23 +1,25 @@
 package ar.edu.unsam.pds.repository
 
 import ar.edu.unsam.pds.models.Course
-import ar.edu.unsam.pds.models.Event
-import ar.edu.unsam.pds.models.Program
-import ar.edu.unsam.pds.security.models.Principal
+import org.springframework.data.jpa.repository.EntityGraph
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 import org.springframework.data.rest.core.annotation.RepositoryRestResource
-import java.time.LocalDate
 import java.util.*
 
 @RepositoryRestResource(exported = false)
 interface CourseRepository : JpaRepository<Course, UUID> {
 
+    @EntityGraph(attributePaths = ["programs", "events", "events.schedules", "events.schedules.assignedUsers", "events.schedules.classroom", "events.schedules.classroom.building"])
+    override fun findById(id: UUID): Optional<Course>
+
     fun findCourseByName(courseName: String): Course?
 
+    @EntityGraph(attributePaths = ["programs", "events", "events.schedules", "events.schedules.assignedUsers"])
     fun findAllByOrderByNameAsc(): List<Course>
 
+    @EntityGraph(attributePaths = ["programs", "events", "events.schedules", "events.schedules.assignedUsers"])
     @Query("""
         SELECT DISTINCT c FROM Course c 
         LEFT JOIN c.programs p

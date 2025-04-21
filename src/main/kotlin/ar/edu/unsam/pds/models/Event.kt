@@ -19,7 +19,7 @@ class Event(
 
 ) : Timestamp(), Serializable {
 
-    @OneToMany(mappedBy = "event", cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "event", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     lateinit var schedules: MutableSet<Schedule>
 
     @Id @GeneratedValue(strategy = GenerationType.UUID)
