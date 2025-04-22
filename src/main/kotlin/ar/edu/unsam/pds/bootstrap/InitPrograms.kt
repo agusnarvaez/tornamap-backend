@@ -41,7 +41,24 @@ class InitPrograms : BootstrapGeneric("Programs") {
                         .trimIndent(),
             ).apply {
                 addAdmin(userByEmail("admin@admin.com"))
-                addCourse(courseRepository.findAll())
+                addCourse(mutableListOf(courseRepository.findCourseByName("Matematica I")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Matematica II")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Matematica III")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Electricidad y Magnetismo")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Laboratorio de Computación I")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Laboratorio de Computación II")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Telecomunicaciones y Redes")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Métodos Numéricos")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Sistemas de Procesamiento de Datos")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Algoritmos I")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Algoritmos II")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Algoritmos III")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Conceptos de Arquitecturas y Sistemas Operativos")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Programación con Herramientas Modernas")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Proyectos de Software")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Paradigmas de Programación")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Base de Datos")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Seminario de  Programación Concurrente, Paralela y Distribuida")!!))
             }
         )
 
@@ -56,7 +73,25 @@ class InitPrograms : BootstrapGeneric("Programs") {
                         .trimIndent(),
             ).apply {
                 addAdmin(userByEmail("admin@admin.com"))
-                addCourse(courseRepository.findAll())
+                //addCourse(courseRepository.findAll())
+                addCourse(mutableListOf(courseRepository.findCourseByName("Matematica I")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Matematica II")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Matematica III")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Electricidad y Magnetismo")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Laboratorio de Computación I")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Laboratorio de Computación II")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Sistemas de Procesamiento de Datos")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Telecomunicaciones y Redes")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Algoritmos I")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Conceptos de Arquitecturas y Sistemas Operativos")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Redes de Información I")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Redes de Información II")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Redes de Información III")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Proyecto I")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Proyecto II")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Proyecto III")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Administración de Redes de Computadoras")!!))
+                addCourse(mutableListOf(courseRepository.findCourseByName("Sistemas Avanzados de Comunicación")!!))
             }
         )
 
@@ -71,7 +106,7 @@ class InitPrograms : BootstrapGeneric("Programs") {
                         .trimIndent(),
             ).apply {
                 addAdmin(userByEmail("admin@admin.com"))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Matematica I")!!))
+                //addCourse(mutableListOf(courseRepository.findCourseByName("Matematica I")!!))
             }
         )
     }
