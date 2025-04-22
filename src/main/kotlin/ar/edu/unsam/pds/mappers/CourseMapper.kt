@@ -22,7 +22,7 @@ object CourseMapper {
             events = course.events(),
             professors = course.professors(),
             modality= course.modality(),
-            schedules = course.schedules()
+            schedules = course.formattedSchedules()
         )
     }
 

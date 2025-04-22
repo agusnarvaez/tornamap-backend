@@ -5,6 +5,7 @@ import java.io.Serializable
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
+import java.time.format.TextStyle
 import java.util.*
 
 @Entity @Table(name = "APP_SCHEDULE")
@@ -47,5 +48,8 @@ class Schedule(
         user.scheduleList.add(schedule)
     }
 
-
+    fun translateAndFormatWeekDay(): String {
+        val translatedDay = weekDay?.getDisplayName(TextStyle.FULL, Locale("es")) ?: ""
+        return translatedDay.uppercase()
+    }
 }

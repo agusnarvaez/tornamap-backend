@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @RestController
 @RequestMapping("api/events")
@@ -23,7 +24,8 @@ class EventController : UUIDValid() {
         @PathVariable classroomID: String,
         @PathVariable date: String
     ): ResponseEntity<CustomResponse> {
-        val parsedDate = LocalDate.parse(date)
+        val formatter = DateTimeFormatter.ISO_DATE_TIME
+        val parsedDate = LocalDate.parse(date, formatter)
         return ResponseEntity.status(200).body (
             CustomResponse(
                 message = "Eventos obtenidos con exito",

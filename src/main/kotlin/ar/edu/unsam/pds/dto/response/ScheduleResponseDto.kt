@@ -7,7 +7,7 @@ data class ScheduleResponseDto (
     val id: String,
     val startTime: String,
     val endTime: String,
-    val weekDay:DayOfWeek?,
+    val weekDay: String?,
     val date: LocalDate?,
     val isVirtual:Boolean,
     val professors: List<String>,
