@@ -21,7 +21,7 @@ class Event(
 
     @OneToMany(mappedBy = "event", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     @OrderBy("weekDay ASC, date ASC")
-    lateinit var schedules: MutableSet<Schedule>
+    var schedules: MutableList<Schedule> = mutableListOf()
 
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
