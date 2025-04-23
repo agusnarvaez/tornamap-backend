@@ -39,6 +39,6 @@ class Course(
         }
     }
 
-    fun formattedSchedules() : String = this.events.flatMap { it.schedules }.joinToString(", ") { "${it.startTime} - ${it.endTime} ${it.translateAndFormatWeekDay()}" }
-
+//    fun formattedSchedules() : String = this.events.flatMap { it.schedules }.joinToString(", ") { "${it.startTime} - ${it.endTime} ${it.translateAndFormatWeekDay()}" }
+    fun formattedSchedules(): String =this.events.flatMap { it.schedules }.joinToString(separator = " | ") {"${it.translateAndFormatWeekDay()}: ${it.startTime} - ${it.endTime}"}
 }
