@@ -634,7 +634,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
 
         val aulaA17Nave3= Classroom(
             code = "A17",
-            name = "Aula A17",
+            name = "Aula A17 - Aulario Nave 3",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
@@ -654,7 +654,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
 
         val aulaA15Nave3= Classroom(
             code = "A15",
-            name = "Aula A15",
+            name = "Aula A15 - Aulario Nave 3",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
