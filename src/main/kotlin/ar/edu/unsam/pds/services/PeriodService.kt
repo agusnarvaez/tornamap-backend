@@ -23,7 +23,7 @@ class PeriodService(
     private val eventRepository: EventRepository,
 ) {
 
-    fun findPeriodById(idPeriod: String): Period {
+    fun findPeriodByID(idPeriod: String?): Period {
         val uuid = UUID.fromString(idPeriod)
         return periodRepository.findById(uuid).orElseThrow {
             NotFoundException("Periodo no encontrado para el uuid suministrado")

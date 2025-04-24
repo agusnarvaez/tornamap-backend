@@ -3,7 +3,11 @@ package ar.edu.unsam.pds.controllers
 import ar.edu.unsam.pds.dto.request.EventRequestDto
 import ar.edu.unsam.pds.dto.response.CustomResponse
 import ar.edu.unsam.pds.mappers.EventMapper
+import ar.edu.unsam.pds.mappers.ScheduleMapper
+import ar.edu.unsam.pds.services.CourseService
 import ar.edu.unsam.pds.services.EventService
+import ar.edu.unsam.pds.services.PeriodService
+import ar.edu.unsam.pds.services.UserService
 import io.swagger.v3.oas.annotations.Operation
 import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
@@ -16,6 +20,8 @@ import java.time.LocalDate
 @CrossOrigin("*")
 class EventController : UUIDValid() {
     @Autowired lateinit var eventService: EventService
+    @Autowired lateinit var courseService: CourseService
+    @Autowired lateinit var periodService: PeriodService
 
     @GetMapping("/{classroomID}/{date}")
     @Operation(summary = "Get all events in a given classroom")
@@ -64,9 +70,34 @@ class EventController : UUIDValid() {
 
     @PutMapping("{eventId}")
     @Operation(summary = "Edit an event by ID")
-    fun editEvent(@PathVariable eventId: String,
-                  @RequestBody @Valid event: EventRequestDto
-    ){
-        eventService.editEvent(eventId,event)
+    fun editEvent(
+                  @RequestBody @Valid eventDTO: EventRequestDto
+    ): ResponseEntity<CustomResponse> {
+        val eventID=eventDTO.id
+            ?: throw IllegalArgumentException("Debe proveer un ID de Event para editarlo")
+
+        val existingEvent = eventService.findEventByID(eventID)
+
+        val builtSchedules = eventDTO.schedules.map { schedule ->
+            ScheduleMapper.buildSchedule(schedule)
+        }.toMutableSet()
+
+        existingEvent.apply{
+            name = eventDTO.name
+            isApproved = eventDTO.isApproved
+            isCancelled = eventDTO.isCancelled
+            course = courseService.findCourseByID(eventDTO.courseID)
+            period = periodService.findPeriodByID(eventDTO.periodID)
+            schedules = builtSchedules
+        }
+
+        eventService.editEvent(existingEvent)
+
+        return ResponseEntity.status(200).body(
+            CustomResponse(
+                message = "Event editado con éxito",
+                data = EventMapper.buildEventDto(existingEvent)
+            )
+        )
     }
 }
