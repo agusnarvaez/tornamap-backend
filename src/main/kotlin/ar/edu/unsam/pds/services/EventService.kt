@@ -19,6 +19,10 @@ class EventService(
     private val periodService: PeriodService,
 ) {
 
+    fun getAll():List<Event>{
+        return eventRepository.findAll()
+    }
+
     @Transactional(readOnly = true)
     fun searchBy(classroomID: String, date: LocalDate): List<Event> = eventRepository.findEventsByClassroomAndDate(classroomID, date, date.dayOfWeek)
 
