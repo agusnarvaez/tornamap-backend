@@ -4,6 +4,7 @@ import ar.edu.unsam.pds.dto.request.EventRequestDto
 import ar.edu.unsam.pds.dto.response.CustomResponse
 import ar.edu.unsam.pds.mappers.EventMapper
 import ar.edu.unsam.pds.mappers.ScheduleMapper
+import ar.edu.unsam.pds.models.Event
 import ar.edu.unsam.pds.services.CourseService
 import ar.edu.unsam.pds.services.EventService
 import ar.edu.unsam.pds.services.PeriodService
@@ -65,21 +66,41 @@ class EventController : UUIDValid() {
         )
     }
 
-/*
+
     @PostMapping("")
     @Operation(summary = "Create an event")
     fun createEvent(
-        @RequestBody @Valid event: EventRequestDto
-    ){ eventService.createEvent(event) }
+        @RequestBody @Valid eventDTO: EventRequestDto
+    ): ResponseEntity<CustomResponse> {
+        val event = EventMapper.buildEvent(eventDTO)
 
-    @DeleteMapping("{eventId}")
-    @Operation(summary = "Delete an event by ID")
-    fun deleteEvent(
-        @PathVariable eventID: String
-    ){
-        eventService.deleteEvent(eventID)
+        val builtSchedules = eventDTO.schedules.map { schedule ->
+            ScheduleMapper.buildSchedule(schedule)
+        }.toMutableSet()
+
+        val period= periodService.findPeriodByID(eventDTO.periodID)
+
+        builtSchedules.forEach { schedule -> event.addSchedule(schedule) }
+        event.addPeriod(period)
+
+        val newEvent = eventService.createEvent(event)
+
+        return ResponseEntity.status(200).body(
+            CustomResponse(
+                message = "Event creado con éxito",
+                data = EventMapper.buildEventDto(event) //TODO: cambiar a newEvent
+            )
+        )
     }
-*/
+    /*
+        @DeleteMapping("{eventId}")
+        @Operation(summary = "Delete an event by ID")
+        fun deleteEvent(
+            @PathVariable eventID: String
+        ){
+            eventService.deleteEvent(eventID)
+        }
+    */
 
     @PutMapping("{eventId}")
     @Operation(summary = "Edit an event by ID")
@@ -99,7 +120,7 @@ class EventController : UUIDValid() {
             name = eventDTO.name
             isApproved = eventDTO.isApproved
             isCancelled = eventDTO.isCancelled
-            course = courseService.findCourseByID(eventDTO.courseID)
+            course = courseService.findCourseByID(eventDTO.course.id)
             period = periodService.findPeriodByID(eventDTO.periodID)
             schedules = builtSchedules
         }

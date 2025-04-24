@@ -1,5 +1,6 @@
 package ar.edu.unsam.pds.mappers
 
+import ar.edu.unsam.pds.dto.request.CourseRequestDto
 import ar.edu.unsam.pds.dto.response.*
 import ar.edu.unsam.pds.models.Course
 
@@ -36,5 +37,9 @@ object CourseMapper {
             programs = course.programNames(),
             events = events
         )
+    }
+
+    fun buildCourse(course: CourseRequestDto): Course {
+        TODO("Not yet implemented")
     }
 }

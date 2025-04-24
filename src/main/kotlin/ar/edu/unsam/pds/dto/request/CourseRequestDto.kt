@@ -6,6 +6,9 @@ import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Size
 
 data class CourseRequestDto(
+
+    val id: String?,
+
     @field: NotBlank(message = "El campo titulo no puede estar vacío")
     @field: NotNull(message = "El campo titulo no puede ser nulo")
     @field: Size(max = 250, message = "El campo titulo debe tener como máximo 250 caracteres")

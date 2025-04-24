@@ -46,31 +46,10 @@ class EventService(
     }
 
     @Transactional
-    fun createEvent(event: EventRequestDto){
-        val newEvent= buildEvent(event)
+    fun createEvent(newEvent: Event){
         eventRepository.save(newEvent)
     }
 
-    private fun buildEvent(event: EventRequestDto, existingID: String? = null):Event{
-
-        val course= event.courseID?.let { courseService.findCourseByID(it) }
-        val period= event.periodID?.let{ periodService.findPeriodByID(it) }
-        //val schedules: List<Schedule> = event.schedules.map {scheduleService.createSchedule(it) }
-
-        val newEvent = Event(
-            event.name,
-            isApproved = true,
-            isCancelled = false,
-            course = course ?: throw ValidationException("El evento no tiene curso asociado"),
-        )
-
-        newEvent.id = UUID.fromString(existingID) ?: UUID.randomUUID()
-        course.let { newEvent.attachCourse(it) }
-        period?.let { newEvent.addPeriod(it) }
-        //schedules.forEach { newEvent.addSchedule(it) }
-
-        return newEvent
-    }
 
     @Transactional
     fun deleteEvent(id: String) {
