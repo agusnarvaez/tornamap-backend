@@ -28,7 +28,7 @@ class CourseService (
         return getAll()
     }
 
-    fun findCourseById(courseID: String): Course {
+    fun findCourseByID(courseID: String?): Course {
         val uuid = UUID.fromString(courseID)
         return courseRepository.findById(uuid).orElseThrow {
             NotFoundException("Curso no encontrado para el uuid suministrado")

@@ -6,6 +6,13 @@ import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Pattern
 
 data class EventRequestDto(
+
+    val id: String?,
+
+    val isApproved: Boolean,
+
+    val isCancelled: Boolean,
+
     @field: NotNull(message = "El ID no debe ser nulo")
     @field: Pattern(
         regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
