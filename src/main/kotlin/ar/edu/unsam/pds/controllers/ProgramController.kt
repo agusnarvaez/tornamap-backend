@@ -39,7 +39,7 @@ class ProgramController : UUIDValid() {
         )
     }
 
-    @PostMapping(value = [""])
+    @PostMapping("")
     @Operation(summary = "Create a program")
     fun createProgram(
         @RequestBody @Valid program: ProgramRequestDto
