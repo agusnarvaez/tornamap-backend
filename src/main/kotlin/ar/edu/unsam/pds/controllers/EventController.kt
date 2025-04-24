@@ -52,6 +52,19 @@ class EventController : UUIDValid() {
         )
     }
 
+    @GetMapping
+    @Operation(summary = "Get all events")
+    fun getAllEvents(
+    ): ResponseEntity<CustomResponse> {
+        val events = eventService.getAll()
+        return ResponseEntity.status(200).body(
+            CustomResponse(
+                message = "Events encontrados",
+                data = events.map { EventMapper.buildEventDto(it) }
+            )
+        )
+    }
+
 /*
     @PostMapping("")
     @Operation(summary = "Create an event")
