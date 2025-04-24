@@ -14,7 +14,7 @@ class ProgramService(
 ) {
 
     fun getAll(): List<Program> {
-        return programRepository.findAll(Sort.by(Sort.Direction.ASC, "name"))
+        return programRepository.findAllByOrderByNameAsc()
     }
 
     fun getProgram(programId: String): Program {

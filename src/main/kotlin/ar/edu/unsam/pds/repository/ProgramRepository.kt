@@ -10,7 +10,7 @@ import java.util.*
 
 @RepositoryRestResource(exported = false)
 interface ProgramRepository : JpaRepository<Program, UUID> {
-    fun name(name: String): MutableList<Program>
+    fun findAllByOrderByNameAsc(): MutableList<Program>
 
     fun existsByName(name: String): Boolean
 }
