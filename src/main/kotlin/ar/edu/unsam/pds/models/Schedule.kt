@@ -25,7 +25,7 @@ class Schedule(
     val assignedUsers = mutableSetOf<User>()
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "event_id", nullable = true)
+    @JoinColumn(name = "event_id", nullable = false) //preguntar
     lateinit var event: Event
 
     @ManyToOne(fetch = FetchType.EAGER)

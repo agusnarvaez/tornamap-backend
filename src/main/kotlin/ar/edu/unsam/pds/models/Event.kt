@@ -13,13 +13,13 @@ class Event(
     var isApproved: Boolean,
     var isCancelled: Boolean = false,
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     var course: Course,
 
 ) : Timestamp(), Serializable {
 
-    @OneToMany(mappedBy = "event", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "event", cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
     lateinit var schedules: MutableSet<Schedule>
 
     @Id @GeneratedValue(strategy = GenerationType.UUID)

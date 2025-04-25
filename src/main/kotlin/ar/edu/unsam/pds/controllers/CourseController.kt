@@ -35,8 +35,8 @@ class CourseController : UUIDValid() {
 
         return ResponseEntity.status(200).body(
             CustomResponse (
-                message = "Curso obtenido con exito",
-                data = CourseMapper.buildCourseDetailDto(courseService.findCourseById(idCourse))
+                message = "Courso obtenido con exito",
+                data = CourseMapper.buildCourseDetailDto(courseService.findCourseByID(idCourse))
             )
         )
     }
