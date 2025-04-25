@@ -94,18 +94,13 @@ class EventController : UUIDValid() {
         )
     }
 
-        @DeleteMapping("{eventId}")
+        @DeleteMapping("{id}")
         @Operation(summary = "Delete an event by ID")
         fun deleteEvent(
             @PathVariable id: String
         ): ResponseEntity<CustomResponse> {
-            val eventID= try {
-                UUID.fromString(id)
-            } catch (e: IllegalArgumentException) {
-                throw IllegalArgumentException("El parámetro 'id' no es un UUID válido: $id")
-            }
-
-            eventService.deleteEvent(eventID)
+            //TODO: Agregar que valide
+            eventService.deleteEvent(id)
             return ResponseEntity.status(200).body(
                 CustomResponse(
                     message = "Event eliminado con exito",
@@ -115,7 +110,7 @@ class EventController : UUIDValid() {
         }
 
 
-    @PutMapping("{eventId}")
+    @PutMapping
     @Operation(summary = "Edit an event by ID")
     fun editEvent(
                   @RequestBody @Valid eventDTO: EventRequestDto

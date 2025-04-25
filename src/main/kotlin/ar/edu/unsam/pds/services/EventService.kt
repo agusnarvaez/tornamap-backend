@@ -54,8 +54,9 @@ class EventService(
 
 
     @Transactional
-    fun deleteEvent(id: UUID) {
-        eventRepository.deleteById(id)
+    fun deleteEvent(id: String) {
+        val eventToDelete = findEventByID(id)
+        eventRepository.delete(eventToDelete)
     }
 
 }
