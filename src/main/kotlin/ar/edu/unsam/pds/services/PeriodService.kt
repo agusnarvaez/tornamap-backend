@@ -23,6 +23,10 @@ class PeriodService(
     private val eventRepository: EventRepository,
 ) {
 
+    fun getAllPeriods(): List<Period> {
+        return periodRepository.findAll()
+    }
+
     fun findPeriodById(idPeriod: String): Period {
         val uuid = UUID.fromString(idPeriod)
         return periodRepository.findById(uuid).orElseThrow {
@@ -31,7 +35,7 @@ class PeriodService(
     }
 
     @Transactional
-    fun createPeriod(period: PeriodRequestDto): PeriodResponseDto? {
+    fun createPeriod(period: PeriodRequestDto): UUID {
         if(isValidEndDate(period.startDate, period.endDate)){
             val newPeriod = Period(
                 period.title,
@@ -39,8 +43,28 @@ class PeriodService(
                 period.endDate,
             )
             periodRepository.save(newPeriod)
-            return PeriodMapper.buildPeriodDto(newPeriod)
+            return newPeriod.id
         } else{
+            throw BadRequestException("La fecha de finalizacion no puede ser previa a la de inicio")
+        }
+    }
+
+    fun deletePeriod(idPeriod: String) {
+        val periodDeleted = findPeriodById(idPeriod)
+        periodRepository.delete(periodDeleted)
+    }
+
+    fun updatePeriod(
+        idPeriod: String,
+        period: PeriodRequestDto,
+    ): PeriodResponseDto {
+        val periodToUpdate = findPeriodById(idPeriod)
+        if (isValidEndDate(period.startDate, period.endDate)) {
+            periodToUpdate.title = period.title
+            periodToUpdate.startDate = period.startDate
+            periodToUpdate.endDate = period.endDate
+            return PeriodMapper.buildPeriodDto(periodRepository.save(periodToUpdate))
+        } else {
             throw BadRequestException("La fecha de finalizacion no puede ser previa a la de inicio")
         }
     }
