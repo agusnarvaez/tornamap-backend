@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDate
+import java.util.*
 
 @RestController
 @RequestMapping("api/events")
@@ -88,19 +89,31 @@ class EventController : UUIDValid() {
         return ResponseEntity.status(200).body(
             CustomResponse(
                 message = "Event creado con éxito",
-                data = EventMapper.buildEventDto(event) //TODO: cambiar a newEvent
+                data = EventMapper.buildEventDto(newEvent)
             )
         )
     }
-    /*
+
         @DeleteMapping("{eventId}")
         @Operation(summary = "Delete an event by ID")
         fun deleteEvent(
-            @PathVariable eventID: String
-        ){
+            @PathVariable id: String
+        ): ResponseEntity<CustomResponse> {
+            val eventID= try {
+                UUID.fromString(id)
+            } catch (e: IllegalArgumentException) {
+                throw IllegalArgumentException("El parámetro 'id' no es un UUID válido: $id")
+            }
+
             eventService.deleteEvent(eventID)
+            return ResponseEntity.status(200).body(
+                CustomResponse(
+                    message = "Event eliminado con exito",
+                    data = null
+                )
+            )
         }
-    */
+
 
     @PutMapping("{eventId}")
     @Operation(summary = "Edit an event by ID")

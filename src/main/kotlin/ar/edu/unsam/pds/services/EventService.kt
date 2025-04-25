@@ -46,15 +46,16 @@ class EventService(
     }
 
     @Transactional
-    fun createEvent(newEvent: Event){
+    fun createEvent(newEvent: Event):Event{
         eventRepository.save(newEvent)
+
+        return newEvent
     }
 
 
     @Transactional
-    fun deleteEvent(id: String) {
-        val event=findEventByID(id)
-        eventRepository.delete(event)
+    fun deleteEvent(id: UUID) {
+        eventRepository.deleteById(id)
     }
 
 }
