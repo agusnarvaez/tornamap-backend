@@ -20,11 +20,10 @@ import java.util.*
 @Service
 class PeriodService(
     private val periodRepository : PeriodRepository,
-    private val eventRepository: EventRepository,
 ) {
 
     fun getAllPeriods(): List<Period> {
-        return periodRepository.findAll()
+        return periodRepository.findAllByOrderByStartDateDesc()
     }
 
     fun findPeriodById(idPeriod: String): Period {
