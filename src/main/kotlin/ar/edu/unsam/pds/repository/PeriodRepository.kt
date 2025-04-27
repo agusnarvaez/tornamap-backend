@@ -6,4 +6,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource
 import java.util.*
 
 @RepositoryRestResource(exported = false)
-interface PeriodRepository: JpaRepository<Period, UUID>
+interface PeriodRepository: JpaRepository<Period, UUID> {
+    fun findAllByOrderByStartDateDesc(): List<Period>
+}

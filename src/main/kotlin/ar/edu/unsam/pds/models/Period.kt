@@ -7,9 +7,9 @@ import java.util.*
 
 @Entity @Table(name = "APP_PERIOD")
 class Period(
-    val title: String,
-    val startDate: LocalDate,
-    val endDate: LocalDate,
+    var title: String,
+    var startDate: LocalDate,
+    var endDate: LocalDate,
 ): Timestamp(),Serializable
 {
     @Id
