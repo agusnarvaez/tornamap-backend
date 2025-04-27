@@ -9,4 +9,8 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource
 import java.util.*
 
 @RepositoryRestResource(exported = false)
-interface ProgramRepository : JpaRepository<Program, UUID>
+interface ProgramRepository : JpaRepository<Program, UUID> {
+    fun findAllByOrderByNameAsc(): MutableList<Program>
+
+    fun existsByName(name: String): Boolean
+}

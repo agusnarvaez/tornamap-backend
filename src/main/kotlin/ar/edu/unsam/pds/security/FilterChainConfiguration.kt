@@ -108,6 +108,13 @@ class FilterChainConfiguration {
                 antMatcher(PUT, "/api/schedules"),
                 antMatcher(DELETE, "/api/schedules/*"),
 
+                //Programs
+                antMatcher(GET, "/api/programs"),
+                antMatcher(GET, "/api/programs/*"),
+                antMatcher(POST, "/api/programs"),
+                antMatcher(PUT, "/api/programs/*"),
+                antMatcher(DELETE, "/api/programs/*"),
+
                 //Periods
                 antMatcher(GET, "/api/periods"),
                 antMatcher(GET, "/api/periods/*"),
