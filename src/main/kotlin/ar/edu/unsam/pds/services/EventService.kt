@@ -1,9 +1,12 @@
 package ar.edu.unsam.pds.services
 
+import ar.edu.unsam.pds.dto.request.EventRequestDto
 import ar.edu.unsam.pds.dto.response.EventResponseDto
 import ar.edu.unsam.pds.exceptions.NotFoundException
 import ar.edu.unsam.pds.mappers.EventMapper
+import ar.edu.unsam.pds.mappers.ScheduleMapper
 import ar.edu.unsam.pds.models.Event
+import ar.edu.unsam.pds.models.Schedule
 import ar.edu.unsam.pds.repository.EventRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -38,9 +41,32 @@ class EventService(
         return EventMapper.buildEventDto(matchingEvent)
     }
 
+    fun addSchedules(event: Event, schedules: MutableSet<Schedule>){
+        schedules.forEach{ schedule -> event.addSchedule(schedule) }
+    }
+
+    fun addPeriod(event:Event, periodID:String?){
+        val period = periodService.findById(periodID)
+        event.addPeriod(period)
+    }
+
+
+
     @Transactional
-    fun edit(event: Event){
-        eventRepository.save(event)
+    fun update(eventDTO: EventRequestDto, eventID:String):Event{
+        val existingEvent=findByID(eventID)
+        val builtSchedules = eventDTO.schedules.map { schedule ->
+            ScheduleMapper.buildSchedule(schedule)
+        }.toMutableSet()
+        existingEvent.apply{
+            name = eventDTO.name
+            isApproved = eventDTO.isApproved
+            isCancelled = eventDTO.isCancelled
+            course = courseService.findByID(eventDTO.course.id)
+            period = periodService.findById(eventDTO.periodID)
+            schedules = builtSchedules
+        }
+        return eventRepository.save(existingEvent)
     }
 
     @Transactional

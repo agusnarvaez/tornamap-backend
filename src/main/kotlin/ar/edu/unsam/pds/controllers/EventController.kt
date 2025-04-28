@@ -76,10 +76,8 @@ class EventController : UUIDValid() {
             ScheduleMapper.buildSchedule(schedule)
         }.toMutableSet()
 
-        val period= periodService.findById(eventDTO.periodID)
-
-        builtSchedules.forEach { schedule -> event.addSchedule(schedule) }
-        event.addPeriod(period)
+        eventService.addSchedules(event,builtSchedules)
+        eventService.addPeriod(event, eventDTO.periodID)
 
         val newEvent = eventService.create(event)
 
@@ -115,27 +113,12 @@ class EventController : UUIDValid() {
         val eventID=eventDTO.id
             ?: throw IllegalArgumentException("Debe proveer un ID de Event para editarlo")
 
-        val existingEvent = eventService.findByID(eventID)
-
-        val builtSchedules = eventDTO.schedules.map { schedule ->
-            ScheduleMapper.buildSchedule(schedule)
-        }.toMutableSet()
-
-        existingEvent.apply{
-            name = eventDTO.name
-            isApproved = eventDTO.isApproved
-            isCancelled = eventDTO.isCancelled
-            course = courseService.findByID(eventDTO.course.id)
-            period = periodService.findById(eventDTO.periodID)
-            schedules = builtSchedules
-        }
-
-        eventService.edit(existingEvent)
+        val updatedEvent = eventService.update(eventDTO,eventID)
 
         return ResponseEntity.status(200).body(
             CustomResponse(
                 message = "Event editado con éxito",
-                data = EventMapper.buildEventDto(existingEvent)
+                data = EventMapper.buildEventDto(updatedEvent)
             )
         )
     }
