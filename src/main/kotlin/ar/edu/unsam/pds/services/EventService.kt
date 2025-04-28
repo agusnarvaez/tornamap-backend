@@ -56,7 +56,14 @@ class EventService(
     @Transactional
     fun deleteEvent(id: String) {
         val eventToDelete = findEventByID(id)
-        eventRepository.delete(eventToDelete)
-    }
 
+        eventToDelete.schedules.forEach { schedule ->
+            schedule.assignedUsers.forEach { user ->
+                user.scheduleList.remove(schedule)
+            }
+            schedule.assignedUsers.clear()
+
+            eventRepository.delete(eventToDelete)
+        }
+    }
 }

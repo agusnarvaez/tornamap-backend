@@ -26,7 +26,7 @@ class PeriodService(
         return periodRepository.findAllByOrderByStartDateDesc()
     }
 
-    fun findPeriodById(idPeriod: String): Period {
+    fun findPeriodById(idPeriod: String?): Period {
         val uuid = UUID.fromString(idPeriod)
         return periodRepository.findById(uuid).orElseThrow {
             NotFoundException("Periodo no encontrado para el uuid suministrado")

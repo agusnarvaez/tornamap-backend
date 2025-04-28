@@ -79,7 +79,7 @@ class EventController : UUIDValid() {
             ScheduleMapper.buildSchedule(schedule)
         }.toMutableSet()
 
-        val period= periodService.findPeriodByID(eventDTO.periodID)
+        val period= periodService.findPeriodById(eventDTO.periodID)
 
         builtSchedules.forEach { schedule -> event.addSchedule(schedule) }
         event.addPeriod(period)
@@ -129,7 +129,7 @@ class EventController : UUIDValid() {
             isApproved = eventDTO.isApproved
             isCancelled = eventDTO.isCancelled
             course = courseService.findCourseByID(eventDTO.course.id)
-            period = periodService.findPeriodByID(eventDTO.periodID)
+            period = periodService.findPeriodById(eventDTO.periodID)
             schedules = builtSchedules
         }
 
