@@ -4,18 +4,15 @@ import ar.edu.unsam.pds.dto.request.EventRequestDto
 import ar.edu.unsam.pds.dto.response.CustomResponse
 import ar.edu.unsam.pds.mappers.EventMapper
 import ar.edu.unsam.pds.mappers.ScheduleMapper
-import ar.edu.unsam.pds.models.Event
 import ar.edu.unsam.pds.services.CourseService
 import ar.edu.unsam.pds.services.EventService
 import ar.edu.unsam.pds.services.PeriodService
-import ar.edu.unsam.pds.services.UserService
 import io.swagger.v3.oas.annotations.Operation
 import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDate
-import java.util.*
 
 @RestController
 @RequestMapping("api/events")
@@ -79,12 +76,12 @@ class EventController : UUIDValid() {
             ScheduleMapper.buildSchedule(schedule)
         }.toMutableSet()
 
-        val period= periodService.findPeriodById(eventDTO.periodID)
+        val period= periodService.findById(eventDTO.periodID)
 
         builtSchedules.forEach { schedule -> event.addSchedule(schedule) }
         event.addPeriod(period)
 
-        val newEvent = eventService.createEvent(event)
+        val newEvent = eventService.create(event)
 
         return ResponseEntity.status(200).body(
             CustomResponse(
@@ -100,7 +97,7 @@ class EventController : UUIDValid() {
             @PathVariable id: String
         ): ResponseEntity<CustomResponse> {
             validatedUUID(id)
-            eventService.deleteEvent(id)
+            eventService.delete(id)
             return ResponseEntity.status(200).body(
                 CustomResponse(
                     message = "Event eliminado con exito",
@@ -118,7 +115,7 @@ class EventController : UUIDValid() {
         val eventID=eventDTO.id
             ?: throw IllegalArgumentException("Debe proveer un ID de Event para editarlo")
 
-        val existingEvent = eventService.findEventByID(eventID)
+        val existingEvent = eventService.findByID(eventID)
 
         val builtSchedules = eventDTO.schedules.map { schedule ->
             ScheduleMapper.buildSchedule(schedule)
@@ -128,12 +125,12 @@ class EventController : UUIDValid() {
             name = eventDTO.name
             isApproved = eventDTO.isApproved
             isCancelled = eventDTO.isCancelled
-            course = courseService.findCourseByID(eventDTO.course.id)
-            period = periodService.findPeriodById(eventDTO.periodID)
+            course = courseService.findByID(eventDTO.course.id)
+            period = periodService.findById(eventDTO.periodID)
             schedules = builtSchedules
         }
 
-        eventService.editEvent(existingEvent)
+        eventService.edit(existingEvent)
 
         return ResponseEntity.status(200).body(
             CustomResponse(

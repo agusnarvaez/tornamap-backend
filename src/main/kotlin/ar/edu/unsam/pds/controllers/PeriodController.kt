@@ -42,7 +42,7 @@ class PeriodController : UUIDValid () {
         return ResponseEntity.status(200).body(
             CustomResponse(
                 message = "Periodo obtenido con exito",
-                data = PeriodMapper.buildPeriodDto(periodService.findPeriodById(periodID))
+                data = PeriodMapper.buildPeriodDto(periodService.findById(periodID))
             )
         )
     }

@@ -28,7 +28,7 @@ class CourseService (
         return getAll()
     }
 
-    fun findCourseByID(courseID: String?): Course {
+    fun findByID(courseID: String?): Course {
         val uuid = UUID.fromString(courseID)
         return courseRepository.findById(uuid).orElseThrow {
             NotFoundException("Curso no encontrado para el uuid suministrado")
@@ -36,7 +36,7 @@ class CourseService (
     }
 
     @Transactional
-    fun createCourse(course: CourseRequestDto): CourseResponseDto? {
+    fun create(course: CourseRequestDto): CourseResponseDto? {
         val programId = UUID.fromString(course.programId)
         val program = programRepository.findById(programId).orElseThrow {
             NotFoundException("Carrera no encontrada para el uuid suministrado")

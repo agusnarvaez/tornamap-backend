@@ -1,9 +1,7 @@
 package ar.edu.unsam.pds.services
 
-import ar.edu.unsam.pds.dto.request.EventRequestDto
 import ar.edu.unsam.pds.dto.response.EventResponseDto
 import ar.edu.unsam.pds.exceptions.NotFoundException
-import ar.edu.unsam.pds.exceptions.ValidationException
 import ar.edu.unsam.pds.mappers.EventMapper
 import ar.edu.unsam.pds.models.Event
 import ar.edu.unsam.pds.repository.EventRepository
@@ -26,7 +24,7 @@ class EventService(
     @Transactional(readOnly = true)
     fun searchBy(classroomID: String, date: LocalDate): List<Event> = eventRepository.findEventsByClassroomAndDate(classroomID, date, date.dayOfWeek)
 
-    fun findEventByID(id:String):Event{
+    fun findByID(id:String):Event{
         val eventID= UUID.fromString(id)
         return eventRepository.findById(eventID).orElseThrow {
             NotFoundException("Evento no encontrado para el uuid suministrado")
@@ -41,12 +39,12 @@ class EventService(
     }
 
     @Transactional
-    fun editEvent(event: Event){
+    fun edit(event: Event){
         eventRepository.save(event)
     }
 
     @Transactional
-    fun createEvent(newEvent: Event):Event{
+    fun create(newEvent: Event):Event{
         eventRepository.save(newEvent)
 
         return newEvent
@@ -54,8 +52,8 @@ class EventService(
 
 
     @Transactional
-    fun deleteEvent(id: String) {
-        val eventToDelete = findEventByID(id)
+    fun delete(id: String) {
+        val eventToDelete = findByID(id)
 
         eventToDelete.schedules.forEach { schedule ->
             schedule.assignedUsers.forEach { user ->
