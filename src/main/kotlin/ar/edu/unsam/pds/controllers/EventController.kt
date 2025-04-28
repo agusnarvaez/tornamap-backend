@@ -99,7 +99,7 @@ class EventController : UUIDValid() {
         fun deleteEvent(
             @PathVariable id: String
         ): ResponseEntity<CustomResponse> {
-            //TODO: Agregar que valide
+            validatedUUID(id)
             eventService.deleteEvent(id)
             return ResponseEntity.status(200).body(
                 CustomResponse(
