@@ -17,9 +17,6 @@ interface CourseRepository : JpaRepository<Course, UUID> {
     fun findCourseByName(courseName: String): Course?
 
     @EntityGraph(attributePaths = ["programs", "events", "events.schedules", "events.schedules.assignedUsers"])
-    fun findAllByOrderByNameAsc(): List<Course>
-
-    @EntityGraph(attributePaths = ["programs", "events", "events.schedules", "events.schedules.assignedUsers"])
     @Query("""
         SELECT  c FROM Course c
         ORDER BY 
