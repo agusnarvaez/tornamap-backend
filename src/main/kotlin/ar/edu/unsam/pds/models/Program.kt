@@ -16,7 +16,7 @@ class Program(
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "app_course_program",
         joinColumns = [JoinColumn(name = "program_id")],
