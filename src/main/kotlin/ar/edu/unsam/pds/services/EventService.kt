@@ -50,8 +50,6 @@ class EventService(
         event.addPeriod(period)
     }
 
-
-
     @Transactional
     fun update(eventDTO: EventRequestDto):Event{
         val existingEvent=findByID(eventDTO.id)

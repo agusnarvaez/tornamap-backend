@@ -16,14 +16,14 @@ import java.util.*
 
 @Service
 class PeriodService(
-    private val periodRepository : PeriodRepository,
+    private val periodRepository: PeriodRepository,
 ) {
 
-    fun getAllPeriods(): List<Period> {
+    fun getAll(): List<Period> {
         return periodRepository.findAllByOrderByStartDateDesc()
     }
 
-    fun findById(idPeriod: String?): Period {
+    fun getById(idPeriod: String): Period {
         val uuid = UUID.fromString(idPeriod)
         return periodRepository.findById(uuid).orElseThrow {
             NotFoundException("Periodo no encontrado para el uuid suministrado")
@@ -31,8 +31,8 @@ class PeriodService(
     }
 
     @Transactional
-    fun createPeriod(period: PeriodRequestDto): UUID {
-        if(isValidEndDate(period.startDate, period.endDate)){
+    fun create(period: PeriodRequestDto): UUID {
+        if (isValidEndDate(period.startDate, period.endDate)) {
             val newPeriod = Period(
                 period.title,
                 period.startDate,
@@ -40,21 +40,21 @@ class PeriodService(
             )
             periodRepository.save(newPeriod)
             return newPeriod.id
-        } else{
+        } else {
             throw BadRequestException("La fecha de finalizacion no puede ser previa a la de inicio")
         }
     }
 
-    fun deletePeriod(idPeriod: String) {
-        val periodDeleted = findById(idPeriod)
+    fun delete(idPeriod: String) {
+        val periodDeleted = getById(idPeriod)
         periodRepository.delete(periodDeleted)
     }
 
-    fun updatePeriod(
+    fun update(
         idPeriod: String,
         period: PeriodRequestDto,
     ): PeriodResponseDto {
-        val periodToUpdate = findById(idPeriod)
+        val periodToUpdate = getById(idPeriod)
         if (isValidEndDate(period.startDate, period.endDate)) {
             periodToUpdate.title = period.title
             periodToUpdate.startDate = period.startDate
@@ -65,6 +65,8 @@ class PeriodService(
         }
     }
 
-    private fun isValidEndDate(startDate: LocalDate, endDate: LocalDate): Boolean { return endDate.isAfter(startDate) }
+    private fun isValidEndDate(startDate: LocalDate, endDate: LocalDate): Boolean {
+        return endDate.isAfter(startDate)
+    }
 
 }
