@@ -69,7 +69,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
 
         val aulaA10 = Classroom(
             code = "A10",
-            name = "Aula A10",
+            name = "Aula A10 - Tornavías",
             capacity = 50,
             floor = 0,
             type = ClassroomType.LABORATORY,
@@ -157,7 +157,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
 
         val aulaA9 = Classroom(
             code = "A9",
-            name = "Aula A9",
+            name = "Aula A9 - Tornavías",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
@@ -207,7 +207,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
 
         val aulaA15 = Classroom(
             code = "A15",
-            name = "Aula A15",
+            name = "Aula A15 - Tornavías",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
@@ -217,7 +217,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
 
         val aulaA16 = Classroom(
             code = "A16",
-            name = "Aula A16",
+            name = "Aula A16 - Tornavías",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
@@ -227,7 +227,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
 
         val aulaA17 = Classroom(
             code = "A17",
-            name = "Aula A17",
+            name = "Aula A17 - Tornavías",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
@@ -247,7 +247,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
 
         val aulaA19 = Classroom(
             code = "A19",
-            name = "Aula A19",
+            name = "Aula A19 - Tornavías",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
@@ -550,7 +550,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
 
         val aulaA10Nave1 = Classroom(
             code = "A10",
-            name = "Aula A10",
+            name = "Aula A10 - Aulario Nave 1",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
@@ -559,8 +559,8 @@ class InitClassroom : BootstrapGeneric("Classroom") {
         classroomRepository.save(aulaA10Nave1)
 
         val aulaA9Nave1 = Classroom(
-            code = "A9",
-            name = "Aula A9",
+            code = "AU1-A9",
+            name = "Aula A9 - Aulario Nave 1",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
@@ -644,7 +644,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
 
         val aulaA16Nave3= Classroom(
             code = "A16",
-            name = "Aula A16",
+            name = "Aula A16 - Aulario Nave 3",
             capacity = 50,
             floor = 0,
             type = ClassroomType.CLASSROOM,
@@ -664,7 +664,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
 
         val aulaA19Nave3= Classroom(
             code = "A19",
-            name = "Aula A19",
+            name = "Aula A19 - Aulario Nave 3",
             capacity = 50,
             floor = 1,
             type = ClassroomType.CLASSROOM,

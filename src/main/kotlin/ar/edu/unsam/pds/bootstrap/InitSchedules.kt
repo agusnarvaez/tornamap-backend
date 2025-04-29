@@ -85,7 +85,7 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             isVirtual = false,
         ).apply {
             event = cursadaMate1TM
-            classroom = classroomRepository.findByName("Aula A19").orElseThrow { NotFoundException("No se halló el aula") }
+            classroom = classroomRepository.findByName("Aula A19 - Tornavías").orElseThrow { NotFoundException("No se halló el aula") }
             assignUserToSchedule(dodino, this)
         }
         scheduleRepository.save(scheduleMate1TM)
@@ -113,7 +113,7 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             isVirtual = false,
         ).apply {
             event = cursadaMate1TT
-            classroom = classroomRepository.findByName("Aula A9").orElseThrow { NotFoundException("No se halló el aula") }
+            classroom = classroomRepository.findByName("Aula A9 - Tornavías").orElseThrow { NotFoundException("No se halló el aula") }
             assignUserToSchedule(dodino, this)
         }
         scheduleRepository.save(scheduleMate1TT)
@@ -141,7 +141,7 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             isVirtual = false,
         ).apply {
             event = cursadaMate1TN
-            classroom = classroomRepository.findByName("Aula A19").orElseThrow { NotFoundException("No se halló el aula") }
+            classroom = classroomRepository.findByName("Aula A19 - Tornavías").orElseThrow { NotFoundException("No se halló el aula") }
             assignUserToSchedule(dodino, this)
         }
         scheduleRepository.save(scheduleMate1TN)
@@ -154,7 +154,7 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             isVirtual = false,
         ).apply {
             event = cursadaMate1TN
-            classroom = classroomRepository.findByName("Aula A15").orElseThrow { NotFoundException("No se halló el aula") }
+            classroom = classroomRepository.findByName("Aula A15 - Tornavías").orElseThrow { NotFoundException("No se halló el aula") }
             assignUserToSchedule(dodino, this)
         }
         scheduleRepository.save(scheduleMate1TN2)
@@ -181,7 +181,7 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             isVirtual = false,
         ).apply {
             event = cursadaAlgo1
-            classroom = classroomRepository.findByName("Aula A16").orElseThrow { NotFoundException("No se halló el aula") }
+            classroom = classroomRepository.findByName("Aula A16 - Tornavías").orElseThrow { NotFoundException("No se halló el aula") }
             assignUserToSchedule(dodino, this)
         }
         scheduleRepository.save(scheduleAlgo1jueves)
@@ -251,7 +251,7 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             isVirtual = false,
         ).apply {
             event = cursadaMetodosNumericos
-            classroom = classroomRepository.findByName("Aula A10").orElseThrow { NotFoundException("No se halló el aula") }
+            classroom = classroomRepository.findByName("Aula A10 - Tornavías").orElseThrow { NotFoundException("No se halló el aula") }
             assignUserToSchedule(mc, this)
         }
         scheduleRepository.save(scheduleMetodosNumericos)
@@ -265,7 +265,7 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             isVirtual = false,
         ).apply {
             event = cursadaPHM
-            classroom = classroomRepository.findByName("Aula A17").orElseThrow { NotFoundException("No se halló el aula") }
+            classroom = classroomRepository.findByName("Aula A17 - Tornavías").orElseThrow { NotFoundException("No se halló el aula") }
             assignUserToSchedule(mc, this)
         }
         scheduleRepository.save(schedulePHMLunes)
