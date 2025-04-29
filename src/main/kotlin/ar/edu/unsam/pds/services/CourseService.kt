@@ -4,8 +4,6 @@ import ar.edu.unsam.pds.exceptions.NotFoundException
 import ar.edu.unsam.pds.models.Course
 import ar.edu.unsam.pds.models.Program
 import ar.edu.unsam.pds.repository.CourseRepository
-import ar.edu.unsam.pds.repository.ScheduleRepository
-import ar.edu.unsam.pds.repository.UserRepository
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 import java.util.*
@@ -13,8 +11,6 @@ import java.util.*
 @Service
 class CourseService(
     private val courseRepository: CourseRepository,
-    private val userRepository: UserRepository,
-    private val scheduleRepository: ScheduleRepository,
 ) {
 
     fun getAll(): List<Course> = courseRepository.findAllByOrderByEventsPresenceAndName()

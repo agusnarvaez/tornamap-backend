@@ -1,6 +1,5 @@
 package ar.edu.unsam.pds.models
 
-import ar.edu.unsam.pds.exceptions.ValidationException
 import jakarta.persistence.*
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
@@ -31,7 +30,4 @@ class User(
         return "$name $lastName"
     }
 
-    fun removeSchedule(schedule: Schedule) {
-        scheduleList.remove(schedule)
-    }
 }
