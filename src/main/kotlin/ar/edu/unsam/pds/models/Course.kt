@@ -18,8 +18,13 @@ class Course(
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "course", cascade = [CascadeType.ALL], orphanRemoval = true)
     val events = mutableSetOf<Event>()
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "courses", cascade = [CascadeType.ALL])
-    val programs = mutableSetOf<Program>()
+    @ManyToMany
+    @JoinTable(
+        name = "course_program",
+        joinColumns = [JoinColumn(name = "course_id")],
+        inverseJoinColumns = [JoinColumn(name = "program_id")]
+    )
+    val programs: MutableSet<Program> = mutableSetOf()
 
     fun programNames(): List<String> {
         return programs.map { it.name }
