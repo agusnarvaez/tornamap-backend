@@ -17,9 +17,7 @@ class CourseService (
     private val programRepository: ProgramRepository,
 ) {
 
-    fun getAll(): List<Course> {
-        return courseRepository.findAllByOrderByNameAsc()
-    }
+    fun getAll(): List<Course> = courseRepository.findAllByOrderByEventsPresenceAndName()
 
     fun searchBy(query: String): List<Course> {
         if (query.isNotBlank()) {
