@@ -70,7 +70,9 @@ class EventController : UUIDValid() {
     fun createEvent(
         @RequestBody @Valid eventDTO: EventRequestDto
     ): ResponseEntity<CustomResponse> {
-        val event = EventMapper.buildEvent(eventDTO)
+
+        val course = courseService.findByID(eventDTO.courseID)
+        val event = EventMapper.buildEvent(eventDTO,course)
 
         val builtSchedules = eventDTO.schedules.map { schedule ->
             ScheduleMapper.buildSchedule(schedule)
@@ -113,7 +115,7 @@ class EventController : UUIDValid() {
         val eventID=eventDTO.id
             ?: throw IllegalArgumentException("Debe proveer un ID de Event para editarlo")
 
-        val updatedEvent = eventService.update(eventDTO,eventID)
+        val updatedEvent = eventService.update(eventDTO)
 
         return ResponseEntity.status(200).body(
             CustomResponse(

@@ -27,7 +27,7 @@ class EventService(
     @Transactional(readOnly = true)
     fun searchBy(classroomID: String, date: LocalDate): List<Event> = eventRepository.findEventsByClassroomAndDate(classroomID, date, date.dayOfWeek)
 
-    fun findByID(id:String):Event{
+    fun findByID(id:String?):Event{
         val eventID= UUID.fromString(id)
         return eventRepository.findById(eventID).orElseThrow {
             NotFoundException("Evento no encontrado para el uuid suministrado")
@@ -53,8 +53,8 @@ class EventService(
 
 
     @Transactional
-    fun update(eventDTO: EventRequestDto, eventID:String):Event{
-        val existingEvent=findByID(eventID)
+    fun update(eventDTO: EventRequestDto):Event{
+        val existingEvent=findByID(eventDTO.id)
         val builtSchedules = eventDTO.schedules.map { schedule ->
             ScheduleMapper.buildSchedule(schedule)
         }.toMutableSet()
@@ -62,7 +62,7 @@ class EventService(
             name = eventDTO.name
             isApproved = eventDTO.isApproved
             isCancelled = eventDTO.isCancelled
-            course = courseService.findByID(eventDTO.course.id)
+            course = courseService.findByID(eventDTO.courseID)
             period = periodService.findById(eventDTO.periodID)
             schedules = builtSchedules
         }
@@ -72,7 +72,6 @@ class EventService(
     @Transactional
     fun create(newEvent: Event):Event{
         eventRepository.save(newEvent)
-
         return newEvent
     }
 

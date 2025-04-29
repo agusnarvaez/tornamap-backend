@@ -2,6 +2,7 @@ package ar.edu.unsam.pds.mappers
 
 import ar.edu.unsam.pds.dto.request.EventRequestDto
 import ar.edu.unsam.pds.dto.response.EventResponseDto
+import ar.edu.unsam.pds.models.Course
 import ar.edu.unsam.pds.models.Event
 import ar.edu.unsam.pds.models.Schedule
 import ar.edu.unsam.pds.services.CourseService
@@ -33,12 +34,12 @@ object EventMapper {
         )
     }
 
-    fun buildEvent(eventDTO: EventRequestDto): Event {
+    fun buildEvent(eventDTO: EventRequestDto, course: Course): Event {
         return Event(
             name = eventDTO.name,
             isApproved = eventDTO.isApproved,
             isCancelled = eventDTO.isCancelled,
-            course = CourseMapper.buildCourse(eventDTO.course),
+            course = course,
         )
     }
 }
