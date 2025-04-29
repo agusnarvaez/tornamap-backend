@@ -3,7 +3,10 @@ package ar.edu.unsam.pds.controllers
 import ar.edu.unsam.pds.dto.request.EventRequestDto
 import ar.edu.unsam.pds.dto.response.CustomResponse
 import ar.edu.unsam.pds.mappers.EventMapper
+import ar.edu.unsam.pds.mappers.ScheduleMapper
+import ar.edu.unsam.pds.services.CourseService
 import ar.edu.unsam.pds.services.EventService
+import ar.edu.unsam.pds.services.PeriodService
 import io.swagger.v3.oas.annotations.Operation
 import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
@@ -16,6 +19,8 @@ import java.time.LocalDate
 @CrossOrigin("*")
 class EventController : UUIDValid() {
     @Autowired lateinit var eventService: EventService
+    @Autowired lateinit var courseService: CourseService
+    @Autowired lateinit var periodService: PeriodService
 
     @GetMapping("/{classroomID}/{date}")
     @Operation(summary = "Get all events in a given classroom")
@@ -46,27 +51,73 @@ class EventController : UUIDValid() {
         )
     }
 
-/*
+    @GetMapping
+    @Operation(summary = "Get all events")
+    fun getAllEvents(
+    ): ResponseEntity<CustomResponse> {
+        val events = eventService.getAll()
+        return ResponseEntity.status(200).body(
+            CustomResponse(
+                message = "Events encontrados",
+                data = events.map { EventMapper.buildEventDto(it) }
+            )
+        )
+    }
+
+
     @PostMapping("")
     @Operation(summary = "Create an event")
     fun createEvent(
-        @RequestBody @Valid event: EventRequestDto
-    ){ eventService.createEvent(event) }
+        @RequestBody @Valid eventDTO: EventRequestDto
+    ): ResponseEntity<CustomResponse> {
 
-    @DeleteMapping("{eventId}")
-    @Operation(summary = "Delete an event by ID")
-    fun deleteEvent(
-        @PathVariable eventID: String
-    ){
-        eventService.deleteEvent(eventID)
+        val course = courseService.findByID(eventDTO.courseID)
+        val event = EventMapper.buildEvent(eventDTO,course)
+
+        val builtSchedules = eventDTO.schedules.map { schedule ->
+            ScheduleMapper.buildSchedule(schedule)
+        }.toMutableSet()
+
+        eventService.addSchedules(event,builtSchedules)
+        eventService.addPeriod(event, eventDTO.periodID)
+
+        val newEvent = eventService.create(event)
+
+        return ResponseEntity.status(200).body(
+            CustomResponse(
+                message = "Event creado con éxito",
+                data = EventMapper.buildEventDto(newEvent)
+            )
+        )
     }
-*/
 
-    @PutMapping("{eventId}")
+        @DeleteMapping("{id}")
+        @Operation(summary = "Delete an event by ID")
+        fun deleteEvent(
+            @PathVariable id: String
+        ): ResponseEntity<CustomResponse> {
+            validatedUUID(id)
+            eventService.delete(id)
+            return ResponseEntity.status(200).body(
+                CustomResponse(
+                    message = "Event eliminado con exito",
+                    data = null
+                )
+            )
+        }
+
+
+    @PutMapping
     @Operation(summary = "Edit an event by ID")
-    fun editEvent(@PathVariable eventId: String,
-                  @RequestBody @Valid event: EventRequestDto
-    ){
-        eventService.editEvent(eventId,event)
+    fun editEvent(
+                  @RequestBody @Valid eventDTO: EventRequestDto
+    ): ResponseEntity<CustomResponse> {
+        val updatedEvent = eventService.update(eventDTO)
+        return ResponseEntity.status(200).body(
+            CustomResponse(
+                message = "Event editado con éxito",
+                data = EventMapper.buildEventDto(updatedEvent)
+            )
+        )
     }
 }
