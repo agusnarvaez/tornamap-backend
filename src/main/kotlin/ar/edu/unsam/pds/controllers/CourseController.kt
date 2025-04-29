@@ -1,8 +1,10 @@
 package ar.edu.unsam.pds.controllers
 
+import ar.edu.unsam.pds.dto.request.CourseRequestDto
 import ar.edu.unsam.pds.dto.response.CustomResponse
 import ar.edu.unsam.pds.mappers.CourseMapper
 import ar.edu.unsam.pds.services.CourseService
+import ar.edu.unsam.pds.services.ProgramService
 import io.swagger.v3.oas.annotations.Operation
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("api/courses")
 @CrossOrigin("*")
 class CourseController : UUIDValid() {
+    @Autowired
+    private lateinit var programService: ProgramService
     @Autowired lateinit var courseService: CourseService
 
     @GetMapping("")
@@ -39,6 +43,21 @@ class CourseController : UUIDValid() {
         )
     }
 
+    @PostMapping
+    @Operation(summary = "Create a course")
+    fun createCourse(
+        @RequestBody courseDto: CourseRequestDto
+    ): ResponseEntity<CustomResponse> {
+        val course = CourseMapper.buildCourse(courseDto)
+        val programs = programService.getAllById(courseDto.programs)
+
+        return ResponseEntity.status(201).body(
+            CustomResponse (
+                message = "Curso creado con exito",
+                data = CourseMapper.buildCourseDetailDto(courseService.create(course,programs))
+            )
+        )
+    }
     /*
     @DeleteMapping("")
     @Operation(summary = "Delete n courses by n IDs")
@@ -48,9 +67,7 @@ class CourseController : UUIDValid() {
     @Operation(summary = "Delete a course by ID")
     fun deleteCourse() {}
 
-    @PostMapping(value = [""], consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
-    @Operation(summary = "Create a course")
-    fun createCourse() {}
+
     */
 
 }

@@ -40,6 +40,9 @@ object CourseMapper {
     }
 
     fun buildCourse(course: CourseRequestDto): Course {
-        TODO("Not yet implemented")
+        return Course(
+            name = course.title,
+            description = course.description
+        )
     }
 }

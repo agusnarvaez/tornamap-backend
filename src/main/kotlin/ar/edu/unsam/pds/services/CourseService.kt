@@ -36,22 +36,9 @@ class CourseService (
     }
 
     @Transactional
-    fun create(course: CourseRequestDto): CourseResponseDto? {
-        val programId = UUID.fromString(course.programId)
-        val program = programRepository.findById(programId).orElseThrow {
-            NotFoundException("Carrera no encontrada para el uuid suministrado")
-        }
-
-        val newCourse = Course(
-            course.title,
-            course.description,
-        )
-        courseRepository.save(newCourse)
-
-        program.addCourse(listOf(newCourse))
-        programRepository.save(program)
-
-        return CourseMapper.buildCourseDto(newCourse)
+    fun create(course: Course, programs: List<Program>): Course {
+        course.addPrograms(programs)
+        return courseRepository.save(course)
     }
 
 }
