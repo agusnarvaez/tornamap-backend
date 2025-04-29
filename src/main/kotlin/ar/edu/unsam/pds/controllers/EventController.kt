@@ -112,11 +112,7 @@ class EventController : UUIDValid() {
     fun editEvent(
                   @RequestBody @Valid eventDTO: EventRequestDto
     ): ResponseEntity<CustomResponse> {
-        val eventID=eventDTO.id
-            ?: throw IllegalArgumentException("Debe proveer un ID de Event para editarlo")
-
         val updatedEvent = eventService.update(eventDTO)
-
         return ResponseEntity.status(200).body(
             CustomResponse(
                 message = "Event editado con éxito",
