@@ -2,6 +2,8 @@ package ar.edu.unsam.pds.models
 
 import ar.edu.unsam.pds.exceptions.ValidationException
 import jakarta.persistence.*
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 import java.io.Serializable
 import java.util.*
 
@@ -22,9 +24,14 @@ class User(
         joinColumns = [JoinColumn(name = "user_id")],
         inverseJoinColumns = [JoinColumn(name = "schedule_id")]
     )
+    @OnDelete(action = OnDeleteAction.CASCADE)
     val scheduleList = mutableSetOf<Schedule>()
 
     fun fullName(): String {
         return "$name $lastName"
+    }
+
+    fun removeSchedule(schedule: Schedule) {
+        scheduleList.remove(schedule)
     }
 }

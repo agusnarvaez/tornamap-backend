@@ -58,16 +58,37 @@ class CourseController : UUIDValid() {
             )
         )
     }
-    /*
-    @DeleteMapping("")
-    @Operation(summary = "Delete n courses by n IDs")
-    fun deleteMultipleCourses() {}
+
+    @PutMapping
+    @Operation(summary = "Update a course")
+    fun updateCourse(
+        @RequestBody courseDto: CourseRequestDto
+    ): ResponseEntity<CustomResponse>{
+        val courseToUpdate = CourseMapper.buildCourse(courseDto)
+        val programs = programService.getAllById(courseDto.programs)
+
+        return ResponseEntity.status(201).body(
+            CustomResponse (
+                message = "Curso actualizado con exito",
+                data = CourseMapper.buildCourseDetailDto(courseService.update(courseToUpdate,programs))
+            )
+        )
+    }
 
     @DeleteMapping("{courseId}")
     @Operation(summary = "Delete a course by ID")
-    fun deleteCourse() {}
+    fun deleteCourse(
+        @PathVariable courseId: String
+    ): ResponseEntity<CustomResponse> {
 
+        courseService.delete(courseId)
+        return ResponseEntity.status(200).body(
+            CustomResponse (
+                message = "Curso eliminado con exito",
+                data = null
+            )
+        )
+    }
 
-    */
 
 }

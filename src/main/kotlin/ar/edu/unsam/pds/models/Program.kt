@@ -2,6 +2,8 @@ package ar.edu.unsam.pds.models
 
 import ar.edu.unsam.pds.exceptions.ValidationException
 import jakarta.persistence.*
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 import java.io.Serializable
 import java.util.*
 

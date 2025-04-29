@@ -6,10 +6,10 @@ import java.util.*
 
 @Entity @Table(name = "APP_COURSE")
 class Course(
-    val name: String,
+    var name: String,
 
     @Column(length = 1024)
-    val description: String,
+    var description: String,
 
     ) : Timestamp(), Serializable {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
@@ -18,12 +18,7 @@ class Course(
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "course", cascade = [CascadeType.ALL], orphanRemoval = true)
     val events = mutableSetOf<Event>()
 
-    @ManyToMany
-    @JoinTable(
-        name = "course_program",
-        joinColumns = [JoinColumn(name = "course_id")],
-        inverseJoinColumns = [JoinColumn(name = "program_id")]
-    )
+    @ManyToMany(mappedBy = "courses")
     val programs: MutableSet<Program> = mutableSetOf()
 
     fun programNames(): List<String> {
@@ -50,5 +45,10 @@ class Course(
     fun addPrograms(programs: List<Program>) {
         this.programs.addAll(programs)
         programs.forEach { it.courses.add(this) }
+    }
+
+    fun cleanPrograms() {
+        this.programs.forEach { it.courses.remove(this) }
+        this.programs.clear()
     }
 }
