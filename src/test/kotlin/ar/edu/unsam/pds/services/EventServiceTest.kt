@@ -264,7 +264,7 @@ class EventServiceTest : BootstrapNBTest() {
             )
         )
 
-        val obtainedValue =  assignmentService.createEvent(assignmentRequest)
+        val obtainedValue =  assignmentService.create(assignmentRequest)
         val expectedValue = ar.edu.unsam.pds.dto.response.EventRequestDto(
             id = obtainedValue.id,
             quotas = 10,
@@ -307,7 +307,7 @@ class EventServiceTest : BootstrapNBTest() {
         )
 
         assertThrows<NotFoundException> {
-            assignmentService.createEvent(assignmentRequest)
+            assignmentService.create(assignmentRequest)
         }
     }
 
@@ -333,7 +333,7 @@ class EventServiceTest : BootstrapNBTest() {
         )
 
         assertThrows<ValidationException> {
-            assignmentService.createEvent(assignmentRequest)
+            assignmentService.create(assignmentRequest)
         }
     }
 
@@ -359,7 +359,7 @@ class EventServiceTest : BootstrapNBTest() {
         )
 
         assertThrows<ValidationException> {
-            assignmentService.createEvent(assignmentRequest)
+            assignmentService.create(assignmentRequest)
         }
     }
 
@@ -385,7 +385,7 @@ class EventServiceTest : BootstrapNBTest() {
         )
 
         assertThrows<ValidationException> {
-            assignmentService.createEvent(assignmentRequest)
+            assignmentService.create(assignmentRequest)
         }
     }
 
@@ -400,7 +400,7 @@ class EventServiceTest : BootstrapNBTest() {
 
         assertEquals(obtainedValuePre, expectedValuePre)
 
-        assignmentService.deleteEvent(uuid, principals[0])
+        assignmentService.delete(uuid, principals[0])
 
         val obtainedValuePos = assignmentService.getAll().toList()
         val expectedValuePos = listOf(events[0]).map {
@@ -415,7 +415,7 @@ class EventServiceTest : BootstrapNBTest() {
         val uuid = events[0].id.toString()
 
         assertThrows<PermissionDeniedException> {
-            assignmentService.deleteEvent(uuid, principals[1])
+            assignmentService.delete(uuid, principals[1])
         }
     }
 
@@ -442,7 +442,7 @@ class EventServiceTest : BootstrapNBTest() {
         )
 
         assertThrows<ValidationException> {
-            assignmentService.deleteEvent(uuid, principals[0])
+            assignmentService.delete(uuid, principals[0])
         }
     }
 

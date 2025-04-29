@@ -5,12 +5,9 @@ import ar.edu.unsam.pds.dto.request.PeriodRequestDto
 import ar.edu.unsam.pds.dto.response.PeriodResponseDto
 import ar.edu.unsam.pds.exceptions.BadRequestException
 import ar.edu.unsam.pds.exceptions.NotFoundException
-import ar.edu.unsam.pds.exceptions.PermissionDeniedException
 import ar.edu.unsam.pds.mappers.PeriodMapper
 import ar.edu.unsam.pds.models.Period
-import ar.edu.unsam.pds.repository.EventRepository
 import ar.edu.unsam.pds.repository.PeriodRepository
-import ar.edu.unsam.pds.security.models.Principal
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 import java.time.LocalDate
@@ -26,7 +23,7 @@ class PeriodService(
         return periodRepository.findAllByOrderByStartDateDesc()
     }
 
-    fun findPeriodById(idPeriod: String): Period {
+    fun findById(idPeriod: String?): Period {
         val uuid = UUID.fromString(idPeriod)
         return periodRepository.findById(uuid).orElseThrow {
             NotFoundException("Periodo no encontrado para el uuid suministrado")
@@ -49,7 +46,7 @@ class PeriodService(
     }
 
     fun deletePeriod(idPeriod: String) {
-        val periodDeleted = findPeriodById(idPeriod)
+        val periodDeleted = findById(idPeriod)
         periodRepository.delete(periodDeleted)
     }
 
@@ -57,7 +54,7 @@ class PeriodService(
         idPeriod: String,
         period: PeriodRequestDto,
     ): PeriodResponseDto {
-        val periodToUpdate = findPeriodById(idPeriod)
+        val periodToUpdate = findById(idPeriod)
         if (isValidEndDate(period.startDate, period.endDate)) {
             periodToUpdate.title = period.title
             periodToUpdate.startDate = period.startDate

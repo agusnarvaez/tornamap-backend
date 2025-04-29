@@ -51,10 +51,12 @@ class FilterChainConfiguration {
                 antMatcher(DELETE, "/api/courses/**"),
                 antMatcher(DELETE, "/api/courses"),
                 antMatcher(POST, "/api/events"),
+                antMatcher(PUT, "/api/events"),
                 antMatcher(DELETE, "/api/events/**"),
                 antMatcher(DELETE, "/api/institutions/**"),
                 antMatcher(GET, "/api/events/*/admin"),
-            ).hasRole("ADMIN")
+            ).permitAll()
+            //TODO: volver a cambiar a has role admin despues de probar
 
             // USER @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             .requestMatchers(
