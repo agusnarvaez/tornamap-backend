@@ -5,7 +5,6 @@ import ar.edu.unsam.pds.dto.response.EventResponseDto
 import ar.edu.unsam.pds.models.Course
 import ar.edu.unsam.pds.models.Event
 import ar.edu.unsam.pds.models.Schedule
-import ar.edu.unsam.pds.services.CourseService
 
 object EventMapper {
 

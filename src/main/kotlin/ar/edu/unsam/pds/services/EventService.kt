@@ -57,7 +57,7 @@ class EventService(
         val existingEvent=findByID(eventDTO.id)
         val builtSchedules = eventDTO.schedules.map { schedule ->
             ScheduleMapper.buildSchedule(schedule)
-        }.toMutableSet()
+        }.toMutableList()
         existingEvent.apply{
             name = eventDTO.name
             isApproved = eventDTO.isApproved
