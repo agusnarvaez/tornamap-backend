@@ -1,10 +1,8 @@
 package ar.edu.unsam.pds.services
 
-import ar.edu.unsam.pds.dto.request.CourseRequestDto
-import ar.edu.unsam.pds.dto.response.CourseResponseDto
 import ar.edu.unsam.pds.exceptions.NotFoundException
-import ar.edu.unsam.pds.mappers.CourseMapper
 import ar.edu.unsam.pds.models.Course
+import ar.edu.unsam.pds.models.Program
 import ar.edu.unsam.pds.repository.CourseRepository
 import ar.edu.unsam.pds.repository.ProgramRepository
 import jakarta.transaction.Transactional
@@ -21,7 +19,7 @@ class CourseService (
 
     fun searchBy(query: String): List<Course> {
         if (query.isNotBlank()) {
-            return courseRepository.searchByNameOrProgramOrProfessor(query)
+            return courseRepository.searchByNameOrProgramOrProfessor(query).distinctBy { it.id }
         }
         return getAll()
     }
