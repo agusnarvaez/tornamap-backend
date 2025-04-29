@@ -20,9 +20,7 @@ class CourseController : UUIDValid() {
         return ResponseEntity.status(200).body(
             CustomResponse (
                 message = "Cursos obtenidos con exito",
-                data = courseService.searchBy(query ?: "").filter {
-                    it.events.isNotEmpty()
-                }.map { CourseMapper.buildCourseListDto(it) }
+                data = courseService.searchBy(query ?: "").map { CourseMapper.buildCourseListDto(it) }
             )
         )
     }
