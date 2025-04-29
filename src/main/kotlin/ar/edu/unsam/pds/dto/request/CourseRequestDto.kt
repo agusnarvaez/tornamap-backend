@@ -6,6 +6,9 @@ import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Size
 
 data class CourseRequestDto(
+
+    val id: String?,
+
     @field: NotBlank(message = "El campo titulo no puede estar vacío")
     @field: NotNull(message = "El campo titulo no puede ser nulo")
     @field: Size(max = 250, message = "El campo titulo debe tener como máximo 250 caracteres")
@@ -16,7 +19,7 @@ data class CourseRequestDto(
     @field: Size(max = 250, message = "El campo descripcion debe tener como máximo 250 caracteres")
     val description: String = "",
 
-    @field: NotNull(message = "El ID no debe ser nulo")
+    @field: NotNull(message = "El ID del programa no debe ser nulo")
     @field: NotBlank(message = "El ID no debe estar en blanco")
     @field: Pattern(
         regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",

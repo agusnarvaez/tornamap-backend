@@ -53,5 +53,8 @@ interface EventRepository : JpaRepository<Event, UUID> {
         @Param("weekDay")       weekDay: DayOfWeek
     ): List<Event>
 
+    @EntityGraph( attributePaths = ["schedules", "course", "course.programs", "schedules.classroom", "schedules.classroom.building", "schedules.assignedUsers"])
+    override fun findAll(): List<Event>
+
 
 }

@@ -215,7 +215,7 @@ class CourseServiceTest : BootstrapNBTest() {
             "https://mock.pirulo/media/public/filename.jpg"
         )
 
-        val obtainedValue = courseServices.createCourse(courseRequest)
+        val obtainedValue = courseServices.create(courseRequest)
         val id = UUID.fromString(obtainedValue?.id!!)
         val expectedValue = CourseMapper.buildCourseDto(courseRepository.findById(id).get())
 
@@ -233,7 +233,7 @@ class CourseServiceTest : BootstrapNBTest() {
         )
 
         assertThrows<NotFoundException> {
-            courseServices.createCourse(courseRequest)
+            courseServices.create(courseRequest)
         }
     }
 
