@@ -20,7 +20,8 @@ class Event(
 ) : Timestamp(), Serializable {
 
     @OneToMany(mappedBy = "event", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    lateinit var schedules: MutableSet<Schedule>
+    @OrderBy("weekDay ASC, date ASC")
+    var schedules: MutableList<Schedule> = mutableListOf()
 
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
