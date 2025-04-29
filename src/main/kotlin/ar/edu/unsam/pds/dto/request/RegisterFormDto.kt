@@ -21,5 +21,8 @@ data class RegisterFormDto(
     @field: NotBlank(message = "El campo contraseña no puede estar vacío")
     @field: NotNull(message = "El campo contraseña no puede ser nulo")
     @field: Size(max = 250, message = "El campo contraseña debe tener como máximo 250 caracteres")
-    val password: String = ""
+    val password: String = "",
+
+    @field: NotNull(message = "El campo isAdmin no puede ser nulo")
+    val isAdmin: Boolean = false,
 )

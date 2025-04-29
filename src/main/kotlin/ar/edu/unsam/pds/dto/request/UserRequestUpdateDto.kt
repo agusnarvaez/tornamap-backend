@@ -14,15 +14,13 @@ data class UserRequestUpdateDto(
     @field: Size(max = 128, message = "El apellido no debe superar los 128 caracteres")
     val lastName: String = "",
 
-
     @field: NotEmpty(message = "El campo email es requerido")
     @field: NotBlank(message = "El campo email no debe estar en blanco")
     @field: Email(message = "Debe ser una dirección de correo electrónico con formato correcto")
     val email: String = "",
 
     // máximo de internet explorer, por compatibilidad, el más largo del más corto
-    val file: MultipartFile?,
-
+    val image: MultipartFile?,
 
     @field: NotNull(message = "El ID no debe ser nulo")
     @field: NotBlank(message = "El ID no debe estar en blanco")
@@ -32,5 +30,4 @@ data class UserRequestUpdateDto(
     )
     val id: String?,
 
-
-)
+    )

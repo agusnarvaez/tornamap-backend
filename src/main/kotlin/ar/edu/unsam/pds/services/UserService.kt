@@ -30,9 +30,6 @@ import java.util.*
 class UserService(
     private val userRepository: UserRepository,
     private val principalRepository: PrincipalRepository,
-    private val programService: ProgramService,
-
-    private val emailService: EmailService,
     private val storageService: StorageService,
     private val rememberMeServices: TokenBasedRememberMeServices
 ) {
@@ -68,7 +65,8 @@ class UserService(
             name = form.name,
             lastName = form.lastName,
             email = form.email,
-            image = storageService.defaultImage()
+            image = storageService.defaultImage(),
+            isAdmin = form.isAdmin,
         )
         userRepository.save(newUser)
 
@@ -93,8 +91,8 @@ class UserService(
     fun updateDetail(idUser: String, userDetail: UserRequestUpdateDto): User {
         val user = findUserById(idUser)
 
-        if (userDetail.file != null) {
-            val imageName = storageService.updatePrivate(user.image, userDetail.file)
+        if (userDetail.image != null) {
+            val imageName = storageService.updatePrivate(user.image, userDetail.image)
 
             user.image = imageName
         }

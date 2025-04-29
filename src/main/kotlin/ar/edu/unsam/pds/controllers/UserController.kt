@@ -44,11 +44,10 @@ class UserController : UUIDValid() {
     ): ResponseEntity<CustomResponse> {
         val auth: Authentication = request.userPrincipal as Authentication
         val principalUser = (auth.principal as Principal).getUser()
-
         return ResponseEntity.status(200).body(
             CustomResponse(
                 message = "Perfil de usuario obtenido con exito",
-                data = UserMapper.buildUserDetailDto(principalUser)
+                data = UserMapper.buildUserDto(principalUser)
             )
         )
     }
