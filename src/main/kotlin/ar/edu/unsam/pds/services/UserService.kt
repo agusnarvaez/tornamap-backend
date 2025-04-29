@@ -37,7 +37,11 @@ class UserService(
     private val rememberMeServices: TokenBasedRememberMeServices
 ) {
 
-    fun login(user: LoginForm, request: HttpServletRequest, response: HttpServletResponse): UserDetailResponseDto {
+    fun getAll(): MutableList<User> {
+        return userRepository.findAllByOrderByNameAsc()
+    }
+
+    fun login(user: LoginForm, request: HttpServletRequest, response: HttpServletResponse): UUID {
         try {
             request.login(user.email, user.password)
         } catch (e: ServletException) {
@@ -50,13 +54,11 @@ class UserService(
             rememberMeServices.loginSuccess(request, response, auth)
         }
 
-        val principalUser = (auth.principal as Principal).getUser()
-
-        return UserMapper.buildUserDetailDto(principalUser)
+        return (auth.principal as Principal).getUser().id
     }
 
     @Transactional
-    fun register(form: RegisterFormDto): UserResponseDto {
+    fun register(form: RegisterFormDto): UUID {
         if (principalRepository.findUserByEmail(form.email).isPresent) {
             throw InternalServerError("El correo ya está en uso. Si elimino su cuenta y quiere recuperarla dirijase a @pirulo")
         }
@@ -78,7 +80,7 @@ class UserService(
         }
         principalRepository.save(principal)
 
-        return UserMapper.buildUserDto(newUser)
+        return newUser.id
     }
 
     private fun encryptPassword(password: String): String {
@@ -88,7 +90,7 @@ class UserService(
 
 
     @Transactional
-    fun updateDetail(idUser: String, userDetail: UserRequestUpdateDto): UserResponseDto {
+    fun updateDetail(idUser: String, userDetail: UserRequestUpdateDto): User {
         val user = findUserById(idUser)
 
         if (userDetail.file != null) {
@@ -102,7 +104,7 @@ class UserService(
         user.email = userDetail.email
 
         userRepository.save(user)
-        return UserMapper.buildUserDto(user)
+        return user
     }
 
     private fun findUserById(idUser: String): User {

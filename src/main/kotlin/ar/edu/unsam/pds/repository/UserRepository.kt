@@ -10,4 +10,6 @@ import java.util.*
 @RepositoryRestResource(exported = false)
 interface UserRepository : JpaRepository<User, UUID> {
     fun findByEmail(email: String): Optional<User>
+
+    fun findAllByOrderByNameAsc(): MutableList<User>
 }
