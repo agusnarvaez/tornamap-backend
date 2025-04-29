@@ -4,7 +4,6 @@ import ar.edu.unsam.pds.dto.request.ProgramRequestDto
 import ar.edu.unsam.pds.exceptions.NotFoundException
 import ar.edu.unsam.pds.models.Program
 import ar.edu.unsam.pds.repository.ProgramRepository
-import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -17,14 +16,14 @@ class ProgramService(
         return programRepository.findAllByOrderByNameAsc()
     }
 
-    fun getProgram(programId: String): Program {
+    fun getById(programId: String): Program {
         val eventUUID = UUID.fromString(programId)
         val matchingProgram = programRepository.findById(eventUUID)
             .orElseThrow { NotFoundException("Program no encontrado para el uuid suministrado") }
         return matchingProgram
     }
 
-    fun createProgram(program: ProgramRequestDto): UUID {
+    fun create(program: ProgramRequestDto): UUID {
         if (programRepository.existsByName(program.name)) {
             throw NotFoundException("Ya existe un programa con el nombre ${program.name}")
         }
@@ -36,16 +35,16 @@ class ProgramService(
         return newProgram.id
     }
 
-    fun updateProgram(idProgram: String, program: ProgramRequestDto): Program {
-        val programToUpdate = getProgram(idProgram)
+    fun update(idProgram: String, program: ProgramRequestDto): Program {
+        val programToUpdate = getById(idProgram)
         programToUpdate.name = program.name
         programToUpdate.description = program.description
         programRepository.save(programToUpdate)
         return programToUpdate
     }
 
-    fun deleteProgram(idProgram: String) {
-        val programDeleted = getProgram(idProgram)
+    fun delete(idProgram: String) {
+        val programDeleted = getById(idProgram)
         programRepository.delete(programDeleted)
     }
 }

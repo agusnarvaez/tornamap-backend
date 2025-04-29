@@ -51,7 +51,7 @@ class EventService(
     private fun buildEvent(event: EventRequestDto, existingID: String? = null):Event{
 
         val course= event.courseID?.let { courseService.findCourseById(it) }
-        val period= event.periodID?.let{ periodService.findPeriodById(it) }
+        val period= event.periodID?.let{ periodService.getById(it) }
         //val schedules: List<Schedule> = event.schedules.map {scheduleService.createSchedule(it) }
 
         val newEvent = Event(

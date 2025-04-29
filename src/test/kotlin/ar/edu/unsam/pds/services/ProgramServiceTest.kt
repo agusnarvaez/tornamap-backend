@@ -115,7 +115,7 @@ class ProgramServiceTest : BootstrapNBTest() {
     @Test
     fun `test get a particular institution`() {
         val uuid = programs[0].id.toString()
-        val obtainedValue = institutionService.getProgram(uuid)
+        val obtainedValue = institutionService.getById(uuid)
         val expectedValue = InstitutionMapper.buildInstitutionDetailDto(programs[0])
 
         assertEquals(obtainedValue, expectedValue)
@@ -125,7 +125,7 @@ class ProgramServiceTest : BootstrapNBTest() {
     fun `test throw get a particular institution`() {
         val uuid = "029ce681-9f90-45e7-af7f-e74a8cfb4b57"
         assertThrows<NotFoundException> {
-            institutionService.getProgram(uuid)
+            institutionService.getById(uuid)
         }
     }
 
@@ -140,7 +140,7 @@ class ProgramServiceTest : BootstrapNBTest() {
 
         `when`(imageService.savePublic(mockFile)).thenReturn(mockFileName)
 
-        val obtainedValue = institutionService.createProgram(institution, principals[0])
+        val obtainedValue = institutionService.create(institution, principals[0])
         val expectedValue = ProgramResponseDto(
             id = obtainedValue.id,
             name = "name",
@@ -163,10 +163,10 @@ class ProgramServiceTest : BootstrapNBTest() {
             file = mockFile
         )
 
-        val id = institutionService.createProgram(institutionRequest, principals[0]).id
+        val id = institutionService.create(institutionRequest, principals[0]).id
 
         // #############################################################################################################
-        val obtainedValue = institutionService.getProgram(id)
+        val obtainedValue = institutionService.getById(id)
         val expectedValue = ProgramDetailResponseDto(
             id = id,
             name = "name",
@@ -179,10 +179,10 @@ class ProgramServiceTest : BootstrapNBTest() {
         assertEquals(obtainedValue, expectedValue)
 
         // #############################################################################################################
-        institutionService.deleteProgram(id, principals[0])
+        institutionService.delete(id, principals[0])
 
         assertThrows<NotFoundException> {
-            institutionService.getProgram(id)
+            institutionService.getById(id)
         }
     }
 
@@ -191,7 +191,7 @@ class ProgramServiceTest : BootstrapNBTest() {
         val uuid = programs[1].id.toString()
 
         assertThrows<PermissionDeniedException> {
-            institutionService.deleteProgram(uuid, principals[0])
+            institutionService.delete(uuid, principals[0])
         }
     }
 
@@ -216,7 +216,7 @@ class ProgramServiceTest : BootstrapNBTest() {
         )
 
         assertThrows<ValidationException> {
-            institutionService.deleteProgram(programs[0].id.toString(), principals[0])
+            institutionService.delete(programs[0].id.toString(), principals[0])
         }
     }
 

@@ -34,7 +34,7 @@ class ProgramController : UUIDValid() {
         return ResponseEntity.status(200).body(
             CustomResponse(
                 message = "Program obtenido con exito",
-                data = ProgramMapper.buildProgramDto( programService.getProgram(idProgram) )
+                data = ProgramMapper.buildProgramDto( programService.getById(idProgram) )
             )
         )
     }
@@ -47,7 +47,7 @@ class ProgramController : UUIDValid() {
         return ResponseEntity.status(201).body(
             CustomResponse(
                 message = "Program creado con exito",
-                data = programService.createProgram(program)
+                data = programService.create(program)
             )
         )
     }
@@ -61,7 +61,7 @@ class ProgramController : UUIDValid() {
         return ResponseEntity.status(201).body(
             CustomResponse(
                 message = "Program actualizado con exito",
-                data = ProgramMapper.buildProgramDto( programService.updateProgram(idProgram, program))
+                data = ProgramMapper.buildProgramDto( programService.update(idProgram, program))
             )
         )
     }
@@ -73,7 +73,7 @@ class ProgramController : UUIDValid() {
         return ResponseEntity.status(200).body(
             CustomResponse(
                 message = "Program eliminado con exito",
-                data = programService.deleteProgram(idProgram)
+                data = programService.delete(idProgram)
             )
         )
     }
