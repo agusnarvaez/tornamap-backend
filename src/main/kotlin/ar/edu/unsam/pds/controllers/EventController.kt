@@ -20,7 +20,6 @@ import java.time.LocalDate
 class EventController : UUIDValid() {
     @Autowired lateinit var eventService: EventService
     @Autowired lateinit var courseService: CourseService
-    @Autowired lateinit var periodService: PeriodService
 
     @GetMapping("/{classroomID}/{date}")
     @Operation(summary = "Get all events in a given classroom")
