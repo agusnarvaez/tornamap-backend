@@ -12,7 +12,7 @@ data class CourseRequestDto(
     @field: NotBlank(message = "El campo titulo no puede estar vacío")
     @field: NotNull(message = "El campo titulo no puede ser nulo")
     @field: Size(max = 250, message = "El campo titulo debe tener como máximo 250 caracteres")
-    val title: String = "",
+    val name: String = "",
 
     @field: NotBlank(message = "El campo descripcion no puede estar vacío")
     @field: NotNull(message = "El campo descripcion no puede ser nulo")
