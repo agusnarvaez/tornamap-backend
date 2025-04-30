@@ -9,8 +9,6 @@ import ar.edu.unsam.pds.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.DependsOn
 import org.springframework.context.annotation.Profile
-import org.springframework.core.env.Environment
-import org.springframework.core.env.Profiles
 import org.springframework.stereotype.Component
 
 @Component(value = "InitPrograms.beanName")
@@ -20,13 +18,6 @@ class InitPrograms : BootstrapGeneric("Programs") {
     @Autowired private lateinit var courseRepository: CourseRepository
     @Autowired private lateinit var programRepository: ProgramRepository
     @Autowired private lateinit var userRepository: UserRepository
-    @Autowired private lateinit var environment: Environment
-
-    //fun urlBase() = "http://${this.getDomain()}:8080/media/public"
-
-    fun getDomain() =
-        if (environment.acceptsProfiles(Profiles.of("prod"))) "149.50.143.203"
-        else "localhost"
 
     override fun doAfterPropertiesSet() {
 
@@ -120,7 +111,8 @@ class InitPrograms : BootstrapGeneric("Programs") {
             addAdmin(userByEmail("admin@admin.com"))
         }
         /* --------- 2) Lo persisto para que obtenga su UUID --------- */
-        val savedLcd = programRepository.save(lcd)
+        //val savedLcd =
+            programRepository.save(lcd)
 
         /* --------- 3) Ahora enlazo los cursos y los salvo --------- */
 //        listOf(
