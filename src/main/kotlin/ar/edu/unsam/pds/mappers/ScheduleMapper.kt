@@ -3,9 +3,7 @@ package ar.edu.unsam.pds.mappers
 import ar.edu.unsam.pds.dto.request.ScheduleRequestDto
 import ar.edu.unsam.pds.dto.response.ScheduleResponseDto
 import ar.edu.unsam.pds.models.Schedule
-import java.time.DayOfWeek
 import java.time.format.DateTimeFormatter
-import java.time.format.TextStyle
 
 private val TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm")
 
@@ -19,7 +17,7 @@ object ScheduleMapper {
             date = schedule.date,
             weekDay = schedule.translateAndFormatWeekDay(),
             isVirtual = schedule.isVirtual,
-            classroom = schedule.classroom?.let { ClassroomMapper.buildClasroomDto(it) },
+            classroom = schedule.classroom?.let { ClassroomMapper.buildClassroomDto(it) },
             professors = schedule.assignedUsers.map { it.lastName+", "+it.name },
         )
     }
