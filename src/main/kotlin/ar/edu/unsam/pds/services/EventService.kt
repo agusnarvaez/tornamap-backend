@@ -41,8 +41,8 @@ class EventService(
         return EventMapper.buildEventDto(matchingEvent)
     }
 
-    fun addSchedules(event: Event, schedules: MutableSet<Schedule>){
-        schedules.forEach{ schedule -> event.addSchedule(schedule) }
+    fun addSchedules(event: Event, schedules: List<Schedule>){
+        event.addSchedules(schedules)
     }
 
     fun addPeriod(event:Event, periodID:String?){

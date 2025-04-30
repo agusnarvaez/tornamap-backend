@@ -76,7 +76,7 @@ class EventController : UUIDValid() {
 
         val builtSchedules = eventDTO.schedules.map { schedule ->
             ScheduleMapper.buildSchedule(schedule)
-        }.toMutableSet()
+        }
 
         eventService.addSchedules(event,builtSchedules)
         eventService.addPeriod(event, eventDTO.periodID)
