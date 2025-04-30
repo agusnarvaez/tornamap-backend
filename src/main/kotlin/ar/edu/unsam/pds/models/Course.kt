@@ -18,7 +18,12 @@ class Course(
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "course", cascade = [CascadeType.ALL], orphanRemoval = true)
     val events = mutableSetOf<Event>()
 
-    @ManyToMany(mappedBy = "courses")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "app_course_program",
+        joinColumns        = [ JoinColumn(name = "course_id") ],
+        inverseJoinColumns = [ JoinColumn(name = "program_id") ]
+    )
     val programs: MutableSet<Program> = mutableSetOf()
 
     fun programNames(): List<String> {
@@ -44,7 +49,7 @@ class Course(
 
     fun addPrograms(programs: List<Program>) {
         this.programs.addAll(programs)
-        programs.forEach { it.courses.add(this) }
+//        programs.forEach { it.courses.add(this) }
     }
 
     fun cleanPrograms() {

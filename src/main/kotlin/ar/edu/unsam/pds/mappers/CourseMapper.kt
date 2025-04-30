@@ -42,7 +42,7 @@ object CourseMapper {
     fun buildCourse(course: CourseRequestDto): Course {
 
         return Course(
-            name = course.title,
+            name = course.name,
             description = course.description
         ).apply {
             id = course.id?.let { java.util.UUID.fromString(it) } ?: java.util.UUID.randomUUID()
