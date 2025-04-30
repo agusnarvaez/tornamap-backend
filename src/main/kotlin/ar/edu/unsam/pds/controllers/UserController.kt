@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.Authentication
@@ -42,7 +43,10 @@ class UserController : UUIDValid() {
     fun getProfile(
         request: HttpServletRequest
     ): ResponseEntity<CustomResponse> {
-        val auth: Authentication = request.userPrincipal as Authentication
+
+        val auth = request.userPrincipal as? Authentication
+            ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+
         val principalUser = (auth.principal as Principal).getUser()
         return ResponseEntity.status(200).body(
             CustomResponse(
