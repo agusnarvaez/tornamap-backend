@@ -47,7 +47,7 @@ object ScheduleMapper {
             startTime = schedule.startTime,
             endTime   = schedule.endTime,
             weekDay   = weekDayEnum,
-            date      = schedule.date?.let { it },
+            date      = schedule.date,
             isVirtual = schedule.isVirtual
         )
     }

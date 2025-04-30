@@ -2,13 +2,11 @@ package ar.edu.unsam.pds.controllers
 
 import ar.edu.unsam.pds.dto.request.EventRequestDto
 import ar.edu.unsam.pds.dto.response.CustomResponse
-import ar.edu.unsam.pds.exceptions.NotFoundException
 import ar.edu.unsam.pds.mappers.EventMapper
 import ar.edu.unsam.pds.mappers.ScheduleMapper
 import ar.edu.unsam.pds.repository.ClassroomRepository
 import ar.edu.unsam.pds.services.CourseService
 import ar.edu.unsam.pds.services.EventService
-import ar.edu.unsam.pds.services.PeriodService
 import io.swagger.v3.oas.annotations.Operation
 import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired

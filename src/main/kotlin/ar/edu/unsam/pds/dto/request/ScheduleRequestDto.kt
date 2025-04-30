@@ -1,9 +1,6 @@
 package ar.edu.unsam.pds.dto.request
 
-import ar.edu.unsam.pds.models.enums.RecurrenceWeeks
 import jakarta.validation.constraints.*
-import org.springframework.cglib.core.Local
-import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
 
