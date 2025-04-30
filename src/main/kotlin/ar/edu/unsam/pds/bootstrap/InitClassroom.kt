@@ -20,6 +20,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
 
     override fun doAfterPropertiesSet() {
         val tornavias = findBuildingByName("Tornavías")
+        val its = findBuildingByName("ITS")
 
         val laboComputacion1 = Classroom(
             code = "LC1",
@@ -693,6 +694,28 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             building = aularioN3
         )
         classroomRepository.save(aulaA20Nave3)
+
+        /*...........:ITS:.................*/
+        val aulaA1ITS= Classroom(
+            code = "A1",
+            name = "Aula A1",
+            capacity = 50,
+            floor = 1,
+            type = ClassroomType.CLASSROOM,
+            building = its
+        )
+        classroomRepository.save(aulaA1ITS)
+        val aulaLabCLDITS= Classroom(
+            code = "LabLCD",
+            name = "Lab LCD",
+            capacity = 50,
+            floor = 1,
+            type = ClassroomType.CLASSROOM,
+            building = its
+        )
+        classroomRepository.save(aulaLabCLDITS)
+
+
     }
 
     fun findBuildingByName(name: String) : Building {
