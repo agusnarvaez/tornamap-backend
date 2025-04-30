@@ -13,7 +13,7 @@ object EventMapper {
         return EventResponseDto(
             id = event.id.toString(),
             name = event.name,
-            isActive = event.isApproved,
+            isApproved = event.isApproved,
             schedules = event.schedules.map { ScheduleMapper.buildScheduleDto(it) },
             isCancelled = event.isCancelled,
             courseName = event.getCourseName(),
@@ -25,7 +25,7 @@ object EventMapper {
         return EventResponseDto(
             id = event.id.toString(),
             name = event.name,
-            isActive = event.isApproved,
+            isApproved = event.isApproved,
             schedules = listOf(ScheduleMapper.buildScheduleDto(schedule)),
             isCancelled = event.isCancelled,
             courseName = event.getCourseName(),

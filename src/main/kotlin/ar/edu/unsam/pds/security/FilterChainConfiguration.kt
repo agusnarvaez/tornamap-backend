@@ -48,6 +48,8 @@ class FilterChainConfiguration {
                 antMatcher(GET, "/api/courses/admin/**"),
                 antMatcher(POST, "/api/courses"),
                 antMatcher(PUT, "/api/courses"),
+                antMatcher(PUT , "/api/courses/*"),
+                antMatcher(PUT , "/api/courses/**"),
                 antMatcher(POST, "/api/courses/**"),
                 antMatcher(DELETE, "/api/courses/**"),
                 antMatcher(DELETE, "/api/courses"),
