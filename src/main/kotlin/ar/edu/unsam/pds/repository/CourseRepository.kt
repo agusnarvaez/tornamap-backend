@@ -17,18 +17,36 @@ interface CourseRepository : JpaRepository<Course, UUID> {
     fun findCourseByName(courseName: String): Course?
 
     @EntityGraph(attributePaths = ["programs", "events", "events.schedules", "events.schedules.assignedUsers"])
-    fun findAllByOrderByNameAsc(): List<Course>
+    @Query("""
+        SELECT  c FROM Course c
+        ORDER BY 
+            CASE WHEN SIZE(c.events) > 0 THEN 0 ELSE 1 END, 
+            c.name ASC
+    """)
+    fun findAllByOrderByEventsPresenceAndName(): List<Course>
+
 
     @EntityGraph(attributePaths = ["programs", "events", "events.schedules", "events.schedules.assignedUsers"])
     @Query("""
-        SELECT DISTINCT c FROM Course c 
-        LEFT JOIN c.programs p
-        LEFT JOIN c.events e
-        LEFT JOIN e.schedules s
-        LEFT JOIN s.assignedUsers u
-        WHERE LOWER(c.name) LIKE LOWER(CONCAT('%', :query, '%'))
-        OR LOWER(p.name) LIKE LOWER(CONCAT('%', :query, '%'))
-        OR LOWER(CONCAT(u.name, ' ', u.lastName)) LIKE LOWER(CONCAT('%', :query, '%'))
+        SELECT DISTINCT c, 
+       CASE WHEN EXISTS (SELECT 1 FROM Event e WHERE e.course = c) 
+           THEN 0 ELSE 1 
+               END AS hasEvents 
+        FROM Course c 
+        WHERE 
+            LOWER(c.name) LIKE LOWER(CONCAT('%', :query, '%')) 
+            OR EXISTS (
+                SELECT 1 FROM c.programs p 
+                WHERE LOWER(p.name) LIKE LOWER(CONCAT('%', :query, '%'))
+            )
+            OR EXISTS (
+                SELECT 1 FROM c.events e 
+                JOIN e.schedules s 
+                JOIN s.assignedUsers u 
+                WHERE LOWER(CONCAT(u.name, ' ', u.lastName)) 
+                LIKE LOWER(CONCAT('%', REPLACE(:query, ' ', '%'), '%'))
+            )
+        ORDER BY hasEvents, c.name
     """)
     fun searchByNameOrProgramOrProfessor(@Param("query") query: String): List<Course>
 

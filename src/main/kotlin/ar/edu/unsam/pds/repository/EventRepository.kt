@@ -33,6 +33,7 @@ interface EventRepository : JpaRepository<Event, UUID> {
         JOIN FETCH e.schedules s
         JOIN FETCH e.course c
         JOIN FETCH s.classroom cl
+        LEFT JOIN FETCH c.programs p
         LEFT JOIN FETCH cl.building b
         LEFT JOIN FETCH s.assignedUsers u
 

@@ -52,4 +52,5 @@ class Schedule(
         val translatedDay = weekDay?.getDisplayName(TextStyle.FULL, Locale("es")) ?: ""
         return translatedDay.uppercase()
     }
+
 }
