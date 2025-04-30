@@ -698,7 +698,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
         /*...........:ITS:.................*/
         val aulaA1ITS= Classroom(
             code = "A1",
-            name = "Aula A1",
+            name = "Aula A1 - ITS",
             capacity = 50,
             floor = 1,
             type = ClassroomType.CLASSROOM,
