@@ -17,7 +17,7 @@ data class ScheduleRequestDto (
     @field: NotNull(message = "La hora de finalizacion no puede ser nula")
     val endTime: LocalTime,
 
-    val weekDay:DayOfWeek?,
+    val weekDay:String?,
     val date:LocalDate?,
 
     @field: NotNull(message = "isVirtual no puede ser nulo")

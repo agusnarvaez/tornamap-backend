@@ -1,6 +1,7 @@
 package ar.edu.unsam.pds.mappers
 
 import ar.edu.unsam.pds.dto.request.EventRequestDto
+import ar.edu.unsam.pds.dto.response.EventDetailResponseDto
 import ar.edu.unsam.pds.dto.response.EventResponseDto
 import ar.edu.unsam.pds.models.Course
 import ar.edu.unsam.pds.models.Event
@@ -30,6 +31,20 @@ object EventMapper {
             isCancelled = event.isCancelled,
             courseName = event.getCourseName(),
             programNames= event.getProgramNames(),
+        )
+    }
+
+    fun buildEventDetailDto(event: Event): EventDetailResponseDto {
+        return EventDetailResponseDto(
+            id = event.id.toString(),
+            name = event.name,
+            isApproved = event.isApproved,
+            isCancelled = event.isCancelled,
+            courseID = event.course.id.toString(),
+            periodID = event.period?.id.toString(),
+            courseName = event.getCourseName(),
+            programNames= event.getProgramNames(),
+            schedules = event.schedules.map { ScheduleMapper.buildScheduleDto(it) },
         )
     }
 

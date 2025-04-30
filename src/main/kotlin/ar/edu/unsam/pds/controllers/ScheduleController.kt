@@ -4,6 +4,7 @@ import ar.edu.unsam.pds.dto.request.ScheduleRequestDto
 import ar.edu.unsam.pds.dto.response.CustomResponse
 import ar.edu.unsam.pds.exceptions.NotFoundException
 import ar.edu.unsam.pds.mappers.ScheduleMapper
+import ar.edu.unsam.pds.mappers.spanish2DayOfWeek
 import ar.edu.unsam.pds.repository.ClassroomRepository
 import ar.edu.unsam.pds.services.ScheduleService
 import io.swagger.v3.oas.annotations.Operation
@@ -46,11 +47,15 @@ class ScheduleController : UUIDValid() {
         // 2) Buscar el Schedule en la BD
         val existingSchedule = scheduleService.findById(scheduleId)
 
+        val weekDayEnum = scheduleDTO.weekDay               // "martes", "MARTES", …
+            ?.trim()                                     // quita espacios
+            ?.uppercase(Locale.ROOT)                     // <-- aquí el cambio ✅
+            ?.let { spanish2DayOfWeek[it] }
         // 3) Actualizarle los campos
         existingSchedule.apply {
             startTime = scheduleDTO.startTime
             endTime   = scheduleDTO.endTime
-            weekDay   = scheduleDTO.weekDay
+            weekDay   = weekDayEnum
             date      = scheduleDTO.date
             isVirtual = scheduleDTO.isVirtual
         }

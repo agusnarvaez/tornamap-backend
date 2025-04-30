@@ -16,4 +16,5 @@ object ClassroomMapper {
             building = BuildingMapper.buildBuildingDto(classroom.building)
         )
     }
+
 }
