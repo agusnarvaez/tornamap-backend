@@ -46,11 +46,9 @@ class EventService(
     }
 
     fun addPeriod(event:Event, periodID:String?){
-        val period = periodService.findById(periodID)
+        val period = periodService.getById(periodID)
         event.addPeriod(period)
     }
-
-
 
     @Transactional
     fun update(eventDTO: EventRequestDto):Event{
@@ -63,7 +61,7 @@ class EventService(
             isApproved = eventDTO.isApproved
             isCancelled = eventDTO.isCancelled
             course = courseService.findByID(eventDTO.courseID)
-            period = periodService.findById(eventDTO.periodID)
+            period = periodService.getById(eventDTO.periodID)
             schedules = builtSchedules
         }
         return eventRepository.save(existingEvent)

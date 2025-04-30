@@ -30,7 +30,7 @@ class PeriodController : UUIDValid () {
         return ResponseEntity.status(200).body(
             CustomResponse(
                 message = "Periodos obtenidos con exito",
-                data = periodService.getAllPeriods().map { PeriodMapper.buildPeriodDto(it)}
+                data = periodService.getAll().map { PeriodMapper.buildPeriodDto(it)}
             )
         )
     }
@@ -42,7 +42,7 @@ class PeriodController : UUIDValid () {
         return ResponseEntity.status(200).body(
             CustomResponse(
                 message = "Periodo obtenido con exito",
-                data = PeriodMapper.buildPeriodDto(periodService.findById(periodID))
+                data = PeriodMapper.buildPeriodDto(periodService.getById(periodID))
             )
         )
     }
@@ -55,7 +55,7 @@ class PeriodController : UUIDValid () {
         return ResponseEntity.status(201).body(
             CustomResponse(
                 message = "Periodo creado con exito",
-                data = periodService.createPeriod(period)
+                data = periodService.create(period)
             )
         )
     }
@@ -69,7 +69,7 @@ class PeriodController : UUIDValid () {
         return ResponseEntity.status(200).body(
             CustomResponse(
                 message = "Periodo eliminado con exito",
-                data = periodService.deletePeriod(periodId)
+                data = periodService.delete(periodId)
             )
         )
     }
@@ -84,7 +84,7 @@ class PeriodController : UUIDValid () {
         return ResponseEntity.status(200).body(
             CustomResponse(
                 message = "Periodo editado con exito",
-                data = periodService.updatePeriod(periodId, period)
+                data = periodService.update(periodId, period)
             )
         )
     }
