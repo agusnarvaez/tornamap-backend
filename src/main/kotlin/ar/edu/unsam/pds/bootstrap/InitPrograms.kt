@@ -29,86 +29,108 @@ class InitPrograms : BootstrapGeneric("Programs") {
         else "localhost"
 
     override fun doAfterPropertiesSet() {
-        programRepository.save(
-            Program(
-                name = "Tecnicatura en Programación Informática",
-                description =
-                    """
-                    La carrera tienen un bloque curricular constituido por asignaturas básicas de matemática,
-                    electricidad y magnetismo, y los fundamentos básicos de la computación y la programación.
-                    Luego se dividen en bloques curriculares específicos de Programación.
-                    """
-                        .trimIndent(),
-            ).apply {
-                addAdmin(userByEmail("admin@admin.com"))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Matematica I")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Matematica II")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Matematica III")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Electricidad y Magnetismo")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Laboratorio de Computación I")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Laboratorio de Computación II")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Telecomunicaciones y Redes")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Métodos Numéricos")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Sistemas de Procesamiento de Datos")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Algoritmos I")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Algoritmos II")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Algoritmos III")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Conceptos de Arquitecturas y Sistemas Operativos")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Programación con Herramientas Modernas")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Proyectos de Software")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Paradigmas de Programación")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Base de Datos")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Seminario de  Programación Concurrente, Paralela y Distribuida")!!))
-            }
-        )
 
-        programRepository.save(
-            Program(
-                name = "Tecnicatura en Redes Informáticas",
+        // Tecnicatura en Programación Informática
+        val matI  = courseRepository.findCourseByName("Matemática I")!!
+        val matII = courseRepository.findCourseByName("Matemática II")!!
+        val matIII = courseRepository.findCourseByName("Matemática III")!!
+        val eym = courseRepository.findCourseByName("Electricidad y Magnetismo")!!
+        val labI = courseRepository.findCourseByName("Laboratorio de Computación I")!!
+        val labII = courseRepository.findCourseByName("Laboratorio de Computación II")!!
+        val redes = courseRepository.findCourseByName("Telecomunicaciones y Redes")!!
+        val num = courseRepository.findCourseByName("Métodos Numéricos")!!
+        val spd = courseRepository.findCourseByName("Sistemas de Procesamiento de Datos")!!
+        val algI = courseRepository.findCourseByName("Algoritmos I")!!
+        val algII = courseRepository.findCourseByName("Algoritmos II")!!
+        val algIII = courseRepository.findCourseByName("Algoritmos III")!!
+        val ca = courseRepository.findCourseByName("Conceptos de Arquitecturas y Sistemas Operativos")!!
+        val phm = courseRepository.findCourseByName("Programación con Herramientas Modernas")!!
+        val ps = courseRepository.findCourseByName("Proyectos de Software")!!
+        val pp = courseRepository.findCourseByName("Paradigmas de Programación")!!
+        val bd = courseRepository.findCourseByName("Base de Datos")!!
+        val spc = courseRepository.findCourseByName("Seminario de  Programación Concurrente, Paralela y Distribuida")!!
+
+        //  Tecnicatura en Redes Informáticas
+        val riI = courseRepository.findCourseByName("Redes de Información I")!!
+        val riII = courseRepository.findCourseByName("Redes de Información II")!!
+        val riIII = courseRepository.findCourseByName("Redes de Información III")!!
+        val pI = courseRepository.findCourseByName("Proyecto I")!!
+        val pII = courseRepository.findCourseByName("Proyecto II")!!
+        val pIII = courseRepository.findCourseByName("Proyecto III")!!
+        val ar = courseRepository.findCourseByName("Administración de Redes de Computadoras")!!
+        val sac = courseRepository.findCourseByName("Sistemas Avanzados de Comunicación")!!
+
+        /* --------- 1) Creo el Program --------- */
+        val tpi = Program(
+            name = "Tecnicatura en Programación Informática",
+            description = """
+            La carrera tiene un bloque curricular constituido por asignaturas básicas de matemática,
+            electricidad y magnetismo, y los fundamentos básicos de la computación y la programación.
+            Luego se dividen en bloques curriculares específicos de Programación.
+        """.trimIndent()
+        ).apply {
+            addAdmin(userByEmail("admin@admin.com"))
+        }
+
+        /* --------- 2) Lo persisto para que obtenga su UUID --------- */
+        val savedTpi = programRepository.save(tpi)
+
+        /* --------- 3) Ahora enlazo los cursos y los salvo --------- */
+        listOf(
+            matI, matII, matIII, eym, labI, labII, redes, num, spd,
+            algI, algII, algIII, ca, phm, ps, pp, bd, spc
+        ).forEach { course ->
+            course.addPrograms(listOf(savedTpi))   // sincroniza ambos lados
+            courseRepository.save(course)          // genera filas en app_course_program
+        }
+
+        /* --------- 1) Creo el Program --------- */
+        val tri = Program(
+            name = "Tecnicatura en Redes Informáticas",
                 description =
                     """
                     La carrera tiene un bloque curricular constituido por asignaturas básicas de matemática, electricidad y magnetismo,
                     y los fundamentos básicos de la computación y la programación.
                     """
-                        .trimIndent(),
-            ).apply {
+                        .trimIndent()
+        ).apply {
                 addAdmin(userByEmail("admin@admin.com"))
-                //addCourse(courseRepository.findAll())
-                addCourse(mutableListOf(courseRepository.findCourseByName("Matematica I")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Matematica II")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Matematica III")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Electricidad y Magnetismo")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Laboratorio de Computación I")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Laboratorio de Computación II")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Sistemas de Procesamiento de Datos")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Telecomunicaciones y Redes")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Algoritmos I")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Conceptos de Arquitecturas y Sistemas Operativos")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Redes de Información I")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Redes de Información II")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Redes de Información III")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Proyecto I")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Proyecto II")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Proyecto III")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Administración de Redes de Computadoras")!!))
-                addCourse(mutableListOf(courseRepository.findCourseByName("Sistemas Avanzados de Comunicación")!!))
-            }
-        )
+        }
+        /* --------- 2) Lo persisto para que obtenga su UUID --------- */
+        val savedTri = programRepository.save(tri)
 
-        programRepository.save(
-            Program(
-                name = "Licenciatura en Ciencia de datos",
-                description =
-                    """
-                    La carrera tiene un bloque curricular constituido por asignaturas básicas de matemática, electricidad y magnetismo,
-                    y los fundamentos básicos de la computación y la programación.
-                    """
-                        .trimIndent(),
-            ).apply {
-                addAdmin(userByEmail("admin@admin.com"))
-                //addCourse(mutableListOf(courseRepository.findCourseByName("Matematica I")!!))
-            }
-        )
+        /* --------- 3) Ahora enlazo los cursos y los salvo --------- */
+        listOf(
+            riI, riII, riIII, pI, pII, pIII, ar, sac
+        ).forEach { course ->
+            course.addPrograms(listOf(savedTri))   // sincroniza ambos lados
+            courseRepository.save(course)          // genera filas en app_course_program
+        }
+
+        /* --------- 1) Creo el Program --------- */
+        val lcd = Program(
+            name = "Licenciatura en Ciencia de Datos",
+            description =
+                """
+                La carrera tiene un bloque curricular constituido por asignaturas básicas de matemática, electricidad y magnetismo,
+                y los fundamentos básicos de la computación y la programación.
+                """
+                    .trimIndent()
+        ).apply {
+            addAdmin(userByEmail("admin@admin.com"))
+        }
+        /* --------- 2) Lo persisto para que obtenga su UUID --------- */
+        val savedLcd = programRepository.save(lcd)
+
+        /* --------- 3) Ahora enlazo los cursos y los salvo --------- */
+//        listOf(
+//            matI, matII, matIII, eym, labI, labII, redes, num, spd,
+//            algI, algII, algIII, ca, phm, ps, pp, bd, spc
+//        ).forEach { course ->
+//            course.addPrograms(listOf(savedLcd))   // sincroniza ambos lados
+//            courseRepository.save(course)          // genera filas en app_course_program
+//        }
+
     }
 
     fun userByEmail(mail : String): User {
