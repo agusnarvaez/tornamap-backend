@@ -58,6 +58,8 @@ class InitSchedules : BootstrapGeneric("Schedules") {
         val pedroFIriso=userByEmail("pedroiriso@gmail.com")
         val fabioSergioBruschetti=userByEmail("fSBruschetti@estudiantes.unsam.edu.ar")
         val gastonAguilera=userByEmail("gAguilera@estudiantes.unsam.edu.ar")
+        val monica=userByEmail("mHencek@estudiantes.unsam.edu.ar")
+        val juanJoseLopez=userByEmail("jJLopez@estudiantes.unsam.edu.ar")
 //        val event1 = findEvent("Cursada Algoritmos I")
        /*
         val event3 = findEvent("Final Matematica I")*/
@@ -169,7 +171,7 @@ class InitSchedules : BootstrapGeneric("Schedules") {
         ).apply {
             event = cursadaAlgo1
             classroom = classroomRepository.findByName("Laboratorio de Computación 4").orElseThrow { NotFoundException("No se halló el aula") }
-            assignUserToSchedule(dodino, this)
+            assignUserToSchedule(juanJoseLopez, this)
         }
         scheduleRepository.save(scheduleAlgo1Martes)
 
@@ -182,7 +184,7 @@ class InitSchedules : BootstrapGeneric("Schedules") {
         ).apply {
             event = cursadaAlgo1
             classroom = classroomRepository.findByName("Aula A16 - Tornavías").orElseThrow { NotFoundException("No se halló el aula") }
-            assignUserToSchedule(dodino, this)
+            assignUserToSchedule(juanJoseLopez, this)
         }
         scheduleRepository.save(scheduleAlgo1jueves)
 
@@ -200,7 +202,6 @@ class InitSchedules : BootstrapGeneric("Schedules") {
         }
         scheduleRepository.save(scheduleAlgo2Martes)
 
-        // TODO: Revisar aula, debería ir ITS pero no existe todavía en bootstrap
         val scheduleAlgo2Jueves= Schedule(
             startTime = LocalTime.of(19, 0),
             endTime = LocalTime.of(22, 0),
@@ -209,7 +210,7 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             isVirtual = false,
         ).apply {
             event = cursadaAlgo2
-            classroom = classroomRepository.findByName("Aula A28").orElseThrow { NotFoundException("No se halló el aula") }
+            classroom = classroomRepository.findByName("Aula A1 - ITS").orElseThrow { NotFoundException("No se halló el aula") }
             assignUserToSchedule(dodino, this)
         }
         scheduleRepository.save(scheduleAlgo2Jueves)
@@ -242,7 +243,6 @@ class InitSchedules : BootstrapGeneric("Schedules") {
         scheduleRepository.save(scheduleRedesViernes)
 
         /*.................:Metodos numericos:...............................*/
-        // TODO: Revisar aula, debería ir A10 pero no sabemos si es de Aulario o Tornavías
         val scheduleMetodosNumericos= Schedule(
             startTime = LocalTime.of(16, 0),
             endTime = LocalTime.of(22, 0),
@@ -323,7 +323,6 @@ class InitSchedules : BootstrapGeneric("Schedules") {
         scheduleRepository.save(scheduleParadigmasDeProg)
 
         /*.................:Mate2:...............................*/
-        // TODO: Revisar aula, debe ir ITS pero no existe todavía en bootstrap
         val scheduleMate2Martes= Schedule(
             startTime = LocalTime.of(18, 0),
             endTime = LocalTime.of(22, 0),
@@ -332,7 +331,7 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             isVirtual = false,
         ).apply {
             event = cursadaMate2
-            classroom = classroomRepository.findByName("Aula A28").orElseThrow { NotFoundException("No se halló el aula") }
+            classroom = classroomRepository.findByName("Aula A1 - ITS").orElseThrow { NotFoundException("No se halló el aula") }
             assignUserToSchedule(carlos, this)
         }
         scheduleRepository.save(scheduleMate2Martes)
@@ -360,7 +359,7 @@ class InitSchedules : BootstrapGeneric("Schedules") {
         ).apply {
             event = cursadaMate3
             classroom = classroomRepository.findByName("Laboratorio de Computación 1").orElseThrow { NotFoundException("No se halló el aula") }
-            assignUserToSchedule(mc, this)
+            assignUserToSchedule(monica, this)
         }
         scheduleRepository.save(scheduleMate3)
 
@@ -535,10 +534,10 @@ class InitSchedules : BootstrapGeneric("Schedules") {
         ).apply {
             event = cursadaLabo2
             classroom = classroomRepository.findByName("Laboratorio de Computacion 2").orElseThrow { NotFoundException("No se halló el aula") }
-            assignUserToSchedule(dodino, this) // TODO: Asignar a mónica
+            assignUserToSchedule(monica, this)
         }
         scheduleRepository.save(scheduleLabo2LunesA)
-        // TODO: Debería ir ITS - LCD
+
         val scheduleLabo2LunesB = Schedule(
             startTime = LocalTime.of(17, 0),
             endTime = LocalTime.of(22, 0),
@@ -547,7 +546,7 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             isVirtual = false,
         ).apply {
             event = cursadaLabo2
-            classroom = classroomRepository.findByName("Laboratorio de Computacion 2").orElseThrow { NotFoundException("No se halló el aula") }
+            classroom = classroomRepository.findByName("Lab LCD").orElseThrow { NotFoundException("No se halló el aula") }
             assignUserToSchedule(dodino, this) // TODO: No Asignar a mónica
         }
         scheduleRepository.save(scheduleLabo2LunesB)
@@ -560,8 +559,8 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             isVirtual = false,
         ).apply {
             event = cursadaLabo2
-            classroom = classroomRepository.findByName("Laboratorio de Computacion 2").orElseThrow { NotFoundException("No se halló el aula") }
-            assignUserToSchedule(dodino, this) // TODO: Asignar a Mónica
+            classroom = classroomRepository.findByName("Lab LCD").orElseThrow { NotFoundException("No se halló el aula") }
+            assignUserToSchedule(monica, this)
         }
         scheduleRepository.save(scheduleLabo2JuevesA)
         val scheduleLabo2JuevesB = Schedule(
@@ -578,7 +577,6 @@ class InitSchedules : BootstrapGeneric("Schedules") {
         scheduleRepository.save(scheduleLabo2JuevesB)
 
         /*.................:SPD:...............................*/
-        // TODO: Asignar aulas correctas
         val scheduleSPDMiercoles = Schedule(
             startTime = LocalTime.of(18, 0),
             endTime = LocalTime.of(22, 0),
@@ -587,9 +585,11 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             isVirtual = false,
         ).apply {
             event = cursadaSPD
-            classroom = classroomRepository.findByName("Aula A28").orElseThrow { NotFoundException("No se halló el aula") }
+            classroom = classroomRepository.findByName("Lab LCD").orElseThrow { NotFoundException("No se halló el aula") }
             assignUserToSchedule(fabioSergioBruschetti, this)
-            assignUserToSchedule(pedroFIriso, this)
+
+            // TODO: si le pongo a los dos prof en el mismo día me duplica la card
+//            assignUserToSchedule(pedroFIriso, this)
         }
         scheduleRepository.save(scheduleSPDMiercoles)
 
@@ -601,9 +601,9 @@ class InitSchedules : BootstrapGeneric("Schedules") {
             isVirtual = false,
         ).apply {
             event = cursadaSPD
-            classroom = classroomRepository.findByName("Aula A28").orElseThrow { NotFoundException("No se halló el aula") }
+            classroom = classroomRepository.findByName("Lab LCD").orElseThrow { NotFoundException("No se halló el aula") }
             assignUserToSchedule(pedroFIriso, this)
-            assignUserToSchedule(fabioSergioBruschetti, this)
+//            assignUserToSchedule(fabioSergioBruschetti, this)
         }
         scheduleRepository.save(scheduleSPDViernes)
 
