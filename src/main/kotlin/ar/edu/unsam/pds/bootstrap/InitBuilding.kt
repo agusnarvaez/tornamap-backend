@@ -30,5 +30,8 @@ class InitBuilding: BootstrapGeneric("Buildings") {
         val aularioNA = Building(name= "Aulario Nave A").apply {
             buildingRepository.save(this)
         }
+        val its = Building(name= "ITS").apply {
+            buildingRepository.save(this)
+        }
     }
 }
