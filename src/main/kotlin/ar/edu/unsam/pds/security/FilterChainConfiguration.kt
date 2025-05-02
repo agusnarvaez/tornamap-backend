@@ -48,6 +48,8 @@ class FilterChainConfiguration {
                 antMatcher(GET, "/api/courses/admin/**"),
                 antMatcher(POST, "/api/courses"),
                 antMatcher(PUT, "/api/courses"),
+                antMatcher(PUT , "/api/courses/*"),
+                antMatcher(PUT , "/api/courses/**"),
                 antMatcher(POST, "/api/courses/**"),
                 antMatcher(DELETE, "/api/courses/**"),
                 antMatcher(DELETE, "/api/courses"),
@@ -125,6 +127,10 @@ class FilterChainConfiguration {
                 antMatcher(POST, "/api/periods"),
                 antMatcher(PUT, "/api/periods/*"),
                 antMatcher(DELETE, "/api/periods/*"),
+
+                // Buildings
+                antMatcher(GET, "/api/buildings"),
+                antMatcher(GET, "/api/buildings/*"),
             ).permitAll()
 
             // H2 DataBase @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
