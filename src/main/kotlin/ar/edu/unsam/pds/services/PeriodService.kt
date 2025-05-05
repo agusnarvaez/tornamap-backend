@@ -7,6 +7,7 @@ import ar.edu.unsam.pds.exceptions.BadRequestException
 import ar.edu.unsam.pds.exceptions.NotFoundException
 import ar.edu.unsam.pds.mappers.PeriodMapper
 import ar.edu.unsam.pds.models.Period
+import ar.edu.unsam.pds.repository.EventRepository
 import ar.edu.unsam.pds.repository.PeriodRepository
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
@@ -17,6 +18,7 @@ import java.util.*
 @Service
 class PeriodService(
     private val periodRepository: PeriodRepository,
+    private val eventRepository: EventRepository,
 ) {
 
     fun getAll(): List<Period> {
@@ -46,8 +48,11 @@ class PeriodService(
     }
 
     fun delete(idPeriod: String) {
-        val periodDeleted = getById(idPeriod)
-        periodRepository.delete(periodDeleted)
+        val uuid = UUID.fromString(idPeriod)
+        if (eventRepository.existsByPeriodId(uuid)) {
+            throw BadRequestException("No se puede eliminar el periodo porque tiene eventos asociados")
+        }
+        periodRepository.deleteById(uuid)
     }
 
     fun update(

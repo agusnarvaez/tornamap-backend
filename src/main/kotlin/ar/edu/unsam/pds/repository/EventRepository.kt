@@ -57,5 +57,6 @@ interface EventRepository : JpaRepository<Event, UUID> {
     @EntityGraph( attributePaths = ["schedules", "course", "course.programs", "schedules.classroom", "schedules.classroom.building", "schedules.assignedUsers"])
     override fun findAll(): List<Event>
 
+    fun existsByPeriodId(periodId: UUID): Boolean
 
 }
