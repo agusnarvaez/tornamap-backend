@@ -16,20 +16,20 @@ class InitBuilding: BootstrapGeneric("Buildings") {
             buildingRepository.save(this)
         }
 
-        val aularioN1 = Building(name= "Aulario Nave 1").apply {
-            buildingRepository.save(this)
-        }
-
-        val aularioN2 = Building(name= "Aulario Nave 2").apply {
-            buildingRepository.save(this)
-        }
+//        val aularioN1 = Building(name= "Aulario Nave 1").apply {
+//            buildingRepository.save(this)
+//        }
+//
+//        val aularioN2 = Building(name= "Aulario Nave 2").apply {
+//            buildingRepository.save(this)
+//        }
         val aularioN3 = Building(name= "Aulario Nave 3").apply {
             buildingRepository.save(this)
         }
 
-        val aularioNA = Building(name= "Aulario Nave A").apply {
-            buildingRepository.save(this)
-        }
+//        val aularioNA = Building(name= "Aulario Nave A").apply {
+//            buildingRepository.save(this)
+//        }
         val its = Building(name= "ITS").apply {
             buildingRepository.save(this)
         }

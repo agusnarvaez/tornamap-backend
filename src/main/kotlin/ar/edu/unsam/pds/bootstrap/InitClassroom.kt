@@ -535,102 +535,107 @@ class InitClassroom : BootstrapGeneric("Classroom") {
         classroomRepository.save(aulaA7)
         classroomRepository.save(aulaA5)
 
-        val aularioNA= findBuildingByName("Aulario Nave A")
+        // Aulario Nave A
+//        val aularioNA= findBuildingByName("Aulario Nave A")
+//
+//        val aulaA4NaveA=Classroom(
+//            code = "A4",
+//            name = "Aula A4",
+//            capacity = 50,
+//            floor = 1,
+//            type = ClassroomType.CLASSROOM,
+//            building = aularioNA
+//        )
+//        classroomRepository.save(aulaA4NaveA)
 
-        val aulaA4NaveA=Classroom(
-            code = "A4",
-            name = "Aula A4",
-            capacity = 50,
-            floor = 1,
-            type = ClassroomType.CLASSROOM,
-            building = aularioNA
-        )
-        classroomRepository.save(aulaA4NaveA)
+        //        AULARIO NAVE 1
+//        val aularioN1= findBuildingByName("Aulario Nave 1")
+//
+//        val aulaA10Nave1 = Classroom(
+//            code = "A10",
+//            name = "Aula A10 - Aulario Nave 1",
+//            capacity = 50,
+//            floor = 0,
+//            type = ClassroomType.CLASSROOM,
+//            building = aularioN1
+//        )
+//        classroomRepository.save(aulaA10Nave1)
+//
+//        val aulaA9Nave1 = Classroom(
+//            code = "AU1-A9",
+//            name = "Aula A9 - Aulario Nave 1",
+//            capacity = 50,
+//            floor = 0,
+//            type = ClassroomType.CLASSROOM,
+//            building = aularioN1
+//        )
+//        classroomRepository.save(aulaA9Nave1)
+//
+//        val aulaA8Nave1 = Classroom(
+//            code = "A8",
+//            name = "Aula A8",
+//            capacity = 50,
+//            floor = 0,
+//            type = ClassroomType.CLASSROOM,
+//            building = aularioN1
+//        )
+//        classroomRepository.save(aulaA8Nave1)
+//
+//        val aulaA7Nave1 = Classroom(
+//            code = "A7",
+//            name = "Aula A7",
+//            capacity = 50,
+//            floor = 0,
+//            type = ClassroomType.CLASSROOM,
+//            building = aularioN1
+//        )
+//        classroomRepository.save(aulaA7Nave1)
 
-        val aularioN1= findBuildingByName("Aulario Nave 1")
+//       AULARIO NAVE 2
+//        val aularioN2= findBuildingByName("Aulario Nave 2")
+//
+//        val aulaA13Nave2= Classroom(
+//            code = "A13",
+//            name = "Aula A13",
+//            capacity = 50,
+//            floor = 0,
+//            type = ClassroomType.CLASSROOM,
+//            building = aularioN2
+//        )
+//        classroomRepository.save(aulaA13Nave2)
+//
+//        val aulaA14Nave2= Classroom(
+//            code = "A14",
+//            name = "Aula A14",
+//            capacity = 50,
+//            floor = 0,
+//            type = ClassroomType.CLASSROOM,
+//            building = aularioN2
+//        )
+//        classroomRepository.save(aulaA14Nave2)
+//
+//        val aulaA12Nave2= Classroom(
+//            code = "A12",
+//            name = "Aula A12",
+//            capacity = 50,
+//            floor = 0,
+//            type = ClassroomType.CLASSROOM,
+//            building = aularioN2
+//        )
+//        classroomRepository.save(aulaA12Nave2)
+//
+//        val aulaA11Nave2= Classroom(
+//            code = "A11",
+//            name = "Aula A11",
+//            capacity = 50,
+//            floor = 0,
+//            type = ClassroomType.CLASSROOM,
+//            building = aularioN2
+//        )
+//        classroomRepository.save(aulaA11Nave2)
 
-        val aulaA10Nave1 = Classroom(
-            code = "A10",
-            name = "Aula A10 - Aulario Nave 1",
-            capacity = 50,
-            floor = 0,
-            type = ClassroomType.CLASSROOM,
-            building = aularioN1
-        )
-        classroomRepository.save(aulaA10Nave1)
 
-        val aulaA9Nave1 = Classroom(
-            code = "AU1-A9",
-            name = "Aula A9 - Aulario Nave 1",
-            capacity = 50,
-            floor = 0,
-            type = ClassroomType.CLASSROOM,
-            building = aularioN1
-        )
-        classroomRepository.save(aulaA9Nave1)
-
-        val aulaA8Nave1 = Classroom(
-            code = "A8",
-            name = "Aula A8",
-            capacity = 50,
-            floor = 0,
-            type = ClassroomType.CLASSROOM,
-            building = aularioN1
-        )
-        classroomRepository.save(aulaA8Nave1)
-
-        val aulaA7Nave1 = Classroom(
-            code = "A7",
-            name = "Aula A7",
-            capacity = 50,
-            floor = 0,
-            type = ClassroomType.CLASSROOM,
-            building = aularioN1
-        )
-        classroomRepository.save(aulaA7Nave1)
-
-        val aularioN2= findBuildingByName("Aulario Nave 2")
-
-        val aulaA13Nave2= Classroom(
-            code = "A13",
-            name = "Aula A13",
-            capacity = 50,
-            floor = 0,
-            type = ClassroomType.CLASSROOM,
-            building = aularioN2
-        )
-        classroomRepository.save(aulaA13Nave2)
-
-        val aulaA14Nave2= Classroom(
-            code = "A14",
-            name = "Aula A14",
-            capacity = 50,
-            floor = 0,
-            type = ClassroomType.CLASSROOM,
-            building = aularioN2
-        )
-        classroomRepository.save(aulaA14Nave2)
-
-        val aulaA12Nave2= Classroom(
-            code = "A12",
-            name = "Aula A12",
-            capacity = 50,
-            floor = 0,
-            type = ClassroomType.CLASSROOM,
-            building = aularioN2
-        )
-        classroomRepository.save(aulaA12Nave2)
-
-        val aulaA11Nave2= Classroom(
-            code = "A11",
-            name = "Aula A11",
-            capacity = 50,
-            floor = 0,
-            type = ClassroomType.CLASSROOM,
-            building = aularioN2
-        )
-        classroomRepository.save(aulaA11Nave2)
-
+        // Aulario Nave 3
         val aularioN3= findBuildingByName("Aulario Nave 3")
 
         val aulaA17Nave3= Classroom(
@@ -700,7 +705,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "A1",
             name = "Aula A1 - ITS",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.CLASSROOM,
             building = its
         )
@@ -709,7 +714,7 @@ class InitClassroom : BootstrapGeneric("Classroom") {
             code = "LabLCD",
             name = "Lab LCD",
             capacity = 50,
-            floor = 1,
+            floor = 0,
             type = ClassroomType.CLASSROOM,
             building = its
         )
