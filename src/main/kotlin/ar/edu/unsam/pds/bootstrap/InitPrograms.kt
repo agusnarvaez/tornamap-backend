@@ -1,12 +1,9 @@
 package ar.edu.unsam.pds.bootstrap
 
-import ar.edu.unsam.pds.exceptions.NotFoundException
 import ar.edu.unsam.pds.models.Program
-import ar.edu.unsam.pds.models.User
 import ar.edu.unsam.pds.repository.CourseRepository
 import ar.edu.unsam.pds.repository.ProgramRepository
 import ar.edu.unsam.pds.repository.UserRepository
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.DependsOn
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
@@ -125,9 +122,10 @@ class InitPrograms : BootstrapGeneric("Programs") {
 
     }
 
-    fun userByEmail(mail : String): User {
-        return userRepository.findByEmail(mail).orElseThrow {
-            NotFoundException("usuario no encontrado")
+    private fun saveIfAbsent(p: Program) {
+        if (programRepository.findByName(p.name) == null) {
+            programRepository.save(p)
         }
     }
+
 }

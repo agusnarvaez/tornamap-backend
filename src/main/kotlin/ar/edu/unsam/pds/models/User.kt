@@ -10,7 +10,7 @@ import java.util.*
 class User(
     var name: String,
     var lastName: String,
-    var email: String,
+    @Column(unique = true) var email: String,
     var image: String = "",
     var isAdmin: Boolean = false
 ) : Timestamp(), Serializable {

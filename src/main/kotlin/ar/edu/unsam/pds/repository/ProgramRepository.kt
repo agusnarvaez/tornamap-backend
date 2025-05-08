@@ -15,4 +15,5 @@ interface ProgramRepository : JpaRepository<Program, UUID> {
     // En el repositorio
     @EntityGraph(attributePaths = ["courses"])
     override fun findAllById(ids: Iterable<UUID>): List<Program>  // Más idiomático en Kotlin
+
 }

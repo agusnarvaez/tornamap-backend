@@ -6,7 +6,7 @@ En este repositorio se encuentra el código fuente del backend de la aplicación
 ## Integrantes
 - PM: Agustín Narvaez
 - Francisco Coronel
-- Melanie Oviedo
+- Melody Oviedo
 - Juana Correa
 - Gabriel Tarquini
 ## Tecnologías Utilizadas
