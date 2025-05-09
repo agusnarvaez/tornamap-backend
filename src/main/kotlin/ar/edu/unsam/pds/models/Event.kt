@@ -19,8 +19,9 @@ class Event(
 
 ) : Timestamp(), Serializable {
 
-    @OneToMany(mappedBy = "event", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    lateinit var schedules: MutableSet<Schedule>
+    @OneToMany(mappedBy = "event", cascade = [CascadeType.ALL], fetch = FetchType.LAZY, orphanRemoval = true)
+    @OrderBy("weekDay ASC, date ASC")
+    var schedules: MutableList<Schedule> = mutableListOf()
 
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
@@ -56,11 +57,16 @@ class Event(
 
     fun getProfessorNames(): Set<String> = schedules.flatMap { it.getUserNames() }.toSet()
 
-    fun addSchedule(schedule: Schedule) = schedules.add(schedule)
-
+    fun addSchedule(schedule: Schedule) {
+        schedule.event = this
+        schedules.add(schedule)
+    }
     fun removeSchedule(schedule: Schedule){
         validateScheduleInEvent(schedule)
         schedules.remove(schedule)
+    }
+    fun addSchedules(list: Collection<Schedule>) {
+        list.forEach { addSchedule(it) }
     }
 
     fun validateScheduleInEvent(schedule: Schedule) {

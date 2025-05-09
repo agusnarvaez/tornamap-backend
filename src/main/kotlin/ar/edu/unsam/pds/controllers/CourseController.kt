@@ -1,8 +1,10 @@
 package ar.edu.unsam.pds.controllers
 
+import ar.edu.unsam.pds.dto.request.CourseRequestDto
 import ar.edu.unsam.pds.dto.response.CustomResponse
 import ar.edu.unsam.pds.mappers.CourseMapper
 import ar.edu.unsam.pds.services.CourseService
+import ar.edu.unsam.pds.services.ProgramService
 import io.swagger.v3.oas.annotations.Operation
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("api/courses")
 @CrossOrigin("*")
 class CourseController : UUIDValid() {
+    @Autowired
+    private lateinit var programService: ProgramService
     @Autowired lateinit var courseService: CourseService
 
     @GetMapping("")
@@ -19,10 +23,8 @@ class CourseController : UUIDValid() {
     fun getAll(@RequestParam(value = "query", required = false) query: String?): ResponseEntity<CustomResponse> {
         return ResponseEntity.status(200).body(
             CustomResponse (
-                message = "Coursos obtenidos con exito",
-                data = courseService.searchBy(query ?: "").filter {
-                    it.events.isNotEmpty()
-                }.map { CourseMapper.buildCourseListDto(it) }
+                message = "Cursos obtenidos con exito",
+                data = courseService.searchBy(query ?: "").map { CourseMapper.buildCourseListDto(it) }
             )
         )
     }
@@ -36,23 +38,57 @@ class CourseController : UUIDValid() {
         return ResponseEntity.status(200).body(
             CustomResponse (
                 message = "Courso obtenido con exito",
-                data = CourseMapper.buildCourseDetailDto(courseService.findCourseById(idCourse))
+                data = CourseMapper.buildCourseDetailDto(courseService.findByID(idCourse))
             )
         )
     }
 
-    /*
-    @DeleteMapping("")
-    @Operation(summary = "Delete n courses by n IDs")
-    fun deleteMultipleCourses() {}
+    @PostMapping
+    @Operation(summary = "Create a course")
+    fun createCourse(
+        @RequestBody courseDto: CourseRequestDto
+    ): ResponseEntity<CustomResponse> {
+        val course = CourseMapper.buildCourse(courseDto)
+        val programs = programService.getAllById(courseDto.programs)
+
+        return ResponseEntity.status(201).body(
+            CustomResponse (
+                message = "Curso creado con exito",
+                data = CourseMapper.buildCourseDetailDto(courseService.create(course,programs))
+            )
+        )
+    }
+
+    @PutMapping
+    @Operation(summary = "Update a course")
+    fun updateCourse(
+        @RequestBody courseDto: CourseRequestDto
+    ): ResponseEntity<CustomResponse>{
+        val courseToUpdate = CourseMapper.buildCourse(courseDto)
+        val programs = programService.getAllById(courseDto.programs)
+
+        return ResponseEntity.status(201).body(
+            CustomResponse (
+                message = "Curso actualizado con exito",
+                data = CourseMapper.buildCourseDetailDto(courseService.update(courseToUpdate,programs))
+            )
+        )
+    }
 
     @DeleteMapping("{courseId}")
     @Operation(summary = "Delete a course by ID")
-    fun deleteCourse() {}
+    fun deleteCourse(
+        @PathVariable courseId: String
+    ): ResponseEntity<CustomResponse> {
 
-    @PostMapping(value = [""], consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
-    @Operation(summary = "Create a course")
-    fun createCourse() {}
-    */
+        courseService.delete(courseId)
+        return ResponseEntity.status(200).body(
+            CustomResponse (
+                message = "Curso eliminado con exito",
+                data = null
+            )
+        )
+    }
+
 
 }

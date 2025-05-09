@@ -1,34 +1,28 @@
 package ar.edu.unsam.pds.services
 
-import ar.edu.unsam.pds.dto.request.CourseRequestDto
-import ar.edu.unsam.pds.dto.response.CourseResponseDto
 import ar.edu.unsam.pds.exceptions.NotFoundException
-import ar.edu.unsam.pds.mappers.CourseMapper
 import ar.edu.unsam.pds.models.Course
+import ar.edu.unsam.pds.models.Program
 import ar.edu.unsam.pds.repository.CourseRepository
-import ar.edu.unsam.pds.repository.ProgramRepository
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class CourseService (
+class CourseService(
     private val courseRepository: CourseRepository,
-    private val programRepository: ProgramRepository,
 ) {
 
-    fun getAll(): List<Course> {
-        return courseRepository.findAllByOrderByNameAsc()
-    }
+    fun getAll(): List<Course> = courseRepository.findAllByOrderByEventsPresenceAndName()
 
     fun searchBy(query: String): List<Course> {
         if (query.isNotBlank()) {
-            return courseRepository.searchByNameOrProgramOrProfessor(query)
+            return courseRepository.searchByNameOrProgramOrProfessor(query).distinctBy { it.id }
         }
         return getAll()
     }
 
-    fun findCourseById(courseID: String): Course {
+    fun findByID(courseID: String?): Course {
         val uuid = UUID.fromString(courseID)
         return courseRepository.findById(uuid).orElseThrow {
             NotFoundException("Curso no encontrado para el uuid suministrado")
@@ -36,22 +30,40 @@ class CourseService (
     }
 
     @Transactional
-    fun createCourse(course: CourseRequestDto): CourseResponseDto? {
-        val programId = UUID.fromString(course.programId)
-        val program = programRepository.findById(programId).orElseThrow {
-            NotFoundException("Carrera no encontrada para el uuid suministrado")
-        }
-
-        val newCourse = Course(
-            course.title,
-            course.description,
-        )
-        courseRepository.save(newCourse)
-
-        program.addCourse(listOf(newCourse))
-        programRepository.save(program)
-
-        return CourseMapper.buildCourseDto(newCourse)
+    fun create(course: Course, programs: List<Program>): Course {
+        course.addPrograms(programs)
+        return courseRepository.save(course)
     }
 
+    @Transactional
+    fun update(course: Course, programs: List<Program>): Course {
+        val existingCourse = findByID(course.id.toString())
+
+        existingCourse.name = course.name
+        existingCourse.description = course.description
+
+        existingCourse.cleanPrograms()
+        existingCourse.addPrograms(programs)
+
+        return courseRepository.save(existingCourse)
+    }
+
+    @Transactional
+    fun delete(courseID: String) {
+        val course = findByID(courseID)
+
+        course.events.flatMap { it.schedules }.forEach { schedule ->
+            // recorrer una copia para evitar ConcurrentModification
+            schedule.assignedUsers.toList().forEach { user ->
+                user.scheduleList.remove(schedule)   // ← lado OWNER
+            }
+            schedule.assignedUsers.clear()           // ← lado INVERSE
+        }
+
+        course.programs.toList().forEach { program ->
+            program.removeCourse(course)          // mantiene ambos lados
+        }
+
+        courseRepository.delete(course)
+    }
 }

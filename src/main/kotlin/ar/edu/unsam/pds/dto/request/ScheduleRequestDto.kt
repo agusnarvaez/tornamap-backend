@@ -1,9 +1,6 @@
 package ar.edu.unsam.pds.dto.request
 
-import ar.edu.unsam.pds.models.enums.RecurrenceWeeks
 import jakarta.validation.constraints.*
-import org.springframework.cglib.core.Local
-import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -17,7 +14,7 @@ data class ScheduleRequestDto (
     @field: NotNull(message = "La hora de finalizacion no puede ser nula")
     val endTime: LocalTime,
 
-    val weekDay:DayOfWeek?,
+    val weekDay:String?,
     val date:LocalDate?,
 
     @field: NotNull(message = "isVirtual no puede ser nulo")

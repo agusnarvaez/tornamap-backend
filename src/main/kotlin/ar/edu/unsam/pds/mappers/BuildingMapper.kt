@@ -7,4 +7,12 @@ object BuildingMapper {
             name = building.name
         )
     }
+
+    fun buildBuildingDtoWithClassrooms(building: ar.edu.unsam.pds.models.Building): ar.edu.unsam.pds.dto.response.BuildingResponseDtoWithClassrooms {
+        return ar.edu.unsam.pds.dto.response.BuildingResponseDtoWithClassrooms(
+            id = building.id.toString(),
+            name = building.name,
+            classrooms = building.classrooms.map { ClassroomMapper.buildClassroomDto(it) }
+        )
+    }
 }

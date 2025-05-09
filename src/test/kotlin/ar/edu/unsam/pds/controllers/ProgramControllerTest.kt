@@ -122,7 +122,7 @@ class ProgramControllerTest {
     fun `test get a particular institution`() {
         val institution = InstitutionMapper.buildInstitutionDetailDto(program)
 
-        `when`(programService.getProgram(uuid)).thenReturn(institution)
+        `when`(programService.getById(uuid)).thenReturn(institution)
 
         val responseEntity = programController.getProgram(uuid)
 
@@ -140,7 +140,7 @@ class ProgramControllerTest {
             file = fileImg
         )
 
-        `when`(programService.createProgram(institutionReq, principal)).thenReturn(institutionRes)
+        `when`(programService.create(institutionReq, principal)).thenReturn(institutionRes)
 
         val responseEntity = programController.createProgram(institutionReq, principal)
 
@@ -150,7 +150,7 @@ class ProgramControllerTest {
 
     @Test
     fun `test delete a particular institution`() {
-        `when`(programService.deleteProgram(uuid, principal)).then { }
+        `when`(programService.delete(uuid, principal)).then { }
 
         val responseEntity = programController.deleteProgram(uuid, principal)
 

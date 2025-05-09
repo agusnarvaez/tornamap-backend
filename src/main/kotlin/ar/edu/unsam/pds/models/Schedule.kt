@@ -1,15 +1,19 @@
 package ar.edu.unsam.pds.models
 
+import com.fasterxml.jackson.annotation.JsonFormat
 import jakarta.persistence.*
 import java.io.Serializable
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
+import java.time.format.TextStyle
 import java.util.*
 
 @Entity @Table(name = "APP_SCHEDULE")
 class Schedule(
+    @JsonFormat(pattern = "HH:mm")
     var startTime: LocalTime,
+    @JsonFormat(pattern = "HH:mm")
     var endTime: LocalTime,
     var weekDay: DayOfWeek?,
     var date: LocalDate?,
@@ -23,8 +27,8 @@ class Schedule(
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "scheduleList")
     val assignedUsers = mutableSetOf<User>()
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "event_id", nullable = true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "event_id", nullable = false)
     lateinit var event: Event
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -47,5 +51,9 @@ class Schedule(
         user.scheduleList.add(schedule)
     }
 
+    fun translateAndFormatWeekDay(): String {
+        val translatedDay = weekDay?.getDisplayName(TextStyle.FULL, Locale("es")) ?: ""
+        return translatedDay.uppercase()
+    }
 
 }

@@ -1,5 +1,6 @@
 package ar.edu.unsam.pds.mappers
 
+import ar.edu.unsam.pds.dto.request.CourseRequestDto
 import ar.edu.unsam.pds.dto.response.*
 import ar.edu.unsam.pds.models.Course
 
@@ -22,7 +23,7 @@ object CourseMapper {
             events = course.events(),
             professors = course.professors(),
             modality= course.modality(),
-            schedules = course.schedules()
+            schedules = course.formattedSchedules()
         )
     }
 
@@ -36,5 +37,15 @@ object CourseMapper {
             programs = course.programNames(),
             events = events
         )
+    }
+
+    fun buildCourse(course: CourseRequestDto): Course {
+
+        return Course(
+            name = course.name,
+            description = course.description
+        ).apply {
+            id = course.id?.let { java.util.UUID.fromString(it) } ?: java.util.UUID.randomUUID()
+        }
     }
 }

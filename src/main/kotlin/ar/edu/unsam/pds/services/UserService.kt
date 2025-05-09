@@ -30,14 +30,15 @@ import java.util.*
 class UserService(
     private val userRepository: UserRepository,
     private val principalRepository: PrincipalRepository,
-    private val programService: ProgramService,
-
-    private val emailService: EmailService,
     private val storageService: StorageService,
     private val rememberMeServices: TokenBasedRememberMeServices
 ) {
 
-    fun login(user: LoginForm, request: HttpServletRequest, response: HttpServletResponse): UserDetailResponseDto {
+    fun getAll(): MutableList<User> {
+        return userRepository.findAllByOrderByNameAsc()
+    }
+
+    fun login(user: LoginForm, request: HttpServletRequest, response: HttpServletResponse): UUID {
         try {
             request.login(user.email, user.password)
         } catch (e: ServletException) {
@@ -50,13 +51,11 @@ class UserService(
             rememberMeServices.loginSuccess(request, response, auth)
         }
 
-        val principalUser = (auth.principal as Principal).getUser()
-
-        return UserMapper.buildUserDetailDto(principalUser)
+        return (auth.principal as Principal).getUser().id
     }
 
     @Transactional
-    fun register(form: RegisterFormDto): UserResponseDto {
+    fun register(form: RegisterFormDto): UUID {
         if (principalRepository.findUserByEmail(form.email).isPresent) {
             throw InternalServerError("El correo ya está en uso. Si elimino su cuenta y quiere recuperarla dirijase a @pirulo")
         }
@@ -66,7 +65,8 @@ class UserService(
             name = form.name,
             lastName = form.lastName,
             email = form.email,
-            image = storageService.defaultImage()
+            image = storageService.defaultImage(),
+            isAdmin = form.isAdmin,
         )
         userRepository.save(newUser)
 
@@ -78,7 +78,7 @@ class UserService(
         }
         principalRepository.save(principal)
 
-        return UserMapper.buildUserDto(newUser)
+        return newUser.id
     }
 
     private fun encryptPassword(password: String): String {
@@ -88,11 +88,11 @@ class UserService(
 
 
     @Transactional
-    fun updateDetail(idUser: String, userDetail: UserRequestUpdateDto): UserResponseDto {
+    fun updateDetail(idUser: String, userDetail: UserRequestUpdateDto): User {
         val user = findUserById(idUser)
 
-        if (userDetail.file != null) {
-            val imageName = storageService.updatePrivate(user.image, userDetail.file)
+        if (userDetail.image != null) {
+            val imageName = storageService.updatePrivate(user.image, userDetail.image)
 
             user.image = imageName
         }
@@ -102,7 +102,7 @@ class UserService(
         user.email = userDetail.email
 
         userRepository.save(user)
-        return UserMapper.buildUserDto(user)
+        return user
     }
 
     private fun findUserById(idUser: String): User {

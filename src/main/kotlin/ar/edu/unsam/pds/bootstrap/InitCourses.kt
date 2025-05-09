@@ -42,6 +42,7 @@ class InitCourses : BootstrapGeneric("Courses") {
                 description="Asignatura introductoria que aborda los fundamentos del análisis en una variable, álgebra y geometría. Se aprenden conceptos clave como funciones, límites, derivadas, polinomios y ecuaciones, desarrollando habilidades esenciales para el razonamiento matemático y la resolución de problemas."
             )
         )
+
         courseRepository.save(
             Course(
                 name="Electricidad y Magnetismo",
@@ -99,7 +100,7 @@ class InitCourses : BootstrapGeneric("Courses") {
 
         courseRepository.save(
             Course(
-                name="Algoritmos III",
+                name="Algoritmos III",      //Se dicta solo en el 2do cuatrimestre
                 description="Asignatura centrada en la especificación, implementación y corrección de programas, abordando el tratamiento de secuencias, tipos abstractos de datos y archivos secuenciales mediante pequeños proyectos computacionales."
             )
         )
@@ -124,11 +125,76 @@ class InitCourses : BootstrapGeneric("Courses") {
                 description="Asignatura orientada a la resolución de problemas mediante herramientas informáticas, incluyendo programación, redes, sistemas operativos y aplicaciones matemáticas para algoritmos numéricos y problemas algebraicos."
             )
         )
+
         courseRepository.save(
             Course(
                 name="Paradigmas de Programación",
                 description="Asignatura orientada a la resolución de problemas mediante herramientas informáticas, incluyendo programación, redes, sistemas operativos y aplicaciones matemáticas para algoritmos numéricos y problemas algebraicos."
             )
         )
+        /*Materias pertenecientes al segundo cuatri TPI*/
+        courseRepository.save(
+            Course(
+                name="Base de Datos",
+                description="Asignatura orientada a la resolución de problemas mediante herramientas informáticas, incluyendo programación, redes, sistemas operativos y aplicaciones matemáticas para algoritmos numéricos y problemas algebraicos."
+            )
+        )
+        courseRepository.save(
+            Course(
+                name="Seminario de  Programación Concurrente, Paralela y Distribuida",
+                description="Asignatura orientada a la resolución de problemas mediante herramientas informáticas, incluyendo programación, redes, sistemas operativos y aplicaciones matemáticas para algoritmos numéricos y problemas algebraicos."
+            )
+        )
+
+        /*Materias Perteneciente solo a Redes*/
+        courseRepository.save(
+            Course(
+                name="Redes de Información I",
+                description="Asignatura orientada a la resolución de problemas mediante herramientas informáticas, incluyendo programación, redes, sistemas operativos y aplicaciones matemáticas para algoritmos numéricos y problemas algebraicos."
+            )
+        )
+        courseRepository.save(
+            Course(
+                name="Redes de Información II",
+                description="Asignatura orientada a la resolución de problemas mediante herramientas informáticas, incluyendo programación, redes, sistemas operativos y aplicaciones matemáticas para algoritmos numéricos y problemas algebraicos."
+            )
+        )
+        courseRepository.save(
+            Course(
+                name="Redes de Información III",
+                description="Asignatura orientada a la resolución de problemas mediante herramientas informáticas, incluyendo programación, redes, sistemas operativos y aplicaciones matemáticas para algoritmos numéricos y problemas algebraicos."
+            )
+        )
+        courseRepository.save(
+            Course(
+                name="Proyecto I",
+                description="Asignatura orientada a la resolución de problemas mediante herramientas informáticas, incluyendo programación, redes, sistemas operativos y aplicaciones matemáticas para algoritmos numéricos y problemas algebraicos."
+            )
+        )
+        courseRepository.save(
+            Course(
+                name="Proyecto II",
+                description="Asignatura orientada a la resolución de problemas mediante herramientas informáticas, incluyendo programación, redes, sistemas operativos y aplicaciones matemáticas para algoritmos numéricos y problemas algebraicos."
+            )
+        )
+        courseRepository.save(
+            Course(
+                name="Proyecto III",
+                description="Asignatura orientada a la resolución de problemas mediante herramientas informáticas, incluyendo programación, redes, sistemas operativos y aplicaciones matemáticas para algoritmos numéricos y problemas algebraicos."
+            )
+        )
+        courseRepository.save(
+            Course(
+                name="Administración de Redes de Computadoras",
+                description="Asignatura orientada a la resolución de problemas mediante herramientas informáticas, incluyendo programación, redes, sistemas operativos y aplicaciones matemáticas para algoritmos numéricos y problemas algebraicos."
+            )
+        )
+        courseRepository.save(
+            Course(
+                name="Sistemas Avanzados de Comunicación",
+                description="Asignatura orientada a la resolución de problemas mediante herramientas informáticas, incluyendo programación, redes, sistemas operativos y aplicaciones matemáticas para algoritmos numéricos y problemas algebraicos."
+            )
+        )
+
     }
 }

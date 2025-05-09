@@ -33,6 +33,7 @@ interface EventRepository : JpaRepository<Event, UUID> {
         JOIN FETCH e.schedules s
         JOIN FETCH e.course c
         JOIN FETCH s.classroom cl
+        LEFT JOIN FETCH c.programs p
         LEFT JOIN FETCH cl.building b
         LEFT JOIN FETCH s.assignedUsers u
 
@@ -53,5 +54,9 @@ interface EventRepository : JpaRepository<Event, UUID> {
         @Param("weekDay")       weekDay: DayOfWeek
     ): List<Event>
 
+    @EntityGraph( attributePaths = ["schedules", "course", "course.programs", "schedules.classroom", "schedules.classroom.building", "schedules.assignedUsers"])
+    override fun findAll(): List<Event>
+
+    fun existsByPeriodId(periodId: UUID): Boolean
 
 }

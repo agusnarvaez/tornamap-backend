@@ -7,21 +7,16 @@ import java.util.*
 
 @Entity @Table(name = "APP_PROGRAM")
 class Program(
-    val name: String,
+    var name: String,
 
     @Column(length = 1024)
-    val description: String,
+    var description: String,
 
-) : Timestamp(), Serializable {
+    ) : Timestamp(), Serializable {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
 
-    @ManyToMany
-    @JoinTable(
-        name = "app_course_program",
-        joinColumns = [JoinColumn(name = "program_id")],
-        inverseJoinColumns = [JoinColumn(name = "course_id")]
-    )
+    @ManyToMany(mappedBy = "programs", fetch = FetchType.LAZY)
     val courses: MutableSet<Course> = mutableSetOf()
 
     @ManyToMany(fetch = FetchType.EAGER)

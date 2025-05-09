@@ -3,8 +3,7 @@ package ar.edu.unsam.pds.controllers
 import ar.edu.unsam.pds.dto.request.LoginForm
 import ar.edu.unsam.pds.dto.request.RegisterFormDto
 import ar.edu.unsam.pds.dto.request.UserRequestUpdateDto
-import ar.edu.unsam.pds.dto.response.UserDetailResponseDto
-import ar.edu.unsam.pds.dto.response.UserResponseDto
+import ar.edu.unsam.pds.dto.response.CustomResponse
 import ar.edu.unsam.pds.mappers.UserMapper
 import ar.edu.unsam.pds.security.models.Principal
 import ar.edu.unsam.pds.services.UserService
@@ -13,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.Authentication
@@ -22,21 +22,36 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("api/users")
 @CrossOrigin("*")
 class UserController : UUIDValid() {
-    @Autowired lateinit var userService: UserService
+    @Autowired
+    lateinit var userService: UserService
 
     @GetMapping("")
     @Operation(summary = "Get all users")
-    fun getAll(){}
+    fun getAll(): ResponseEntity<CustomResponse> {
+        return ResponseEntity.status(200).body(
+            CustomResponse(
+                message = "Usuarios obtenidos con exito",
+                data = userService.getAll().map { UserMapper.buildUserDto(it) }
+            )
+        )
+    }
 
     @GetMapping("profile")
     @Operation(summary = "Get user profile")
     fun getProfile(
         request: HttpServletRequest
-    ): ResponseEntity<UserDetailResponseDto> {
-        val auth: Authentication = request.userPrincipal as Authentication
-        val principalUser = (auth.principal as Principal).getUser()
+    ): ResponseEntity<CustomResponse> {
 
-        return ResponseEntity.ok(UserMapper.buildUserDetailDto(principalUser))
+        val auth = request.userPrincipal as? Authentication
+            ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+
+        val principalUser = (auth.principal as Principal).getUser()
+        return ResponseEntity.status(200).body(
+            CustomResponse(
+                message = "Perfil de usuario obtenido con exito",
+                data = UserMapper.buildUserDto(principalUser)
+            )
+        )
     }
 
     @PostMapping("login")
@@ -44,25 +59,38 @@ class UserController : UUIDValid() {
         @RequestBody @Valid user: LoginForm,
         request: HttpServletRequest,
         response: HttpServletResponse
-    ): ResponseEntity<UserDetailResponseDto> {
-        return ResponseEntity.ok(userService.login(user, request, response))
+    ): ResponseEntity<CustomResponse> {
+        return ResponseEntity.status(201).body(
+            CustomResponse(
+                message = "Login exitoso",
+                data = userService.login(user, request, response)
+            )
+        )
     }
 
     @PostMapping("logout")
     fun logout(
         request: HttpServletRequest
-    ): ResponseEntity<Map<String, String>> {
-        request.logout()
-        return ResponseEntity.ok(mapOf("message" to "Se ha deslogeado correctamente."))
+    ): ResponseEntity<CustomResponse> {
+        return ResponseEntity.status(201).body(
+            CustomResponse(
+                message = "Logout exitosos",
+                data = request.logout()
+            )
+        )
     }
 
     @PostMapping("register")
     @Operation(summary = "Register a new user")
     fun register(
         @RequestBody @Valid form: RegisterFormDto
-    ): ResponseEntity<UserResponseDto> {
-        val registeredUser = userService.register(form)
-        return ResponseEntity.ok(registeredUser)
+    ): ResponseEntity<CustomResponse> {
+        return ResponseEntity.status(201).body(
+            CustomResponse(
+                message = "Usuario registrado con exito",
+                data = userService.register(form)
+            )
+        )
     }
 
     @PatchMapping(value = ["/{idUser}"], consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
@@ -70,10 +98,14 @@ class UserController : UUIDValid() {
     fun updateDetail(
         @PathVariable idUser: String,
         @ModelAttribute @Valid user: UserRequestUpdateDto
-    ): ResponseEntity<UserResponseDto> {
+    ): ResponseEntity<CustomResponse> {
         this.validatedUUID(idUser)
-        val originalUser = userService.updateDetail(idUser, user)
-        return ResponseEntity.ok().body(originalUser)
+        return ResponseEntity.status(201).body(
+            CustomResponse(
+                message = "Usuario actualizado con exito",
+                data = UserMapper.buildUserDto(userService.updateDetail(idUser, user))
+            )
+        )
     }
 
     @DeleteMapping("")
@@ -81,9 +113,13 @@ class UserController : UUIDValid() {
     fun deleteAccount(
         request: HttpServletRequest,
         response: HttpServletResponse
-    ): ResponseEntity<Map<String, String>> {
-        userService.deleteAccount(request, response)
-        return ResponseEntity.ok(mapOf("message" to "Cuenta eliminada correctamente."))
+    ): ResponseEntity<CustomResponse> {
+        return ResponseEntity.status(200).body(
+            CustomResponse(
+                message = "Usuario eliminado con exito",
+                data = userService.deleteAccount(request, response)
+            )
+        )
     }
 
 }

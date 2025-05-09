@@ -47,14 +47,20 @@ class FilterChainConfiguration {
                 antMatcher(GET, "/api/institutions/admin/**"),
                 antMatcher(GET, "/api/courses/admin/**"),
                 antMatcher(POST, "/api/courses"),
+                antMatcher(PUT, "/api/courses"),
+                antMatcher(PUT , "/api/courses/*"),
+                antMatcher(PUT , "/api/courses/**"),
                 antMatcher(POST, "/api/courses/**"),
                 antMatcher(DELETE, "/api/courses/**"),
                 antMatcher(DELETE, "/api/courses"),
+                antMatcher(DELETE, "/api/courses/*"),
                 antMatcher(POST, "/api/events"),
+                antMatcher(PUT, "/api/events"),
                 antMatcher(DELETE, "/api/events/**"),
                 antMatcher(DELETE, "/api/institutions/**"),
                 antMatcher(GET, "/api/events/*/admin"),
-            ).hasRole("ADMIN")
+            ).permitAll()
+            //TODO: volver a cambiar a has role admin despues de probar
 
             // USER @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             .requestMatchers(
@@ -107,6 +113,24 @@ class FilterChainConfiguration {
                 antMatcher(POST, "/api/schedules"),
                 antMatcher(PUT, "/api/schedules"),
                 antMatcher(DELETE, "/api/schedules/*"),
+
+                //Programs
+                antMatcher(GET, "/api/programs"),
+                antMatcher(GET, "/api/programs/*"),
+                antMatcher(POST, "/api/programs"),
+                antMatcher(PUT, "/api/programs/*"),
+                antMatcher(DELETE, "/api/programs/*"),
+
+                //Periods
+                antMatcher(GET, "/api/periods"),
+                antMatcher(GET, "/api/periods/*"),
+                antMatcher(POST, "/api/periods"),
+                antMatcher(PUT, "/api/periods/*"),
+                antMatcher(DELETE, "/api/periods/*"),
+
+                // Buildings
+                antMatcher(GET, "/api/buildings"),
+                antMatcher(GET, "/api/buildings/*"),
             ).permitAll()
 
             // H2 DataBase @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

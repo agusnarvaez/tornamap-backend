@@ -5,7 +5,7 @@ import ar.edu.unsam.pds.models.Classroom
 
 object ClassroomMapper {
 
-    fun buildClasroomDto(classroom: Classroom): ClassroomResponseDto{
+    fun buildClassroomDto(classroom: Classroom): ClassroomResponseDto{
         return ClassroomResponseDto(
             code = classroom.code,
             id = classroom.id.toString(),
@@ -16,4 +16,5 @@ object ClassroomMapper {
             building = BuildingMapper.buildBuildingDto(classroom.building)
         )
     }
+
 }

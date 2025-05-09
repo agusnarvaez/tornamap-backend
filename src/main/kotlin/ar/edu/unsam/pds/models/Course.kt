@@ -6,10 +6,10 @@ import java.util.*
 
 @Entity @Table(name = "APP_COURSE")
 class Course(
-    val name: String,
+    var name: String,
 
     @Column(length = 1024)
-    val description: String,
+    var description: String,
 
     ) : Timestamp(), Serializable {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
@@ -18,8 +18,13 @@ class Course(
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "course", cascade = [CascadeType.ALL], orphanRemoval = true)
     val events = mutableSetOf<Event>()
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "courses", cascade = [CascadeType.ALL])
-    val programs = mutableSetOf<Program>()
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "app_course_program",
+        joinColumns        = [ JoinColumn(name = "course_id") ],
+        inverseJoinColumns = [ JoinColumn(name = "program_id") ]
+    )
+    val programs: MutableSet<Program> = mutableSetOf()
 
     fun programNames(): List<String> {
         return programs.map { it.name }
@@ -27,7 +32,7 @@ class Course(
 
     fun events(): String = this.events.joinToString(", ") { it.name }
 
-    fun professors(): String = this.events.flatMap { it.getProfessorNames() }.joinToString(" - ")
+    fun professors(): String = this.events.flatMap { it.getProfessorNames() }.toSet().joinToString(" - ")
 
     fun modality(): String {
         val isVirtual =  this.events.map { it.schedules.any{ it.isVirtual } }
@@ -39,6 +44,16 @@ class Course(
         }
     }
 
-    fun schedules() : String = this.events.flatMap { it.schedules }.joinToString(", ") { "${it.startTime} - ${it.endTime} ${it.weekDay}" }
+//    fun formattedSchedules() : String = this.events.flatMap { it.schedules }.joinToString(", ") { "${it.startTime} - ${it.endTime} ${it.translateAndFormatWeekDay()}" }
+    fun formattedSchedules(): String =this.events.flatMap { it.schedules }.joinToString(separator = " | ") {"${it.translateAndFormatWeekDay()}: ${it.startTime} - ${it.endTime}"}
 
+    fun addPrograms(programs: List<Program>) {
+        this.programs.addAll(programs)
+//        programs.forEach { it.courses.add(this) }
+    }
+
+    fun cleanPrograms() {
+        this.programs.forEach { it.courses.remove(this) }
+        this.programs.clear()
+    }
 }

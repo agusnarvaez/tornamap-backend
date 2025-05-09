@@ -62,6 +62,48 @@ class InitUser : BootstrapGeneric("users") {
                 image = storageService.defaultImage()
             )
         )
+
+        userRepository.save(
+            User(
+                name = "Gaston",
+                lastName = "Aguilera",
+                email = "gAguilera@estudiantes.unsam.edu.ar",
+                image = storageService.defaultImage()
+            )
+        )
+        userRepository.save(
+            User(
+                name = "Pedro Facundo",
+                lastName = "Iriso",
+                email = "pedroiriso@gmail.com",
+                image = storageService.defaultImage()
+            )
+        )
+        userRepository.save(
+            User(
+                name = "Fabio Sergio",
+                lastName = " Bruschetti",
+                email = "fSBruschetti@estudiantes.unsam.edu.ar",
+                image = storageService.defaultImage()
+            )
+        )
+
+        userRepository.save(
+            User(
+                name = "Monica",
+                lastName = "Hencek",
+                email = "mHencek@estudiantes.unsam.edu.ar",
+                image = storageService.defaultImage()
+            )
+        )
+        userRepository.save(
+            User(
+                name = "Juan José",
+                lastName = "López",
+                email = "jJLopez@estudiantes.unsam.edu.ar",
+                image = storageService.defaultImage()
+            )
+        )
     }
 
     fun encode(clave: String): String {
