@@ -4,6 +4,7 @@ import ar.edu.unsam.pds.models.Program
 import ar.edu.unsam.pds.repository.CourseRepository
 import ar.edu.unsam.pds.repository.ProgramRepository
 import ar.edu.unsam.pds.repository.UserRepository
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.DependsOn
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
@@ -17,6 +18,9 @@ class InitPrograms : BootstrapGeneric("Programs") {
     @Autowired private lateinit var userRepository: UserRepository
 
     override fun doAfterPropertiesSet() {
+
+        fun userByEmail(email: String) = userRepository.findByEmail(email)
+            .orElseThrow { IllegalStateException("User with email $email not found") }
 
         // Tecnicatura en Programación Informática
         val matI  = courseRepository.findCourseByName("Matemática I")!!
@@ -122,10 +126,10 @@ class InitPrograms : BootstrapGeneric("Programs") {
 
     }
 
-    private fun saveIfAbsent(p: Program) {
-        if (programRepository.findByName(p.name) == null) {
-            programRepository.save(p)
-        }
-    }
+//    private fun saveIfAbsent(p: Program) {
+//        if (programRepository.findByName(p.name) == null) {
+//            programRepository.save(p)
+//        }
+//    }
 
 }
