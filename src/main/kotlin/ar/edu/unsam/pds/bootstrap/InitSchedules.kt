@@ -394,12 +394,12 @@ class InitSchedules : BootstrapGeneric("Schedules") {
         val scheduleCasoMiercoles= Schedule(
             startTime = LocalTime.of(19, 0),
             endTime = LocalTime.of(22, 0),
-            weekDay = DayOfWeek.THURSDAY,
+            weekDay = DayOfWeek.WEDNESDAY,
             date = null,
             isVirtual = false,
         ).apply {
             event = cursadaCaso
-            classroom = classroomRepository.findByName("Laboratorio de Computacion 2").orElseThrow { NotFoundException("No se halló el aula") }
+            classroom = classroomRepository.findByName("Taller 05").orElseThrow { NotFoundException("No se halló el aula") }
             assignUserToSchedule(gastonAguilera, this)
         }
         scheduleRepository.save(scheduleCasoMiercoles)
