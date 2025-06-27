@@ -1,6 +1,8 @@
 # ----------- FASE DE BUILD -----------
 FROM gradle:8.7-jdk17 AS build
 WORKDIR /workspace
+COPY --chown=gradle:gradle . .
+RUN chmod +x gradlew && ./gradlew clean bootJar --no-daemon
 
 # Copiamos solo lo necesario:
 COPY --chown=gradle:gradle . .
