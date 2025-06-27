@@ -1,5 +1,5 @@
 # ----------- FASE DE BUILD -----------
-FROM gradle:8.7-jdk17 AS build           # Gradle ≥ 8 + JDK 17
+FROM gradle:8.7-jdk17 AS build
 WORKDIR /workspace
 
 # Copiamos solo lo necesario:
@@ -9,7 +9,7 @@ COPY --chown=gradle:gradle . .
 RUN ./gradlew clean bootJar --no-daemon
 
 # ----------- FASE DE RUNTIME ---------
-FROM eclipse-temurin:17-jre-alpine       # JRE liviano
+FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 
 # Copiamos “el” jar que Gradle acaba de generar
