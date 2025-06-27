@@ -20,16 +20,46 @@ class InitUser : BootstrapGeneric("users") {
 
     override fun doAfterPropertiesSet() {
         // region user = ADMIN @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        // Admin
         principalRepository.save(
             Principal().apply {
                 username = "admin@admin.com"
-                password = encode("admin")
+                password = encode("AdministradorUNSAM1234!")
                 user = User(
-                    name = "Luciano",
-                    lastName = "D'Fabio",
+                    name = "Admin",
+                    lastName = "Admin",
                     email = "admin@admin.com",
                     image = storageService.defaultImage(),
                     isAdmin = true
+                )
+                this.initProperties()
+            }
+        )
+        // Luciano D'Fabio
+        principalRepository.save(
+            Principal().apply {
+                username = "ldfabio@unsam.edu.ar"
+                password = encode("Tona2025\$")
+                user = User(
+                    name = "Luciano",
+                    lastName = "D'Fabio",
+                    email = "ldfabio@unsam.edu.ar",
+                    image = storageService.defaultImage(),
+                    isAdmin = true
+                )
+                this.initProperties()
+            }
+        )
+        // María Claudia Abeledo
+        principalRepository.save(
+            Principal().apply {
+                username = "mabeledo@unsam.edu.ar",
+                password = encode("Tona2025\$")
+                user = User(
+                    name = "Maria Claudia",
+                    lastName = "Abeledo",
+                    email = "mabeledo@unsam.edu.ar",
+                    image = storageService.defaultImage()
                 )
                 this.initProperties()
             }
@@ -50,15 +80,6 @@ class InitUser : BootstrapGeneric("users") {
                 name = "Fernando",
                 lastName = "Dodino",
                 email = "dodain@estudiantes.unsam.edu.ar",
-                image = storageService.defaultImage()
-            )
-        )
-
-        userRepository.save(
-            User(
-                name = "Maria Claudia",
-                lastName = "Abeledo",
-                email = "mcabeledo@estudiantes.unsam.edu.ar",
                 image = storageService.defaultImage()
             )
         )
