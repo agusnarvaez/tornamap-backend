@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   postgres:
@@ -12,20 +12,24 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
 
   backend:
-    build: .
-    image: backend:latest
+    build: .                # usa el Dockerfile del repo
+    image: tornamap-backend:latest
     container_name: backend
     environment:
       SPRING_PROFILES_ACTIVE: prod
-    ports:
-      - "8080:8080"
+      DB_URL: jdbc:postgresql://postgres:5432/tornamap
+      DB_USERNAME: admin
+      DB_PASSWORD: 1234
     depends_on:
       - postgres
-    restart: always
+    ports:
+      - "8080:8080"
     volumes:
-      - ./media:/media
+      - ./media:/media       # si necesitas persisitir uploads, etc.
+    restart: unless-stopped
 
 volumes:
   postgres_data:
