@@ -38,3 +38,8 @@ Los mismo pueden accederse mediante:
 ```
 http://localhost:8080/swagger-ui/index.html#/
 ```
+
+## Comandos importantes para probar build
+`docker-compose down -v` - Para detener y eliminar los contenedores y volúmenes de Docker.
+`docker-compose up --build` - Para construir y levantar los contenedores de Docker.
+`docker-compose logs -f backend` - Para ver los logs del contenedor del backend en tiempo real.
