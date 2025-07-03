@@ -39,7 +39,33 @@ Los mismo pueden accederse mediante:
 http://localhost:8080/swagger-ui/index.html#/
 ```
 
-## Comandos importantes para probar build
-`docker-compose down -v` - Para detener y eliminar los contenedores y volúmenes de Docker.
-`docker-compose up --build` - Para construir y levantar los contenedores de Docker.
-`docker-compose logs -f backend` - Para ver los logs del contenedor del backend en tiempo real.
+## Comandos importantes para probar build (ícono build) :bulldozer:
+1. Sólo la primera vez o cuando cambie la versión de Gradle. Actualiza el wrapper.
+```bash
+gradle wrapper --gradle-version 8.7
+```
+2. Construcción + pruebas limpias. Borra artefactos previos, compila y corre tests.
+```bash
+gradle clean build -x test
+```
+3. Generar el artefacto ejecutable (JAR Spring Boot). Produce build/libs/tornamap-backend-0.0.1-SNAPSHOT.jar
+```bash
+gradle bootJar
+``` 
+4. Smoke-test local sin Docker (opcional)
+```bash
+java -jar .\build\libs\TORNAMAP-backend-0.0.1-SNAPSHOT.jar
+```
+5. Reiniciar el stack Docker desde cero 
+- Detener y eliminar contenedores y volúmenes de Docker.
+```bash
+docker-compose down -v
+```
+- Construye la imagen y levantar los contenedores de Docker.
+```bash
+docker-compose up --build
+```
+- Para ver los logs del contenedor del backend en tiempo real.
+```bash
+docker-compose logs -f backend
+``` 
