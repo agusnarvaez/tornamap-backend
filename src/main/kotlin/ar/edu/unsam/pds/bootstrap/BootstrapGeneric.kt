@@ -14,8 +14,6 @@ abstract class BootstrapGeneric(private val message: String) : InitializingBean 
     private lateinit var transactionManager: PlatformTransactionManager
     private val log: Logger = LoggerFactory.getLogger(ProjectApplication::class.java)
 
-    @Value("\${spring.config.activate.on-profile}")
-    private lateinit var onProfile: String
 
     override fun afterPropertiesSet() {
       
