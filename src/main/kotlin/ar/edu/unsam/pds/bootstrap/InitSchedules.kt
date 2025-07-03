@@ -54,7 +54,7 @@ class InitSchedules : BootstrapGeneric("Schedules") {
 
         val carlos = userByEmail("cscirica@estudiantes.unsam.edu.ar")
         val dodino = userByEmail("dodain@estudiantes.unsam.edu.ar")
-        val mc = userByEmail("mcabeledo@estudiantes.unsam.edu.ar")
+        val mc = userByEmail("mabeledo@unsam.edu.ar")
         val pedroFIriso=userByEmail("pedroiriso@gmail.com")
         val fabioSergioBruschetti=userByEmail("fSBruschetti@estudiantes.unsam.edu.ar")
         val gastonAguilera=userByEmail("gAguilera@estudiantes.unsam.edu.ar")
