@@ -53,7 +53,7 @@ class InitUser : BootstrapGeneric("users") {
         // María Claudia Abeledo
         principalRepository.save(
             Principal().apply {
-                username = "mabeledo@unsam.edu.ar",
+                username = "mabeledo@unsam.edu.ar"
                 password = encode("Tona2025\$")
                 user = User(
                     name = "Maria Claudia",
