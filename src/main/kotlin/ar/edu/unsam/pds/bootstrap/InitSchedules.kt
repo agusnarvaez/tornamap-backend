@@ -39,7 +39,7 @@ class InitSchedules : BootstrapGeneric("Schedules") {
         val cursadaMate2 = findEvent("Cursada Matemática II")
         val cursadaMate3 = findEvent("Cursada Matemática III")
         val cursadaEyMN1 = findEvent("Cursada EyM")
-        val cursadaEyMN2 = findEvent("Cursada EyM - lab Jueves")
+        // val cursadaEyMN2 = findEvent("Cursada EyM - lab Jueves")
         val cursadaEyMT = findEvent("Cursada EyM TT")
         val cursadaCaso = findEvent("Cursada CASO")
         val cursadaMate3b = findEvent("Mate III - Comisión B")
@@ -54,7 +54,7 @@ class InitSchedules : BootstrapGeneric("Schedules") {
 
         val carlos = userByEmail("cscirica@estudiantes.unsam.edu.ar")
         val dodino = userByEmail("dodain@estudiantes.unsam.edu.ar")
-        val mc = userByEmail("mcabeledo@estudiantes.unsam.edu.ar")
+        val mc = userByEmail("mabeledo@unsam.edu.ar")
         val pedroFIriso=userByEmail("pedroiriso@gmail.com")
         val fabioSergioBruschetti=userByEmail("fSBruschetti@estudiantes.unsam.edu.ar")
         val gastonAguilera=userByEmail("gAguilera@estudiantes.unsam.edu.ar")
