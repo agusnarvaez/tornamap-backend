@@ -14,3 +14,11 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 email:
   enabled: true
+
+server:
+  forward-headers-strategy: native
+  servlet:
+    session:
+      cookie:
+        same-site: none
+        secure: true
